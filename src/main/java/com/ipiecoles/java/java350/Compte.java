@@ -15,7 +15,7 @@ public class Compte implements Serializable {
     private ArrayList<LigneComptable> ligneComptables;
     public static final int NB_LIGNE = 10;
     private int nbLigneReel;
-    private Scanner lectureClavier;
+    protected Scanner lectureClavier;
 
     public Compte() {
         lectureClavier = new Scanner(System.in);

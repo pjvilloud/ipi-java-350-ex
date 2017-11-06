@@ -12,9 +12,8 @@ public class CompteEpargne extends Compte implements Serializable {
         taux = controleTaux();
     }
 
-    private double controleTaux() {
-        double tmp;
-        Scanner lectureClavier = new Scanner(System.in);
+    public double controleTaux() {
+        double tmp; 
         do {
             System.out.print("Taux de placement :     ");
             tmp = lectureClavier.nextDouble();
