@@ -44,7 +44,15 @@ public class Employe {
     }
 
     public Integer getNombreAnneeAnciennete() {
-        return LocalDate.now().getYear() - dateEmbauche.getYear();
+        if(this.dateEmbauche != null) {
+            if (this.dateEmbauche.isAfter(LocalDate.now())) {
+                return 0;
+            }
+            return LocalDate.now().getYear() - dateEmbauche.getYear();
+        }
+        else {
+            return 0;
+        }
     }
 
     public Integer getNbConges() {
@@ -80,7 +88,7 @@ public class Employe {
      * @return la prime annuelle de l'employé en Euros et cents
      */
     public Double getPrimeAnnuelle(){
-        //Calcule de la prime d'ancienneté
+        //Calcul de la prime d'ancienneté
         Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
         Double prime;
         //Prime du manager (matricule commençant par M) : Prime annuelle de base multipliée par l'indice prime manager
