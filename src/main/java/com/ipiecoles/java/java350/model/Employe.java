@@ -44,7 +44,11 @@ public class Employe {
     }
 
     public Integer getNombreAnneeAnciennete() {
-        return LocalDate.now().getYear() - dateEmbauche.getYear();
+        if (dateEmbauche == null || dateEmbauche.isAfter(LocalDate.now())) {
+            return 0;
+        } else {
+            return LocalDate.now().getYear() - dateEmbauche.getYear();
+        }
     }
 
     public Integer getNbConges() {
