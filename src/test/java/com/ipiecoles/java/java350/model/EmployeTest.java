@@ -92,3 +92,8 @@ public class EmployeTest {
     // en fait quand on revoit le prof.
 
 }
+
+// création d'une nouvelle branche : ok, nommée : stlbranch
+// switch sur la branche ok
+// Sign in Travis CI avec GitHub : ok
+// activation de Travais CI sur le repo : ok
