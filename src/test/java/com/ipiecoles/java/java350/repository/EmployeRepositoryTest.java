@@ -2,8 +2,7 @@ package com.ipiecoles.java.java350.repository;
 
 import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.model.Entreprise;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +17,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeRepositoryTest {
     @Autowired
     private EmployeRepository employeRepository;
+    @BeforeEach
+    @AfterEach
+    public void setup(){
+        employeRepository.deleteAll();
+    }
 
     @Test
     public void testFindLastMatriculeEmpty(){
