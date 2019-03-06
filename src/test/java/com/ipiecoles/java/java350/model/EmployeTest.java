@@ -94,5 +94,30 @@ public class EmployeTest {
 
     }
 
+    // Tests paramétrés
 
+    @ParameterizedTest(name = "Performance {0} Matricule {1} nbAnne {2} tempsPartiel {3} donnePrime {4}")
+    @CsvSource({
+                "1, 'T12345', 0, 1.0, 1000.0",
+        })
+        public void testGetPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle)  {
+
+            //Given = Initialisation des données d'entrée
+            Employe e = new Employe();
+            e.setPerformance(performance);
+            e.setMatricule(matricule);
+            e.setDateEmbauche(LocalDate.now().minusYears(nbYearsAnciennete));
+            e.setTempsPartiel(tempsPartiel);
+
+
+            //When = Exécution de la méthode à tester
+            Double prime = e.getPrimeAnnuelle();
+
+
+
+            //Then = Vérifications de ce qu'a fait la méthode
+            Assertions.assertEquals(primeAnnuelle, prime);
+
+
+        }
     }
