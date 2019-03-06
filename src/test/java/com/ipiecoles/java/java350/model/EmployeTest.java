@@ -19,4 +19,34 @@ class EmployeTest {
         //then
         Assertions.assertEquals( 0, (int)nbAnnee);
     }
+    @Test
+    void getNombreAnneeAncienneteMinus2() {
+        //given
+        Employe e = new Employe();
+        e.setDateEmbauche(LocalDate.now().minusYears(2L));
+        //when
+        Integer nbAnnee = e.getNombreAnneeAnciennete();
+        //then
+        Assertions.assertEquals( 2, (int)nbAnnee);
+    }
+    @Test
+    void getNombreAnneeAncienneteNull() {
+        //given
+        Employe e = new Employe();
+        e.setDateEmbauche(null);
+        //when
+        Integer nbAnnee = e.getNombreAnneeAnciennete();
+        //then
+        Assertions.assertEquals( 0, (int)nbAnnee);
+    }
+    @Test
+    void getNombreAnneeAnciennetePlus2() {
+        //given
+        Employe e = new Employe();
+        e.setDateEmbauche(LocalDate.now().plusYears(2L));
+        //when
+        Integer nbAnnee = e.getNombreAnneeAnciennete();
+        //then
+        Assertions.assertEquals( 0, (int)nbAnnee);
+    }
 }
