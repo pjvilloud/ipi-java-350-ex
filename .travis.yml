@@ -6,4 +6,4 @@ addons:
       secure: cd462e4516f2d3ab394178a904e52bfd304ba9af # encrypted value of your token
 script:
   # other script steps might be done before running the actual analysis
-  - sonar-scanner
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
