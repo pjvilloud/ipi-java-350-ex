@@ -16,7 +16,6 @@ class EmployeTest {
         e.setDateEmbauche(LocalDate.now());
         //when
         Integer nbAnnee = e.getNombreAnneeAnciennete();
-
         //then
         Assertions.assertEquals( 0, (int)nbAnnee);
     }
