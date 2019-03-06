@@ -71,7 +71,8 @@ class EmployeTest {
     @ParameterizedTest(name = "Prime Anuelle for {1} should be {4}")
     @CsvSource({
             "1, 'M021113', 2, 1.0, 1900.0",
-            "2, 'C023334', 1, 0.8, 1920.0"
+            "2, 'C023334', 1, 0.8, 1920.0",
+            "1, 'T02112', 1, 2.0, 20.0"
     })
     void getPrimeAnuelleManager(Integer performance, String matricule, int anneeAnciennete, Double tempsPartiel, Double expected) {
         Employe employe = new Employe();
