@@ -1,5 +1,7 @@
 # TP sur la qualité logicielle
 
+[![Build Status](https://travis-ci.org/Zonthem/ipi-java-350-ex.svg?branch=master)](https://travis-ci.org/Zonthem/ipi-java-350-ex)
+
 Exercices de Java, module 350 pour l'IPI. Il est nécessaire de forker ce repository pour pouvoir faire tout le TP !! Après chaque question, pusher vos modifications sur votre repository.
 
 ## Pré-requis 
