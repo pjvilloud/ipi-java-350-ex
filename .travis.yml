@@ -2,4 +2,6 @@ language: java
 
 addons:
   sonarcloud:
-    organization: "zonthem-github"
+    organization: "zonthem-github"*
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
