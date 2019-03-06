@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.security.cert.LDAPCertStoreParameters;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -44,7 +45,19 @@ public class Employe {
     }
 
     public Integer getNombreAnneeAnciennete() {
-        return LocalDate.now().getYear() - dateEmbauche.getYear();
+        if (this.dateEmbauche == null) {
+            return 0;
+        }
+        else if (this.dateEmbauche.isAfter(LocalDate.now())){
+            return 0;
+        }
+        else if (this.dateEmbauche.isEqual(LocalDate.now())){
+            return 0;
+        }
+        else {
+            return LocalDate.now().getYear() - dateEmbauche.getYear();
+        }
+
     }
 
     public Integer getNbConges() {
