@@ -41,6 +41,7 @@ class EmployeServiceTest {
         employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
         //then
         ArgumentCaptor<Employe> EmployeCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository, Mockito.times(1)).save(EmployeCaptor.capture());
 
         Assertions.assertEquals(EmployeCaptor.getValue().getNom(),nom);
         Assertions.assertEquals(EmployeCaptor.getValue().getPrenom(),prenom);
