@@ -1,1 +1,4 @@
 language: java
+addons:
+  sonarcloud:
+    organization: "raydone73-github" # the key of the org you chose at step #3
