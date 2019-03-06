@@ -43,16 +43,8 @@ public class Employe {
         this.tempsPartiel = tempsPartiel;
     }
 
-    public Integer getNombreAnneeAnciennete() {
-
-        if (dateEmbauche!=null){
-
-            return LocalDate.now().getYear() - dateEmbauche.getYear();
-
-        }else {
-            return 0;
-        }
-
+    public final Integer getNombreAnneeAnciennete() {
+        return dateEmbauche != null && LocalDate.now().getYear() >= dateEmbauche.getYear() ? LocalDate.now().getYear() - dateEmbauche.getYear() : 0;
     }
 
     public Integer getNbConges() {

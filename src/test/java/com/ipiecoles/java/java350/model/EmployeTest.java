@@ -2,6 +2,8 @@ package com.ipiecoles.java.java350.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 
@@ -9,6 +11,8 @@ public class EmployeTest {
 
 
     // Minimum pour faire une test unitaire
+
+    // Tests unitaires classiques
 
     @Test //Junit 4 : org.junit.Test, Junit 5 : org.junit.jupiter.api.Test
     public void testGetNombreAnneeAncienneteNull(){
@@ -69,4 +73,26 @@ public class EmployeTest {
             Assertions.assertEquals(2, nbAnneAnciennete.intValue());
 
         }
+
+    @Test
+    public void testGetAnneAncienneteNplus2(){
+
+        //Given = Initialisation des données d'entrée
+
+        Employe e = new Employe();
+        e.setDateEmbauche(LocalDate.now().plusYears(2L));
+
+
+        //When = Exécution de la méthode à tester
+
+        Integer AnneAnciennete = e.getNombreAnneeAnciennete();
+
+
+        //Then = Vérifications de ce qu'a fait la méthode
+
+        Assertions.assertEquals(0, AnneAnciennete.intValue());
+
+    }
+
+
     }
