@@ -33,7 +33,21 @@ class EmployeRepositoryTest {
     @Test
     public void testFindLastMatriculeSingle(){
         //Given
-        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("test", "test", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+
+        //When
+        String lastMatricule = employeRepository.findLastMatricule();
+
+        //Then
+        Assertions.assertEquals("12345", lastMatricule);
+    }
+
+    @Test
+    public void testFindLastMatriculeMultiples(){
+        //Given
+        employeRepository.save(new Employe("test", "test", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("test2", "test2", "T12300", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("test3", "test3", "C12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
 
         //When
         String lastMatricule = employeRepository.findLastMatricule();
