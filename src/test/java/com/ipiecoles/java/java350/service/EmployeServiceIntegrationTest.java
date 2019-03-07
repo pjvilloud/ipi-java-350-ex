@@ -11,6 +11,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -59,5 +63,22 @@ class EmployeServiceIntegrationTest {
         Assertions.assertEquals(1.0, employe.getTempsPartiel().doubleValue());
         //1521.22 * 1.2 * 1.0
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
+    }
+
+    @Test
+    void calculPerformanceCommercialTestIntegration() throws EmployeException {
+        // Given
+        Employe em = new Employe("bob", "nom", "C12345", LocalDate.now(), Entreprise.SALAIRE_BASE, Entreprise.PERFORMANCE_BASE, 1d);
+        employeRepository.save(em);
+        String matricule = em.getMatricule();
+        Long caTraite = 12370L;
+        Long objectifCa = 11692L;
+        // When
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        ArgumentCaptor<Employe> EmployeCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository, Mockito.times(1)).save(EmployeCaptor.capture());
+        // Then
+        Assertions.assertEquals( 2, (int)EmployeCaptor.getValue().getPerformance());
+
     }
 }

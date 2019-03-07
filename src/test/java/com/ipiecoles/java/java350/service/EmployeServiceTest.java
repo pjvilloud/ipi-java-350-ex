@@ -18,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 
+import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -78,4 +79,61 @@ class EmployeServiceTest {
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
     }
+
+    //#region Evaluation
+
+    @Test
+    void calculPerformanceCommercialThrowsWhenAskingForNonCommercial() throws EmployeException {
+        // Given
+        String matricule = "T12345";
+        Long caTraite = 1L;
+        Long objectifCa = 1L;
+        // When
+        // Then
+        assertThatThrownBy(() -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa))
+                .isInstanceOf(EmployeException.class)
+                .hasMessage("Le matricule ne peut être null et doit commencer par un C !");
+    }
+
+    @Test
+    void calculPerformanceCommercialThrowsWithNegativCA() throws EmployeException {
+        // Given
+        String matricule = "T12345";
+        Long caTraite = -1L;
+        Long objectifCa = 1L;
+        // When
+        // Then
+        assertThatThrownBy(() -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa))
+                .isInstanceOf(EmployeException.class)
+                .hasMessage("Le chiffre d'affaire traité ne peut être négatif ou null !");
+    }
+
+    @Test
+    void calculPerformanceCommercialThrowsWithNegativObjectifCA() throws EmployeException {
+        // Given
+        String matricule = "T12345";
+        Long caTraite = 1L;
+        Long objectifCa = -1L;
+        // When
+        // Then
+        assertThatThrownBy(() -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa))
+                .isInstanceOf(EmployeException.class)
+                .hasMessage("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+    }
+
+    @Test
+    void calculPerformanceCommercialThrowsWithUnknownEmploye() throws EmployeException {
+        // Given
+        String matricule = "C12345";
+        Long caTraite = 1L;
+        Long objectifCa = 1L;
+        // When
+        Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
+        // Then
+        assertThatThrownBy(() -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa))
+                .isInstanceOf(EmployeException.class)
+                .hasMessage("Le matricule " + matricule + " n'existe pas !");
+    }
+
+    //#endregion
 }
