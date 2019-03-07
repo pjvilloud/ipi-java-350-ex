@@ -67,4 +67,63 @@ class EmployeTest {
         Assertions.assertEquals(primeAnnuelle, prime);
     }
 
+    //#region Evaluation
+    @Test
+    void augmenterSalaireTestTauxPositif(){
+        //given
+        Double augmentation = 0.2;
+        Employe e = new Employe();
+        e.setSalaire(1500.20);
+        //when
+        e.augmenterSalaire(augmentation);
+        //then
+        Assertions.assertEquals( 1800.24, (double)e.getSalaire());
+    }
+
+    @Test
+    void augmenterSalaireTestTauxZero(){
+        //given
+        Double augmentation = 0d;
+        Employe e = new Employe();
+        e.setSalaire(1500.20);
+        //when
+        e.augmenterSalaire(augmentation);
+        //then
+        Assertions.assertEquals( 1500.20, (double)e.getSalaire());
+    }
+
+    @Test
+    void augmenterSalaireTestTauxNull(){
+        //given
+        Double augmentation = null;
+        Employe e = new Employe();
+        e.setSalaire(1500.20);
+        //when then
+        try {
+            e.augmenterSalaire(augmentation);
+            Assertions.fail("aurais du lever une exeption");
+        }
+        catch (IllegalArgumentException ex){
+            Assertions.assertEquals("coeficient > 0", ex.getMessage());
+        }
+    }
+
+    @Test
+    void augmenterSalaireTestTauxNegatif(){
+        //given
+        Double augmentation = -0.5;
+        Employe e = new Employe();
+        e.setSalaire(1500.20);
+        //when then
+        try {
+            e.augmenterSalaire(augmentation);
+            Assertions.fail("aurais du lever une exeption");
+        }
+        catch (IllegalArgumentException ex){
+            Assertions.assertEquals("coeficient > 0", ex.getMessage());
+        }
+    }
+
+
+    //#endregion
 }

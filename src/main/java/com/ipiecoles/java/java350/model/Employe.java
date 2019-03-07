@@ -220,4 +220,11 @@ public class Employe {
     public int hashCode() {
         return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
     }
+
+    public void augmenterSalaire(Double coeficient){
+        if (coeficient == null || coeficient < 0){
+            throw new IllegalArgumentException("coeficient > 0");
+        }
+        this.setSalaire(this.getSalaire() * (1 + coeficient) );
+    }
 }
