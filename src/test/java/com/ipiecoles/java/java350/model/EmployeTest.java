@@ -121,6 +121,7 @@ class EmployeTest {
             "2021, 1D, 10",
             "2032, 1D, 11",
             "2019, 0D, 0",
+            "2022, 1D, 10",
     })
     void testGetNbRtt(int annee, double tempsPartiel, int expected) {
         //Given
