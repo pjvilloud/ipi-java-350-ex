@@ -29,6 +29,7 @@ class EmployeRepositoryTest {
         this.employeRepository.deleteAll();
     }
 
+    //#region testFindLastMatricule
     @Test
     public void testFindLastMatriculeEmpty(){
         //Given
@@ -65,4 +66,5 @@ class EmployeRepositoryTest {
         //Then
         Assertions.assertThat(lastMatricule).isEqualTo("40325");
     }
+    //#endregion
 }
