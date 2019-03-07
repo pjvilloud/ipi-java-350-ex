@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class EmployeTest {
 
-    //#region testGetNombreAnneeAnciennete
+    //#region testGetNombreAnneeAnciennete()
     @Test
     void testGetNombreAnneeAnciennete() {
         // Given
@@ -62,7 +62,7 @@ public class EmployeTest {
     }
     //#endregion
 
-    //#region testGetPrimeAnnuel
+    //#region testGetPrimeAnnuel()
     @ParameterizedTest
     @CsvSource({
             "1, 'T12345', 0, 1.0, 1000.0",
@@ -86,12 +86,12 @@ public class EmployeTest {
     }
     //#endregion
 
-    //#region testAugmenterSalaire
+    //#region testAugmenterSalaire()
     @Test
     public void testAugmenterSalaireSalaireNull(){
         //Given
         Throwable throwable;
-        Double augmentation = 1.20d;
+        Double augmentation = 1.20D;
         Employe e = new Employe();
 
         e.setSalaire(null);
@@ -107,9 +107,9 @@ public class EmployeTest {
     public void testAugmenterSalaireSalaireZero(){
         //Given
         Throwable throwable;
-        Double augmentation = 1.20d;
+        Double augmentation = 1.20D;
         Employe e = new Employe();
-        Double salaire = 0.00d;
+        Double salaire = 0.00D;
 
         e.setSalaire(salaire);
 
@@ -125,7 +125,7 @@ public class EmployeTest {
         //Given
         Throwable throwable;
         Employe e = new Employe();
-        Double salaire = 1500.00d;
+        Double salaire = 1500.00D;
 
         e.setSalaire(salaire);
 
@@ -140,9 +140,9 @@ public class EmployeTest {
     public void testAugmenterSalaireTauxZero(){
         //Given
         Throwable throwable;
-        Double augmentation = 0.00d;
+        Double augmentation = 0.00D;
         Employe e = new Employe();
-        Double salaire = 1500.00d;
+        Double salaire = 1500.00D;
 
         e.setSalaire(salaire);
 
@@ -157,9 +157,9 @@ public class EmployeTest {
     public void testAugmenterSalaireTauxNegatif(){
         //Given
         Throwable throwable;
-        Double augmentation = -0.50d;
+        Double augmentation = -0.50D;
         Employe e = new Employe();
-        Double salaire = 1500.00d;
+        Double salaire = 1500.00D;
 
         e.setSalaire(salaire);
 
@@ -173,9 +173,9 @@ public class EmployeTest {
     @Test
     public void testAugmenterSalaireTauxPositif() throws EmployeException {
         //Given
-        Double augmentation = 0.2;
+        Double augmentation = 0.2D;
         Employe e = new Employe();
-        Double salaire = 1500.00d;
+        Double salaire = 1500.00D;
 
         e.setSalaire(salaire);
 
@@ -183,7 +183,36 @@ public class EmployeTest {
         e.augmenterSalaire(augmentation);
 
         //Then
-        assertThat(e.getSalaire()).isEqualTo(salaire * (1.00d+augmentation));
+        assertThat(e.getSalaire()).isEqualTo(salaire * (1.00D+augmentation));
+    }
+    //#endregion
+
+    //#region testGetNbRtt()
+    @ParameterizedTest
+    @CsvSource({
+            "2019, 0D, 0",
+            "2019, 0.5D, 4",
+            "2019, 1D, 8",
+            "2021, 0D, 0",
+            "2021, 0.5D, 5",
+            "2021, 1D, 10",
+            "2032, 0D, 0",
+            "2032, 0.5D, 6",
+            "2032, 1D, 11"
+    })
+    void testGetNbRtt(int date, double tempsPartiel, int attendu) {
+        //Given
+        Integer nbRtt;
+        Employe e = new Employe();
+
+        e.setDateEmbauche(LocalDate.now());
+        e.setTempsPartiel(tempsPartiel);
+
+        //When
+        nbRtt = e.getNbRtt(LocalDate.now().withYear(date));
+
+        //Then
+        assertThat(nbRtt).isEqualTo(attendu);
     }
     //#endregion
 }
