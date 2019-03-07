@@ -44,7 +44,10 @@ public class Employe {
     }
 
     public Integer getNombreAnneeAnciennete() {
+        if (dateEmbauche != null && dateEmbauche.isBefore(LocalDate.now())){
         return LocalDate.now().getYear() - dateEmbauche.getYear();
+    }
+        return 0;
     }
 
     public Integer getNbConges() {
@@ -102,7 +105,7 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){}
 
     public Long getId() {
         return id;
