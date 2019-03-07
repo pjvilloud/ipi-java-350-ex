@@ -17,7 +17,7 @@ class EmployeRepositoryIntegrationTest {
 
     @Test
     void testAvgPerformanceWhereMatriculeStartsWith() {
-
+        employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
     }
 
 }
