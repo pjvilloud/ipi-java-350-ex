@@ -124,6 +124,20 @@ class EmployeTest {
         }
     }
 
-
+    @ParameterizedTest()
+    @CsvSource({
+            "2019-10-10, 8",
+            "2021-04-05, 10",
+            "2032-01-27, 11",
+    })
+    void testgetNbRtt(LocalDate date, Integer nbRtt){
+        //given
+        Employe emp = new Employe("boby", "le grain de riz", "M12345", LocalDate.now().minusYears(2), Entreprise.SALAIRE_BASE, Entreprise.PERFORMANCE_BASE, 1.0);
+        Integer nbRttSalarie = 0;
+        //when
+        nbRttSalarie = emp.getNbRtt(date);
+        //then
+        Assertions.assertEquals(nbRtt, nbRttSalarie);
+    }
     //#endregion
 }
