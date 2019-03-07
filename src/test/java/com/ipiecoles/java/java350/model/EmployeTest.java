@@ -16,12 +16,7 @@ class EmployeTest {
         e.setSalaire(0.0);
         Double beforeAg = e.getSalaire();
         //When
-        if ((beforeAg != null) && (beforeAg > 0)){
-            e.augmenterSalaire(beforeAg);
-        }
-        else {
-            System.out.println("Oups ! Une erreur est survenue");
-        }
+        e.augmenterSalaire(beforeAg);
         //Then
         Assertions.assertEquals(beforeAg, e.getSalaire());
         }
