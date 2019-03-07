@@ -13,11 +13,16 @@ class EmployeTest {
     void augmenterSalaire() {
         //Given
         Employe e = new Employe();
-        e.setDateEmbauche(LocalDate.now());
-        double beforeAg = e.getSalaire();
+        e.setSalaire(0.0);
+        Double beforeAg = e.getSalaire();
         //When
-        e.augmenterSalaire(beforeAg);
+        if ((beforeAg != null) && (beforeAg > 0)){
+            e.augmenterSalaire(beforeAg);
+        }
+        else {
+            System.out.println("Oups ! Une erreur est survenue");
+        }
         //Then
-        Assertions.assertEquals(beforeAg, (double)e.getSalaire());
+        Assertions.assertEquals(beforeAg, e.getSalaire());
         }
     }
