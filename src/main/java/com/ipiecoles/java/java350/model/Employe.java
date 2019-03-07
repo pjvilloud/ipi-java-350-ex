@@ -59,15 +59,23 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
+    /**
+     * Calcul le nombre de RTT de l'employe pour une date
+     * @param d date a calculer
+     * @return retourne le nombre de rtt
+     */
     public Integer getNbRtt(LocalDate d){
+        //Verifie si il s'agit d'une annee de 366 ou 365 jours
         int i1 = d.isLeapYear() ? 366 : 365;
         int var = 104;
+        // switch sur le jour que compose le 1 jour de l'annee
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
             case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1; break;
             case SATURDAY: var = var + 1; break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        //retourne le nombre de rtt de l'employe
         return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
     }
 
