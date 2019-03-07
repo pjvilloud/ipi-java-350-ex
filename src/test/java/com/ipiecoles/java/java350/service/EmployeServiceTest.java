@@ -6,6 +6,7 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,6 +39,17 @@ class EmployeServiceTest {
         Mockito.when(employeRepository.findByMatricule(Mockito.anyString())).thenReturn(null);
         Mockito.when(employeRepository.findLastMatricule()).thenReturn("12345");
         //when
+        //pour tester l'exeption
+        //Mockito.when(employeRepository.findLastMatricule()).thenReturn("102300");
+        /*try {
+            employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+            Assertions.fail("aurais du lever une exeption")
+        }
+        catch(EmployeException e){
+            Assertions.assertEquals("message", e.getMessage());
+        }*/
+
+
         employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
         //then
         ArgumentCaptor<Employe> EmployeCaptor = ArgumentCaptor.forClass(Employe.class);
