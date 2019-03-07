@@ -89,9 +89,8 @@ public class EmployeTest {
    @ParameterizedTest
    @CsvSource({
            "1521.22, 10, 1673.342",
-           "1521, 0, 1521.22",
+           "1521.22, 0, 1521.22",
            "1521.22, -10, 1521.22",
-           "null, 10, 0",
            "0, 10, 0"
    })
    public void testAugmenterSalaire(Double salaire, Integer pourcentage, Double salaireExcepted){
@@ -99,7 +98,8 @@ public class EmployeTest {
         Employe e = new Employe();
         e.setSalaire(salaire);
 
-        Double salaireAugemente = e.augmenterSalaire(pourcentage);
+        e.augmenterSalaire(pourcentage);
+        Double salaireAugemente = e.getSalaire();
 
         Assertions.assertEquals(salaireAugemente,salaireExcepted);
    }
