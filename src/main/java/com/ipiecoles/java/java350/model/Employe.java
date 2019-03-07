@@ -69,7 +69,7 @@ public class Employe {
      * @return le nombre de rtt
      */
     public Integer getNbRtt(LocalDate d){
-        int nbJoursAnnee = d.isLeapYear() ? 365 : 366;
+        int nbJoursAnnee = d.isLeapYear() ? 366 : 365;
         int nbJoursWeekEnd = 104;
 
         switch (LocalDate.of(d.getYear(), Month.JANUARY,1).getDayOfWeek()){
