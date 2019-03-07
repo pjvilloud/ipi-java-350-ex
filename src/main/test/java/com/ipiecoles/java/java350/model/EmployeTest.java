@@ -188,6 +188,13 @@ public class EmployeTest {
     //#endregion
 
     //#region testGetNbRtt()
+
+    /**
+     * Test de récupération du nombre de congés payés
+     * @param annee Année
+     * @param tempsPartiel Taux de d'activité
+     * @param attendu Nombre de congés payés attendu
+     */
     @ParameterizedTest
     @CsvSource({
             "2019, 0D, 0",
@@ -200,7 +207,7 @@ public class EmployeTest {
             "2032, 0.5D, 6",
             "2032, 1D, 11"
     })
-    void testGetNbRtt(int date, double tempsPartiel, int attendu) {
+    public void testGetNbRtt(int annee, double tempsPartiel, int attendu) {
         //Given
         Integer nbRtt;
         Employe e = new Employe();
@@ -209,7 +216,7 @@ public class EmployeTest {
         e.setTempsPartiel(tempsPartiel);
 
         //When
-        nbRtt = e.getNbRtt(LocalDate.now().withYear(date));
+        nbRtt = e.getNbRtt(LocalDate.now().withYear(annee));
 
         //Then
         assertThat(nbRtt).isEqualTo(attendu);

@@ -57,6 +57,11 @@ public class Employe {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
+    /**
+     * Nombre de congés payés par ans selon le taux d'activité
+     * @param date Année
+     * @return Le nombre de congés payés
+     */
     public Integer getNbRtt(LocalDate date) {
         int joursAn = date.isLeapYear() ? 366 : 365;
         int joursWeekEnd = 104;

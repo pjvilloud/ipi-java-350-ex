@@ -38,6 +38,7 @@ class EmployeServiceIntegrationTest {
         this.employeRepository.deleteAll();
     }
 
+    //#region integrationEmbaucheEmploye()
     @Test
     public void integrationEmbaucheEmploye() throws EmployeException {
         //Given
@@ -62,4 +63,5 @@ class EmployeServiceIntegrationTest {
         Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(tempsPartiel);
         Assertions.assertThat(employe.getSalaire()).isEqualTo(1825.46);
     }
+    //#endregion
 }
