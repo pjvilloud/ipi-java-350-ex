@@ -57,7 +57,6 @@ class EmployeServiceIntegrationTest {
         Assertions.assertEquals(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), employe.getDateEmbauche().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         Assertions.assertEquals("T12346", employe.getMatricule());
         Assertions.assertEquals(1.0, employe.getTempsPartiel().doubleValue());
-
         //1521.22 * 1.2 * 1.0
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
     }
