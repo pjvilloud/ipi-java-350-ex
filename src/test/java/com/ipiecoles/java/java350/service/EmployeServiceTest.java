@@ -62,6 +62,20 @@ class EmployeServiceTest {
         Assertions.assertEquals(EmployeCaptor.getValue().getPerformance(), Entreprise.PERFORMANCE_BASE);
         Assertions.assertEquals(EmployeCaptor.getValue().getSalaire(), (Double)1825.46);
         Assertions.assertEquals(EmployeCaptor.getValue().getDateEmbauche(), LocalDate.now());
+    }
 
+    @Test
+    public void testEmbaucheEmployeManagerMiTempsMaster99999(){
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.MANAGER;
+        NiveauEtude niveauEtude = NiveauEtude.MASTER;
+        Double tempsPartiel = 0.5;
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
+
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
+        Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
     }
 }
