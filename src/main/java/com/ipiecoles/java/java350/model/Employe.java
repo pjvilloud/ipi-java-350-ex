@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -59,11 +61,11 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
+        int i1 = d.isLeapYear() ? 366 : 365;
         int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
+            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1; break;
             case SATURDAY: var = var + 1; break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
@@ -93,7 +95,7 @@ public class Employe {
             prime = Entreprise.primeAnnuelleBase() * Entreprise.INDICE_PRIME_MANAGER + primeAnciennete;
         }
         //Pour les autres employés en performance de base, uniquement la prime annuelle plus la prime d'ancienneté.
-        else if (this.performance == null || Entreprise.PERFORMANCE_BASE == this.performance){
+        else if (this.performance == null || Entreprise.PERFORMANCE_BASE.equals(this.performance)){
             prime = Entreprise.primeAnnuelleBase() + primeAnciennete;
         }
         //Pour les employés plus performance, on bonnifie la prime de base en multipliant par la performance de l'employé
@@ -107,7 +109,17 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(Double pourcentage) throws EmployeException {
+        //Salaire invalide
+        if (this.getSalaire() == null || this.getSalaire() <= 0.00d){
+            throw new EmployeException("Salaire insuffisant.");
+        //Taux invalide
+        } else if (pourcentage == null || pourcentage <= 0.00d){
+            throw new EmployeException("Taux insuffisant.");
+        } else {
+            this.setSalaire(this.getSalaire() * (1 + pourcentage));
+        }
+    }
 
     public Long getId() {
         return id;
