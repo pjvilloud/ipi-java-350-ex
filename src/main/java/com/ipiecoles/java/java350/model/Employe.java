@@ -58,9 +58,9 @@ public class Employe {
     }
 
     /**
-     * Nombre de congés payés par ans selon le taux d'activité
+     * Nombre de rtt par ans selon le taux d'activité
      * @param date Année
-     * @return Le nombre de congés payés
+     * @return Le nombre de rtt
      */
     public Integer getNbRtt(LocalDate date) {
         int joursAn = date.isLeapYear() ? 366 : 365;

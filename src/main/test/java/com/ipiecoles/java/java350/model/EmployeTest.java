@@ -190,10 +190,10 @@ public class EmployeTest {
     //#region testGetNbRtt()
 
     /**
-     * Test de récupération du nombre de congés payés
+     * Test de récupération du nombre de rtt
      * @param annee Année
      * @param tempsPartiel Taux de d'activité
-     * @param attendu Nombre de congés payés attendu
+     * @param attendu Nombre de rtt attendu
      */
     @ParameterizedTest
     @CsvSource({
