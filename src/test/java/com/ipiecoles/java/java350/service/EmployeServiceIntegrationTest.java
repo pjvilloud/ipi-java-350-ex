@@ -66,19 +66,20 @@ class EmployeServiceIntegrationTest {
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
     }
 
-    /*@Test
+    @Test
     void calculPerformanceCommercialTestIntegration() throws EmployeException {
         // Given
+        Employe e = new Employe("emp", "emp", "C12344", LocalDate.now(), Entreprise.SALAIRE_BASE, Entreprise.PERFORMANCE_BASE, 1d);
+        employeRepository.save(e);
         Employe em = new Employe("bob", "nom", "C12345", LocalDate.now(), Entreprise.SALAIRE_BASE, Entreprise.PERFORMANCE_BASE, 1d);
         employeRepository.save(em);
         String matricule = em.getMatricule();
         Long caTraite = 12370L;
         Long objectifCa = 11692L;
         // When
-        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
-        ArgumentCaptor<Employe> EmployeCaptor = ArgumentCaptor.forClass(Employe.class);
-        Mockito.verify(employeRepository, Mockito.times(1)).save(EmployeCaptor.capture());
+        employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+        Employe employe = employeRepository.findByMatricule("C12345");
         // Then
-        Assertions.assertEquals( 2, (int)EmployeCaptor.getValue().getPerformance());
-    }*/
+        Assertions.assertEquals( 3, (int) employe.getPerformance());
+    }
 }
