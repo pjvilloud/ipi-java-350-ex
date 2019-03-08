@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import org.assertj.core.api.Assertions;
 
+import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
 @ExtendWith(MockitoExtension.class)
@@ -60,7 +61,7 @@ class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMaster99999(){
+    public void testEmbaucheEmployeManagerMiTempsMaster99999() {
         //Given
         String nom = "Covert";
         String prenom = "Harry";
@@ -76,29 +77,24 @@ class EmployeServiceTest {
         // Then
         Assertions.assertThat(throwable).isInstanceOf(EmployeException.class).hasMessage("Limite des 100000 matricules atteinte !");
     }
-/*
+
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMasterExistant(){
+    public void testEmbaucheEmployeManagerMiTempsMasterExistant() {
         //Given
         String nom = "Covert";
         String prenom = "Harry";
-        String matricule = "T00123";
+        String matricule = "M00123";
         Poste poste = Poste.MANAGER;
         NiveauEtude niveauEtude = NiveauEtude.MASTER;
         Double tempsPartiel = 0.5;
 
         Mockito.when(this.employeRepository.findLastMatricule()).thenReturn("00122");
-
-        try {
-            this.employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
-        } catch (EmployeException e) {
-        }
+        Mockito.when(this.employeRepository.findByMatricule(Mockito.anyString())).thenReturn(new Employe());
 
         //When
         Throwable throwable = Assertions.catchThrowable(() -> this.employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
 
         //Then
-        Assertions.assertThat(throwable).isInstanceOf(EmployeException.class).hasMessage("L'employé de matricule " + matricule + " existe déjà en BDD");
+        Assertions.assertThat(throwable).isInstanceOf(EntityExistsException.class).hasMessage("L'employé de matricule " + matricule + " existe déjà en BDD");
     }
- */
 }

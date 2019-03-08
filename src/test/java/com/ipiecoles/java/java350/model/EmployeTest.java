@@ -25,7 +25,7 @@ public class EmployeTest {
         assertThat(nbAnneeAnciennete).isEqualTo(0);
     }
     @Test
-    void testGetNombreAnneeAncienneteMinusYear() {
+    void testGetNombreAnneeAncienneteMoinsAnnee() {
         // Given
         Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().minusYears(2L));
@@ -37,7 +37,7 @@ public class EmployeTest {
         assertThat(nbAnneeAnciennete).isEqualTo(2);
     }
     @Test
-    void testGetNombreAnneeAnciennetePlusYear() {
+    void testGetNombreAnneeAnciennetePlusAnnee() {
         // Given
         Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().plusYears(2L));
@@ -65,19 +65,21 @@ public class EmployeTest {
     //#region testGetPrimeAnnuel()
     @ParameterizedTest
     @CsvSource({
-            "1, 'T12345', 0, 1.0, 1000.0",
-            "1, 'C12345', 2, 0.5, 600.0",
-            "1, 'M12345', 1, 0.7, 1260.0"
+            "'T12345', 1, 0, 1.0, 1000.00",
+            "'C12345', 1, 2, 0.5, 600.00",
+            "'M12345', 1, 1, 0.7, 1260.00"
             })
-    void testGetPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle){
+    void testGetPrimeAnnuelle(String matricule, Integer performance, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle){
         //Given
-        Employe employe = new Employe("Covert",
+        Employe employe = new Employe(
+                "Covert",
                 "Harry",
                 matricule,
                 LocalDate.now().minusYears(nbYearsAnciennete),
                 Entreprise.SALAIRE_BASE,
                 performance,
                 tempsPartiel);
+
         //When
         Double prime = employe.getPrimeAnnuelle();
 

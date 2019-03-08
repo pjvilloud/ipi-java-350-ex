@@ -3,7 +3,6 @@ package com.ipiecoles.java.java350.repository;
 import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.model.Entreprise;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith({SpringExtension.class})
 @SpringBootTest
@@ -67,4 +64,6 @@ class EmployeRepositoryTest {
         Assertions.assertThat(lastMatricule).isEqualTo("40325");
     }
     //#endregion
+
+    //region
 }
