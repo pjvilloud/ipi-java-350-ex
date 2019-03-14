@@ -11,9 +11,8 @@ public class EmployeTest {
     @Test
     public void testGetNombreAnneeAncienneteNow() {
         //Given = Initialisation des données d'entrée
-        LocalDate dateEmbauche = LocalDate.now();
         Employe employe = new Employe();
-        employe.setDateEmbauche(dateEmbauche);
+        employe.setDateEmbauche(LocalDate.now());
 
 
         //When = Exécution de la méthode à tester
@@ -22,6 +21,54 @@ public class EmployeTest {
 
 
         //Then = Vérifications de ce qu'a fait la méthode
+        Assertions.assertThat(nbAnnee).isEqualTo(0);
+
+    }
+
+    @Test
+    public void testGetNombreAnneeAncienneteNull() {
+        //Given = Initialisation des données d'entrée
+        Employe employe = new Employe();
+        employe.setDateEmbauche(null);
+
+
+        //When = Exécution de la méthode à tester
+        Integer nbAnnee = employe.getNombreAnneeAnciennete();
+
+
+        //Then = Vérifications de ce qu'a fait la méthode
+        Assertions.assertThat(nbAnnee).isEqualTo(0);
+
+    }
+
+    @Test
+    public void testGetNombreAnneeAncienneteNmoins2() {
+        //Given
+        Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now().minusYears(2));
+
+
+        //When
+        Integer nbAnnee = employe.getNombreAnneeAnciennete();
+
+
+        //Then
+        Assertions.assertThat(nbAnnee).isGreaterThanOrEqualTo(2);
+
+    }
+
+    @Test
+    public void testGetNombreAnneeAncienneteNplus2() {
+        //Given
+        Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now().plusYears(2));
+
+
+        //When
+        Integer nbAnnee = employe.getNombreAnneeAnciennete();
+
+
+        //Then
         Assertions.assertThat(nbAnnee).isGreaterThanOrEqualTo(0);
 
     }
