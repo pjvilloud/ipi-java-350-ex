@@ -1,3 +1,4 @@
+package com.ipiecoles.java.java350.model;
 
 import com.ipiecoles.java.java350.model.Employe;
 import org.assertj.core.api.Assertions;
@@ -13,7 +14,6 @@ public class EmployeTest {
         LocalDate dateEmbauche = LocalDate.now();
         Employe employe = new Employe();
         employe.setDateEmbauche(dateEmbauche);
-
 
 
         //When = Exécution de la méthode à tester
