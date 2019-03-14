@@ -11,24 +11,23 @@ import java.time.LocalDate;
 public class EmployeTest {
 
     /**
-     * this.getNombreAnneeAnciennete() not null
-     * this.tempsPartiel() not null
-     * Entreprise.primeAnnuelleBase() not null
-     * this.performance not null
-     * matricule
-    
+     *     public static final Double SALAIRE_BASE = 1521.22;
+     *     public static final Integer NB_CONGES_BASE = 25;
+     *     public static final Double INDICE_PRIME_BASE = 0.3;
+     *     public static final Double INDICE_PRIME_MANAGER = 1.7;
+     *     public static final Double PRIME_ANCIENNETE = 100d;
+     *     public static final Integer PERFORMANCE_BASE = 1;
+     *     public static final Integer NB_JOURS_MAX_FORFAIT = 218;
+     *     private static final double PRIME_BASE = 1000d;
+
     @ParameterizedTest(name = "La prime annuelle du matricule {1} est valide")
     @CsvSource({
-            "null, null, null, null, null",
-            "null,'', null, null, null",
-            ",'C00019', , , ",
-            ",'M00001', , , ",
-            ",'T00034', , , ",
-            ",'', , , ",
-            ",'', , , ",
-            ",'', , , "
+            "1, 'M00001', 0, 1.0, 1700.0",
+            "1, 'T00023', 0, 1.0, ",
+            "null, 'C00034', 0, 1.0, , "
     })
-    public void testGetPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tpsPartiel, Double primeAnnuelle){
+    public void testGetPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete,
+                                     Double tpsPartiel, Double primeAnnuelle){
         //Given
         Employe e = new Employe();
         e.setPerformance(performance);
@@ -43,8 +42,8 @@ public class EmployeTest {
 
         //Then
         Assertions.assertThat(prime).isEqualTo(primeAnnuelle);
-    }*/
-
+    }
+*/
     @Test
     public void testGetNombreAnneeAncienneteNow() {
         //Given = Initialisation des données d'entrée
