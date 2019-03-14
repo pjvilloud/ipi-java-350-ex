@@ -16,29 +16,34 @@ public class EmployeTest {
      * Entreprise.primeAnnuelleBase() not null
      * this.performance not null
      * matricule
-     */
-    @ParameterizedTest
+    
+    @ParameterizedTest(name = "La prime annuelle du matricule {1} est valide")
     @CsvSource({
-            "null,null,null,null,null",
-            ",'', , ,",
-            ",'', , ,",
-            ",'', , ,"
+            "null, null, null, null, null",
+            "null,'', null, null, null",
+            ",'C00019', , , ",
+            ",'M00001', , , ",
+            ",'T00034', , , ",
+            ",'', , , ",
+            ",'', , , ",
+            ",'', , , "
     })
-    public void testGetPrimeAnnuelleWithTempsPartielNotNull(
-            Integer performance,
-            String matricule,
-            Long nbYearsAnciennete,
-            Double tpsPartiel,
-            Double primeAnnuelle){
+    public void testGetPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tpsPartiel, Double primeAnnuelle){
         //Given
+        Employe e = new Employe();
+        e.setPerformance(performance);
+        e.setMatricule(matricule);
+        e.setDateEmbauche(LocalDate.now().minusYears(nbYearsAnciennete));
+        e.setTempsPartiel(tpsPartiel);
 
 
         //When
+        Double prime = e.getPrimeAnnuelle();
 
 
         //Then
-
-    }
+        Assertions.assertThat(prime).isEqualTo(primeAnnuelle);
+    }*/
 
     @Test
     public void testGetNombreAnneeAncienneteNow() {
