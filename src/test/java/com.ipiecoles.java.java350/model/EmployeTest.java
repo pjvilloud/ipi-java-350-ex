@@ -22,7 +22,7 @@ public class EmployeTest {
 
 
         //Then = Vérifications de ce qu'a fait la méthode
-        Assertions.assertThat(nbAnnee).isGreaterThanOrEqualTo(5);
+        Assertions.assertThat(nbAnnee).isGreaterThanOrEqualTo(0);
 
     }
 }
