@@ -145,7 +145,7 @@
 					</targetTests>
 				</configuration>
 			</plugin>
-<!--*
+<!--
 			<plugin>
 				<groupId>com.thoughtworks.gauge.maven</groupId>
 				<artifactId>gauge-maven-plugin</artifactId>
@@ -161,7 +161,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin> *-->
+			</plugin> -->
 
 		</plugins>
 	</build>
