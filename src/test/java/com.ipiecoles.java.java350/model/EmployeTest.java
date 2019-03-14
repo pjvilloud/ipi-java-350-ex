@@ -3,6 +3,8 @@ package com.ipiecoles.java.java350.model;
 import com.ipiecoles.java.java350.model.Employe;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 
@@ -13,9 +15,21 @@ public class EmployeTest {
      * this.tempsPartiel() not null
      * Entreprise.primeAnnuelleBase() not null
      * this.performance not null
+     * matricule
      */
-    @Test
-    public void testGetPrimeAnnuelleWithTempsPartielNotNull(){
+    @ParameterizedTest
+    @CsvSource({
+            "null,null,null,null,null",
+            ",'', , ,",
+            ",'', , ,",
+            ",'', , ,"
+    })
+    public void testGetPrimeAnnuelleWithTempsPartielNotNull(
+            Integer performance,
+            String matricule,
+            Long nbYearsAnciennete,
+            Double tpsPartiel,
+            Double primeAnnuelle){
         //Given
 
 

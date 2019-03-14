@@ -2,7 +2,7 @@ language : java
 
 addons:
   sonarcloud:
-    organization: "f171607a59a4005323292d76ef2770854795768b"
+    organization: "08a8d936cf1e9b7ba3ce862ceb457c546c590de0"
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.projectKey=carole_ipi-java-350-ex
