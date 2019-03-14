@@ -8,6 +8,24 @@ import java.time.LocalDate;
 
 public class EmployeTest {
 
+    /**
+     * this.getNombreAnneeAnciennete() not null
+     * this.tempsPartiel() not null
+     * Entreprise.primeAnnuelleBase() not null
+     * this.performance not null
+     */
+    @Test
+    public void testGetPrimeAnnuelleWithTempsPartielNotNull(){
+        //Given
+
+
+        //When
+
+
+        //Then
+
+    }
+
     @Test
     public void testGetNombreAnneeAncienneteNow() {
         //Given = Initialisation des données d'entrée
