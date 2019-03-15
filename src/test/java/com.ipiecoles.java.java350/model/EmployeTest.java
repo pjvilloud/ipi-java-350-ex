@@ -19,12 +19,15 @@ public class EmployeTest {
      *     public static final Integer PERFORMANCE_BASE = 1;
      *     public static final Integer NB_JOURS_MAX_FORFAIT = 218;
      *     private static final double PRIME_BASE = 1000d;
-
+*/
     @ParameterizedTest(name = "La prime annuelle du matricule {1} est valide")
     @CsvSource({
             "1, 'M00001', 0, 1.0, 1700.0",
-            "1, 'T00023', 0, 1.0, ",
-            "null, 'C00034', 0, 1.0, , "
+            "1, 'M00001', 1, 1.0, 1800.0",
+            "1, 'T12345', 2, 1.0, 1200.0",
+            "1, 'T12345', 2, 0.5, 600.0",
+            "2, 'T12345', 0, 1.0, 2300.0,",
+            "2, 'T12345', 3, 1.0, 2600.0"
     })
     public void testGetPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete,
                                      Double tpsPartiel, Double primeAnnuelle){
@@ -43,7 +46,7 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(prime).isEqualTo(primeAnnuelle);
     }
-*/
+
     @Test
     public void testGetNombreAnneeAncienneteNow() {
         //Given = Initialisation des données d'entrée
