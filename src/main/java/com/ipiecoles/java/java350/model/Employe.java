@@ -63,6 +63,19 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
+    /**
+     * Calcul du nombre de RTT
+     * nbJoursAnnee : dépend de si l'année est bissextile ou non
+     * nbJoursReposHebdomadaire : nombre de samedi et dimanche dans l'année.
+     * Ce nombre est modifié si le 1er janvier tombe un jeudi, un vendredi (et si l'année est bissextile ou non), un samedi.
+     * nbJoursFeries : nombre de jours fériés dans l'année qui tombe un jour de la semaine (lundi au vendredi)
+     * Entreprise.NB_JOURS_MAX_FORFAIT : le nombre de jours travaillés dans l'année par les salariés de l'entreprise
+     * Entreprise.NB_CONGES_BASE : nombre de jours de congés de base des salariés (cadre légal ou conventionnel)
+     * On obtient le nombre de RTT en partant du nombre de jours dans l'année auquel on soustrait les variables précédemment définies,
+     * on multiplie ensuite cela par l'attribut temps partiel de l'employé (s'il est à temps partiel, il n'aura pas le même nombre de jours de Rtt)
+     * @param d (date actuelle)
+     * @return le nombre de jours de Rtt de l'employé
+     */
     public Integer getNbRtt(LocalDate d){
         int nbJoursAnnee = d.isLeapYear() ? 366 : 365;
         int nbJoursReposHebdomadaire = 104;
