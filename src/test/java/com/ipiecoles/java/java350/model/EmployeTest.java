@@ -11,6 +11,8 @@ import java.time.LocalDate;
 public class EmployeTest {
 
     /**
+     * Récupération des valeurs des constantes déjà initialisés ailleurs :
+     *
      *     public static final Double SALAIRE_BASE = 1521.22;
      *     public static final Integer NB_CONGES_BASE = 25;
      *     public static final Double INDICE_PRIME_BASE = 0.3;

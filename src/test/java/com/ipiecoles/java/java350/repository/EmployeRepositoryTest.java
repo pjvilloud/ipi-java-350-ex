@@ -18,8 +18,8 @@ public class EmployeRepositoryTest {
     @Autowired
     private EmployeRepository employeRepository;
 
-    @BeforeEach //Réalise la méthode ci-dessous avant chaque test - A voir selon nos préférences
-    @AfterEach  //Réalise la méthode ci-dessous après chaque test - A voir selon nos préférences
+    @BeforeEach //Réalise la méthode ci-dessous AVANT chaque test - A voir selon nos préférences
+    @AfterEach  //Réalise la méthode ci-dessous APRES chaque test - A voir selon nos préférences
     public void setup(){
         employeRepository.deleteAll();
     }
