@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDate;
 
@@ -93,7 +94,7 @@ public class EmployeTest {
            "1521.22, -10, 1521.22",
            "0, 10, 0"
    })
-   public void testAugmenterSalaire(Double salaire, Integer pourcentage, Double salaireExcepted){
+   public void testAugmenterSalaire(Double salaire, Integer pourcentage, Double salaireExpected){
 
         Employe e = new Employe();
         e.setSalaire(salaire);
@@ -101,6 +102,25 @@ public class EmployeTest {
         e.augmenterSalaire(pourcentage);
         Double salaireAugemente = e.getSalaire();
 
-        Assertions.assertEquals(salaireAugemente,salaireExcepted);
+        Assertions.assertEquals(salaireAugemente,salaireExpected);
+   }
+   @ParameterizedTest
+   @CsvSource({
+           "2019-01-01, 8", // cas nominal
+           "2020-01-01, 10", // année bissextile
+           "2022-01-01, 10", // année normale avec nombre de jours fériés différent
+           "2021-01-01, 10" // année où jour de l'an est un vendredi
+            // année bissextile où jour de l'an est un jeudi, vendredi ou samedi -> 2016 mais ne fonctionne pas vu que c'est une date antérieure, sinon 2028 mais on n'a pas les dates des jours feriés
+   })
+   public void testGetNbRtt(LocalDate date,Integer nbRttExpected){
+       //GIVEN
+       Employe e = new Employe();
+       
+       //WHEN
+       Integer nbRtt = e.getNbRtt(date);
+       
+       //GIVEN
+       Assertions.assertEquals(nbRtt, nbRttExpected);
+       System.out.println("nb rtt : "+nbRtt);
    }
 }
