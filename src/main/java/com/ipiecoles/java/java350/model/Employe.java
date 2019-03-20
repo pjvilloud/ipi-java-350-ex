@@ -58,16 +58,36 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+    /**
+     * Calcul le nombre de RTT de l'employé
+     *
+     * @param dateCalcul Date du calcul du nombre de RTT
+     * @return Retourne le nombre de RTT
+     */
+    public Integer getNbRtt(LocalDate dateCalcul){
+        int anneeBissextile = dateCalcul.isLeapYear() ? 365 : 366;
+
+        //Calcul du nombre de jours dans l'année étant compris dans un week-end afin de les enlever du calcul final
+        int nbJoursDeWeekEnds = 104;
+        switch (LocalDate.of(dateCalcul.getYear(),1,1).getDayOfWeek()){
+            case THURSDAY:
+                if(dateCalcul.isLeapYear()) {
+                    nbJoursDeWeekEnds =  nbJoursDeWeekEnds + 1;
+                }
+                break;
+            case FRIDAY:
+                if(dateCalcul.isLeapYear()) {
+                    nbJoursDeWeekEnds =  nbJoursDeWeekEnds + 2;
+                } else {
+                    nbJoursDeWeekEnds =  nbJoursDeWeekEnds + 1;
+                }
+            case SATURDAY:
+                nbJoursDeWeekEnds = nbJoursDeWeekEnds + 1;
+                break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        //Récupère tous les jours fériés hors week-end
+        int monInt = (int) Entreprise.joursFeries(dateCalcul).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        return (int) Math.ceil((anneeBissextile - Entreprise.NB_JOURS_MAX_FORFAIT - nbJoursDeWeekEnds - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
     }
 
     /**
