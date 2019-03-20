@@ -1,0 +1,5 @@
+site_name: Projet Java 350
+
+nav:
+      - 'Accueil': 'index.md'
+      - 'Environnements': 'docs/env.md'
