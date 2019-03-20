@@ -1,0 +1,29 @@
+20-03-2019 14:00:55.403 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 14:00:55.517 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que TECHNICIEN avec un taux d'activit√© de 1.0
+20-03-2019 14:00:55.524 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 14:00:55.529 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 14:10:16.773 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 14:10:16.906 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que TECHNICIEN avec un taux d'activit√© de 1.0
+20-03-2019 14:10:16.914 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 14:10:16.919 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 14:10:54.153 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 14:10:54.265 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que TECHNICIEN avec un taux d'activit√© de 1.0
+20-03-2019 14:10:54.271 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 14:10:54.278 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 16:14:17.731 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employÈ John Doe en tant que MANAGER avec un taux d'activitÈ de 0.5
+20-03-2019 16:14:17.790 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employÈ John Doe en tant que TECHNICIEN avec un taux d'activitÈ de 1.0
+20-03-2019 16:14:17.794 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employÈ John Doe en tant que MANAGER avec un taux d'activitÈ de 0.5
+20-03-2019 16:14:17.797 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employÈ John Doe en tant que MANAGER avec un taux d'activitÈ de 0.5
+20-03-2019 16:16:03.985 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 16:16:04.209 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que TECHNICIEN avec un taux d'activit√© de 1.0
+20-03-2019 16:16:04.218 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 16:16:04.237 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que MANAGER avec un taux d'activit√© de 0.5
+20-03-2019 16:16:15.484 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on LAPTOP-5R3NABGJ with PID 4644 (started by CaroleT-L in D:\Formations\_POE_CGI\Java\ipi-java-350-ex)
+20-03-2019 16:16:15.489 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+20-03-2019 16:16:22.620 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 7.544 seconds (JVM running for 8.838)
+20-03-2019 16:16:22.990 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employÈ John Doe en tant que TECHNICIEN avec un taux d'activitÈ de 1.0
+20-03-2019 16:16:23.139 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employÈ John Doe en tant que MANAGER avec un taux d'activitÈ de 0.5
+20-03-2019 16:16:23.161 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employÈ John Doe en tant que TECHNICIEN avec un taux d'activitÈ de 1.0
+20-03-2019 16:16:23.165 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employÈ John Doe en tant que MANAGER avec un taux d'activitÈ de 0.5
+20-03-2019 16:16:23.179 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employÈ John Doe en tant que MANAGER avec un taux d'activitÈ de 0.5
+20-03-2019 16:17:05.482 [Thread-1] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche de l'employ√© John Doe en tant que TECHNICIEN avec un taux d'activit√© de 1.0
