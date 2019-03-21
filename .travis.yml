@@ -2,7 +2,7 @@ language: java
 
 addons:
   sonarcloud:
-    organization: "Wingelo-github"
+    organization: "wingelo-github"
     apt:
       update: true
       sources:
