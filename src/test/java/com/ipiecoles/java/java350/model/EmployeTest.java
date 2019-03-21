@@ -1,5 +1,6 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -85,4 +86,85 @@ public class EmployeTest {
 
     }
 
+
+    @Test
+    public void augmenterSalaireNegative() {
+        //given
+        Employe e = new Employe();
+        e.setSalaire(1000.0);
+        //when
+        try {
+            e.augmenterSalaire(-0.1);
+        }
+        catch (EmployeException error){
+            System.out.println("hello world! L'exception négative est bien catchée !");
+        }
+        //then
+        Assertions.assertEquals(1000.0, e.getSalaire().doubleValue());
+    }
+
+    @Test
+    public void augmenterSalaireNull() {
+        //given
+        Employe e = new Employe();
+        e.setSalaire(1000.0);
+        //when
+        try {
+            e.augmenterSalaire(0.0);
+        }
+        catch (EmployeException error){
+            System.out.println("hello world! L'exception nulle est bien catchée !");
+        }
+        //then
+        Assertions.assertEquals(1000.0, e.getSalaire().doubleValue());
+    }
+
+    @Test
+    public void augmenterSalaire10Pourcents() {
+        //given
+        Employe e = new Employe();
+        e.setSalaire(1000.0);
+        //when
+        try {
+            e.augmenterSalaire(0.1);
+        }
+        catch (EmployeException error){
+            System.out.println("Le test n'est pas passé...");
+        }
+        //then
+        Assertions.assertEquals(1100.0, e.getSalaire().doubleValue());
+    }
+
+    @Test
+    public void augmenterSalaire33Pourcents() {
+        //given
+        Employe e = new Employe();
+        e.setSalaire(1000.0);
+        //when
+        try {
+            e.augmenterSalaire(0.33);
+        }
+        catch (EmployeException error){
+            System.out.println("Le test n'est pas passé...");
+        }
+
+        //then
+        Assertions.assertEquals(1330.0, e.getSalaire().doubleValue());
+    }
+
+    @Test
+    public void augmenterSalaire50Pourcents() {
+        //given
+        Employe e = new Employe();
+        e.setSalaire(1000.0);
+        //when
+        try {
+            e.augmenterSalaire(0.5);
+        }
+        catch (EmployeException error){
+            System.out.println("hello world! L'exception supérieure est bien catchée !");
+        }
+        //then
+        Assertions.assertEquals(1000.0, e.getSalaire().doubleValue());
+    }
 }
