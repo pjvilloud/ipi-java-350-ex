@@ -9,10 +9,7 @@ import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.AdditionalAnswers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityExistsException;
@@ -158,5 +155,53 @@ class EmployeServiceTest {
 
     }
 
+    //quand une méthode ne retourne rien, on utilise les argument captors pour récupérer les résultats
+    // voir slide Mock 2 :
+    // on crée le captor :
+    // ArgumentCaptor<Vehicule> vehiculeCaptor = ArgumentCaptor.forClass(Vehicule.class);
+    // et là on vérifie que l'appel à la fonction est fait une fois :
+   // Mockito.verify(vehiculeRepository, Mockito.times(1)).save(vehiculeCaptor.capture());
+    // on peut récupérer aussi une liste en retour d'une méthode ou l'absence d'appel à une méthode
+
+    // : on définit un Argument Captor et ensuite on capture le résultat d'une méthode qui return void avec
+    // vehiculeCaptor.getValue()
+
+
+    public void testEmbaucheEmployeTechnicienPleinTempsBtsArgumentCaptor() throws EmployeException {
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.TECHNICIEN;
+        NiveauEtude niveauEtudes = NiveauEtude.BTS_IUT;
+        Double tempsPartiel = 1.0;
+
+        // on veut qu'à l'appel de la fonction findLastMatricule, le résultat soit null
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
+        Mockito.when(employeRepository.findByMatricule("T00001")).thenReturn(null);
+        Mockito.when(employeRepository.save(Mockito.any())).thenAnswer(AdditionalAnswers.returnsFirstArg());
+
+        // When
+        employeService.embaucheEmploye(nom, prenom, poste, niveauEtudes, tempsPartiel);
+        // Then
+        ArgumentCaptor<Employe> employeCaptor = ArgumentCaptor.forClass(Employe.class);
+        // par défaut le test se fait pour ces valeurs : , Mockito.times(1)
+        // donc cette partie est facultative
+        Mockito.verify(employeRepository, Mockito.times(1)).save(employeCaptor.capture());
+
+        Assertions.assertEquals("T00001", employeCaptor.getValue().getMatricule());
+        Assertions.assertEquals(nom, employeCaptor.getValue().getNom());
+        Assertions.assertEquals(prenom, employeCaptor.getValue().getPrenom());
+        Assertions.assertEquals(LocalDate.now(), employeCaptor.getValue().getDateEmbauche());
+        Assertions.assertEquals(Entreprise.PERFORMANCE_BASE, employeCaptor.getValue().getPerformance());
+        Assertions.assertEquals(1064.85, (double)employeCaptor.getValue().getSalaire());
+        Assertions.assertEquals(tempsPartiel, employeCaptor.getValue().getTempsPartiel());
+
+        // ou :
+
+        // Employe e = employeCaptor.capture();
+        // Assertions.assertEquals("T00001", e.getMatricule());
+        // etc
+
+    }
 
 }
