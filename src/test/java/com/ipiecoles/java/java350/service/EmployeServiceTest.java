@@ -1,0 +1,100 @@
+package com.ipiecoles.java.java350.service;
+
+import com.ipiecoles.java.java350.exception.EmployeException;
+import com.ipiecoles.java.java350.model.Employe;
+import com.ipiecoles.java.java350.model.Entreprise;
+import com.ipiecoles.java.java350.model.NiveauEtude;
+import com.ipiecoles.java.java350.model.Poste;
+import com.ipiecoles.java.java350.repository.EmployeRepository;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.AdditionalAnswers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class)
+class EmployeServiceTest {
+
+    @InjectMocks
+    private EmployeService employeService;
+    // on injecte le service en utilisant le mock ci-dessous
+
+    @Mock
+    private EmployeRepository employeRepository;
+    // on veut simuler un employeRepository
+
+    @Test
+    void testEmbaucheEmployeTechnicienPleinTempsBts() throws EmployeException {
+
+        // Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.TECHNICIEN;
+        NiveauEtude niveauEtudes = NiveauEtude.BTS_IUT;
+        Double tempsPartiel = 1.0;
+
+        // on veut qu'à l'appel de la fonction findLastMatricule, le résultat soit null
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
+        Mockito.when(employeRepository.findByMatricule("T00001")).thenReturn(null);
+        Mockito.when(employeRepository.save(Mockito.any())).thenAnswer(AdditionalAnswers.returnsFirstArg());
+
+        //When
+
+        Employe e = employeService.embaucheEmploye(nom, prenom, poste, niveauEtudes, tempsPartiel);
+
+        // Then
+        // si employe existe dans la base avec les bonnes infos
+
+        Assertions.assertEquals("T00001", e.getMatricule());
+        Assertions.assertEquals(nom, e.getNom());
+        Assertions.assertEquals(prenom, e.getPrenom());
+        Assertions.assertEquals(LocalDate.now(), e.getDateEmbauche());
+        Assertions.assertEquals(Entreprise.PERFORMANCE_BASE, e.getPerformance());
+        Assertions.assertEquals(1825.46, (double)e.getSalaire());
+        // le calcul du salaire correspond à : 1521.22 * 1.2 * 1 = 1825.46
+        Assertions.assertEquals(tempsPartiel, e.getTempsPartiel());
+    }
+
+    @Test
+    public void testEmbaucheManagerMiTempsLastMatricule00345() throws EmployeException {
+
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.MANAGER;
+        NiveauEtude niveauEtudes = NiveauEtude.MASTER;
+        Double tempsPartiel = 0.5;
+
+        // on veut qu'à l'appel de la fonction findLastMatricule, le résultat soit 00345
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn("00345");
+        // on veut qu'à l'appel de la fonction findByMatricule, le résultat soit null
+        Mockito.when(employeRepository.findByMatricule("M00346")).thenReturn(null);
+        Mockito.when(employeRepository.save(Mockito.any())).thenAnswer(AdditionalAnswers.returnsFirstArg());
+
+        // When
+        Employe e = employeService.embaucheEmploye(nom, prenom, poste, niveauEtudes, tempsPartiel);
+
+        //Then
+
+        // si employe existe dans la base avec les bonnes infos
+        Assertions.assertEquals("M00346", e.getMatricule());
+        Assertions.assertEquals(nom, e.getNom());
+        Assertions.assertEquals(prenom, e.getPrenom());
+        Assertions.assertEquals(LocalDate.now(), e.getDateEmbauche());
+        Assertions.assertEquals(Entreprise.PERFORMANCE_BASE, e.getPerformance());
+
+        Assertions.assertEquals(1064.85, (double)e.getSalaire());
+        // le calcul du salaire correspond à : 1521.22 * 1.4 * 0.5 = 1064.85
+
+        Assertions.assertEquals(tempsPartiel, e.getTempsPartiel());
+
+    }
+
+}
