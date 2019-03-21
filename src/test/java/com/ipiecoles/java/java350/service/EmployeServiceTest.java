@@ -15,9 +15,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+// outils pour couverture des test : Coverage
+// PiTest : il opère des mutations : il remplace les + par les -, les * en / etc... très vicieux
+// dans Run > edit config > Maven : Command line: écrire : clean install org.pitest:pitest-maven:mutationCoverage
 
 @ExtendWith(MockitoExtension.class)
 class EmployeServiceTest {
@@ -62,6 +67,7 @@ class EmployeServiceTest {
         Assertions.assertEquals(tempsPartiel, e.getTempsPartiel());
     }
 
+    // si on voulait tester plus de scenarios on aurait pu faire un test mock + paramétrable
     @Test
     public void testEmbaucheManagerMiTempsLastMatricule00345() throws EmployeException {
 
@@ -96,5 +102,61 @@ class EmployeServiceTest {
         Assertions.assertEquals(tempsPartiel, e.getTempsPartiel());
 
     }
+
+    // pour tester la levée d'exception on peut faire ça :
+    // ou sinon voir les slides pour la version Junit5 avec une notation avec des lambdas
+    @Test
+    public void testEmbaucheManagerMiTempsLastMatricule99999() {
+
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.MANAGER;
+        NiveauEtude niveauEtudes = NiveauEtude.MASTER;
+        Double tempsPartiel = 0.5;
+
+        // on veut qu'à l'appel de la fonction findLastMatricule, le résultat soit :
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
+
+        // When
+        try {
+            Employe e = employeService.embaucheEmploye(nom, prenom, poste, niveauEtudes, tempsPartiel);
+            Assertions.fail("Devrait lancer une exception");
+        } catch (EmployeException e1) {
+            //Then
+            Assertions.assertEquals("Limite des 100000 matricules atteinte !", e1.getMessage());
+        }
+
+    }
+
+    // on va tester l'autre levée d'exception :
+    @Test
+    public void testEmbaucheManagerMiTempsLastMatriculeExisteDeja() throws EmployeException {
+
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.MANAGER;
+        NiveauEtude niveauEtudes = NiveauEtude.MASTER;
+        Double tempsPartiel = 0.5;
+
+        // on veut qu'à l'appel de la fonction findLastMatricule, le résultat soit null
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
+        // on veut qu'à l'appel de la fonction findByMatricule, le résultat soit null
+        Mockito.when(employeRepository.findByMatricule("M00001")).thenReturn(new Employe());
+        // Mockito.when(employeRepository.save(Mockito.any())).thenAnswer(AdditionalAnswers.returnsFirstArg());
+
+        // When
+        try {
+            Employe e = employeService.embaucheEmploye(nom, prenom, poste, niveauEtudes, tempsPartiel);
+            Assertions.fail("Devrait lancer une exception");
+        } catch (EntityExistsException e1) {
+            //Then
+            Assertions.assertEquals("L'employé de matricule M00001 existe déjà en BDD",
+                    e1.getMessage());
+        }
+
+    }
+
 
 }
