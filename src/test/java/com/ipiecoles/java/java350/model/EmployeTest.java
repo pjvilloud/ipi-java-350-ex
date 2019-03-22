@@ -109,8 +109,8 @@ public class EmployeTest {
            "2019-01-01, 8", // cas nominal
            "2020-01-01, 10", // année bissextile
            "2022-01-01, 10", // année normale avec nombre de jours fériés différent
-           "2021-01-01, 10" // année où jour de l'an est un vendredi
-            // année bissextile où jour de l'an est un jeudi, vendredi ou samedi -> 2016 mais ne fonctionne pas vu que c'est une date antérieure, sinon 2028 mais on n'a pas les dates des jours feriés
+           "2021-01-01, 10", // année où jour de l'an est un vendredi
+           "2032-01-01, 11" // année bissextile où jour de l'an est un jeudi
    })
    public void testGetNbRtt(LocalDate date,Integer nbRttExpected){
        //GIVEN
