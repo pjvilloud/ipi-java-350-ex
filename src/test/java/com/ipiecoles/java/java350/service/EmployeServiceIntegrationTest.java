@@ -28,7 +28,8 @@ public class EmployeServiceIntegrationTest {
     @Autowired
     public EmployeRepository employeRepository;
 
-    @BeforeEach
+    @BeforeEach // on teste en réél sur la BDD H2 mais on la vide à chaque fois qu'on refait le test
+    // sinon l'employe de ce matricule risque de déjà exister
     @AfterEach
     public void setup() {
         employeRepository.deleteAll();
@@ -39,15 +40,18 @@ public class EmployeServiceIntegrationTest {
         //Given avec de vraies données d'entrées
         employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(),
                 Entreprise.SALAIRE_BASE, 1, 1.0));
+        //on enregistre un premier employe dans la base
 
         String nom = "Doe";
         String prenom = "John";
         Poste poste = Poste.TECHNICIEN;
         NiveauEtude niveauEtudes = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;
+        // voici les données de l'employe suivant qu'on va EMBAUCHER
 
         //When avec appel des vraies méthodes de repository...
         employeService.embaucheEmploye(nom, prenom, poste, niveauEtudes, tempsPartiel);
+        // on teste l'embaucheEmploye() de l'employe (et pas avec employeDirectory.save() directement du coup)
 
         //Then avec de vraies vérifications...
         Employe employe = employeRepository.findByMatricule("T12346");
