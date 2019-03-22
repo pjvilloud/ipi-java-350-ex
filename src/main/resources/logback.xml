@@ -8,36 +8,36 @@
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.RollingFileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>info.log</file>
         <encoder>
             <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
         </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedFileNamingAndTriggeringPolicy">
-            <fileNamePattern>archived/info.%d{yyyy-MM-dd}.%i.log <!-- Systeme d'archivage des logs -->
-            </fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-    </appender>
+       <!-- <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedFileNamingAndTriggeringPolicy">
+            <fileNamePattern>archived/info.%d{yyyy-MM-dd}.%i.log --> <!-- Systeme d'archivage des logs -->
+        <!--  </fileNamePattern>
+          <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+              <maxFileSize>10MB</maxFileSize>
+          </timeBasedFileNamingAndTriggeringPolicy>
+      </rollingPolicy> -->
+  </appender>
 
-    <appender name="ERROR" class="ch.qos.logback.core.FileAppender">
-        <file>error.log</file>
-        <encoder>
-            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>ERROR</level>
-        </filter>
-    </appender>
+  <appender name="ERROR" class="ch.qos.logback.core.FileAppender">
+      <file>error.log</file>
+      <encoder>
+          <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+      </encoder>
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+          <level>ERROR</level>
+      </filter>
+  </appender>
 
-    <logger name="com.ipiecoles.java.java350" level="info">
-        <appender-ref ref="FILE" />
-        <appender-ref ref="ERROR" />
-    </logger>
+  <logger name="com.ipiecoles.java.java350" level="info">
+      <appender-ref ref="FILE" />
+      <appender-ref ref="ERROR" />
+  </logger>
 
-    <root level="info"> <!--ici on choisit le niveau de message d'erreur souhaité : "debug" pour tout avoir-->
+  <root level="info"> <!--ici on choisit le niveau de message d'erreur souhaité : "debug" pour tout avoir-->
         <appender-ref ref="STDOUT" />
     </root>
 
