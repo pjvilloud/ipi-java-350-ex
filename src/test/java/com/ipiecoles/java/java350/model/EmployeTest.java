@@ -85,4 +85,43 @@ public class EmployeTest {
 
     }
 
+    @Test
+    public void testAugmenteEmployeDe10Pourcent() {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(2000.00);
+
+        //When
+        employe.augmenterSalaire(0.1);
+
+        //Then
+        Assertions.assertEquals(2200.00, (double) employe.getSalaire());
+    }
+
+    @Test
+    public void testAugmenteEmployeDe0Pourcent() {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(2000.00);
+
+        //When
+        employe.augmenterSalaire(0);
+
+        Assertions.assertEquals(2000.00, (double) employe.getSalaire());
+    }
+
+    @Test
+    public void testImpossibleBaisserSalaire() {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(2000.00);
+
+        //When/Then
+        IllegalArgumentException exception = Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> employe.augmenterSalaire(-0.25)
+        );
+        Assertions.assertEquals("Impossible de diminuer le salaire d'un employé.", exception.getMessage());
+    }
+
 }

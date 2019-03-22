@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.EnumSet;
 import java.util.Objects;
 
 @Entity
@@ -120,8 +121,17 @@ public class Employe {
         return Math.round(prime * this.tempsPartiel * 100)/100.0;
     }
 
-    //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    /**
+     * Augmente le salaire d'un pourcentage passé en entrée
+     *
+     * @param pourcentage double Pourcentage d'augmentation du salaire de l'employé
+     */
+    public void augmenterSalaire(double pourcentage){
+        if (pourcentage < 0.0) {
+            throw new IllegalArgumentException("Impossible de diminuer le salaire d'un employé.");
+        }
+        salaire = salaire * (1 + pourcentage);
+    }
 
     public Long getId() {
         return id;
