@@ -50,10 +50,7 @@ public class EmployeService {
         }
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
-        if(numeroMatricule > 80000){
-            //warning
-        }
-        else if(numeroMatricule >= 100000){
+        if(numeroMatricule >= 100000){
             LOG.error("Liste des 100000 matricules atteinte !");
             throw new EmployeException("Limite des 100000 matricules atteinte !");
         }
