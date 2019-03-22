@@ -12,7 +12,7 @@
 
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.RollingFileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>info.log</file>
         <encoder>
 
@@ -20,7 +20,7 @@
 
         </encoder>
 
-        <rollingPolicy class="ch.qos.logbackcore.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
             <fileNamePattern>archived/info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">

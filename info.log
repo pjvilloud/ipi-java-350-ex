@@ -28,3 +28,13 @@
 22-03-2019 14:53:54.867 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named Marcel Duchamp, with diploma : MASTER, working at 0.5 of time.
 22-03-2019 14:53:54.868 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Duchamp', prenom='Marcel', matricule='M00346', dateEmbauche=2019-03-22, salaire=1064.85, performance=1, tempsPartiel=0.5}
 22-03-2019 14:53:54.871 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new COMMERCIAL named Pauline Durand, with diploma : LICENCE, working at 1.0 of time.
+22-03-2019 15:32:32.067 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on andev-d with PID 8883 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
+22-03-2019 15:32:32.068 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+22-03-2019 15:32:34.600 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 2.688 seconds (JVM running for 3.867)
+22-03-2019 15:32:34.927 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new COMMERCIAL named Jessica Rabbit, with diploma : LICENCE, working at 1.0 of time.
+22-03-2019 15:32:34.956 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Rabbit', prenom='Jessica', matricule='C00001', dateEmbauche=2019-03-22, salaire=1825.46, performance=1, tempsPartiel=1.0}
+22-03-2019 15:32:35.111 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named Roger Rabbit, with diploma : BTS_IUT, working at 1.0 of time.
+22-03-2019 15:32:35.114 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Rabbit', prenom='Roger', matricule='T00001', dateEmbauche=2019-03-22, salaire=1825.46, performance=1, tempsPartiel=1.0}
+22-03-2019 15:32:35.124 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named Marcel Duchamp, with diploma : MASTER, working at 0.5 of time.
+22-03-2019 15:32:35.124 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Duchamp', prenom='Marcel', matricule='M00346', dateEmbauche=2019-03-22, salaire=1064.85, performance=1, tempsPartiel=0.5}
+22-03-2019 15:32:35.126 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new COMMERCIAL named Pauline Durand, with diploma : LICENCE, working at 1.0 of time.
