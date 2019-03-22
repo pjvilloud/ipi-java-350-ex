@@ -106,6 +106,7 @@ public class EmployeService {
      *
      * @throws EmployeException Si le matricule est null ou ne commence pas par un C
      */
+    // interdiction de changer la signature de la méthode pour les tests
     public void calculPerformanceCommercial(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
         //Vérification des paramètres d'entrée
         if(caTraite == null || caTraite < 0){

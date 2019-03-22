@@ -9,6 +9,75 @@ import java.time.LocalDate;
 
 public class EmployeTest {
 
+    // pjvilloud@protonmail.com
+    @Test
+    public void testAugmenterSalaireDoubleNegatif() {
+            // Given
+        Employe e = new Employe();
+        e.setSalaire(Entreprise.SALAIRE_BASE);
+            // When
+        e.augmenterSalaire(-0.5);
+
+            // Then
+        // TODO remonter une erreur sur la méthode si le pourcentage est <=0
+    }
+
+    @Test
+    public void testAugmenterSalaireDoubleZero() {
+        // Given
+        Employe e = new Employe();
+        e.setSalaire(Entreprise.SALAIRE_BASE);
+        // When
+        e.augmenterSalaire(0);
+
+        // Then
+        // TODO remonter une erreur sur la méthode si le pourcentage est <=0
+
+    }
+
+    @Test
+    public void testAugmenterSalaireNull() {
+        // Given
+        Employe e = new Employe();
+        e.setSalaire(null);
+        // When
+        e.augmenterSalaire(0.5);
+        // Then
+
+        // TODO ajouter une erreur si le salaire est null
+    }
+
+
+    @Test
+    public void testAugmenterSalaire50Pourcent() {
+        // Given : cas nominal
+        Employe e = new Employe();
+        e.setSalaire(Entreprise.SALAIRE_BASE);
+        // When
+        e.augmenterSalaire(0.5);
+        // Then
+        Assertions.assertEquals(2281.83, (double)e.getSalaire());
+
+    }
+
+    @Test
+    public void testAugmenterSalaireLeveBienException() {
+        // Given
+        Employe e = new Employe();
+        e.setSalaire(Entreprise.SALAIRE_BASE);
+        // When
+        try {
+            e.augmenterSalaire(0.2);
+            Assertions.fail("Devrait lancer une exception");
+        }
+        catch (TypeException typeException) {
+            // Then
+            Assertions.assertEquals("Le message de l'exception", typeException.getMessage());
+        }
+    }
+
+
+
     @Test
     public void testNombreAnneesAncienneteDateEmbaucheNull() {
 

@@ -109,8 +109,12 @@ public class Employe {
         return prime * this.tempsPartiel;
     }
 
-    //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    //Augmenter salaire : partir du principe que si 0.5 on augmente de 50%
+    public void augmenterSalaire(double pourcentage){
+        // TODO voir tests pour les erreurs à mettre en place
+
+
+    }
 
     public Long getId() {
         return id;
