@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <configuration>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 
-        <encoder>
+    <encoder>
 
-            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+        <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
 
-        </encoder>
+    </encoder>
 
-    </appender>
+</appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>info.log</file>
+<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>info.log</file>
 
-        <encoder>
+    <encoder>
 
-            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n</pattern>
+        <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n</pattern>
 
-        </encoder>
+    </encoder>
 
-    </appender>
+</appender>
 
-    <logger name="com.ipiecoles.java.java350" level="info"></logger>
+<appender name="ERROR" class="ch.qos.logback.core.FileAppender">
+    <file>error.log</file>
 
-    <root level="info">
+    <encoder>
 
-        <appender-ref ref="STDOUT" />
+        <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n</pattern>
 
-        <appender-ref ref="FILE" />
+    </encoder>
 
-    </root>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        <level>ERROR</level>
+    </filter>
+
+</appender>
+
+<logger name="com.ipiecoles.java.java350" level="info"> <!-- On écrit dans un fichier de log, que les log de notre appli (via le name) et à partir du niveau info -->
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="ERROR"/>
+</logger>
+
+<root level="info">
+
+    <appender-ref ref="STDOUT" />
+
+</root>
 
 </configuration>
