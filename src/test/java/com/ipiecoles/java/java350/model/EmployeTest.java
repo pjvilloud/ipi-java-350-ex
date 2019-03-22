@@ -89,11 +89,10 @@ public class EmployeTest {
     public void testAugmenterSalaire(){
         //Given
         Employe employe = new Employe();
-        employe.setSalaire(1000.0);
 
-        //When
+        //Whe
         employe.augmenterSalaire(0.5);
-        Double newSal = 1500.0;
+        Double newSal = 2281.83;
 
         //Then
         Assertions.assertEquals(newSal, employe.getSalaire());
@@ -103,11 +102,10 @@ public class EmployeTest {
     public void testAugmenterSalaireByZero(){
         //Given
         Employe employe = new Employe();
-        employe.setSalaire(1000.0);
 
         //When
         employe.augmenterSalaire(0);
-        Double newSal = 1000.0;
+        Double newSal = 1521.22;
 
         //Then
         Assertions.assertEquals(newSal, employe.getSalaire());
@@ -117,11 +115,10 @@ public class EmployeTest {
     public void testAugmenterSalaireByNegation(){
         //Given
         Employe employe = new Employe();
-        employe.setSalaire(1000.0);
 
         //When
         employe.augmenterSalaire(-0.5);
-        Double newSal = 1000.0;
+        Double newSal = 1521.22;
 
         //Then
         Assertions.assertEquals(newSal, employe.getSalaire());
@@ -131,6 +128,7 @@ public class EmployeTest {
     public void testAugmenterSalaireNull(){
         //Given
         Employe employe = new Employe();
+        employe.setSalaire(null);
 
         //When
         employe.augmenterSalaire(0.5);
