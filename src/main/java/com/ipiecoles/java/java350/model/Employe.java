@@ -122,6 +122,7 @@ public class Employe {
 
     //Augmenter salaire
     public void augmenterSalaire(double pourcentage){
+        //si augmentation de salaire négative ou pas de salaire ne fait rien
         if(pourcentage > 0 && salaire != null)
             salaire += salaire * pourcentage;
     }
