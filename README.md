@@ -1,6 +1,6 @@
 # TP sur la qualité logicielle
 
-Exercices de Java, module 350 pour l'IPI. Il est nécessaire de forker ce repository pour pouvoir faire tout le TP !! Après chaque question, pusher vos modifications sur votre repository.
+Exercices de Java, module 350 pour l'IPI. Il est nécessaire de forker ce com.ipiecoles.java.java350.repository pour pouvoir faire tout le TP !! Après chaque question, pusher vos modifications sur votre com.ipiecoles.java.java350.repository.
 
 ## Pré-requis
 
@@ -51,7 +51,7 @@ Créer la classe de test et les méthodes permettant de tester la méthode `emba
 
 ## Tests d'intégration
 
-### Tests de repository
+### Tests de com.ipiecoles.java.java350.repository
 
 Créer la classe de test et les méthodes permettant de tester la méthode `findLastMatricule` de `EmployeRepository`.
 

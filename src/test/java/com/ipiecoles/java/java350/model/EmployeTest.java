@@ -1,17 +1,11 @@
-package model;
+package com.ipiecoles.java.java350.model;
 
-import com.ipiecoles.java.java350.model.Employe;
-
-import com.ipiecoles.java.java350.model.Entreprise;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.time.Clock;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 
 class EmployeTest {
 
