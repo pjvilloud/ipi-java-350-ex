@@ -224,4 +224,6 @@ public class Employe {
     public int hashCode() {
         return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
     }
+
+
 }

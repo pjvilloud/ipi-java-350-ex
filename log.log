@@ -1,0 +1,7 @@
+22-03-2019 14:41:06.497 [35m[main][0;39m [34mINFO [0;39m c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche d'un employe Doe John MANAGER MASTER 0.5
+22-03-2019 14:41:06.525 [35m[main][0;39m [34mINFO [0;39m c.i.j.java350.service.EmployeService.embaucheEmploye - Sauvegarde de l'employe : com.ipiecoles.java.java350.model.Employe@47027d3f
+22-03-2019 14:41:06.542 [35m[main][0;39m [34mINFO [0;39m c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche d'un employe Doe John MANAGER MASTER 0.5
+22-03-2019 14:41:06.544 [35m[main][0;39m [1;31mERROR[0;39m c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !
+22-03-2019 14:41:06.551 [35m[main][0;39m [34mINFO [0;39m c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche d'un employe Doe John MANAGER MASTER 0.5
+22-03-2019 14:41:06.559 [35m[main][0;39m [34mINFO [0;39m c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche d'un employe Doe John TECHNICIEN BTS_IUT 1.0
+22-03-2019 14:41:06.560 [35m[main][0;39m [34mINFO [0;39m c.i.j.java350.service.EmployeService.embaucheEmploye - Sauvegarde de l'employe : com.ipiecoles.java.java350.model.Employe@a1433677
