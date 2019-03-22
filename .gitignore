@@ -27,3 +27,6 @@ HELP.md
 
 mvnw*
 .mvn
+
+### Logs ###
+*.log

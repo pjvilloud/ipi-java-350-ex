@@ -8,3 +8,4 @@
 22-03-2019 14:51:03.084 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named Marcel Duchamp, with diploma : MASTER, working at 0.5 of time.
 22-03-2019 14:51:03.085 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Duchamp', prenom='Marcel', matricule='M00346', dateEmbauche=2019-03-22, salaire=1064.85, performance=1, tempsPartiel=0.5}
 22-03-2019 14:51:03.087 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new COMMERCIAL named Pauline Durand, with diploma : LICENCE, working at 1.0 of time.
+22-03-2019 15:58:33.692 [main] ERROR c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !

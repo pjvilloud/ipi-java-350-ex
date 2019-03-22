@@ -48,7 +48,7 @@ public class EmployeService {
         }
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
-        if (numeroMatricule >= 80000){
+        if (numeroMatricule >= 80000 && numeroMatricule < 100000){
             // TODO : Log warning limite matricules
         }
         else if(numeroMatricule >= 100000){

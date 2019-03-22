@@ -1,6 +1,6 @@
 # TP sur la qualité logicielle
 
-Exercices de Java, module 350 pour l'IPI. Il est nécessaire de forker ce com.ipiecoles.java.java350.repository pour pouvoir faire tout le TP !! Après chaque question, pusher vos modifications sur votre com.ipiecoles.java.java350.repository.
+Exercices de Java, module 350 pour l'IPI. Il est nécessaire de forker ce repository pour pouvoir faire tout le TP !! Après chaque question, pusher vos modifications sur votre repository.
 
 ## Pré-requis
 
@@ -73,24 +73,6 @@ TODO
 
 # Evaluation
 
-Commencer par faire une branche `evaluation` à partir de votre branche `master` une fois le TP terminé. Travailler sur cette branche pour l'évaluation.
-
-## Tests unitaires et TDD
-
-- Tester de manière unitaire le plus exhaustivement possible la méthode `augmenterSalaire` d'`Employe` en essayant de faire du TDD. Décommenter la méthode dans `Employe` et écrire d'abord les tests entièrement (en réflechissant particulièrement aux cas limites) avant d'écrire la méthode. Pensez-vous que vous auriez écrit la méthode directement comme cela si vous n'aviez pas écrit les tests en premier ?
-- Tester unitairement (en utilisant les tests paramétrés) la méthode `getNbRtt` d'`Employe` et corriger les éventuelles erreurs de cette méthode. Rendre cette méthode plus propre, documentée et lisible.
-
-## Tests d'intégration
-
-- Tester sans dépendance à la BDD la méthode `calculPerformanceCommercial` d'`EmployeService`
-- Tester de manière intégrée une cas nominal de la méthode précédente
-- Tester de manière intégrée la méthode d'`EmployeRepository` `avgPerformanceWhereMatriculeStartsWith`
-
-## Autres
-
-- S'assurer que votre code passe et qu'il n'y a aucun *code smells* ou *anomalies* ou *bugs* bloquants, critiques ou majeurs. Si c'est le cas, corriger le code fourni.
-- S'assurer d'avoir 100% de couverture de code sur les méthodes testés dans l'évaluation
-
-## Revue de code
-
-En fin de TP, créer une Pull Request de votre branche `evaluation` vers `master` et mettez-vous d'accord avec un collègue pour qu'il fasse la revue de code. Faites les éventuelles modifications puis affectez-moi la PR.
+==== BASE ====
+TODO 
+==== BASE ====

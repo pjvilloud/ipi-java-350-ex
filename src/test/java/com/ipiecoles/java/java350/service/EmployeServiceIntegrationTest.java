@@ -1,5 +1,6 @@
 package com.ipiecoles.java.java350.service;
 
+
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.model.Entreprise;
@@ -11,63 +12,54 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.AdditionalAnswers;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class EmployeServiceIntegrationTest {
-    @Autowired
-    EmployeRepository employeRepository;
+public class EmployeServiceIntegrationTest {
 
     @Autowired
-    private EmployeService employeService;
+    EmployeService employeService;
+
+    @Autowired
+    private EmployeRepository employeRepository;
 
     @BeforeEach
     @AfterEach
-    public void setup() {
+    public void setup(){
         employeRepository.deleteAll();
     }
 
     @Test
-    public void testEmbaucheCommercialPleinTempsLicenceAsFirstEmploye() {
-        String nom = "Rabbit";
-        String prenom = "Jessica";
-        Poste poste = Poste.COMMERCIAL;
-        NiveauEtude niveauEtude = NiveauEtude.LICENCE;
+    public void integrationEmbaucheEmploye() throws EmployeException {
+        //Given
+        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.TECHNICIEN;
+        NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;
 
         //When
-        try {
-            employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
-        } catch (EmployeException ex) {
-            Assertions.fail(ex.getMessage());
-        }
-
+        employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
 
         //Then
-        try {
-            Employe e = employeRepository.findByMatricule("C00001");
+        Employe employe = employeRepository.findByMatricule("T12346");
+        Assertions.assertNotNull(employe);
+        Assertions.assertEquals(nom, employe.getNom());
+        Assertions.assertEquals(prenom, employe.getPrenom());
+        Assertions.assertEquals(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), employe.getDateEmbauche().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        Assertions.assertEquals("T12346", employe.getMatricule());
+        Assertions.assertEquals(1.0, employe.getTempsPartiel().doubleValue());
 
-            Assertions.assertEquals("C00001", e.getMatricule());
-            Assertions.assertEquals(nom, e.getNom());
-            Assertions.assertEquals(prenom, e.getPrenom());
-            Assertions.assertEquals(LocalDate.now(), e.getDateEmbauche());
-            Assertions.assertEquals(Entreprise.PERFORMANCE_BASE, e.getPerformance());
-            Assertions.assertEquals(1825.46, (double) e.getSalaire());
-            Assertions.assertEquals(tempsPartiel, e.getTempsPartiel());
-        } catch (EntityNotFoundException ex) {
-            Assertions.fail(ex.getMessage());
-        }
-
+        //1521.22 * 1.2 * 1.0
+        Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
     }
+
 }

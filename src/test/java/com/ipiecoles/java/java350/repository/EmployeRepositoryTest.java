@@ -1,30 +1,59 @@
 package com.ipiecoles.java.java350.repository;
 
 import com.ipiecoles.java.java350.model.Employe;
-import com.ipiecoles.java.java350.repository.EmployeRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import com.ipiecoles.java.java350.model.Entreprise;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
 
-@SpringBootTest
+@DataJpaTest
 public class EmployeRepositoryTest {
+
     @Autowired
-    public EmployeRepository employeRepository;
+    private EmployeRepository employeRepository;
+
+    @BeforeEach
+    @AfterEach
+    public void setup(){
+        employeRepository.deleteAll();
+    }
 
     @Test
-    public void testFindLastMatricule() {
-        //Given I have at least an employe in my database
-        employeRepository.save(new Employe(
-                "Roger", "Rabbit", "C12345", LocalDate.now(), 1500.0, 1, 1.0
-        ));
+    public void testFindLastMatriculeEmpty(){
+        //Given
 
-        //When I search for the last matricule
-        String matricule = employeRepository.findLastMatricule();
+        //When
+        String lastMatricule = employeRepository.findLastMatricule();
 
-        //Then I retrieve the matricule for that employe
-        Assertions.assertEquals("12345", matricule);
+        //Then
+        Assertions.assertNull(lastMatricule);
+    }
+
+    @Test
+    public void testFindLastMatriculeSingle(){
+        //Given
+        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+
+        //When
+        String lastMatricule = employeRepository.findLastMatricule();
+
+        //Then
+        Assertions.assertEquals("12345", lastMatricule);
+    }
+
+    @Test
+    public void testFindLastMatriculeMultiple(){
+        //Given
+        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "Jane", "M40325", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "Jim", "C06432", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+
+        //When
+        String lastMatricule = employeRepository.findLastMatricule();
+
+        //Then
+        Assertions.assertEquals("40325", lastMatricule);
     }
 }
