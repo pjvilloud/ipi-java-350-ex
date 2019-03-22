@@ -1,5 +1,6 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -83,6 +84,66 @@ public class EmployeTest {
         //Then
         Assertions.assertEquals(primeAnnuelle, prime);
 
+    }
+
+    @Test
+    public void augmenterSalaireParZero() throws EmployeException {
+        //Given
+        Employe e = new Employe();
+        e.setSalaire(1000.0);
+
+        //When
+        e.augmenterSalaire(0.0);
+        Double salaireAugmente = e.getSalaire();
+        Double salaireTheorique = 1000.0;
+
+        //Then
+        Assertions.assertEquals(salaireTheorique, salaireAugmente);
+    }
+
+    @Test
+    public void augmenterSalairePar100() throws EmployeException {
+        //Given
+        Employe e = new Employe();
+        e.setSalaire(1000.0);
+
+        //When
+        e.augmenterSalaire(1.0);
+        Double salaireAugmente = e.getSalaire();
+        Double salaireTheorique = 2000.0;
+
+        //Then
+        Assertions.assertEquals(salaireTheorique, salaireAugmente);
+    }
+
+    @Test
+    public void augmenterSalairePar110() throws EmployeException {
+        //Given
+        Employe e = new Employe();
+
+        //When/Then
+        EmployeException ee = Assertions.assertThrows(EmployeException.class, () -> e.augmenterSalaire(1.1));
+        Assertions.assertEquals("Le pourcentage doit être un double compris entre 0 et 1 !", ee.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "2019, 'mardi', 365, 220, 104, 10, 30, 1.0, 221, 8",
+            "2021, 'vendredi', 365, 220, 104, 7, 30, 1.0, 224, 11",
+            "2022, 'samedi', 365, 220, 105, 7, 30, 1.0, 223, 10",
+            "2032, 'jeudi', 366, 220, 104, 7, 30, 1.0, 225, 12"
+    })
+    public void getNbRtt(int annee, String premierJourAnnee, Integer nombreJoursAnnee, Integer nombreJoursTravaille,
+                         Integer nombreSamDim, Integer nombreJoursFeriesPasWe, Integer nombreCongePayes, Double tauxActivite,
+                         Integer nombreJoursTravailleMax, Integer RTTcalcule) {
+        //Given
+        Employe employe = new Employe();
+
+        //When
+        Integer RTT = employe.getNbRtt(LocalDate.of(annee,1,1));
+
+        //Then
+        Assertions.assertEquals(RTTcalcule, RTT);
     }
 
 }
