@@ -1,2 +1,4 @@
 22-03-2019 14:47:38.432 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche d'un employé Benitez Diana MANAGER MASTER 0.5
 22-03-2019 15:16:03.965 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche d'un employé Benitez Diana MANAGER MASTER 0.5
+22-03-2019 16:11:15.319 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche d'un employé Doe John MANAGER MASTER 0.5
+22-03-2019 16:21:46.164 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche d'un employé Doe John MANAGER MASTER 0.5
