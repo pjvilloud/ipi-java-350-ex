@@ -2,7 +2,7 @@ language: java
 
 addons:
   sonarcloud:
-    organization: "sonarcloud_organization_key" # the key of the org you chose at step #3
+    organization: "germainpinganaud-github" # the key of the org you chose at step #3
     token:
       secure: 3e602045a7ecf58a1de9286b247c1ce0eaa2ef47 # encrypted value of your token
 script:
