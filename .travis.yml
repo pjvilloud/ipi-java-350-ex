@@ -4,6 +4,5 @@ addons:
   sonarcloud:
     organization: "azakenaton-github"
 
-
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.projectKey=azakenaton_ipi-java-350-ex
