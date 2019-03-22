@@ -6,6 +6,8 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class EmployeService {
 
     @Autowired
     private EmployeRepository employeRepository;
+
+    private static final Logger LOG = LoggerFactory.getLogger(EmployeService.class);
+    // ou private final logger LOG = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Méthode enregistrant un nouvel employé dans l'entreprise
@@ -32,6 +37,9 @@ public class EmployeService {
      */
     public Employe embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
 
+        //Log des paramètres de la méthode : INFO
+        LOG.info("Embauche d'un employé {} {} {} {} {}", nom, prenom, poste, niveauEtude, tempsPartiel);
+
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
 
@@ -42,6 +50,9 @@ public class EmployeService {
         }
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
+        if (numeroMatricule >= 80000){
+            //warning
+        }
         if(numeroMatricule >= 100000){
             throw new EmployeException("Limite des 100000 matricules atteinte !");
         }
