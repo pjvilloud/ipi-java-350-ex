@@ -1,0 +1,10 @@
+22-03-2019 14:51:00.015 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on andev-d with PID 8044 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
+22-03-2019 14:51:00.016 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+22-03-2019 14:51:02.563 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 2.703 seconds (JVM running for 3.895)
+22-03-2019 14:51:02.858 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new COMMERCIAL named Jessica Rabbit, with diploma : LICENCE, working at 1.0 of time.
+22-03-2019 14:51:02.889 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Rabbit', prenom='Jessica', matricule='C00001', dateEmbauche=2019-03-22, salaire=1825.46, performance=1, tempsPartiel=1.0}
+22-03-2019 14:51:03.058 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named Roger Rabbit, with diploma : BTS_IUT, working at 1.0 of time.
+22-03-2019 14:51:03.061 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Rabbit', prenom='Roger', matricule='T00001', dateEmbauche=2019-03-22, salaire=1825.46, performance=1, tempsPartiel=1.0}
+22-03-2019 14:51:03.084 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named Marcel Duchamp, with diploma : MASTER, working at 0.5 of time.
+22-03-2019 14:51:03.085 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Duchamp', prenom='Marcel', matricule='M00346', dateEmbauche=2019-03-22, salaire=1064.85, performance=1, tempsPartiel=0.5}
+22-03-2019 14:51:03.087 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new COMMERCIAL named Pauline Durand, with diploma : LICENCE, working at 1.0 of time.
