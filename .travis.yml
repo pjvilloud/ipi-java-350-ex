@@ -1,1 +1,8 @@
 language: java
+
+addons:
+  sonarcloud:
+    organization: "jordanbgt-github"
+
+script:
+  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.projectKey=JordanBgt_ipi-java-350-ex
