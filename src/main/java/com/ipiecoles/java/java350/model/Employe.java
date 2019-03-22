@@ -57,7 +57,6 @@ public class Employe {
         else {
             return LocalDate.now().getYear() - dateEmbauche.getYear();
         }
-
     }
 
     public Integer getNbConges() {
@@ -102,7 +101,7 @@ public class Employe {
             prime = Entreprise.primeAnnuelleBase() * Entreprise.INDICE_PRIME_MANAGER + primeAnciennete;
         }
         //Pour les autres employés en performance de base, uniquement la prime annuelle plus la prime d'ancienneté.
-        else if (this.performance == null || Entreprise.PERFORMANCE_BASE == this.performance){
+        else if (this.performance == null || Entreprise.PERFORMANCE_BASE.equals(this.performance)){
             prime = Entreprise.primeAnnuelleBase() + primeAnciennete;
         }
         //Pour les employés plus performance, on bonnifie la prime de base en multipliant par la performance de l'employé
