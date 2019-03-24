@@ -132,9 +132,12 @@ public class Employe {
     }
 
     //Augmenter salaire
-    public void augmenterSalaire(double pourcentage) throws EmployeException {
+    public void augmenterSalaire(Double pourcentage) throws EmployeException, NullPointerException {
+        //Le pourcentage maximal autorisé est de 1.0 (100%) afin de empêcher une augmentation trop importante
         if (pourcentage < 0.0 || pourcentage > 1.0) {
             throw new EmployeException("Le pourcentage doit être un double compris entre 0 et 1 !");
+        } else if (pourcentage == null) {
+            throw new NullPointerException("Le pourcentage ne peut pas être null !");
         }
         this.salaire = this.salaire * (1 + pourcentage);
     }

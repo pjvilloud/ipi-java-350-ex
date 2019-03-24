@@ -126,6 +126,25 @@ public class EmployeTest {
         Assertions.assertEquals("Le pourcentage doit être un double compris entre 0 et 1 !", ee.getMessage());
     }
 
+    @Test
+    public void augmenterSalaireParNegative() throws EmployeException {
+        //Given
+        Employe e = new Employe();
+
+        //When/Then
+        EmployeException ee = Assertions.assertThrows(EmployeException.class, () -> e.augmenterSalaire(-0.1));
+        Assertions.assertEquals("Le pourcentage doit être un double compris entre 0 et 1 !", ee.getMessage());
+    }
+
+    @Test
+    public void augmenterSalaireParNull() throws NullPointerException {
+        //Given
+        Employe e = new Employe();
+
+        //When/Then
+        NullPointerException npe = Assertions.assertThrows(NullPointerException.class, () -> e.augmenterSalaire(null));
+    }
+
     @ParameterizedTest
     @CsvSource({
             "2019, 'mardi', 365, 220, 104, 10, 30, 1.0, 221, 8",
