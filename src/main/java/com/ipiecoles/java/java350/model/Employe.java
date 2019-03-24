@@ -1,7 +1,5 @@
 package com.ipiecoles.java.java350.model;
 
-import com.ipiecoles.java.java350.exception.EmployeException;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -60,6 +58,10 @@ public class Employe {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
+    public Integer getNbRtt(){
+        return getNbRtt(LocalDate.now());
+    }
+
     /**
      * Nombre de jours de RTT =
      *   Nombre de jours dans l'année
@@ -74,11 +76,7 @@ public class Employe {
      *
      * @throws NullPointerException si l'année est inférieure à 2016
      */
-    public Integer getNbRtt(){
-        return getNbRtt(LocalDate.now());
-    }
-
-    public Integer getNbRtt(LocalDate date) throws NullPointerException {
+    public Integer getNbRtt(LocalDate date) {
         if (date.getYear() < 2016) {
             throw new NullPointerException("L'année doit être égale ou supérieure à 2016 !");
         }
