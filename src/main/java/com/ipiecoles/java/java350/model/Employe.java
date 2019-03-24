@@ -78,7 +78,7 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate date) throws IllegalArgumentException {
+    public Integer getNbRtt(LocalDate date) {
         if (date.getYear() < 2016 || date.getYear() > 2040) {
             throw new IllegalArgumentException("L'année doit être compris entre 2016 et 2040 !");
         }
