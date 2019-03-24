@@ -152,7 +152,8 @@ public class EmployeTest {
             "2022, 10",
             "2032, 12",
             "2023, 8",
-            "2028, 8"
+            "2028, 8",
+            "2016, 10"
     })
     public void getNbRtt(int annee, Integer RTTcalcule) {
         //Given
@@ -166,12 +167,12 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNbRttAnneeAvantEnCours() throws NullPointerException {
+    public void getNbRttAnneeAvant2016() throws NullPointerException {
         //Given
         Employe e = new Employe();
 
         //When/Then
-        NullPointerException npe = Assertions.assertThrows(NullPointerException.class, () -> e.getNbRtt(LocalDate.of(2018,1,1)));
+        NullPointerException npe = Assertions.assertThrows(NullPointerException.class, () -> e.getNbRtt(LocalDate.of(2015,1,1)));
     }
 
 }

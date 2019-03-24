@@ -71,14 +71,16 @@ public class Employe {
      * Au prorata de son pourcentage d'activité (arrondi au supérieur)
      *
      * @return le nombre de jours de RTT
+     *
+     * @throws NullPointerException si l'année est inférieure à 2016
      */
     public Integer getNbRtt(){
         return getNbRtt(LocalDate.now());
     }
 
     public Integer getNbRtt(LocalDate date) throws NullPointerException {
-        if (date.getYear() < LocalDate.now().getYear()) {
-            throw new NullPointerException("L'année doit être égale ou supérieure à l'année en cours !");
+        if (date.getYear() < 2016) {
+            throw new NullPointerException("L'année doit être égale ou supérieure à 2016 !");
         }
         int nombreJoursAnnee = date.isLeapYear() ? 366 : 365;
         int nombreSamDim = 104;
