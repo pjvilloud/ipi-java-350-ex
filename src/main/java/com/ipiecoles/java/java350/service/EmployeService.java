@@ -115,20 +115,21 @@ public class EmployeService {
         }
 
         Integer performance = Entreprise.PERFORMANCE_BASE;
+        if (objectifCa == 0) {}
         //Cas 2
-        if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95 && objectifCa != 0){
+        else if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
             performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
         }
         //Cas 3
-        else if(caTraite >= objectifCa*0.95 && caTraite <= objectifCa*1.05 && objectifCa != 0){
+        else if(caTraite >= objectifCa*0.95 && caTraite <= objectifCa*1.05){
             performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance());
         }
         //Cas 4
-        else if(caTraite <= objectifCa*1.2 && caTraite > objectifCa*1.05 && objectifCa != 0){
+        else if(caTraite <= objectifCa*1.2 && caTraite > objectifCa*1.05){
             performance = employe.getPerformance() + 1;
         }
         //Cas 5
-        else if(caTraite > objectifCa*1.2 && objectifCa != 0){
+        else if(caTraite > objectifCa*1.2){
             performance = employe.getPerformance() + 4;
         }
         //Si autre cas, on reste à la performance de base.
