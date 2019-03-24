@@ -76,7 +76,10 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate date){
+    public Integer getNbRtt(LocalDate date) throws NullPointerException {
+        if (date.getYear() < LocalDate.now().getYear()) {
+            throw new NullPointerException("L'année doit être égale ou supérieure à l'année en cours !");
+        }
         int nombreJoursAnnee = date.isLeapYear() ? 366 : 365;
         int nombreSamDim = 104;
         switch (LocalDate.of(date.getYear(),1,1).getDayOfWeek()){
@@ -93,8 +96,11 @@ public class Employe {
             default:
                 break;
         }
-        int nombreJoursFeriesPasWe = (int) Entreprise.joursFeries(date).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((nombreJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nombreSamDim - Entreprise.NB_CONGES_BASE - nombreJoursFeriesPasWe) * tempsPartiel);
+        //Calculer le nombre des jours fériers hors samedi et dimanche
+        int nombreJoursFeriesPasWe = (int) Entreprise.joursFeries(date).stream().filter(localDate
+                -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        return (int) Math.ceil((nombreJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT
+                - nombreSamDim - Entreprise.NB_CONGES_BASE - nombreJoursFeriesPasWe) * tempsPartiel);
     }
 
     /**

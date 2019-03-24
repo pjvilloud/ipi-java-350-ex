@@ -147,14 +147,14 @@ public class EmployeTest {
 
     @ParameterizedTest
     @CsvSource({
-            "2019, 'mardi', 365, 220, 104, 10, 30, 1.0, 221, 8",
-            "2021, 'vendredi', 365, 220, 104, 7, 30, 1.0, 224, 11",
-            "2022, 'samedi', 365, 220, 105, 7, 30, 1.0, 223, 10",
-            "2032, 'jeudi', 366, 220, 104, 7, 30, 1.0, 225, 12"
+            "2019, 8",
+            "2021, 11",
+            "2022, 10",
+            "2032, 12",
+            "2023, 8",
+            "2028, 8"
     })
-    public void getNbRtt(int annee, String premierJourAnnee, Integer nombreJoursAnnee, Integer nombreJoursTravaille,
-                         Integer nombreSamDim, Integer nombreJoursFeriesPasWe, Integer nombreCongePayes, Double tauxActivite,
-                         Integer nombreJoursTravailleMax, Integer RTTcalcule) {
+    public void getNbRtt(int annee, Integer RTTcalcule) {
         //Given
         Employe employe = new Employe();
 
@@ -163,6 +163,15 @@ public class EmployeTest {
 
         //Then
         Assertions.assertEquals(RTTcalcule, RTT);
+    }
+
+    @Test
+    public void getNbRttAnneeAvantEnCours() throws NullPointerException {
+        //Given
+        Employe e = new Employe();
+
+        //When/Then
+        NullPointerException npe = Assertions.assertThrows(NullPointerException.class, () -> e.getNbRtt(LocalDate.of(2018,1,1)));
     }
 
 }
