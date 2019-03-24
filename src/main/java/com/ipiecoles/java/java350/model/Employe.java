@@ -139,12 +139,19 @@ public class Employe {
         return Math.round(prime * this.tempsPartiel * 100)/100.0;
     }
 
-    //Augmenter salaire
-    public void augmenterSalaire(Double pourcentage) {
-        //Le pourcentage maximal autorisé est de 1.0 (100%) afin d'empêcher une augmentation trop importante
+    /**
+     * Méthode qui augmente le salaire par un certain pourcentage. Le pourcentage autorisé est un double
+     * entre 0.0 et 1.0. Le pourcentage maximal autorisé est de 1.0 (100%) afin d'empêcher une augmentation
+     * trop importante.
+     * Pour rappel: un double ne peut pas être "null".
+     *
+     * @param pourcentage
+     * @throws IllegalArgumentException
+     */
+    public void augmenterSalaire(double pourcentage) throws IllegalArgumentException {
         if (pourcentage < 0.0 || pourcentage > 1.0) {
             throw new IllegalArgumentException("Le pourcentage doit être un double compris entre 0 et 1 !");
-        } else assert (pourcentage != null);
+        }
         this.salaire = this.salaire * (1 + pourcentage);
     }
 

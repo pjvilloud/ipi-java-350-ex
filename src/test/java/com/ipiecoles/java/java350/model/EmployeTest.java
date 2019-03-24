@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 
@@ -87,7 +89,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void augmenterSalaireParZero() throws EmployeException {
+    public void augmenterSalaireParZero() {
         //Given
         Employe e = new Employe();
         e.setSalaire(1000.0);
@@ -132,17 +134,8 @@ public class EmployeTest {
         Employe e = new Employe();
 
         //When/Then
-        IllegalArgumentException ee = Assertions.assertThrows(IllegalArgumentException.class, () -> e.augmenterSalaire(-0.1));
-        Assertions.assertEquals("Le pourcentage doit être un double compris entre 0 et 1 !", ee.getMessage());
-    }
-
-    @Test
-    public void augmenterSalairePourcentageNull() {
-        //Given
-        Employe e = new Employe();
-
-        //When/Then
-        NullPointerException npe = Assertions.assertThrows(NullPointerException.class, () -> e.augmenterSalaire(null));
+        IllegalArgumentException iae = Assertions.assertThrows(IllegalArgumentException.class, () -> e.augmenterSalaire(-0.1));
+        Assertions.assertEquals("Le pourcentage doit être un double compris entre 0 et 1 !", iae.getMessage());
     }
 
 
