@@ -69,18 +69,18 @@ public class Employe {
      * – nombre de jours fériés tombant un jour ouvré
      *
      * Au prorata de son pourcentage d'activité (arrondi au supérieur)
+     * Les dates des jours fériés (notemmant Pâques) sont disponibles pour les années entre 2016 et 2040.
      *
      * @return le nombre de jours de RTT
-     *
-     * @throws NullPointerException si l'année est inférieure à 2016
+     * @throws IllegalArgumentException si l'année est avant 2016 ou après 2040
      */
     public Integer getNbRtt(){
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate date) {
-        if (date.getYear() < 2016) {
-            throw new NullPointerException("L'année doit être égale ou supérieure à 2016 !");
+    public Integer getNbRtt(LocalDate date) throws IllegalArgumentException {
+        if (date.getYear() < 2016 || date.getYear() > 2040) {
+            throw new IllegalArgumentException("L'année doit être compris entre 2016 et 2040 !");
         }
         int nombreJoursAnnee = date.isLeapYear() ? 366 : 365;
         int nombreSamDim = 104;

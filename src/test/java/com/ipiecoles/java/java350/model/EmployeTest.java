@@ -178,12 +178,25 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNbRttAnneeAvant2016() throws NullPointerException {
+    public void getNbRttAnneeAvant2016() throws IllegalArgumentException {
         //Given
         Employe e = new Employe();
 
         //When/Then
-        NullPointerException npe = Assertions.assertThrows(NullPointerException.class, () -> e.getNbRtt(LocalDate.of(2015,1,1)));
+        IllegalArgumentException iae = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> e.getNbRtt(LocalDate.of(2015,1,1)));
+        Assertions.assertEquals("L'année doit être compris entre 2016 et 2040 !", iae.getMessage());
+    }
+
+    @Test
+    public void getNbRttAnneeApres2040() throws IllegalArgumentException {
+        //Given
+        Employe e = new Employe();
+
+        //When/Then
+        IllegalArgumentException iae = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> e.getNbRtt(LocalDate.of(2041,1,1)));
+        Assertions.assertEquals("L'année doit être compris entre 2016 et 2040 !", iae.getMessage());
     }
 
 }
