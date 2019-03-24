@@ -141,24 +141,30 @@ public class EmployeTest {
 
     @ParameterizedTest
     @CsvSource({
-            "2019, 8",
-            "2021, 11",
-            "2022, 10",
-            "2032, 12",
-            "2023, 8",
-            "2028, 8",
-            "2016, 10"
+            "2019, 8, 4",
+            "2021, 11, 6",
+            "2022, 10, 5",
+            "2032, 12, 6",
+            "2023, 8, 4",
+            "2028, 8, 4",
+            "2016, 10, 5"
     })
-    public void getNbRtt(int annee, Integer RTTcalcule) {
+    public void getNbRtt(int annee, Integer RTTcalculeTempsComplet, Integer RTTcalculeTempsPartiel) {
         //Given
-        Employe employe = new Employe();
+        Employe employeTempsComplet = new Employe("Doe", "John", "C12345",
+                LocalDate.now().minusYears(2), Entreprise.SALAIRE_BASE, 5, 1.0);
+        Employe employeTempsPartiel = new Employe("Doe", "John", "C12346",
+                LocalDate.now().minusYears(2), Entreprise.SALAIRE_BASE, 5, 0.5);
 
         //When
-        Integer RTT = employe.getNbRtt(LocalDate.of(annee,1,1));
+        Integer RTTTempsComplet = employeTempsComplet.getNbRtt(LocalDate.of(annee,1,1));
+        Integer RTTTempsPartiel = employeTempsPartiel.getNbRtt(LocalDate.of(annee,1,1));
 
         //Then
-        Assertions.assertEquals(RTTcalcule, RTT);
+        Assertions.assertEquals(RTTcalculeTempsComplet, RTTTempsComplet);
+        Assertions.assertEquals(RTTcalculeTempsPartiel, RTTTempsPartiel);
     }
+
 
     @Test
     public void getNbRttAnneeAvant2016() throws NullPointerException {
