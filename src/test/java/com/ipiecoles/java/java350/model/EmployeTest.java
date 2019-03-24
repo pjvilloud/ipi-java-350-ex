@@ -165,6 +165,17 @@ public class EmployeTest {
         Assertions.assertEquals(RTTcalculeTempsPartiel, RTTTempsPartiel);
     }
 
+    @Test
+    public void getNbRtt() {
+        //Given
+        Employe employe = new Employe();
+
+        //When
+        Integer RTT = employe.getNbRtt();
+
+        //Then
+        Assertions.assertEquals(8, RTT.intValue());
+    }
 
     @Test
     public void getNbRttAnneeAvant2016() throws NullPointerException {

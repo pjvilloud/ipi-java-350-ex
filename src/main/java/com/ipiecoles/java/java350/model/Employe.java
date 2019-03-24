@@ -58,9 +58,7 @@ public class Employe {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
-    public Integer getNbRtt(){
-        return getNbRtt(LocalDate.now());
-    }
+
 
     /**
      * Nombre de jours de RTT =
@@ -76,6 +74,10 @@ public class Employe {
      *
      * @throws NullPointerException si l'année est inférieure à 2016
      */
+    public Integer getNbRtt(){
+        return getNbRtt(LocalDate.now());
+    }
+
     public Integer getNbRtt(LocalDate date) {
         if (date.getYear() < 2016) {
             throw new NullPointerException("L'année doit être égale ou supérieure à 2016 !");
