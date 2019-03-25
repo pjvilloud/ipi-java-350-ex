@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -108,12 +110,24 @@ public class Employe {
         //Au pro rata du temps partiel.
         return prime * this.tempsPartiel;
     }
+    /** Augmenter le salaire du salarié à partir d'un double :
+     * @param pourcentage le pourcentage d'augmentation (double)
+     *  - si pourcentage = 0.5, alors le salaire augmente de 50%
+     *  - si pourcentage = 2.0, alors le salaire augmente de 200 %
+     *  On ne peut pas diminuer un salaire et on ne peut pas augmenter le salaire de 0%
+     */
+    public void augmenterSalaire(double pourcentage) throws EmployeException {
+        if(pourcentage < 0) {
+            throw new EmployeException("Le pourcentage donné : " + pourcentage + " ne peut être inférieur à 0, il est illégal de diminuer un salaire.");
+        }
+        if(pourcentage == 0) {
+            throw new EmployeException("Le pourcentage d'augmentation est égal à 0 : aucune augmentation de salaire n'est effective");
+        }
+        if (this.salaire == null) {
+            throw new EmployeException("Le salaire de l'employe n'est pas initialisé, il doit être renseigné avant d'être augmenté");
+        }
 
-    //Augmenter salaire : partir du principe que si 0.5 on augmente de 50%
-    public void augmenterSalaire(double pourcentage){
-        // TODO voir tests pour les erreurs à mettre en place
-
-
+        this.setSalaire(this.salaire * (1 + pourcentage));
     }
 
     public Long getId() {

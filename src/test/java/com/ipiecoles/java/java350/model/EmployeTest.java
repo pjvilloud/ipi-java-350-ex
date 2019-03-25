@@ -1,5 +1,6 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test; // pour JUnit5 (pas le même pour le 4)
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,11 +16,17 @@ public class EmployeTest {
             // Given
         Employe e = new Employe();
         e.setSalaire(Entreprise.SALAIRE_BASE);
-            // When
-        e.augmenterSalaire(-0.5);
+        double pourcentage = -0.5;
 
+        try {
+            // When
+            e.augmenterSalaire(pourcentage);
+            Assertions.fail("Devrait lancer une exception : pourcentage négatif");
+        }
+        catch (EmployeException employeException) {
             // Then
-        // TODO remonter une erreur sur la méthode si le pourcentage est <=0
+            Assertions.assertEquals("Le pourcentage donné : " + pourcentage + " ne peut être inférieur à 0, il est illégal de diminuer un salaire.", employeException.getMessage());
+        }
     }
 
     @Test
@@ -27,12 +34,16 @@ public class EmployeTest {
         // Given
         Employe e = new Employe();
         e.setSalaire(Entreprise.SALAIRE_BASE);
-        // When
-        e.augmenterSalaire(0);
+        double pourcentage = 0.0;
 
-        // Then
-        // TODO remonter une erreur sur la méthode si le pourcentage est <=0
-
+        try {
+            // When
+            e.augmenterSalaire(pourcentage);
+            Assertions.fail("Devrait lancer une exception : pourcentage = 0" );
+        } catch (EmployeException employeException) {
+            // Then
+            Assertions.assertEquals("Le pourcentage d'augmentation est égal à 0 : aucune augmentation de salaire n'est effective", employeException.getMessage());
+        }
     }
 
     @Test
@@ -40,16 +51,20 @@ public class EmployeTest {
         // Given
         Employe e = new Employe();
         e.setSalaire(null);
-        // When
-        e.augmenterSalaire(0.5);
-        // Then
 
-        // TODO ajouter une erreur si le salaire est null
+        try {
+            // When
+            e.augmenterSalaire(0.5);
+            Assertions.fail("Devrait lancer une exception : Salaire null");
+        } catch (EmployeException employeException) {
+            // Then
+            Assertions.assertEquals("Le salaire de l'employe n'est pas initialisé, il doit être renseigné avant d'être augmenté", employeException.getMessage());
+        }
     }
 
 
     @Test
-    public void testAugmenterSalaire50Pourcent() {
+    public void testAugmenterSalaire50Pourcent() throws EmployeException {
         // Given : cas nominal
         Employe e = new Employe();
         e.setSalaire(Entreprise.SALAIRE_BASE);
@@ -57,26 +72,18 @@ public class EmployeTest {
         e.augmenterSalaire(0.5);
         // Then
         Assertions.assertEquals(2281.83, (double)e.getSalaire());
-
     }
 
     @Test
-    public void testAugmenterSalaireLeveBienException() {
+    public void testAugmenterSalaire200Pourcent() throws EmployeException {
         // Given
         Employe e = new Employe();
         e.setSalaire(Entreprise.SALAIRE_BASE);
         // When
-        try {
-            e.augmenterSalaire(0.2);
-            Assertions.fail("Devrait lancer une exception");
-        }
-        catch (TypeException typeException) {
-            // Then
-            Assertions.assertEquals("Le message de l'exception", typeException.getMessage());
-        }
+        e.augmenterSalaire(2.0);
+        // Then
+        Assertions.assertEquals(4563.66, (double)e.getSalaire());
     }
-
-
 
     @Test
     public void testNombreAnneesAncienneteDateEmbaucheNull() {
