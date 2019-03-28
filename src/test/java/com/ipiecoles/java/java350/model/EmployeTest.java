@@ -124,4 +124,24 @@ public class EmployeTest {
         Assertions.assertEquals("Impossible de diminuer le salaire d'un employé.", exception.getMessage());
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "2019, 1.0, 8",
+            "2021, 0.8, 8",
+            "2022, 1.0, 10",
+            "2032, 1.0, 11"
+    })
+    public void testGetNbRtt( int year, double tempsPartiel, int expectedRtt) {
+        //Given
+        LocalDate date = LocalDate.of(year, 1,1);
+        Employe employe = new Employe();
+        employe.setTempsPartiel(tempsPartiel);
+
+        //When
+        int nbJoursRtt = employe.getNbRtt(date);
+
+        //Then
+        Assertions.assertEquals(expectedRtt, nbJoursRtt);
+    }
+
 }
