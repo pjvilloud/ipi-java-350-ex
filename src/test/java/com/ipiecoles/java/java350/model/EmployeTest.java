@@ -135,7 +135,24 @@ public class EmployeTest {
         Assertions.assertEquals(0, (int)nbAnneeAnciennete);
     }
 
+    @ParameterizedTest(name = "pour l'année {1} : nombre de jours de RTT {2}, à temps de travail : {3}")
+    @CsvSource( {
+            "2019, 8, 1.0",
+            "2021, 11, 1.0",
+            "2022, 10, 1.0",
+            "2032, 12, 1.0"
+    })
 
+    void testgetNbRtt(int date, int nbRttAttendus, Double tempsPartiel) {
+        // Given
+        Employe employe = new Employe();
+        employe.setTempsPartiel(tempsPartiel);
+        LocalDate annee = LocalDate.of(date,1,1);
+        // When
+        int nbJoursRtt = employe.getNbRtt(annee);
+        // Then
+        Assertions.assertEquals(nbRttAttendus, nbJoursRtt);
+    }
 
  //   Créer une méthode de test paramétré permettant de tester le plus exhaustivement possible la méthode getPrimeAnnuelle et corriger les éventuels problèmes de cette méthode.
 
@@ -168,9 +185,3 @@ public class EmployeTest {
     // en fait quand on revoit le prof.
 
 }
-
-// création d'une nouvelle branche : ok, nommée : stlbranch
-// switch sur la branche ok
-// Sign in Travis CI avec GitHub : ok
-// activation de Travis CI sur le repo : ok
-// configuration Travis : ok et premier build : ok
