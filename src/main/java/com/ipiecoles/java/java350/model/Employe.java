@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.EnumSet;
 import java.util.Objects;
 
 @Entity
@@ -75,16 +74,30 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate d){
-        int nbJourAnnee = d.isLeapYear() ? 366 : 365;
-        int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1; break;
-            case SATURDAY: var = var + 1; break;
+    public Integer getNbRtt(LocalDate date){
+        int nbJourAnnee = date.isLeapYear() ? 366 : 365;
+        int nbWeekEnds = 104;
+        switch (LocalDate.of(date.getYear(),1,1).getDayOfWeek()){
+            case THURSDAY:
+                if(date.isLeapYear()) nbWeekEnds += 1;
+                break;
+            case FRIDAY:
+                if(date.isLeapYear()) nbWeekEnds += 2;
+                else nbWeekEnds += 1;
+                break;
+            case SATURDAY:
+                nbWeekEnds += 1;
+                break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((nbJourAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        int jourFeriesHorsWeekEnds = (int) Entreprise
+                .joursFeries(date)
+                .stream()
+                .filter(
+                    localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()
+                )
+                .count();
+
+        return (int) Math.ceil((nbJourAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbWeekEnds - Entreprise.NB_CONGES_BASE - jourFeriesHorsWeekEnds) * tempsPartiel);
     }
 
     /**

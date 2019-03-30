@@ -1,122 +1,17 @@
-28-03-2019 07:33:48.032 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on andev-d with PID 7221 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:33:48.152 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:33:50.825 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 3.049 seconds (JVM running for 5.382)
-28-03-2019 07:33:51.189 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarting - Starting EmployeServiceIntegrationTest on andev-d with PID 7221 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:33:51.190 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:33:51.876 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarted - Started EmployeServiceIntegrationTest in 0.708 seconds (JVM running for 6.433)
-28-03-2019 07:33:51.898 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:33:51.955 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T12346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:33:52.143 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:33:52.147 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00346', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:33:52.159 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:33:52.159 [main] ERROR c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !
-28-03-2019 07:33:52.253 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:33:52.254 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00001', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:33:52.257 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:33:52.258 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T00346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:33:52.263 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:45:51.114 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on andev-d with PID 9377 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:45:51.117 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:45:53.524 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 2.55 seconds (JVM running for 3.871)
-28-03-2019 07:45:53.900 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarting - Starting EmployeServiceIntegrationTest on andev-d with PID 9377 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:45:53.902 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:45:54.510 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarted - Started EmployeServiceIntegrationTest in 0.634 seconds (JVM running for 4.857)
-28-03-2019 07:45:54.534 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:45:54.587 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T12346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:45:54.803 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:45:54.807 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00346', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:45:54.825 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:45:54.826 [main] ERROR c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !
-28-03-2019 07:45:54.830 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:45:54.830 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00001', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:45:54.834 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:45:54.835 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T00346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:45:54.840 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:51:00.723 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on andev-d with PID 9733 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:51:00.727 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:51:03.144 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 2.563 seconds (JVM running for 3.902)
-28-03-2019 07:51:03.581 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarting - Starting EmployeServiceIntegrationTest on andev-d with PID 9733 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:51:03.582 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:51:04.167 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarted - Started EmployeServiceIntegrationTest in 0.614 seconds (JVM running for 4.924)
-28-03-2019 07:51:04.195 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:51:04.263 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T12346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:51:04.447 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:51:04.450 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00346', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:51:04.462 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:51:04.462 [main] ERROR c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !
-28-03-2019 07:51:04.465 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:51:04.466 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00001', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:51:04.468 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:51:04.469 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T00346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:51:04.472 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:51:14.967 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on andev-d with PID 9800 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:51:14.972 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:51:17.451 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 2.639 seconds (JVM running for 3.999)
-28-03-2019 07:51:17.794 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarting - Starting EmployeServiceIntegrationTest on andev-d with PID 9800 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:51:17.795 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:51:18.452 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarted - Started EmployeServiceIntegrationTest in 0.679 seconds (JVM running for 5.0)
-28-03-2019 07:51:18.474 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:51:18.522 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T12346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:51:18.709 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:51:18.712 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00346', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:51:18.723 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:51:18.724 [main] ERROR c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !
-28-03-2019 07:51:18.727 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:51:18.728 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00001', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:51:18.731 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:51:18.732 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T00346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:51:18.735 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:52:17.750 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on andev-d with PID 9896 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:52:17.754 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:52:20.177 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 2.59 seconds (JVM running for 3.825)
-28-03-2019 07:52:20.537 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarting - Starting EmployeServiceIntegrationTest on andev-d with PID 9896 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:52:20.538 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:52:21.084 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarted - Started EmployeServiceIntegrationTest in 0.569 seconds (JVM running for 4.732)
-28-03-2019 07:52:21.105 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:52:21.157 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T12346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:52:21.335 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:52:21.338 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00346', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:52:21.350 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:52:21.350 [main] ERROR c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !
-28-03-2019 07:52:21.353 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:52:21.353 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00001', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:52:21.356 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:52:21.357 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T00346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:52:21.360 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:53:12.079 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on andev-d with PID 9974 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:53:12.081 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:53:14.547 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 2.62 seconds (JVM running for 3.892)
-28-03-2019 07:53:14.896 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarting - Starting EmployeServiceIntegrationTest on andev-d with PID 9974 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:53:14.897 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:53:15.543 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarted - Started EmployeServiceIntegrationTest in 0.663 seconds (JVM running for 4.888)
-28-03-2019 07:53:15.564 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:53:15.612 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T12346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:53:15.794 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:53:15.797 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00346', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:53:15.810 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:53:15.811 [main] ERROR c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !
-28-03-2019 07:53:15.814 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:53:15.814 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00001', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:53:15.817 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:53:15.817 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T00346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:53:15.820 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:54:13.484 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on andev-d with PID 10060 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:54:13.487 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:54:16.440 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 3.137 seconds (JVM running for 5.186)
-28-03-2019 07:58:12.078 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on andev-d with PID 10174 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:58:12.081 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:58:14.369 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 2.436 seconds (JVM running for 3.751)
-28-03-2019 07:58:14.717 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarting - Starting EmployeServiceIntegrationTest on andev-d with PID 10174 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
-28-03-2019 07:58:14.718 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
-28-03-2019 07:58:15.233 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarted - Started EmployeServiceIntegrationTest in 0.538 seconds (JVM running for 4.614)
-28-03-2019 07:58:15.253 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:58:15.305 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T12346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:58:15.448 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:58:15.451 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00346', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:58:15.464 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:58:15.465 [main] ERROR c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !
-28-03-2019 07:58:15.468 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
-28-03-2019 07:58:15.468 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00001', dateEmbauche=2019-03-28, salaire=1064.85, performance=1, tempsPartiel=0.5}
-28-03-2019 07:58:15.472 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
-28-03-2019 07:58:15.472 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T00346', dateEmbauche=2019-03-28, salaire=1825.46, performance=1, tempsPartiel=1.0}
-28-03-2019 07:58:15.476 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
+30-03-2019 15:12:50.643 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarting - Starting EmployeRepositoryTest on andev-d with PID 11016 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
+30-03-2019 15:12:50.647 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+30-03-2019 15:12:53.361 [main] INFO  c.i.j.j.r.EmployeRepositoryTest.logStarted - Started EmployeRepositoryTest in 2.872 seconds (JVM running for 4.659)
+30-03-2019 15:12:53.748 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarting - Starting EmployeServiceIntegrationTest on andev-d with PID 11016 (started by sylvain in /home/sylvain/development/ipi/qualite/ipi-java-350-ex)
+30-03-2019 15:12:53.750 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStartupProfileInfo - No active profile set, falling back to default profiles: default
+30-03-2019 15:12:54.474 [main] INFO  c.i.j.j.s.EmployeServiceIntegrationTest.logStarted - Started EmployeServiceIntegrationTest in 0.75 seconds (JVM running for 5.771)
+30-03-2019 15:12:54.496 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
+30-03-2019 15:12:54.562 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T12346', dateEmbauche=2019-03-30, salaire=1825.46, performance=1, tempsPartiel=1.0}
+30-03-2019 15:12:54.742 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
+30-03-2019 15:12:54.745 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00346', dateEmbauche=2019-03-30, salaire=1064.85, performance=1, tempsPartiel=0.5}
+30-03-2019 15:12:54.758 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
+30-03-2019 15:12:54.759 [main] ERROR c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !
+30-03-2019 15:12:54.858 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
+30-03-2019 15:12:54.859 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00001', dateEmbauche=2019-03-30, salaire=1064.85, performance=1, tempsPartiel=0.5}
+30-03-2019 15:12:54.862 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new TECHNICIEN named John Doe, with diploma : BTS_IUT, working at 1.0 of time.
+30-03-2019 15:12:54.863 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Saving employe : Employe{id=null, nom='Doe', prenom='John', matricule='T00346', dateEmbauche=2019-03-30, salaire=1825.46, performance=1, tempsPartiel=1.0}
+30-03-2019 15:12:54.867 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Trying to hire new MANAGER named John Doe, with diploma : MASTER, working at 0.5 of time.
