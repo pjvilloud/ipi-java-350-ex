@@ -167,4 +167,20 @@ public class EmployeTest {
         //then
         Assertions.assertEquals(1000.0, e.getSalaire().doubleValue());
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            "2019-08-06, 8",
+            "2021-08-06, 11",
+            "2022-08-06, 10",
+            "2032-08-06, 12",
+    })
+    void testGetNbRtt (LocalDate d, Integer nbRtt){
+        //Given
+        Employe employe = new Employe();
+        //When
+        Integer RTT =  employe.getNbRtt(d);
+        //Then
+        Assertions.assertEquals(nbRtt, RTT);
+    }
 }

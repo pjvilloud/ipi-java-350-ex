@@ -71,21 +71,18 @@ public class Employe {
      * Au prorata de son pourcentage d'activité (arrondi au supérieur)
      *
      * @return le nombre de jours de RTT
+     * @param d
      */
-    public Integer getNbRtt(){
-        return getNbRtt(LocalDate.now());
-    }
-
-    public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
+        public Integer getNbRtt(LocalDate d){
+        int joursDansLannee = d.isLeapYear() ? 366 : 365;
+        int joursDeWeekEnd = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+            case THURSDAY: if(d.isLeapYear()) joursDeWeekEnd += 0; break;
+            case FRIDAY: if(d.isLeapYear()) joursDeWeekEnd += 2; else joursDeWeekEnd +=0 ; break;
+            case SATURDAY: joursDeWeekEnd +=1 ; break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        return (int) Math.ceil((joursDansLannee - Entreprise.NB_JOURS_MAX_FORFAIT - joursDeWeekEnd - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
     }
 
     /**
@@ -125,7 +122,7 @@ public class Employe {
     //Augmenter salaire
     public void augmenterSalaire(double pourcentage) throws EmployeException {
 
-        if(pourcentage <= 0){
+        if(pourcentage <= 0.0){
             throw new EmployeException("L'augmentation ne peut pas être négative ou nulle");
         } else if(pourcentage > 0.33){
             throw new EmployeException("L'augmentation ne doit pas dépasser 33% du salaire actuel");
