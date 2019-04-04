@@ -140,7 +140,9 @@ public class EmployeTest {
             "2019, 8, 1.0",
             "2021, 11, 1.0",
             "2022, 10, 1.0",
-            "2032, 12, 1.0"
+            "2032, 12, 1.0",
+            "2021, 6, 0.5",
+            "2032, 6, 0.5"
     })
 
     void testgetNbRtt(int date, int nbRttAttendus, Double tempsPartiel) {

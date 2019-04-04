@@ -61,9 +61,9 @@ public class Employe {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
-    //public Integer getNbRtt(){
-     //   return getNbRtt(LocalDate.now());
-    //}
+    public Integer getNbRtt(){
+        return getNbRtt(LocalDate.now());
+    }
 
     /**
      * Calcul du nombre de jours de RTT dans l'année entrée en paramètre selon la formule :
