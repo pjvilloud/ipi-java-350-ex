@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -83,6 +85,7 @@ public class Employe {
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case SATURDAY:if(d.isLeapYear()) var = var + 2; else var = var + 1 ; break;
             case SUNDAY:if(d.isLeapYear()) var = var + 1; break;
+            default: break;
         }
         // Récupere les jours Feries de l'année en cours
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
@@ -127,17 +130,15 @@ public class Employe {
 
     //Augmenter salaire
     public void augmenterSalaire(double pourcentage){
-        Double augmenteSalaire;
-        String test = "Bonjour";
-        if(this.salaire != null) {
-            augmenteSalaire = this.salaire +(this.salaire * pourcentage);
-            if (augmenteSalaire > this.salaire) {
-                test = "Mon salaire augment";
-            } else {
-                test = "mon salaire reste le même ou il a baisser";
+
+        if(pourcentage > 0 ) {
+            try {
+                this.salaire = this.salaire + (this.salaire * pourcentage);
+            } catch (NullPointerException e){
+                e.getMessage();
             }
         }
-        test = "le salaire me retourne null";
+
     }
 
     public Long getId() {
