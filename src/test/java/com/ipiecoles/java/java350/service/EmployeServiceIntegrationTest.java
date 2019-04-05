@@ -89,9 +89,9 @@ public class EmployeServiceIntegrationTest {
 
     @Test
     public void avgPerformanceWhereMatriculeStartsWithManager(){
-        employeRepository.save(new Employe("Doe", "John", "T48522", LocalDate.now(), Entreprise.SALAIRE_BASE,1,1.0));
+        employeRepository.save(new Employe("Doe", "John", "M48522", LocalDate.now(), Entreprise.SALAIRE_BASE,1,1.0));
         double avgPerformance =  employeRepository.avgPerformanceWhereMatriculeStartsWith("M");
         Assertions.assertEquals(1, avgPerformance);
     }
-    
+
 }
