@@ -75,14 +75,19 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
+        //  Si c'est une année normal retourne 365 sinon retourne 366 car c'est une année bisextile
+        int i1 = d.isLeapYear() ? 366 : 365;
+        // Nombre de samedi et dimanche dans l'année
         int var = 104;
+        // Regarde par le premier jour de l'année et en fonction du jour, on rajoute des jours dans le var
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+            case SATURDAY:if(d.isLeapYear()) var = var + 2; else var = var + 1 ; break;
+            case SUNDAY:if(d.isLeapYear()) var = var + 1; break;
         }
+        // Récupere les jours Feries de l'année en cours
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+
+        // Retourne le nombre de rtt
         return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
     }
 
@@ -121,7 +126,19 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+        Double augmenteSalaire;
+        String test = "Bonjour";
+        if(this.salaire != null) {
+            augmenteSalaire = this.salaire +(this.salaire * pourcentage);
+            if (augmenteSalaire > this.salaire) {
+                test = "Mon salaire augment";
+            } else {
+                test = "mon salaire reste le même ou il a baisser";
+            }
+        }
+        test = "le salaire me retourne null";
+    }
 
     public Long getId() {
         return id;

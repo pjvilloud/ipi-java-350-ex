@@ -9,10 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityExistsException;
@@ -33,7 +30,7 @@ public class EmployeServiceTest {
     EmployeRepository employeRepository;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         MockitoAnnotations.initMocks(this.getClass());
     }
 
@@ -112,7 +109,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMasterExistingEmploye(){
+    public void testEmbaucheEmployeManagerMiTempsMasterExistingEmploye() {
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -128,7 +125,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMaster99999(){
+    public void testEmbaucheEmployeManagerMiTempsMaster99999() {
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -141,4 +138,128 @@ public class EmployeServiceTest {
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
     }
+
+    //Partie Perfommance Commercial
+    @Test
+    public void testCalculPerformanceCommercialNegatifCaTraite() {
+
+        //Given
+        String matricule = "C000123";
+
+        long caTraite = -1000;
+        long objectifCa = 1000;
+
+
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa));
+        Assertions.assertEquals("Le chiffre d'affaire traité ne peut être négatif ou null !", e.getMessage());
+
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialNullCaTraite() {
+
+        //Given
+        String matricule = "C000123";
+        long objectifCa = 1000;
+
+
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, null, objectifCa));
+        Assertions.assertEquals("Le chiffre d'affaire traité ne peut être négatif ou null !", e.getMessage());
+
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialNegatifObjectifCa() {
+
+        //Given
+        String matricule = "C000123";
+        long objectifCa = -1000;
+        long caTraite = 1000;
+
+
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa));
+        Assertions.assertEquals("L'objectif de chiffre d'affaire ne peut être négatif ou null !", e.getMessage());
+
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialNullObjectifCa() {
+
+        //Given
+        String matricule = "C000123";
+
+        long caTraite = 1000;
+
+
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, null));
+        Assertions.assertEquals("L'objectif de chiffre d'affaire ne peut être négatif ou null !", e.getMessage());
+
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialFalseMatricule() {
+
+        //Given
+        String matricule = "M000123";
+
+        long caTraite = 1000;
+        long  objectifCA = 2000;
+
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCA));
+        Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !", e.getMessage());
+
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialNullMatricule() {
+
+        //Given
+        String matricule = "";
+
+        long caTraite = 1000;
+        long  objectifCA = 2000;
+
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCA));
+        Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !", e.getMessage());
+
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialRetourneMauvaisMatricule(){
+        // Given
+        long caTraite = 1000;
+        long  objectifCA = 2000;
+        String matricule = "C000988";
+        when(employeRepository.findByMatricule(matricule)).thenReturn(null);
+        //When /Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule,caTraite,objectifCA));
+        Assertions.assertEquals("Le matricule " + matricule + " n'existe pas !", e.getMessage());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercial() throws EmployeException{
+
+        //given
+        long caTraite = 150000;
+        long  objectifCA = 200000;
+        String matricule = "C000988";
+        when(employeRepository.findByMatricule(matricule)).thenReturn(new Employe());
+        //When
+        employeService.calculPerformanceCommercial(matricule,caTraite,objectifCA);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+
+        Assertions.assertEquals(2,employeArgumentCaptor.getValue().getPerformance().intValue());
+
+    }
+
+
 }

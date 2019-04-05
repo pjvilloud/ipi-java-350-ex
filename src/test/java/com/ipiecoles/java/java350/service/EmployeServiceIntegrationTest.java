@@ -59,4 +59,39 @@ public class EmployeServiceIntegrationTest {
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
     }
 
+    @Test
+    public void integrationPerfommanceCommercial() throws EmployeException{
+        //Given
+        employeRepository.save(new Employe("Doe", "John", "C48522", LocalDate.now(), Entreprise.SALAIRE_BASE,1,1.0));
+        long caTraite = 10000;
+        long objectifCa= 2;
+        //When
+        employeService.calculPerformanceCommercial("C48522", caTraite, objectifCa);
+        Employe employe = employeRepository.findByMatricule("C48522");
+        //Then
+        Assertions.assertEquals(6,employe.getPerformance().intValue());
+
+    }
+
+    @Test
+    public void avgPerformanceWhereMatriculeStartsWithCommercial(){
+        employeRepository.save(new Employe("Doe", "John", "C48522", LocalDate.now(), Entreprise.SALAIRE_BASE,5,1.0));
+        double avgPerformance =  employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        Assertions.assertEquals(5, avgPerformance);
+    }
+
+    @Test
+    public void avgPerformanceWhereMatriculeStartsWithTechnicien(){
+        employeRepository.save(new Employe("Doe", "John", "T48522", LocalDate.now(), Entreprise.SALAIRE_BASE,1,1.0));
+        double avgPerformance =  employeRepository.avgPerformanceWhereMatriculeStartsWith("T");
+        Assertions.assertEquals(1, avgPerformance);
+    }
+
+    @Test
+    public void avgPerformanceWhereMatriculeStartsWithManager(){
+        employeRepository.save(new Employe("Doe", "John", "T48522", LocalDate.now(), Entreprise.SALAIRE_BASE,1,1.0));
+        double avgPerformance =  employeRepository.avgPerformanceWhereMatriculeStartsWith("M");
+        Assertions.assertEquals(1, avgPerformance);
+    }
+    
 }

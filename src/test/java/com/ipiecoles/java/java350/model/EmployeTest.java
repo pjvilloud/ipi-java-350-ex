@@ -85,4 +85,27 @@ public class EmployeTest {
 
     }
 
+
+    @ParameterizedTest
+    @CsvSource({
+            "2019,8",
+            "2021,11",
+            "2022,10",
+            "2032,12"
+    })
+    public void getNbrRTT(int year, int nbRtt){
+
+        //Given
+        Employe employe = new Employe();
+        LocalDate date = LocalDate.of(year,1,1);
+        //When
+        int getnbRtt  = employe.getNbRtt(date);
+
+        //Then
+
+        Assertions.assertEquals(nbRtt,getnbRtt);
+
+
+    }
+
 }
