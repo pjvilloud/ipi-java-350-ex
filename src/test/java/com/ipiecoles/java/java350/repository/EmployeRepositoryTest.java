@@ -85,8 +85,8 @@ public class EmployeRepositoryTest {
         Double moyPerfT = employeRepository.avgPerformanceWhereMatriculeStartsWith("T");
 
         //Then
-        Assertions.assertEquals(1.0, (double)moyPerfC);
-        Assertions.assertEquals(1.0, (double)moyPerfM);
+        Assertions.assertEquals(1.0, moyPerfC.doubleValue());
+        Assertions.assertEquals(1.0, moyPerfM.doubleValue());
         Assertions.assertNull(moyPerfT);
     }
 
@@ -106,8 +106,8 @@ public class EmployeRepositoryTest {
         //Then
         //1+5+3+2=11
         //11/4 = 2.75
-        Assertions.assertEquals(2.5, (double)moyPerfC);
-        Assertions.assertEquals(3.0, (double)moyPerfM);
+        Assertions.assertEquals(2.5, moyPerfC.doubleValue());
+        Assertions.assertEquals(3.0, moyPerfM.doubleValue());
         Assertions.assertNull(moyPerfT);
     }
 }
