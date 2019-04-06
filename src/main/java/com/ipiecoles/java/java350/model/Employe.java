@@ -75,30 +75,30 @@ public class Employe {
     }
 
     public Double getNbRtt(LocalDate d){
-        int NbDayInYear = d.isLeapYear() ? 366 : 365;
-        int NbWeekEnd = 104;
+        int nbDayInYear = d.isLeapYear() ? 366 : 365;
+        int nbWeekEnd = 104;
 
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case FRIDAY:
                 if(d.isLeapYear())
-                    NbWeekEnd += 1;
+                    nbWeekEnd += 1;
                 break;
             case SATURDAY:
                 if(d.isLeapYear())
-                    NbWeekEnd += 2;
+                    nbWeekEnd += 2;
                 else
-                    NbWeekEnd += 1;
+                    nbWeekEnd += 1;
                 break;
             case SUNDAY:
-                NbWeekEnd += 1;
+                nbWeekEnd += 1;
                 break;
             default:
                 break;
         }
-        int NbJF = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        int nbJF = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
 
         //Les RTT sont des Integers car les CP sont déclaré en Integer
-        int NbRtt = (int) Math.ceil(NbDayInYear - Entreprise.NB_JOURS_MAX_FORFAIT - NbWeekEnd - Entreprise.NB_CONGES_BASE - NbJF);
+        int NbRtt = (int) Math.ceil(nbDayInYear - Entreprise.NB_JOURS_MAX_FORFAIT - nbWeekEnd - Entreprise.NB_CONGES_BASE - nbJF);
         if(tempsPartiel < 0)
             return 0.0;
         return NbRtt * tempsPartiel;
