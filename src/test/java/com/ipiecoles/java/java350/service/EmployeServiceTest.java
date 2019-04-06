@@ -9,17 +9,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.mockito.Mockito.*;
 
@@ -140,5 +137,50 @@ public class EmployeServiceTest {
         //When/Then
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "150000, 200000, 4, 1",
+            "160000, 200000, 4, 2",
+            "180000, 200000, 2, 1",
+            "190000, 200000, 2, 2",
+            "210000, 200000, 4, 5",
+            "240000, 200000, 0, 2",
+            "250000, 200000, 0, 6"
+
+    })
+    public void testCalculPerformanceNominalCases(Long caTraite, Long objectifCa, int initialPerformance, int performanceComputed) throws EmployeException {
+        //Given
+        Employe employe = new Employe();
+        employe.setPerformance(initialPerformance);
+        Mockito.when(employeRepository.findByMatricule("C00001")).thenReturn(employe);
+        //average performance will be set to 2 for every tests
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(2.0);
+
+        //When
+        employeService.calculPerformanceCommercial("C00001", caTraite, objectifCa);
+
+        //Then
+        Assertions.assertEquals(performanceComputed, (int) employe.getPerformance());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "-10000, 200000, C000001, Le chiffre d'affaire traité ne peut être négatif ou null !",
+            ", 200000, C00001, Le chiffre d'affaire traité ne peut être négatif ou null !",
+            "156000, , C00001, L'objectif de chiffre d'affaire ne peut être négatif ou null !",
+            "156000, -20000, C00001, L'objectif de chiffre d'affaire ne peut être négatif ou null !",
+            "250000, 200000, M00001, Le matricule ne peut être null et doit commencer par un C !",
+            "250000, 200000, , Le matricule ne peut être null et doit commencer par un C !",
+            "200000, 20000, C02222, Le matricule C02222 n'existe pas !",
+    })
+    public void testCalculPerformanceIllegalParametersExceptions(Long caTraite, Long objectifCa, String matricule, String exceptionMessage) {
+        // Given / When /Then
+        Exception exception = Assertions.assertThrows(
+                EmployeException.class,
+                () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa)
+        );
+        Assertions.assertEquals(exceptionMessage, exception.getMessage());
     }
 }

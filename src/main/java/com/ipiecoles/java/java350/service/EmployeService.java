@@ -129,11 +129,11 @@ public class EmployeService {
         }
         //Cas 4
         else if(caTraite <= objectifCa*1.2 && caTraite > objectifCa*1.05){
-            performance = employe.getPerformance() + 1;
+            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance()) + 1;
         }
         //Cas 5
         else if(caTraite > objectifCa*1.2){
-            performance = employe.getPerformance() + 4;
+            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance()) + 4;
         }
         //Si autre cas, on reste à la performance de base.
 
