@@ -86,6 +86,32 @@ public class EmployeTest {
     }
 
     @Test
+    public void getPrimeAnnuelleWithNoMat(){
+        //Given
+        Employe employe = new Employe("Doe", "John", null, LocalDate.now().minusYears(2), Entreprise.SALAIRE_BASE, 1, 1.0);
+
+        //When
+        Double prime = employe.getPrimeAnnuelle();
+
+        //Then
+        Assertions.assertEquals(1200.0, prime.doubleValue());
+
+    }
+
+    @Test
+    public void getPrimeAnnuelleWithNoPerf(){
+        //Given
+        Employe employe = new Employe("Doe", "John", "M28394", LocalDate.now().minusYears(5), Entreprise.SALAIRE_BASE, null, 1.0);
+
+        //When
+        Double prime = employe.getPrimeAnnuelle();
+
+        //Then
+        Assertions.assertEquals(2200.0, prime.doubleValue());
+
+    }
+
+    @Test
     public void testAugmenterSalaire(){
         //Given
         Employe employe = new Employe();
@@ -144,11 +170,17 @@ public class EmployeTest {
      */
     @ParameterizedTest
     @CsvSource({
+            "2016, 1.0, 12",
+            "2016, 0.5, 6",
             "2019, 1.0, 8",
             "2019, 0.5, 4",
             "2019, -1.0, 0",
             "2021, 1.0, 11",
             "2021, 0.5, 5.5",
+            "2022, 1.0, 10",
+            "2022, 0.5, 5",
+            "2023, 1.0, 8",
+            "2023, 0.5, 4",
             "2032, 1.0, 12",
             "2032, 0.5, 6",
             "2028, 1.0, 8",
