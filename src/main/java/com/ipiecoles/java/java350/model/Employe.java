@@ -70,32 +70,38 @@ public class Employe {
      *
      * @return le nombre de jours de RTT
      */
-    public Integer getNbRtt(){
+    public Double getNbRtt(){
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
+    public Double getNbRtt(LocalDate d){
+        int NbDayInYear = d.isLeapYear() ? 366 : 365;
+        int NbWeekEnd = 104;
 
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY:
-                if(d.isLeapYear())
-                    var =  var + 1;
-                break;
             case FRIDAY:
                 if(d.isLeapYear())
-                    var =  var + 2;
-                else
-                    var =  var + 1;
+                    NbWeekEnd += 1;
                 break;
             case SATURDAY:
-                var = var + 1;
+                if(d.isLeapYear())
+                    NbWeekEnd += 2;
+                else
+                    NbWeekEnd += 1;
+                break;
+            case SUNDAY:
+                NbWeekEnd += 1;
+                break;
+            default:
                 break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        int NbJF = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
 
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        //Les RTT sont des Integers car les CP sont déclaré en Integer
+        int NbRtt = (int) Math.ceil(NbDayInYear - Entreprise.NB_JOURS_MAX_FORFAIT - NbWeekEnd - Entreprise.NB_CONGES_BASE - NbJF);
+        if(tempsPartiel < 0)
+            return 0.0;
+        return NbRtt * tempsPartiel;
     }
 
     /**
