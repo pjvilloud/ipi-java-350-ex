@@ -56,4 +56,58 @@ public class EmployeRepositoryTest {
         //Then
         Assertions.assertEquals("40325", lastMatricule);
     }
+
+    @Test
+    public void testAvgPerformanceWhereMatriculeStartsWithCEmpty(){
+        //Given
+
+        //When
+        Double moyPerfC = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        Double moyPerfM = employeRepository.avgPerformanceWhereMatriculeStartsWith("M");
+        Double moyPerfT = employeRepository.avgPerformanceWhereMatriculeStartsWith("T");
+
+        //Then
+        Assertions.assertNull(moyPerfC);
+        Assertions.assertNull(moyPerfM);
+        Assertions.assertNull(moyPerfT);
+    }
+
+    @Test
+    public void testAvgPerformanceWhereMatriculeStartsWithCNoC(){
+        //Given
+        employeRepository.save(new Employe("Doe", "John", "C12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "Jane", "M40325", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "Jim", "C06432", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+
+        //When
+        Double moyPerfC = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        Double moyPerfM = employeRepository.avgPerformanceWhereMatriculeStartsWith("M");
+        Double moyPerfT = employeRepository.avgPerformanceWhereMatriculeStartsWith("T");
+
+        //Then
+        Assertions.assertEquals(1.0, (double)moyPerfC);
+        Assertions.assertEquals(1.0, (double)moyPerfM);
+        Assertions.assertNull(moyPerfT);
+    }
+
+    @Test
+    public void testAvgPerformanceWhereMatriculeStartsWith(){
+        //Given
+        employeRepository.save(new Employe("Doe", "John", "M12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "Jane", "M40325", LocalDate.now(), Entreprise.SALAIRE_BASE, 5, 1.0));
+        employeRepository.save(new Employe("Doe", "Jim", "C06432", LocalDate.now(), Entreprise.SALAIRE_BASE, 3, 1.0));
+        employeRepository.save(new Employe("Doe", "Tom", "C04432", LocalDate.now(), Entreprise.SALAIRE_BASE, 2, 1.0));
+
+        //When
+        Double moyPerfC = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        Double moyPerfM = employeRepository.avgPerformanceWhereMatriculeStartsWith("M");
+        Double moyPerfT = employeRepository.avgPerformanceWhereMatriculeStartsWith("T");
+
+        //Then
+        //1+5+3+2=11
+        //11/4 = 2.75
+        Assertions.assertEquals(2.5, (double)moyPerfC);
+        Assertions.assertEquals(3.0, (double)moyPerfM);
+        Assertions.assertNull(moyPerfT);
+    }
 }
