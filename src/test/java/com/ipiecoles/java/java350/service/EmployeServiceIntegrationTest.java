@@ -18,6 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
@@ -60,6 +61,26 @@ public class EmployeServiceIntegrationTest {
 
         //1521.22 * 1.2 * 1.0
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialObjectifRempli() throws EmployeException {
+        //Given
+        String nom = "Martin";
+        String prenom = "Patricia";
+        String matricule = "C01234";
+        LocalDate dateEmbauche = LocalDate.now();
+        Double salaire = 2500.0;
+        Integer performance = 2;
+        Double tempsPartiel = 1.0;
+        employeRepository.save(new Employe(nom, prenom, matricule, dateEmbauche, salaire, performance, tempsPartiel));
+
+        //When
+        employeService.calculPerformanceCommercial(matricule, 200000L, 200000L);
+
+        //Then
+        Employe employe = employeRepository.findByMatricule(matricule);
+        Assertions.assertEquals(2, (int) employe.getPerformance());
     }
 
 }
