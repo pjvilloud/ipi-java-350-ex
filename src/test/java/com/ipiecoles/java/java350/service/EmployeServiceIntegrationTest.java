@@ -59,4 +59,25 @@ public class EmployeServiceIntegrationTest {
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
     }
 
+    @Test
+    public void integrationCalculPerformanceCommercialEmploye() throws EmployeException {
+        //Given
+        String matricule = "C12345";
+        Long caTraite = 2200L;
+        Long objectifCa = 2000L;
+        Integer performance = 3;
+        employeRepository.save(new Employe("Doe", "John", matricule, LocalDate.now(), Entreprise.SALAIRE_BASE, performance, 1.0));
+
+        //When
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+
+        //Then
+        Employe employe = employeRepository.findByMatricule(matricule);
+        Assertions.assertNotNull(employe);
+        Assertions.assertEquals(matricule, employe.getMatricule());
+        Assertions.assertEquals(1.0, employe.getTempsPartiel().doubleValue());
+
+        Assertions.assertEquals(5, (int)employe.getPerformance());
+    }
+
 }
