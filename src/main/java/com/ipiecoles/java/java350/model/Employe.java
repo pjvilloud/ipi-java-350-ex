@@ -1,6 +1,5 @@
 package com.ipiecoles.java.java350.model;
 
-import com.ipiecoles.java.java350.exception.EmployeException;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
