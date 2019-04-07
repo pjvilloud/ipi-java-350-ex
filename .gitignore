@@ -30,3 +30,6 @@ mvnw*
 
 ### Logs ###
 *.log
+
+## Gauge
+.gauge
