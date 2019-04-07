@@ -211,7 +211,7 @@ public class EmployeServiceTest {
 
         //When/Then
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCA));
-        Assertions.assertEquals("Le matricule " + matricule + "ne peut être null ou  n'existe pas  et doit commencer par un C !", e.getMessage());
+        Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !", e.getMessage());
 
     }
 
@@ -226,7 +226,7 @@ public class EmployeServiceTest {
 
         //When/Then
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCA));
-        Assertions.assertEquals("Le matricule " + matricule + "ne peut être null ou  n'existe pas  et doit commencer par un C !", e.getMessage());
+        Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !", e.getMessage());
 
     }
 
@@ -239,7 +239,7 @@ public class EmployeServiceTest {
         when(employeRepository.findByMatricule(matricule)).thenReturn(null);
         //When /Then
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule,caTraite,objectifCA));
-        Assertions.assertEquals("Le matricule " + matricule + "ne peut être null ou  n'existe pas  et doit commencer par un C !", e.getMessage());
+        Assertions.assertEquals("Le matricule " + matricule + " n'existe pas !", e.getMessage());
     }
 
     @Test

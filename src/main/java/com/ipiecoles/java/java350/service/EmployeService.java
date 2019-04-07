@@ -104,10 +104,13 @@ public class EmployeService {
         if(objectifCa == null || objectifCa < 0){
             throw new EmployeException("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
         }
+        if(matricule == null || !matricule.startsWith("C")){
+            throw new EmployeException("Le matricule ne peut être null et doit commencer par un C !");
+        }
         //Recherche de l'employé dans la base
         Employe employe = employeRepository.findByMatricule(matricule);
-        if(employe == null || !employe.getMatricule().startsWith("C")){
-            throw new EmployeException("Le matricule " + matricule + "ne peut être null ou  n'existe pas  et doit commencer par un C !");
+        if(employe == null){
+            throw new EmployeException("Le matricule " + matricule + " n'existe pas !");
         }
 
         Integer performance = Entreprise.PERFORMANCE_BASE;
@@ -131,7 +134,7 @@ public class EmployeService {
 
         //Calcul de la performance moyenne
         Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
-        if(performanceMoyenne != null && performance > performanceMoyenne){
+        if(performance > performanceMoyenne){
             performance++;
         }
 
