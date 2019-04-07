@@ -38,7 +38,7 @@ public class EmployeService {
      */
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException{
         logger.debug("Coucou");
-        logger.info("Embauche de l'employé {0} {1} diplômé de {2} en tant que {3} avec un taux d'activité de {4} ", prenom, nom, niveauEtude.name(), poste.name(), tempsPartiel);
+        logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(), poste.name(), tempsPartiel);
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
@@ -104,13 +104,10 @@ public class EmployeService {
         if(objectifCa == null || objectifCa < 0){
             throw new EmployeException("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
         }
-        if(matricule == null || !matricule.startsWith("C")){
-            throw new EmployeException("Le matricule ne peut être null et doit commencer par un C !");
-        }
         //Recherche de l'employé dans la base
         Employe employe = employeRepository.findByMatricule(matricule);
-        if(employe == null){
-            throw new EmployeException("Le matricule " + matricule + " n'existe pas !");
+        if(employe == null || !employe.getMatricule().startsWith("C")){
+            throw new EmployeException("Le matricule " + matricule + "ne peut être null ou  n'existe pas  et doit commencer par un C !");
         }
 
         Integer performance = Entreprise.PERFORMANCE_BASE;
