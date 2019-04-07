@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Service
 public class EmployeService {
@@ -21,6 +22,50 @@ public class EmployeService {
     private EmployeRepository employeRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(EmployeService.class);
+
+    /**
+     * Alows to abstract rules for calculating performance
+     */
+    private class PerformanceRule {
+        private Double lowerBound;
+        private Double upperBound;
+        private int modifier;
+
+        /**
+         * Verify the rule has to be applied
+         *
+         * @param caTraite The ca the employe made this year
+         * @return
+         */
+        public boolean verify(Long caTraite) {
+            return (lowerBound == null || caTraite >= lowerBound) &&
+                    (upperBound == null || caTraite < upperBound);
+        }
+
+        /**
+         * Computes the new value for employe's performance
+         * Neither initial value nor computed value can be inferior to Entreprise's base value
+         *
+         * @param performance the employe's initial performance
+         * @return int The new performance
+         */
+        public int apply(int performance) {
+            if (performance <= Entreprise.PERFORMANCE_BASE) performance = Entreprise.PERFORMANCE_BASE;
+            return  Math.max(Entreprise.PERFORMANCE_BASE, performance + modifier);
+        }
+
+        /**
+         * Constructor
+         *
+         * @param lowerBound The minimal value for which this rule will apply
+         * @param modifier The modifier to be applied to the employe's performance
+         */
+        PerformanceRule(Double lowerBound, Double upperBound, int modifier) {
+            this.lowerBound = lowerBound;
+            this.upperBound = upperBound;
+            this.modifier = modifier;
+        }
+    }
 
     /**
      * Méthode enregistrant un nouvel employé dans l'entreprise
@@ -121,42 +166,23 @@ public class EmployeService {
         }
 
         ArrayList<PerformanceRule> rules = new ArrayList<>();
-        rules.add(new PerformanceRule(objectifCa * 0.8, 0.95, -2));
-        rules.add(new PerformanceRule(objectifCa * 0.95, 1.05, 0));
-        rules.add(new PerformanceRule(objectifCa * 1.05, 1.2, 1));
-        rules.add(new PerformanceRule(objectifCa * 1.2, null, 4));
+        rules.add(new PerformanceRule(null, objectifCa * 0.8, -employe.getPerformance()));
+        rules.add(new PerformanceRule(objectifCa * 0.8, objectifCa * 0.95, -2));
+        rules.add(new PerformanceRule(objectifCa * 0.95, objectifCa * 1.05 + 1, 0));
+        rules.add(new PerformanceRule(objectifCa * 1.05 + 1,  objectifCa * 1.2 + 1, 1));
+        rules.add(new PerformanceRule(objectifCa * 1.2 + 1, null, 4));
 
-        final Integer performance = Entreprise.PERFORMANCE_BASE;
-
-        rules.forEach((rule) ->{ if (rule.verify(caTraite)) employe.setPerformance(rule.apply(performance));});
-
-        /*
-        //Cas 2
-        if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
-            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
-        }
-        //Cas 3
-        else if(caTraite >= objectifCa*0.95 && caTraite <= objectifCa*1.05){
-            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance());
-        }
-        //Cas 4
-        else if(caTraite <= objectifCa*1.2 && caTraite > objectifCa*1.05){
-            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance()) + 1;
-        }
-        //Cas 5
-        else if(caTraite > objectifCa*1.2){
-            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance()) + 4;
-        }
-        //Si autre cas, on reste à la performance de base.
+        rules.forEach((rule) ->{ if (rule.verify(caTraite)) {
+            employe.setPerformance(rule.apply(employe.getPerformance()));
+        }});
 
         //Calcul de la performance moyenne
         Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
-        if(performanceMoyenne != null && performance > performanceMoyenne){
-            performance++;
+        if(performanceMoyenne != null && employe.getPerformance() > performanceMoyenne){
+            employe.setPerformance(employe.getPerformance() + 1);
         }
 
-        //Affectation et sauvegarde
-        employe.setPerformance(performance);
+        //Sauvegarde
         employeRepository.save(employe);
     }
 }
