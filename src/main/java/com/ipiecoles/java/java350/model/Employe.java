@@ -1,6 +1,4 @@
 package com.ipiecoles.java.java350.model;
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

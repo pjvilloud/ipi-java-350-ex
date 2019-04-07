@@ -49,7 +49,7 @@ public class EmployeService {
             lastMatricule = Entreprise.MATRICULE_INITIAL;
         }
         //... et incrémentation
-        Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
+        int numeroMatricule = Integer.parseInt(lastMatricule) + 1;
         if(numeroMatricule >= 100000){
             logger.error("Limite des 100000 matricules atteinte !");
             throw new EmployeException("Limite des 100000 matricules atteinte !");
@@ -60,7 +60,6 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
-            logger.error("L'employé de matricule " + matricule + " existe déjà en BDD");
             throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
