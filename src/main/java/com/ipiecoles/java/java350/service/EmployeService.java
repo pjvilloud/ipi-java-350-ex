@@ -35,8 +35,8 @@ public class EmployeService {
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException {
-
-        logger.info("Trying to hire new " + poste + " named " + prenom + " " + nom + ", with diploma : " + niveauEtude + ", working at " + tempsPartiel + " of time.");
+        String infoMessage = String.format("Trying to hire new %s named %s %s, with diploma : %s, working at %f of time.", poste, prenom, nom, niveauEtude, tempsPartiel);
+        logger.info(infoMessage);
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
@@ -49,7 +49,8 @@ public class EmployeService {
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
         if (numeroMatricule >= 80000 && numeroMatricule < 100000){
-            // TODO : Log warning limite matricules
+            String warningMessage = String.format("Close to limit of 100000 matricules, actual matricule number: %d", numeroMatricule );
+            logger.warn(warningMessage);
         }
         else if(numeroMatricule >= 100000){
             String errorMessage = "Limite des 100000 matricules atteinte !";
@@ -62,8 +63,9 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
-            //TODO: Log erreur employe already exists for matricule
-            throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
+            String errorMessage = String.format("L'employé de matricule %s existe déjà en BDD", matricule);
+            logger.error(errorMessage);
+            throw new EntityExistsException(errorMessage);
         }
 
         //Calcul du salaire
@@ -118,7 +120,17 @@ public class EmployeService {
             throw new EmployeException("Le matricule " + matricule + " n'existe pas !");
         }
 
-        Integer performance = Entreprise.PERFORMANCE_BASE;
+        ArrayList<PerformanceRule> rules = new ArrayList<>();
+        rules.add(new PerformanceRule(objectifCa * 0.8, 0.95, -2));
+        rules.add(new PerformanceRule(objectifCa * 0.95, 1.05, 0));
+        rules.add(new PerformanceRule(objectifCa * 1.05, 1.2, 1));
+        rules.add(new PerformanceRule(objectifCa * 1.2, null, 4));
+
+        final Integer performance = Entreprise.PERFORMANCE_BASE;
+
+        rules.forEach((rule) ->{ if (rule.verify(caTraite)) employe.setPerformance(rule.apply(performance));});
+
+        /*
         //Cas 2
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
             performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
