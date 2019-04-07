@@ -81,10 +81,9 @@ public class Employe {
         // Nombre de samedi et dimanche dans l'année
         int var = 104;
         // Regarde par le premier jour de l'année et en fonction du jour, on rajoute des jours dans le var
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case SATURDAY:if(d.isLeapYear()) var = var + 2; else var = var + 1 ; break;
-            case SUNDAY:if(d.isLeapYear()) var = var + 1; break;
-            default: break;
+        if (LocalDate.of(d.getYear(), 1, 1).getDayOfWeek() == DayOfWeek.SATURDAY) {
+            if (d.isLeapYear()) var = var + 2;
+            else var = var + 1;
         }
         // Récupere les jours Feries de l'année en cours
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
