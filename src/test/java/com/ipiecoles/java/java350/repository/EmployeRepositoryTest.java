@@ -67,10 +67,9 @@ public class EmployeRepositoryTest {
         Employe employe = employeRepository.findByMatricule("C06432");
         Double salaireTest =  employe.getSalaire();
         //When
-
-        Double salaireTest1 = salaireTest +(salaireTest * 0.0);
+        employe.augmenterSalaire(0);
         //Then
-        Assertions.assertEquals(salaireTest1,salaireTest);
+        Assertions.assertEquals(salaireTest,employe.getSalaire());
     }
 
     @Test
@@ -81,10 +80,10 @@ public class EmployeRepositoryTest {
         Double salaireTest =  employe.getSalaire();
         //When
 
-        Double salaireTest1 = salaireTest +(salaireTest * -0.1);
+        employe.augmenterSalaire(-0.1);
 
         //Then
-        Assertions.assertTrue( salaireTest > salaireTest1);
+        Assertions.assertEquals(salaireTest,employe.getSalaire());
     }
 
     @Test
@@ -95,10 +94,10 @@ public class EmployeRepositoryTest {
         Double salaireTest =  employe.getSalaire();
 
         //When
-        Double salaireTest1 = salaireTest +(salaireTest * 0.1);
+        employe.augmenterSalaire(0.1);
 
         //then
-        Assertions.assertTrue(salaireTest < salaireTest1);
+        Assertions.assertTrue(salaireTest < employe.getSalaire());
     }
 
     @Test
@@ -110,10 +109,10 @@ public class EmployeRepositoryTest {
         Double salaireTest =  employe.getSalaire();
         //When
         if(salaireTest != null){
-            salaireTest1 = salaireTest +(salaireTest * 0.1);
+            employe.augmenterSalaire(0.1);
         }
         //then
-        Assertions.assertNull(salaireTest1);
+        Assertions.assertNull(employe.getSalaire());
     }
 
 
