@@ -65,4 +65,19 @@ public class EmployeServiceIntegrationTest {
         // le calcul du salaire correspond à : 1521.22 * 1.2 * 1 = 1825.46
         Assertions.assertEquals(tempsPartiel, employe.getTempsPartiel());
     }
+
+    @Test
+    public void testIntegrationCalculPerformanceCommercial() throws EmployeException {
+        //Given
+        employeRepository.save(new Employe("Doe", "John", "C12345", LocalDate.now(),
+                Entreprise.SALAIRE_BASE, 10, 1.0));
+        // When
+        Employe e = employeRepository.findByMatricule("C12345");
+        employeService.calculPerformanceCommercial(e.getMatricule(), new Long(75000), new Long(60000));
+
+        // Then
+        e = employeRepository.findByMatricule("C12345");
+        // le calcul de la performance correspond à 10 + 4 + 1
+        Assertions.assertEquals(15, (int)e.getPerformance());
+    }
 }

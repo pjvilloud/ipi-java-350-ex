@@ -202,8 +202,7 @@ class EmployeServiceTest {
         // etc
     }
 
-    @ParameterizedTest(name = "employé matricule {0} : " +
-            "perf initiale {1}, CA traité {2}, objectif CA : {3}, perf attendue : {4}")
+    @ParameterizedTest(name = "employé matricule {0} : perf initiale {1}, CA traité {2}, objectif CA : {3}, perf attendue : {4}")
     @CsvSource( {
             "'C12345', 1, 60000, 60000, 1",
             "'C12345', 0, 60000, 60000, 1",
@@ -219,11 +218,9 @@ class EmployeServiceTest {
             "'C12345', 11, 60000, 60000, 12",
             "'C12345', 6, 75000, 60000, 10",
             "'C12345', 7, 75000, 60000, 12"
-
     })
     public void testCalculPerformanceCommercialMaster( String matricule, Integer performanceInitiale, Long caTraite, Long objectifCA, Integer performance) throws EmployeException {
         // Given
-
         Mockito.when(employeRepository.findByMatricule(matricule))
                 .thenReturn(new Employe(
                         "Doe",
@@ -242,7 +239,6 @@ class EmployeServiceTest {
         ArgumentCaptor<Employe> employeCaptor = ArgumentCaptor.forClass(Employe.class);
         Mockito.verify(employeRepository).save(employeCaptor.capture());
         Assertions.assertEquals(performance, employeCaptor.getValue().getPerformance());
-
     }
 
 }
