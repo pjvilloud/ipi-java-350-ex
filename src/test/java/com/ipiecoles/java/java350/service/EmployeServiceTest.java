@@ -348,4 +348,20 @@ class EmployeServiceTest {
         }
     }
 
+    @Test
+    public void addBonusPerformanceCommercialPerfNull() {
+        // Given
+        Integer performance = null;
+
+        // When
+        try {
+            employeService.addBonusPerformanceCommercial(performance);
+            Assertions.fail("Devrait lancer une exception");
+        } catch (EmployeException e1) {
+            // Then
+            Assertions.assertEquals("La performance ne peut être = null pour appliquer un bonus !",
+                    e1.getMessage());
+        }
+    }
+
 }
