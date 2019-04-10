@@ -17,6 +17,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
+ // TODO: Supprimer tous les imports grisés de l'appli
+ // TODO: Supprimer les commentaires inutiles
+ // TODO : écrire la documentation des méthodes qui ne le sont pas
+
 import static org.junit.jupiter.api.Assertions.*;
 
 // outils pour couverture des test : Coverage
@@ -219,7 +223,7 @@ class EmployeServiceTest {
             "'C12345', 6, 75000, 60000, 10",
             "'C12345', 7, 75000, 60000, 12"
     })
-    public void testCalculPerformanceCommercialMaster( String matricule, Integer performanceInitiale, Long caTraite, Long objectifCA, Integer performance) throws EmployeException {
+    public void testCalculPerformanceCommercialNominal( String matricule, Integer performanceInitiale, Long caTraite, Long objectifCA, Integer performance) throws EmployeException {
         // Given
         Mockito.when(employeRepository.findByMatricule(matricule))
                 .thenReturn(new Employe(
@@ -240,5 +244,7 @@ class EmployeServiceTest {
         Mockito.verify(employeRepository).save(employeCaptor.capture());
         Assertions.assertEquals(performance, employeCaptor.getValue().getPerformance());
     }
+
+    // TODO : testCalculPerformanceCommercialThrowsExceptions()
 
 }

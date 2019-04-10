@@ -126,7 +126,6 @@ public class EmployeTest {
 
     @Test
     public void testNombreAnneesAncienneteDateEmbaucheAfterNow() {
-
         Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().plusYears(1));
 
@@ -144,7 +143,6 @@ public class EmployeTest {
             "2021, 6, 0.5",
             "2032, 6, 0.5"
     })
-
     void testgetNbRtt(int date, int nbRttAttendus, Double tempsPartiel) {
         // Given
         Employe employe = new Employe();
@@ -156,16 +154,12 @@ public class EmployeTest {
         Assertions.assertEquals(nbRttAttendus, nbJoursRtt);
     }
 
- //   Créer une méthode de test paramétré permettant de tester le plus exhaustivement possible la méthode getPrimeAnnuelle et corriger les éventuels problèmes de cette méthode.
-
     @ParameterizedTest(name = "pour employé marticule {1}, perf {0}, ancienneté {2}, temps partiel {3} : prime annuelle {4}")
     @CsvSource({
             "1, 'T12345', 0, 1.0, 1000.0"
             // ici les valeurs données doivent être calculées à la main et non pas par la code, sinon évidemment ça va être evalidé.
     })
-
     void testGetPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle ){
-
         // Given
         Employe e = new Employe("Doe", "John", matricule, LocalDate.now().minusYears(nbYearsAnciennete), Entreprise.SALAIRE_BASE, performance, tempsPartiel);
 
@@ -176,14 +170,4 @@ public class EmployeTest {
         Assertions.assertEquals(primeAnnuelle, primeATester);
 
     }
-
-// Intégration continue
-    // Evaluation de la qualité
-    // créer une branche à partir de là où on en est
-    // et commecer les tests unitaires TDD + coder augmenterSalaire()
-    // pourcentage entre zéro à un
-    // pareil getNbRtt()
-    // pour dans deux semaines d'ici à aujourd'hui le 5 mars 2019
-    // en fait quand on revoit le prof.
-
 }
