@@ -73,6 +73,9 @@ public class EmployeService {
         if(tempsPartiel != null){
             salaire = salaire * tempsPartiel;
         }
+        else {
+            throw new EmployeException("Le temps partiel ne peut être null");
+        }
         // LOG DEBUG : Salaire non arrondi
         LOG.debug("Salaire avant arrondi : {} ", salaire);
         salaire = Math.round(salaire*100d)/100d;
