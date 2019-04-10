@@ -89,4 +89,7 @@ public final class Entreprise {
         );
     }
 
+    public static Map<NiveauEtude, Double> getCoeffSalaireEtudes() {
+        return COEFF_SALAIRE_ETUDES;
+    }
 }
