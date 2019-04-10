@@ -9,6 +9,8 @@ import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -152,7 +154,6 @@ class EmployeServiceTest {
             Assertions.assertEquals("L'employé de matricule M00001 existe déjà en BDD",
                     e1.getMessage());
         }
-
     }
 
     //quand une méthode ne retourne rien, on utilise les argument captors pour récupérer les résultats
@@ -160,13 +161,12 @@ class EmployeServiceTest {
     // on crée le captor :
     // ArgumentCaptor<Vehicule> vehiculeCaptor = ArgumentCaptor.forClass(Vehicule.class);
     // et là on vérifie que l'appel à la fonction est fait une fois :
-   // Mockito.verify(vehiculeRepository, Mockito.times(1)).save(vehiculeCaptor.capture());
+    // Mockito.verify(vehiculeRepository, Mockito.times(1)).save(vehiculeCaptor.capture());
     // on peut récupérer aussi une liste en retour d'une méthode ou l'absence d'appel à une méthode
 
     // : on définit un Argument Captor et ensuite on capture le résultat d'une méthode qui return void avec
     // vehiculeCaptor.getValue()
-
-
+    @Test
     public void testEmbaucheEmployeTechnicienPleinTempsBtsArgumentCaptor() throws EmployeException {
         //Given
         String nom = "Doe";
@@ -193,14 +193,55 @@ class EmployeServiceTest {
         Assertions.assertEquals(prenom, employeCaptor.getValue().getPrenom());
         Assertions.assertEquals(LocalDate.now(), employeCaptor.getValue().getDateEmbauche());
         Assertions.assertEquals(Entreprise.PERFORMANCE_BASE, employeCaptor.getValue().getPerformance());
-        Assertions.assertEquals(1064.85, (double)employeCaptor.getValue().getSalaire());
+        Assertions.assertEquals(1825.46, (double)employeCaptor.getValue().getSalaire());
         Assertions.assertEquals(tempsPartiel, employeCaptor.getValue().getTempsPartiel());
 
         // ou :
-
         // Employe e = employeCaptor.capture().getValue();
         // Assertions.assertEquals("T00001", e.getMatricule());
         // etc
+    }
+
+    @ParameterizedTest(name = "employé matricule {0} : " +
+            "perf initiale {1}, CA traité {2}, objectif CA : {3}, perf attendue : {4}")
+    @CsvSource( {
+            "'C12345', 1, 60000, 60000, 1",
+            "'C12345', 0, 60000, 60000, 1",
+            "'C12345', 0, 59500, 60000, 1",
+            "'C12345', 5, 63000, 60000, 5",
+            "'C12345', 2, 44000, 60000, 1",
+            "'C12345', 2, 48000, 60000, 1",
+            "'C12345', 6, 48000, 60000, 4",
+            "'C12345', 2, 48000, 60000, 1",
+            "'C12345', 2, 66000, 60000, 3",
+            "'C12345', 2, 72000, 60000, 3",
+            "'C12345', 2, 75000, 60000, 6",
+            "'C12345', 11, 60000, 60000, 12",
+            "'C12345', 6, 75000, 60000, 10",
+            "'C12345', 7, 75000, 60000, 12"
+
+    })
+    public void testCalculPerformanceCommercialMaster( String matricule, Integer performanceInitiale, Long caTraite, Long objectifCA, Integer performance) throws EmployeException {
+        // Given
+
+        Mockito.when(employeRepository.findByMatricule(matricule))
+                .thenReturn(new Employe(
+                        "Doe",
+                        "John",
+                        matricule,
+                        LocalDate.now(),
+                        Entreprise.SALAIRE_BASE,
+                        performanceInitiale,
+                        1.0));
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(10.0);
+
+        // When
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCA);
+
+        // Then
+        ArgumentCaptor<Employe> employeCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository).save(employeCaptor.capture());
+        Assertions.assertEquals(performance, employeCaptor.getValue().getPerformance());
 
     }
 
