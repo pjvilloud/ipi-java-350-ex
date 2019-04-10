@@ -254,4 +254,98 @@ class EmployeServiceTest {
 
     }
 
+    @Test
+    public void testCalculPerformanceCommercialObjectifCANull() {
+        // Given
+        String matricule = "C12345";
+        Long caTraite = new Long(60000);
+        Long objectifCA = null;
+
+        // When
+        try {
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCA);
+            Assertions.fail("Devrait lancer une exception");
+        } catch (EmployeException e1) {
+            // Then
+            Assertions.assertEquals("L'objectif de chiffre d'affaire ne peut être négatif ou null !",
+                    e1.getMessage());
+        }
+
+    }
+    @Test
+    public void testCalculPerformanceCommercialObjectifCANegatif() {
+        // Given
+        String matricule = "C12345";
+        Long caTraite = new Long(60000);
+        Long objectifCA = new Long(-60000);
+
+        // When
+        try {
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCA);
+            Assertions.fail("Devrait lancer une exception");
+        } catch (EmployeException e1) {
+            // Then
+            Assertions.assertEquals("L'objectif de chiffre d'affaire ne peut être négatif ou null !",
+                    e1.getMessage());
+        }
+
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialMatriculeNull() {
+        // Given
+        String matricule = null;
+        Long caTraite = new Long(60000);
+        Long objectifCA = new Long(60000);
+
+        // When
+        try {
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCA);
+            Assertions.fail("Devrait lancer une exception");
+        } catch (EmployeException e1) {
+            // Then
+            Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !",
+                    e1.getMessage());
+        }
+
+    }
+    @Test
+    public void testCalculPerformanceCommercialMatriculeTechnicien() {
+        // Given
+        String matricule = "T12345";
+        Long caTraite = new Long(60000);
+        Long objectifCA = new Long(60000);
+
+        // When
+        try {
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCA);
+            Assertions.fail("Devrait lancer une exception");
+        } catch (EmployeException e1) {
+            // Then
+            Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !",
+                    e1.getMessage());
+        }
+
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialPasEnBase() {
+        // Given
+        String matricule = "C12345";
+        Long caTraite = new Long(60000);
+        Long objectifCA = new Long(60000);
+        Mockito.when(employeRepository.findByMatricule(matricule))
+                .thenReturn(null);
+
+        // When
+        try {
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCA);
+            Assertions.fail("Devrait lancer une exception");
+        } catch (EmployeException e1) {
+            // Then
+            Assertions.assertEquals("Le matricule C12345 n'existe pas !",
+                    e1.getMessage());
+        }
+    }
+
 }
