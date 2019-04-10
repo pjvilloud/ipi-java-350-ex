@@ -101,7 +101,8 @@ public class EmployeService {
      * 4 : Si le chiffre d'affaire est supérieur entre 5 et 20%, il gagne 1 de performance
      * 5 : Si le chiffre d'affaire est supérieur de plus de 20%, il gagne 4 de performance
      *
-     * Si la performance ainsi calculée est supérieure à la moyenne des performances des commerciaux, il reçoit + 1 de performance.
+     * Si la performance ainsi calculée est supérieure à la moyenne des performances des commerciaux, il reçoit + 1 de performance
+     * en faisant appel à la méthode addBonusPerformanceCommercial(performance)
      *
      * @param matricule le matricule du commercial
      * @param caTraite le chiffre d'affaire traité par le commercial pendant l'année
@@ -147,14 +148,34 @@ public class EmployeService {
         }
         //Si autre cas, on reste à la performance de base.
 
-        //Calcul de la performance moyenne
-        Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
-        if(performanceMoyenne != null && performance > performanceMoyenne){
-            performance++;
-        }
+        //Ajout d'un bonus éventuel à la performance
+        performance = addBonusPerformanceCommercial(performance);
 
         //Affectation et sauvegarde
         employe.setPerformance(performance);
         employeRepository.save(employe);
     }
+
+    /**
+     * Méthode ajoutant un bonus de +1 si la performance d'un commercial
+     * est > à la moyenne des performances des Commerciaux de l'Entreprise
+     *
+     * @param performance la performance du Commercial
+     *
+     * @return la performance bonnifiée le cas échéant
+     *
+     * @throws EmployeException Si la perfomance initiale est null
+     */
+    public Integer addBonusPerformanceCommercial(Integer performance) throws EmployeException{
+
+        if (performance == null) {
+            throw new EmployeException("La performance ne peut être = null pour appliquer un bonus !");
+        }
+            // Calcul de la moyenne des performances des commerciaux de l'entreprise
+            Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+            if (performanceMoyenne != null && performance > performanceMoyenne) {
+                performance++;
+            }
+            return performance;
+        }
 }

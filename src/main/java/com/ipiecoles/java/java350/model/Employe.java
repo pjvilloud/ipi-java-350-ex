@@ -17,19 +17,12 @@ public class Employe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String nom;
-
     private String prenom;
-
     private String matricule;
-
     private LocalDate dateEmbauche;
-
     private Double salaire = Entreprise.SALAIRE_BASE;
-
     private Integer performance = Entreprise.PERFORMANCE_BASE;
-
     private Double tempsPartiel = 1.0;
 
     public Employe() {

@@ -18,7 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDate;
 
 
-@ExtendWith(SpringExtension.class) // pour charger un environnement
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class EmployeServiceIntegrationTest {
 
@@ -28,8 +28,7 @@ public class EmployeServiceIntegrationTest {
     @Autowired
     public EmployeRepository employeRepository;
 
-    @BeforeEach // on teste en réél sur la BDD H2 mais on la vide à chaque fois qu'on refait le test
-    // sinon l'employe de ce matricule risque de déjà exister
+    @BeforeEach
     @AfterEach
     public void setup() {
         employeRepository.deleteAll();
@@ -37,23 +36,20 @@ public class EmployeServiceIntegrationTest {
 
     @Test
     public void testIntegrationEmbaucheEmploye() throws EmployeException {
-        //Given avec de vraies données d'entrées
+        //Given
         employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(),
                 Entreprise.SALAIRE_BASE, 1, 1.0));
-        //on enregistre un premier employe dans la base
 
         String nom = "Doe";
         String prenom = "John";
         Poste poste = Poste.TECHNICIEN;
         NiveauEtude niveauEtudes = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;
-        // voici les données de l'employe suivant qu'on va EMBAUCHER
 
-        //When avec appel des vraies méthodes de repository...
+        //When
         employeService.embaucheEmploye(nom, prenom, poste, niveauEtudes, tempsPartiel);
-        // on teste l'embaucheEmploye() de l'employe (et pas avec employeDirectory.save() directement du coup)
 
-        //Then avec de vraies vérifications...
+        //Then
         Employe employe = employeRepository.findByMatricule("T12346");
 
         Assertions.assertNotNull(employe);
