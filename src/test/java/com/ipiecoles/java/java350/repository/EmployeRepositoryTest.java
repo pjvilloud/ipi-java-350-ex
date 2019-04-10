@@ -6,6 +6,7 @@ import org.junit.Before;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -75,6 +76,26 @@ public class EmployeRepositoryTest {
         String lastMatricule = employeRepository.findLastMatricule();
         //then
         assertEquals("40325", lastMatricule);
+    }
+
+    @Test
+    public void testIntegrationAvgPerformanceWhereMatriculeStartsWith() {
+        // Given
+        Employe e = new Employe("Doe", "John", "C12345",
+                LocalDate.now(), Entreprise.SALAIRE_BASE, 13, 1.0);
+        Employe e1 = new Employe("Doe", "John", "T12345",
+                LocalDate.now(), Entreprise.SALAIRE_BASE, 3, 1.0);
+        Employe e2 = new Employe("Doe", "John", "C12346",
+                LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0);
+        employeRepository.save(e);
+        employeRepository.save(e1);
+        employeRepository.save(e2);
+
+        // When
+        Double avgPerf = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+
+        // Then
+        Assertions.assertEquals(new Double(7), avgPerf);
     }
 
 }
