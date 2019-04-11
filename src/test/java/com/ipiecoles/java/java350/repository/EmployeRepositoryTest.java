@@ -60,12 +60,11 @@ public class EmployeRepositoryTest {
     @Test
     public void IntegrationAvgPerformanceWhereMatriculeStartsWith() {
         //Given
-        employeRepository.save(new Employe("Doe", "John", "C00001", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
-        employeRepository.save(new Employe("Snow", "John", "C99999", LocalDate.now(), Entreprise.SALAIRE_BASE, 2, 0.5));
-        employeRepository.save(new Employe("Toto", "John", "C99998", LocalDate.now(), Entreprise.SALAIRE_BASE, 4, 1.0));
-        employeRepository.save(new Employe("Tutu", "John", "C99997", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 0.5));
-        employeRepository.save(new Employe("Titi", "John", "C99996", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
-        employeRepository.save(new Employe("Tata", "John", "C99995", LocalDate.now(), Entreprise.SALAIRE_BASE, 3, 1.0));
+        employeRepository.save(new Employe("Doe", "John", "C00007", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Chanel", "Coco", "C12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("LaTulipe", "Fanfan", "C00017", LocalDate.now(), Entreprise.SALAIRE_BASE, 4, 1.0));
+        employeRepository.save(new Employe("Yoyo", "Tata", "C00016", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 0.5));
+        employeRepository.save(new Employe("Mary", "Bloody", "C00018", LocalDate.now(), Entreprise.SALAIRE_BASE, 3, 0.5));
 
 
         //When
