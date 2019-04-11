@@ -70,12 +70,13 @@ public class EmployeService {
 
         //Calcul du salaire
         Double salaire = Entreprise.getCoeffSalaireEtudes().get(niveauEtude) * Entreprise.SALAIRE_BASE;
-        if(tempsPartiel != null){
+
+        try {
             salaire = salaire * tempsPartiel;
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Le temps partiel ne peut être null");
         }
-        else {
-            throw new EmployeException("Le temps partiel ne peut être null");
-        }
+       
         // LOG DEBUG : Salaire non arrondi
         LOG.debug("Salaire avant arrondi : {} ", salaire);
         salaire = Math.round(salaire*100d)/100d;
@@ -173,7 +174,10 @@ public class EmployeService {
         }
             // Calcul de la moyenne des performances des commerciaux de l'entreprise
             Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
-            if (performanceMoyenne != null && performance > performanceMoyenne) {
+        // normalement performance moyenne ne peut jamais être null car toujours au moins 1 commercial dans la base : celui sur lequel on travaille
+        // en théorie le bonus est alors appliqué quasi systématiquement (vérifier dans quels cas)
+        // voir pour ajouter un if(.count() des commerciaux > 2)
+        if (performanceMoyenne != null && performance > performanceMoyenne) {
                 performance++;
             }
             return performance;
