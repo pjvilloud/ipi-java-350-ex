@@ -140,20 +140,20 @@ public class EmployeServiceTest {
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
     }
 
-    @Test
-    public void testCalculPerformanceCommercial() throws EmployeException {
-        //Given
-        String matricule = "C00001";
-        Long caTraite = 10000L;
-        Long objectifCa = 15000L;
-
-        //When
-        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
-
-        //Then
-        ArgumentCaptor<Employe> employeCaptor = ArgumentCaptor.forClass(Employe.class);
-        Mockito.verify(employeRepository, times(1)).save(employeCaptor.capture());
-        Assertions.assertEquals(1, employeCaptor.getValue().getPerformance().intValue());
-    }
+//    @Test
+//    public void testCalculPerformanceCommercial() throws EmployeException {
+//        //Given
+//        String matricule = "C00001";
+//        Long caTraite = 10000L;
+//        Long objectifCa = 15000L;
+//
+//        //When
+//        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+//
+//        //Then
+//        ArgumentCaptor<Employe> employeCaptor = ArgumentCaptor.forClass(Employe.class);
+//        Mockito.verify(employeRepository, times(1)).save(employeCaptor.capture());
+//        Assertions.assertEquals(1, employeCaptor.getValue().getPerformance().intValue());
+//    }
 
 }
