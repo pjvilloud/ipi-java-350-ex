@@ -174,9 +174,6 @@ public class EmployeService {
         }
             // Calcul de la moyenne des performances des commerciaux de l'entreprise
             Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
-        // normalement performance moyenne ne peut jamais être null car toujours au moins 1 commercial dans la base : celui sur lequel on travaille
-        // en théorie le bonus est alors appliqué quasi systématiquement (vérifier dans quels cas)
-        // voir pour ajouter un if(.count() des commerciaux > 2)
         if (performanceMoyenne != null && performance > performanceMoyenne) {
                 performance++;
             }

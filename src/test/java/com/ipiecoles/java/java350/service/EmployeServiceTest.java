@@ -388,4 +388,16 @@ class EmployeServiceTest {
         }
     }
 
+    @Test
+    public void addBonusPerformanceCommercialInferieurMoyenne() throws EmployeException {
+        //Given
+        Integer performance = 1;
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(10.0);
+        //When
+        Integer performanceAvecBonus = employeService.addBonusPerformanceCommercial(performance);
+        //Then
+        Assertions.assertEquals(1, (int)performanceAvecBonus);
+    }
+
 }
+
