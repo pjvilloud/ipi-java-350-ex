@@ -20,7 +20,7 @@ public class EmployeService {
     @Autowired
     private EmployeRepository employeRepository;
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
 
@@ -37,7 +37,7 @@ public class EmployeService {
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
-        
+
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
@@ -127,7 +127,7 @@ public class EmployeService {
             performance = employe.getPerformance() + 1;
         }
         //Cas 5
-        else if(caTraite > objectifCa*1.2){
+        else {
             performance = employe.getPerformance() + 4;
         }
         //Si autre cas, on reste à la performance de base.
