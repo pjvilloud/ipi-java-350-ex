@@ -238,6 +238,33 @@ class EmployeServiceTest {
         Assertions.assertEquals(performance, employeCaptor.getValue().getPerformance());
     }
 
+    @Test
+    public void addBonusPerformanceCommercialPerfNull() {
+        // Given
+        Integer performance = null;
+
+        // When
+        try {
+            employeService.addBonusPerformanceCommercial(performance);
+            Assertions.fail("Devrait lancer une exception");
+        } catch (EmployeException e1) {
+            // Then
+            Assertions.assertEquals("La performance ne peut être = null pour appliquer un bonus !",
+                    e1.getMessage());
+        }
+    }
+
+    @Test
+    public void addBonusPerformanceCommercialInferieurMoyenne() throws EmployeException {
+        //Given
+        Integer performance = 1;
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(10.0);
+        //When
+        Integer performanceAvecBonus = employeService.addBonusPerformanceCommercial(performance);
+        //Then
+        Assertions.assertEquals(1, (int)performanceAvecBonus);
+    }
+
     // TODO : testCalculPerformanceCommercialThrowsExceptions()
 
     @Test
@@ -370,33 +397,6 @@ class EmployeServiceTest {
             Assertions.assertEquals("Le matricule C12345 n'existe pas !",
                     e1.getMessage());
         }
-    }
-
-    @Test
-    public void addBonusPerformanceCommercialPerfNull() {
-        // Given
-        Integer performance = null;
-
-        // When
-        try {
-            employeService.addBonusPerformanceCommercial(performance);
-            Assertions.fail("Devrait lancer une exception");
-        } catch (EmployeException e1) {
-            // Then
-            Assertions.assertEquals("La performance ne peut être = null pour appliquer un bonus !",
-                    e1.getMessage());
-        }
-    }
-
-    @Test
-    public void addBonusPerformanceCommercialInferieurMoyenne() throws EmployeException {
-        //Given
-        Integer performance = 1;
-        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(10.0);
-        //When
-        Integer performanceAvecBonus = employeService.addBonusPerformanceCommercial(performance);
-        //Then
-        Assertions.assertEquals(1, (int)performanceAvecBonus);
     }
 
 }
