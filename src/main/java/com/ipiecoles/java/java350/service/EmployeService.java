@@ -76,7 +76,7 @@ public class EmployeService {
         } catch (NullPointerException e) {
             throw new NullPointerException("Le temps partiel ne peut être null");
         }
-       
+
         // LOG DEBUG : Salaire non arrondi
         LOG.debug("Salaire avant arrondi : {} ", salaire);
         salaire = Math.round(salaire*100d)/100d;

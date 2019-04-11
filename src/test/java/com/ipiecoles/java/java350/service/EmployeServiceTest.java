@@ -175,6 +175,30 @@ class EmployeServiceTest {
 
     }
 
+    @Test
+    public void testEmbauchEmployeTempsPartielNull() throws EmployeException {
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.TECHNICIEN;
+        NiveauEtude niveauEtudes = NiveauEtude.BTS_IUT;
+        Double tempsPartiel = null;
+
+        // on veut qu'à l'appel de la fonction findLastMatricule, le résultat soit null
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
+        Mockito.when(employeRepository.findByMatricule("T00001")).thenReturn(null);
+
+        // When
+        try {
+            employeService.embaucheEmploye(nom, prenom, poste, niveauEtudes, tempsPartiel) ;
+            Assertions.fail("Devrait lancer une exception");
+            // Then
+        } catch (NullPointerException e1) {
+            Assertions.assertEquals("Le temps partiel ne peut être null",
+                    e1.getMessage());
+        }
+    }
+
     @ParameterizedTest(name = "employé matricule {0} : perf initiale {1}, CA traité {2}, objectif CA : {3}, perf attendue : {4}")
     @CsvSource( {
             "'C12345', 1, 60000, 60000, 1",
