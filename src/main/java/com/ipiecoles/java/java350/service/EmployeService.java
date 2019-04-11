@@ -134,7 +134,7 @@ public class EmployeService {
 
         //Calcul de la performance moyenne
         Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
-        if(performanceMoyenne != null && performance > performanceMoyenne){
+        if(performance > performanceMoyenne){
             performance++;
         }
 
