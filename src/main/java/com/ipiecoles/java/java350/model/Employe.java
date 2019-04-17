@@ -167,36 +167,46 @@ public class Employe {
      * Pour tous les employés :
      * une prime supplémentaire d'ancienneté est ajoutée :
      * en multipliant le nombre d'année d'ancienneté avec la prime d'ancienneté.
-     * La prime est calculée au pro rata du temps de travail de l'employé
      *
-     * Pour les managers : Prime annuelle de base bonnifiée par l'indice prime manager
      *
-     * Pour les autres employés : la prime de base plus éventuellement la prime de performance calculée si l'employé
-     * n'a pas la performance de base, en multipliant la prime de base par un l'indice de performance
-     * (égal à la performance à laquelle on ajoute l'indice de prime de base)
+     * Pour les managers (Matricule commençant par un M)
+     * Prime annuelle de base multipliée par l'indice prime manager + la prime d'anciennté.
      *
-
+     * Pour les autres employés :
+     * le calcul est :
+     *      S'il n'a pas de performance ou sa performance au moins égale à celle de l'entreprise
+     *      la prime annuelle de base
+     *      + la prime d'ancienneté
+     *
+     *      S'il a une perfomance supérieure à celle de l'entreprise :
+     *      la prime annuelle de base multipliée par
+     *      la somme de sa performance et de l'indice de prime de base de l'entreprise
+     *      + la prime d'ancienneté
+     *
+     * La prime annuelle est ensuite ramenée au pro rata du temps de travail de l'employé
      *
      * @return un Double de la prime annuelle de l'employé en Euros et cents
      */
     public Double getPrimeAnnuelle(){
+
         //Calcul de la prime d'ancienneté
         Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
         Double prime;
-        //Prime du manager (matricule commençant par M) : Prime annuelle de base multipliée par l'indice prime manager
-        //plus la prime d'anciennté.
+
+        //Calcul pour un Manager
         if(matricule != null && matricule.startsWith("M")) {
             prime = Entreprise.primeAnnuelleBase() * Entreprise.INDICE_PRIME_MANAGER + primeAnciennete;
         }
-        //Pour les autres employés en performance de base, uniquement la prime annuelle plus la prime d'ancienneté.
+        // Pour les autres employés sans performance ou performance = celle de base
         else if (this.performance == null || Entreprise.PERFORMANCE_BASE.equals(this.performance)){
             prime = Entreprise.primeAnnuelleBase() + primeAnciennete;
         }
-        //Pour les employés plus performance, on bonnifie la prime de base en multipliant par la performance de l'employé
+        //Pour les employés avec une performance > celle de base, on bonnifie la prime de base en multipliant par la performance de l'employé
         // et l'indice de prime de base.
         else {
             prime = Entreprise.primeAnnuelleBase() * (this.performance + Entreprise.INDICE_PRIME_BASE) + primeAnciennete;
         }
+
         //Au pro rata du temps partiel.
         return prime * this.tempsPartiel;
     }
@@ -229,7 +239,7 @@ public class Employe {
     }
 
     /**
-     * @return the nom
+     * @return une String du nom du salarié
      */
     public String getNom() {
         return nom;
@@ -243,7 +253,7 @@ public class Employe {
     }
 
     /**
-     * @return the prenom
+     * @return une String du prénom du salarié
      */
     public String getPrenom() {
         return prenom;
