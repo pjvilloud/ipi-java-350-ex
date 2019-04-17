@@ -74,16 +74,50 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+    /**
+     * Nombre de jours de RTT =
+     *   Nombre de jours dans l'année
+     * – plafond maximal du forfait jours de la convention collective
+     * – nombre de jours de repos hebdomadaires
+     * – jours de congés payés
+     * – nombre de jours fériés tombant un jour ouvré
+     *
+     * Au prorata de son pourcentage d'activité (arrondi au supérieur)
+     *
+     * @return le nombre de jours de RTT
+     */
+    public Integer getNbRtt(LocalDate date){
+        // Les résultats de la ternaire étaient inversés
+        int nbJoursAnnee = date.isLeapYear() ? 366 : 365;
+
+        // Ne pas oublier les breaks dans les bloc switch, et éviter les if en ligne
+        // Ajout d'une condition default pour éviter un code smell
+        int nbJoursWeekend;
+        switch (LocalDate.of(date.getYear(),1,1).getDayOfWeek()){
+            case FRIDAY:
+                nbJoursWeekend = date.isLeapYear() ? 105 : 104;
+                break;
+            case SATURDAY:
+                nbJoursWeekend = date.isLeapYear() ? 106 : 105;
+                break;
+            case SUNDAY:
+                nbJoursWeekend = date.isLeapYear() ? 104 : 105;
+                break;
+            default:
+                nbJoursWeekend = 104;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+
+        // Si la date demandée est inférieure à l'année en cours, on ne peut trouver les jours fériés dans la liste
+        // Pour éviter l'exception, on passe le nbRtt à 0 dans ce cas
+        Double nbRtt = 0.0;
+        if (date.getYear() >= LocalDate.now().getYear()) {
+            Long nbJoursFeries = Entreprise.joursFeries(date).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+
+            // floor au lieu de ceil. On arrondi au plus bas si un jour n'est pas complétement acquis
+            nbRtt = Math.floor((nbJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbJoursWeekend - Entreprise.NB_CONGES_BASE - nbJoursFeries) * tempsPartiel);
+        }
+
+        return nbRtt.intValue();
     }
 
     /**
@@ -121,7 +155,14 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+        if (pourcentage < -1.0 || salaire < 0.0) {
+            salaire = 0.0;
+        }
+        else {
+            salaire = salaire * (1 + pourcentage);
+        }
+    }
 
     public Long getId() {
         return id;

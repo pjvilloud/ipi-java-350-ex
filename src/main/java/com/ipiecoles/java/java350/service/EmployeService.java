@@ -105,7 +105,7 @@ public class EmployeService {
         if(objectifCa == null || objectifCa < 0){
             throw new EmployeException("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
         }
-        if(matricule == null || !matricule.startsWith("C")){
+        if((matricule == null) || !matricule.startsWith("C")){
             throw new EmployeException("Le matricule ne peut être null et doit commencer par un C !");
         }
         //Recherche de l'employé dans la base

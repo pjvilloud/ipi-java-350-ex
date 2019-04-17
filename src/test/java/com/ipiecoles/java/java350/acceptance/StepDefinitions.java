@@ -47,4 +47,20 @@ public class StepDefinitions {
         Assertions.assertEquals(prenom, e.getPrenom());
         Assertions.assertEquals(nom, e.getNom());
     }
+
+    @Step("Soit un commercial appelé <prenom> <nom> de matricule <matricule> et de performance <performance>")
+    public void insertCommercial(String prenom, String nom, String matricule, Integer performance) throws EmployeException {
+        employeRepository.save(new Employe(nom, prenom, matricule, LocalDate.now(), Entreprise.SALAIRE_BASE, performance, 1.0));
+    }
+
+    @Step("Je calcule la nouvelle performance du commercial <matricule> ayant réalisé un chiffre d'affaire de <caTraite> €, pour un chiffre d'affaire cible de <objectifCa> €")
+    public void embaucheEmploye(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+    }
+
+    @Step("J'obtiens bien une nouvelle performance de <perfObtenue> pour le commercial <matricule>")
+    public void checkPerformance(Integer perfObtenue, String matricule) {
+        Employe e = employeRepository.findByMatricule(matricule);
+        Assertions.assertEquals(perfObtenue, e.getPerformance());
+    }
 }
