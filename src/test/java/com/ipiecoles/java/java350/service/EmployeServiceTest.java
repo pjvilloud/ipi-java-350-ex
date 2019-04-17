@@ -265,7 +265,18 @@ class EmployeServiceTest {
         Assertions.assertEquals(1, (int)performanceAvecBonus);
     }
 
-    // TODO : testCalculPerformanceCommercialThrowsExceptions()
+    @Test
+    public void addBonusPerformanceCommercialSuppMoyenne() throws EmployeException {
+        //Given
+        Integer performance = 2;
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(1.0);
+        //When
+        Integer performanceAvecBonus = employeService.addBonusPerformanceCommercial(performance);
+        //Then
+        Assertions.assertEquals(3, (int)performanceAvecBonus);
+    }
+
+
 
     @Test
     public void testCalculPerformanceCommercialCaTraiteNull() {
