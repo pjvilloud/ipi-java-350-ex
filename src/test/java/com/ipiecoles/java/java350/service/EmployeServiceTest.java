@@ -17,10 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
- // TODO: Supprimer tous les imports grisés de l'appli
- // TODO: Supprimer les commentaires inutiles
- // TODO : écrire la documentation des méthodes qui ne le sont pas
-
 @ExtendWith(MockitoExtension.class)
 class EmployeServiceTest {
 
@@ -90,8 +86,6 @@ class EmployeServiceTest {
 
     }
 
-    // pour tester la levée d'exception on peut faire ça :
-    // ou sinon voir les slides pour la version Junit5 avec une notation avec des lambdas
     @Test
     public void testEmbaucheManagerMiTempsLastMatricule99999() {
 
@@ -102,7 +96,6 @@ class EmployeServiceTest {
         NiveauEtude niveauEtudes = NiveauEtude.MASTER;
         Double tempsPartiel = 0.5;
 
-        // on veut qu'à l'appel de la fonction findLastMatricule, le résultat soit :
         Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
 
         // When
@@ -116,7 +109,6 @@ class EmployeServiceTest {
 
     }
 
-    // on va tester l'autre levée d'exception :
     @Test
     public void testEmbaucheManagerMiTempsLastMatriculeExisteDeja() throws EmployeException {
 
@@ -127,11 +119,8 @@ class EmployeServiceTest {
         NiveauEtude niveauEtudes = NiveauEtude.MASTER;
         Double tempsPartiel = 0.5;
 
-        // on veut qu'à l'appel de la fonction findLastMatricule, le résultat soit null
         Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
-        // on veut qu'à l'appel de la fonction findByMatricule, le résultat soit null
         Mockito.when(employeRepository.findByMatricule("M00001")).thenReturn(new Employe());
-        // Mockito.when(employeRepository.save(Mockito.any())).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
         // When
         try {
@@ -154,7 +143,6 @@ class EmployeServiceTest {
         NiveauEtude niveauEtudes = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;
 
-        // on veut qu'à l'appel de la fonction findLastMatricule, le résultat soit null
         Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
         Mockito.when(employeRepository.findByMatricule("T00001")).thenReturn(null);
         Mockito.when(employeRepository.save(Mockito.any())).thenAnswer(AdditionalAnswers.returnsFirstArg());
@@ -184,7 +172,6 @@ class EmployeServiceTest {
         NiveauEtude niveauEtudes = NiveauEtude.BTS_IUT;
         Double tempsPartiel = null;
 
-        // on veut qu'à l'appel de la fonction findLastMatricule, le résultat soit null
         Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
         Mockito.when(employeRepository.findByMatricule("T00001")).thenReturn(null);
 

@@ -10,6 +10,12 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
 
+
+// TODO: Supprimer tous les imports grisés de l'appli
+// TODO: Supprimer les commentaires inutiles
+// TODO : écrire la documentation des méthodes qui ne le sont pas
+
+
 @Entity
 public class Employe {
 
@@ -25,9 +31,23 @@ public class Employe {
     private Integer performance = Entreprise.PERFORMANCE_BASE;
     private Double tempsPartiel = 1.0;
 
+    /**
+     * Constructor
+     */
     public Employe() {
     }
 
+    /**
+     * Constructor
+     *
+     * @param nom
+     * @param prenom
+     * @param matricule
+     * @param dateEmbauche
+     * @param salaire
+     * @param performance
+     * @param tempsPartiel
+     */
     public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Integer performance, Double tempsPartiel) {
         this.nom = nom;
         this.prenom = prenom;
@@ -38,6 +58,13 @@ public class Employe {
         this.tempsPartiel = tempsPartiel;
     }
 
+    /**
+     * Calcul du nombre d'années d'ancienneté à l'aide de la date d'embauche du salarié
+     *
+     * @return      un Integer du nombre d'années d'ancienneté,
+     *              0 si l'embauche a eu lieu dans l'année en cours ou n'a pas encore eu lieu
+     *              0 si l'année d'ancienneté est null
+     */
     public Integer getNombreAnneeAnciennete() {
         if(this.dateEmbauche != null) {
             if (this.dateEmbauche.isAfter(LocalDate.now())) {
@@ -50,25 +77,37 @@ public class Employe {
         }
     }
 
+    /**
+     * Calcul du nombre de jours de congés en faisant la somme :
+     * du nombre de congés de base de l'entreprise
+     * et du nombre d'années d'ancienneté
+     *
+     * @return      un Integer du nombre du jour de congés
+     */
     public Integer getNbConges() {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
+    /**
+     * Calcul du nombre de jours de RTT de cette année
+     *
+     * @return      un Integer du nombre de jour de RTT de l'année en cours
+     */
     public Integer getNbRtt(){
         return getNbRtt(LocalDate.now());
     }
 
     /**
      * Calcul du nombre de jours de RTT dans l'année entrée en paramètre selon la formule :
-     * Nombre de jours dans l'année
-     * - Nombre de jours travaillés dans l'année en plein temps
-     * - Nombre de samedi et dimanche dans l'année
-     * - Nombre de jours fériés ne tombant pas le week-end
-     *  -   Listes des fériés
-     * - Nombre de congés payés.
+     *      Nombre de jours dans l'année
+     *      - Nombre de jours travaillés dans l'année (pour un plein temps)
+     *      - Nombre de samedi et dimanche dans l'année
+     *      - Nombre de jours fériés tombant des jours ouvrés (car les samedis et dimanches ont déjà été retirés)
+     *      - Nombre de congés payés.
      *
      * @param annee
-     * @return le nombre de jours de rtt, au prorata du temps partiel, en int arrondi au supérieur
+     *
+     * @return     le nombre de jours de rtt, au prorata du temps partiel, en int arrondi au supérieur
      */
     public Integer getNbRtt(LocalDate annee){
 
@@ -124,15 +163,21 @@ public class Employe {
 
     /**
      * Calcul de la prime annuelle selon la règle :
+     *
+     * Pour tous les employés :
+     * une prime supplémentaire d'ancienneté est ajoutée :
+     * en multipliant le nombre d'année d'ancienneté avec la prime d'ancienneté.
+     * La prime est calculée au pro rata du temps de travail de l'employé
+     *
      * Pour les managers : Prime annuelle de base bonnifiée par l'indice prime manager
-     * Pour les autres employés, la prime de base plus éventuellement la prime de performance calculée si l'employé
+     *
+     * Pour les autres employés : la prime de base plus éventuellement la prime de performance calculée si l'employé
      * n'a pas la performance de base, en multipliant la prime de base par un l'indice de performance
      * (égal à la performance à laquelle on ajoute l'indice de prime de base)
      *
-     * Pour tous les employés, une prime supplémentaire d'ancienneté est ajoutée en multipliant le nombre d'année
-     * d'ancienneté avec la prime d'ancienneté. La prime est calculée au pro rata du temps de travail de l'employé
+
      *
-     * @return la prime annuelle de l'employé en Euros et cents
+     * @return un Double de la prime annuelle de l'employé en Euros et cents
      */
     public Double getPrimeAnnuelle(){
         //Calcul de la prime d'ancienneté

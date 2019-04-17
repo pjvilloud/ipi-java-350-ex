@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 public class EmployeTest {
 
-    // pjvilloud@protonmail.com
     @Test
     public void testAugmenterSalaireDoubleNegatif() {
             // Given
@@ -65,7 +64,7 @@ public class EmployeTest {
 
     @Test
     public void testAugmenterSalaire50Pourcent() throws EmployeException {
-        // Given : cas nominal
+        // Given
         Employe e = new Employe();
         e.setSalaire(Entreprise.SALAIRE_BASE);
         // When
@@ -88,17 +87,16 @@ public class EmployeTest {
     @Test
     public void testNombreAnneesAncienneteDateEmbaucheNull() {
 
-        //Given = Initialisation des données d'entrée
+        //Given
         Employe e = new Employe();
-        e.setDateEmbauche(null); // au cas où le constructeur par défaut prévoit une date d'embauche par défaut
+        e.setDateEmbauche(null);
 
-        //When = Exécution de la méthode à tester
+        //When
         Integer nbAnneesAnciennete = e.getNombreAnneeAnciennete();
 
 
-        //Then = Vérifications de ce qu'a fait la méthode
+        //Then
         Assertions.assertEquals(0, (int)nbAnneesAnciennete);
-        //on caste le Integer en int pour faire une comparaison equals
     }
 
     @Test
@@ -179,7 +177,6 @@ public class EmployeTest {
     @ParameterizedTest(name = "pour employé marticule {1}, perf {0}, ancienneté {2}, temps partiel {3} : prime annuelle {4}")
     @CsvSource({
             "1, 'T12345', 0, 1.0, 1000.0"
-            // ici les valeurs données doivent être calculées à la main et non pas par la code, sinon évidemment ça va être evalidé.
     })
     void testGetPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle ){
         // Given
