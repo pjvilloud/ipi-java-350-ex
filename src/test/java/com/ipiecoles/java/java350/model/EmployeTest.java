@@ -158,6 +158,24 @@ public class EmployeTest {
         Assertions.assertEquals(nbRttAttendus, nbJoursRtt);
     }
 
+
+    @ParameterizedTest(name = "pour cette année {0} : nombre de jours de RTT {1}, à temps de travail : {2}")
+    @CsvSource( {
+            "2019, 8, 1.0"
+    })
+    void testgetNbRttNow(int date, int nbRttAttendus, Double tempsPartiel) {
+        // Given
+        Employe employe = new Employe();
+        employe.setTempsPartiel(tempsPartiel);
+        // When
+        int nbJoursRtt = employe.getNbRtt();
+        // Then
+        Assertions.assertEquals(nbRttAttendus, nbJoursRtt);
+    }
+
+
+
+
     @ParameterizedTest(name = "pour employé marticule {1}, perf {0}, ancienneté {2}, temps partiel {3} : prime annuelle {4}")
     @CsvSource({
             "1, 'T12345', 0, 1.0, 1000.0"
