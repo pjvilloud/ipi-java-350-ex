@@ -10,6 +10,8 @@ import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -132,4 +134,135 @@ public class EmployeServiceTest {
         //Then
 
     }
+
+    @Test
+    public void testCalculPerformanceCommercialMoins20() throws EmployeException {
+
+        //Given
+        Employe e = new Employe();
+        e.setMatricule("C12345");
+        e.setPerformance(4);
+        Long caTraite = 5000L;
+        Long objectifCa = 10000L;
+        Mockito.when(employeRepository.findByMatricule("C12345")).thenReturn(e);
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(10.0);
+
+        //When
+        employeService.calculPerformanceCommercial(e.getMatricule(), caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository).save(employeArgumentCaptor.capture());
+        Integer performanceEmploye = employeArgumentCaptor.getValue().getPerformance();
+
+        Assertions.assertEquals(Entreprise.PERFORMANCE_BASE, performanceEmploye);
+
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialEntreMoins20EtMoins5() throws EmployeException{
+        //Given
+        Employe e = new Employe();
+        e.setMatricule("C12345");
+        e.setPerformance(4);
+        Long caTraite = 8500L;
+        Long objectifCa = 10000L;
+        Mockito.when(employeRepository.findByMatricule("C12345")).thenReturn(e);
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(10.0);
+
+        //When
+        employeService.calculPerformanceCommercial(e.getMatricule(), caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository).save(employeArgumentCaptor.capture());
+        Integer performanceEmploye = employeArgumentCaptor.getValue().getPerformance();
+
+        Assertions.assertEquals((Integer)2, performanceEmploye);
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialEntreMoins5EtPlus5() throws EmployeException{
+        Employe e = new Employe();
+        e.setMatricule("C12345");
+        e.setPerformance(4);
+        Long caTraite = 10000L;
+        Long objectifCa = 10000L;
+        Mockito.when(employeRepository.findByMatricule("C12345")).thenReturn(e);
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(10.0);
+
+        //When
+        employeService.calculPerformanceCommercial(e.getMatricule(), caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository).save(employeArgumentCaptor.capture());
+        Integer performanceEmploye = employeArgumentCaptor.getValue().getPerformance();
+
+        Assertions.assertEquals((Integer)4, performanceEmploye);
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialEntrePlus5EtPlus20() throws EmployeException{
+        Employe e = new Employe();
+        e.setMatricule("C12345");
+        e.setPerformance(4);
+        Long caTraite = 11500L;
+        Long objectifCa = 10000L;
+        Mockito.when(employeRepository.findByMatricule("C12345")).thenReturn(e);
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(10.0);
+
+        //When
+        employeService.calculPerformanceCommercial(e.getMatricule(), caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository).save(employeArgumentCaptor.capture());
+        Integer performanceEmploye = employeArgumentCaptor.getValue().getPerformance();
+
+        Assertions.assertEquals((Integer)5, performanceEmploye);
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialPlus20() throws EmployeException{
+        Employe e = new Employe();
+        e.setMatricule("C12345");
+        e.setPerformance(4);
+        Long caTraite = 15000L;
+        Long objectifCa = 10000L;
+        Mockito.when(employeRepository.findByMatricule("C12345")).thenReturn(e);
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(10.0);
+
+        //When
+        employeService.calculPerformanceCommercial(e.getMatricule(), caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository).save(employeArgumentCaptor.capture());
+        Integer performanceEmploye = employeArgumentCaptor.getValue().getPerformance();
+
+        Assertions.assertEquals((Integer)8, performanceEmploye);
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialPlus20EtSupMoyennePerf() throws EmployeException{
+        Employe e = new Employe();
+        e.setMatricule("C12345");
+        e.setPerformance(7);
+        Long caTraite = 15000L;
+        Long objectifCa = 10000L;
+        Mockito.when(employeRepository.findByMatricule("C12345")).thenReturn(e);
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(10.0);
+
+        //When
+        employeService.calculPerformanceCommercial(e.getMatricule(), caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository).save(employeArgumentCaptor.capture());
+        Integer performanceEmploye = employeArgumentCaptor.getValue().getPerformance();
+
+        Assertions.assertEquals((Integer)12, performanceEmploye);
+    }
+
 }
