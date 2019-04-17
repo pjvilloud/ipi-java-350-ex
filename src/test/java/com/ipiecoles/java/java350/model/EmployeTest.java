@@ -134,14 +134,18 @@ public class EmployeTest {
         Assertions.assertEquals(0, (int)nbAnneeAnciennete);
     }
 
-    @ParameterizedTest(name = "pour l'année {1} : nombre de jours de RTT {2}, à temps de travail : {3}")
+    @ParameterizedTest(name = "pour l'année {0} : nombre de jours de RTT {1}, à temps de travail : {2}")
     @CsvSource( {
             "2019, 8, 1.0",
             "2021, 11, 1.0",
             "2022, 10, 1.0",
             "2032, 12, 1.0",
             "2021, 6, 0.5",
-            "2032, 6, 0.5"
+            "2032, 6, 0.5",
+            "2040, 10, 1.0",
+            "2044, 10, 1.0",
+            "2028, 8, 1.0",
+            "2023, 8, 1.0"
     })
     void testgetNbRtt(int date, int nbRttAttendus, Double tempsPartiel) {
         // Given
