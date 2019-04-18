@@ -11,11 +11,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 
-// TODO: Supprimer tous les imports grisés de l'appli
-// TODO: Supprimer les commentaires inutiles
-// TODO : écrire la documentation des méthodes qui ne le sont pas
-
-
 @Entity
 public class Employe {
 
@@ -89,7 +84,7 @@ public class Employe {
     }
 
     /**
-     * Calcul du nombre de jours de RTT de cette année
+     * Nombre de jours de RTT de cette année
      *
      * @return      un Integer du nombre de jour de RTT de l'année en cours
      */
