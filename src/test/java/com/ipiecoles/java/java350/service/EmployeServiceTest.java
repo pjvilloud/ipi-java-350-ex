@@ -392,7 +392,7 @@ class EmployeServiceTest {
             Assertions.fail("Devrait lancer une exception");
         } catch (EmployeException e1) {
             // Then
-            Assertions.assertEquals("Le matricule C12345 n'existe pas !",
+            Assertions.assertEquals("Le matricule " + matricule + " n'existe pas !",
                     e1.getMessage());
         }
     }
