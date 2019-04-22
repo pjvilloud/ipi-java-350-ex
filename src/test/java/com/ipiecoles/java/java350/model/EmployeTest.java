@@ -68,6 +68,21 @@ public class EmployeTest {
 
     }
 
+    //Test témoin, l'augmentation est réaliste, et tout se passe bien
+    public void augmenterSalaireTemoin()
+    {
+        //Given :
+        Employe e = new Employe();
+        e.setSalaire(1800.00);
+
+        //When :
+        e.augmenterSalaire(0.15);
+
+        //Then :
+        Assertions.assertEquals(2070.00, e.getSalaire().doubleValue());
+
+    }
+
     @Test
     public void getNombreAnneeAncienneteNow(){
         //Given
