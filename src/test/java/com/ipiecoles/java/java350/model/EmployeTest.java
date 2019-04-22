@@ -53,6 +53,21 @@ public class EmployeTest {
 
     }
 
+    //On teste avec une valeur doublant le salaire, considérée irréaliste
+    //On vérifie qu'une exception est levée, le salaire reste inchangé
+    @Test
+    public void augmenterSalaireDouble() throws Exception
+    {   thrownException.expect(EmployeException.class);
+        thrownException.expectMessage("L'augmentation est fantaisiste, est-ce une tentative de corruption ?");
+        //Given :
+        Employe e = new Employe();
+        e.setSalaire(1800.00);
+
+        //When :
+        e.augmenterSalaire(1.0);
+
+    }
+
     @Test
     public void getNombreAnneeAncienneteNow(){
         //Given
