@@ -37,6 +37,22 @@ public class EmployeTest {
 
     }
 
+    // On teste avec un pourcentage nul
+    @Test
+    public void augmenterSalaireNullValue()
+    {
+        //given :
+        Employe e = new Employe();
+        e.setSalaire(1800.00);
+
+        //When :
+        e.augmenterSalaire(0.0);
+
+        //Then
+        Assertions.assertEquals(1800.0, e.getSalaire().doubleValue());
+
+    }
+
     @Test
     public void getNombreAnneeAncienneteNow(){
         //Given
