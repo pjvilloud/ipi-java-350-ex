@@ -1,13 +1,41 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.rules.ExpectedException;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class EmployeTest {
+
+    //Test de la méthode augmenterSalaire :
+    @Rule
+    public ExpectedException thrownException = ExpectedException.none();
+
+
+    //Test avec un paramètre négatif, paramètre correspondant au pourcentage d'augmentation
+    //La méthode doit renvoyer une exception de type EmployeException indiquant qu'on ne peut pas rétrograder le salaire
+    //d'un employé, le test échoue si aucune exception n'est levée
+    @Test
+    public void augmenterSalaireNegativeValue() throws Exception
+    {
+        thrownException.expect(EmployeException.class);
+        thrownException.expectMessage("On ne peut pas rétrograder le salaire d'un employé");
+
+        // Given
+        Employe e = new Employe();
+        e.setSalaire(1800.00);
+
+        //When
+        e.augmenterSalaire(-0.3);
+
+    }
 
     @Test
     public void getNombreAnneeAncienneteNow(){
