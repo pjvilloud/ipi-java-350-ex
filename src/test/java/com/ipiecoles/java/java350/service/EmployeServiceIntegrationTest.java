@@ -60,4 +60,20 @@ public class EmployeServiceIntegrationTest {
 
     }
 
+    @Test
+    public void testCalculPerformanceCommercial() throws EmployeException {
+        //Given
+        employeRepository.save(new Employe("Portnoy", "Mike", "C12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Labrie", "James", "C23456", LocalDate.now(), Entreprise.SALAIRE_BASE, 2, 1.0));
+        employeRepository.save(new Employe("Rudess", "Jordan", "C34567", LocalDate.now(), Entreprise.SALAIRE_BASE, 3, 1.0));
+        employeRepository.save(new Employe("Petrucci", "John", "C45678", LocalDate.now(),Entreprise.SALAIRE_BASE, 4, 1.0));
+
+        //When
+        employeService.calculPerformanceCommercial("C12345",11500L, 10000L);
+
+        //Then
+        Employe e = employeRepository.findByMatricule("C12345");
+        Assertions.assertEquals((Integer) 2, e.getPerformance());
+    }
+
 }
