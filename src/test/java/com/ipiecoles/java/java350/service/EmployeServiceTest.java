@@ -265,4 +265,49 @@ public class EmployeServiceTest {
         Assertions.assertEquals((Integer)12, performanceEmploye);
     }
 
+    @Test
+    public void testCalculPerformanceCommercialCaNull(){
+        Employe e = new Employe();
+        e.setMatricule("C12345");
+        e.setPerformance(2);
+        Long caTraite = null;
+        Long objectifCa = 10000L;
+
+        EmployeException employeException = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(e.getMatricule(), caTraite, objectifCa));
+        Assertions.assertEquals("Le chiffre d'affaire traité ne peut être négatif ou null !", employeException.getMessage());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialObjectifCaNegatif(){
+        Employe e = new Employe();
+        e.setMatricule("C12345");
+        e.setPerformance(2);
+        Long caTraite = 12000L;
+        Long objectifCa = -10000L;
+
+        EmployeException employeException = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(e.getMatricule(), caTraite, objectifCa));
+        Assertions.assertEquals("L'objectif de chiffre d'affaire ne peut être négatif ou null !", employeException.getMessage());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialMatriculeErreur(){
+        Employe e = new Employe();
+        e.setMatricule("M12345");
+        e.setPerformance(2);
+        Long caTraite = 12000L;
+        Long objectifCa = 10000L;
+
+        EmployeException employeException = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(e.getMatricule(), caTraite, objectifCa));
+        Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !", employeException.getMessage());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialEmployeNonTrouve(){
+        Long caTraite = 12000L;
+        Long objectifCa = 10000L;
+
+        EmployeException employeException = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("C12345", caTraite, objectifCa));
+        Assertions.assertEquals("Le matricule C12345 n'existe pas !", employeException.getMessage());
+    }
+
 }
