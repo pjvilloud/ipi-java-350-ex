@@ -13,10 +13,10 @@ public final class Entreprise {
     public static final Integer NB_JOURS_MAX_FORFAIT = 218;
     private static final double PRIME_BASE = 1000d;
 
-    private static final Map<NiveauEtude, Double> COEFF_SALAIRE_ETUDES = new EnumMap<>(NiveauEtude.class);
+    protected static final Map<NiveauEtude, Double> coeffSalaireEtudes = new EnumMap<>(NiveauEtude.class);
 
     public static Map<NiveauEtude, Double> getCoeffSalaireEtudes() {
-        return COEFF_SALAIRE_ETUDES;
+        return coeffSalaireEtudes;
     }
 
     private static final Map<Integer, LocalDate> datePaque = new HashMap<>();
@@ -26,13 +26,13 @@ public final class Entreprise {
     }
 
     static {
-        COEFF_SALAIRE_ETUDES.put(NiveauEtude.CAP, 1.0);
-        COEFF_SALAIRE_ETUDES.put(NiveauEtude.BAC, 1.1);
-        COEFF_SALAIRE_ETUDES.put(NiveauEtude.BTS_IUT, 1.2);
-        COEFF_SALAIRE_ETUDES.put(NiveauEtude.LICENCE, 1.2);
-        COEFF_SALAIRE_ETUDES.put(NiveauEtude.MASTER, 1.4);
-        COEFF_SALAIRE_ETUDES.put(NiveauEtude.INGENIEUR, 1.6);
-        COEFF_SALAIRE_ETUDES.put(NiveauEtude.DOCTORAT, 1.7);
+        coeffSalaireEtudes.put(NiveauEtude.CAP, 1.0);
+        coeffSalaireEtudes.put(NiveauEtude.BAC, 1.1);
+        coeffSalaireEtudes.put(NiveauEtude.BTS_IUT, 1.2);
+        coeffSalaireEtudes.put(NiveauEtude.LICENCE, 1.2);
+        coeffSalaireEtudes.put(NiveauEtude.MASTER, 1.4);
+        coeffSalaireEtudes.put(NiveauEtude.INGENIEUR, 1.6);
+        coeffSalaireEtudes.put(NiveauEtude.DOCTORAT, 1.7);
 
         datePaque.put(2019, LocalDate.of(2019, 4, 21));
         datePaque.put(2020, LocalDate.of(2020, 4, 12));
