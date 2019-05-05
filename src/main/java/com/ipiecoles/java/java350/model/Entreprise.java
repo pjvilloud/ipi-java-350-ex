@@ -13,7 +13,7 @@ public final class Entreprise {
     public static final Integer NB_JOURS_MAX_FORFAIT = 218;
     private static final double PRIME_BASE = 1000d;
 
-    protected static final Map<NiveauEtude, Double> COEFF_SALAIRE_ETUDES = new EnumMap<>(NiveauEtude.class);
+    private static final Map<NiveauEtude, Double> COEFF_SALAIRE_ETUDES = new EnumMap<>(NiveauEtude.class);
 
     public static Map<NiveauEtude, Double> getCoeffSalaireEtudes() {
         return COEFF_SALAIRE_ETUDES;
