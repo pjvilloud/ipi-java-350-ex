@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 
 public class EmployeTest {
@@ -88,23 +89,43 @@ public class EmployeTest {
        // Then
        Assertions.assertEquals(primeAnnuelle, prime);
    }
-   @ParameterizedTest
-   @CsvSource({
-           "1521.22, 10, 1673.342",
-           "1521.22, 0, 1521.22",
-           "1521.22, -10, 1521.22",
-           "0, 10, 0"
-   })
-   public void testAugmenterSalaire(Double salaire, Integer pourcentage, Double salaireExpected) throws EmployeException {
+
+   @Test
+   public void testAugmenterSalaireCasNominal() throws EmployeException {
 
         Employe e = new Employe();
-        e.setSalaire(salaire);
+        e.setSalaire(1521.22);
+        Integer pourcentage = 10;
+
 
         e.augmenterSalaire(pourcentage);
         Double salaireAugemente = e.getSalaire();
 
-        Assertions.assertEquals(salaireAugemente,salaireExpected);
+        Assertions.assertEquals(salaireAugemente, (Double)1673.342);
    }
+
+   @Test
+   public void testAugmenterSalaireSalaireNull() throws EmployeException{
+       Employe e = new Employe();
+       e.setSalaire(0D);
+       Integer pourcentage = 5;
+
+
+       EmployeException employeException = Assertions.assertThrows(EmployeException.class, () -> e.augmenterSalaire(pourcentage));
+       Assertions.assertEquals("Le salaire ne peut être égal à 0 !", employeException.getMessage());
+   }
+
+    @Test
+    public void testAugmenterSalairePourcentageNegatif() throws EmployeException{
+        Employe e = new Employe();
+        e.setSalaire(1500D);
+        Integer pourcentage = -5;
+
+
+        EmployeException employeException = Assertions.assertThrows(EmployeException.class, () -> e.augmenterSalaire(pourcentage));
+        Assertions.assertEquals("Le pourcentage ne peut être égal ou inférieur à 0", employeException.getMessage());
+    }
+
    @ParameterizedTest
    @CsvSource({
            "2019-01-01, 8", // cas nominal
