@@ -21,7 +21,6 @@ public class EmployeService {
     private EmployeRepository employeRepository;
 
     private static final Logger LOG = LoggerFactory.getLogger(EmployeService.class);
-    // ou private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Méthode enregistrant un nouvel employé dans l'entreprise
@@ -35,7 +34,7 @@ public class EmployeService {
      * @throws EmployeException Si on arrive au bout des matricules possibles
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
-    public Employe embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+    public Employe embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException {
 
         //Log des paramètres de la méthode : INFO
         LOG.info("Embauche d'un employé {} {} {} {} {}", nom, prenom, poste, niveauEtude, tempsPartiel );

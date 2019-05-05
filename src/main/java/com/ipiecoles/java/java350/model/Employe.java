@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -83,6 +85,7 @@ public class Employe {
             case THURSDAY: if(d.isLeapYear()) nbJoursReposHebdomadaire =  nbJoursReposHebdomadaire + 1; break;
             case FRIDAY: if(d.isLeapYear()) nbJoursReposHebdomadaire =  nbJoursReposHebdomadaire + 2; else nbJoursReposHebdomadaire =  nbJoursReposHebdomadaire + 1; break;
             case SATURDAY: nbJoursReposHebdomadaire = nbJoursReposHebdomadaire + 1; break;
+            default: break;
         }
         int nbJoursFeries = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         return (int) Math.ceil((nbJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbJoursReposHebdomadaire - Entreprise.NB_CONGES_BASE - nbJoursFeries) * tempsPartiel);
@@ -123,10 +126,14 @@ public class Employe {
     }
 
 
-    public void augmenterSalaire(Integer pourcentage){
+    public void augmenterSalaire(Integer pourcentage) throws EmployeException{
 
-        if (this.getSalaire() == 0) {}
-        else if(pourcentage <= 0){}
+        if (this.getSalaire() == 0) {
+            throw new EmployeException("Le salaire ne peut être égal à 0 !");
+        }
+        else if(pourcentage <= 0){
+            throw new EmployeException("Le pourcentage ne peut être égal ou inférieur à 0");
+        }
         else {
             this.setSalaire(this.getSalaire() + (this.getSalaire() * pourcentage / 100));
         }

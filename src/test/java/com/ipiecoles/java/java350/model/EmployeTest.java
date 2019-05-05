@@ -1,6 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
 
+import com.ipiecoles.java.java350.exception.EmployeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -94,7 +95,7 @@ public class EmployeTest {
            "1521.22, -10, 1521.22",
            "0, 10, 0"
    })
-   public void testAugmenterSalaire(Double salaire, Integer pourcentage, Double salaireExpected){
+   public void testAugmenterSalaire(Double salaire, Integer pourcentage, Double salaireExpected) throws EmployeException {
 
         Employe e = new Employe();
         e.setSalaire(salaire);
