@@ -10,6 +10,7 @@ import org.junit.rules.ExpectedException;
 
 import java.time.LocalDate;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class EmployeTest {
@@ -23,24 +24,30 @@ public class EmployeTest {
     //La méthode doit renvoyer une exception de type EmployeException indiquant qu'on ne peut pas rétrograder le salaire
     //d'un employé, le test échoue si aucune exception n'est levée
     @Test
-    public void augmenterSalaireNegativeValue() throws Exception
+    public void augmenterSalaireNegativeValue()
     {
-        thrownException.expect(EmployeException.class);
-        thrownException.expectMessage("On ne peut pas rétrograder le salaire d'un employé");
-
         // Given
         Employe e = new Employe();
         e.setSalaire(1800.00);
 
         //When
-        e.augmenterSalaire(-0.3);
-
+        try
+        {
+            e.augmenterSalaire(-0.3);
+            Assertions.fail("Ce test aurait dû lancer une exception !") ;
+        }
+        catch(IllegalArgumentException ex)
+        {
+            Assertions.assertEquals("On ne peut pas rétrograder le salaire d'un employé", ex.getMessage());
+        }
     }
 
-    // On teste avec un pourcentage nul
+    // On teste avec un pourcentage nul, vérification de la levée d'exception
     @Test
     public void augmenterSalaireNullValue()
-    {
+    {   thrownException.expect(IllegalArgumentException.class);
+        thrownException.expectMessage("Le salaire n'a pas évolué, l'augmentation étant nulle");
+
         //given :
         Employe e = new Employe();
         e.setSalaire(1800.00);
@@ -48,8 +55,7 @@ public class EmployeTest {
         //When :
         e.augmenterSalaire(0.0);
 
-        //Then
-        Assertions.assertEquals(1800.0, e.getSalaire().doubleValue());
+        Assertions.assertEquals(1800.00, e.getSalaire().doubleValue());
 
     }
 
@@ -57,7 +63,7 @@ public class EmployeTest {
     //On vérifie qu'une exception est levée, le salaire reste inchangé
     @Test
     public void augmenterSalaireDouble() throws Exception
-    {   thrownException.expect(EmployeException.class);
+    {   thrownException.expect(IllegalArgumentException.class);
         thrownException.expectMessage("L'augmentation est fantaisiste, est-ce une tentative de corruption ?");
         //Given :
         Employe e = new Employe();
@@ -66,10 +72,12 @@ public class EmployeTest {
         //When :
         e.augmenterSalaire(1.0);
 
+
     }
 
     //Test témoin, l'augmentation est réaliste, et tout se passe bien
-    public void augmenterSalaireTemoin()
+    @Test
+    public void augmenterSalaireTemoin() throws Exception
     {
         //Given :
         Employe e = new Employe();

@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -121,7 +123,25 @@ public class Employe {
     }
 
     //Augmenter salaire
-    public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage)
+    {
+        if (pourcentage > 0 && pourcentage < 1)
+        {
+            salaire = salaire + (salaire * pourcentage);
+        }
+        else if (pourcentage < 0 )
+        {
+            throw new IllegalArgumentException("On ne peut pas rétrograder le salaire d'un employé");
+        }
+        else if (pourcentage == 0.00)
+        {
+            throw new IllegalArgumentException("Le salaire n'a pas évolué, l'augmentation étant nulle");
+        }
+        else if (pourcentage >= 1.00)
+        {
+            throw new IllegalArgumentException("L'augmentation est fantaisiste, est-ce une tentative de corruption ?");
+        }
+    }
 
     public Long getId() {
         return id;
