@@ -45,32 +45,50 @@ public class EmployeTest {
     // On teste avec un pourcentage nul, vérification de la levée d'exception
     @Test
     public void augmenterSalaireNullValue()
-    {   thrownException.expect(IllegalArgumentException.class);
-        thrownException.expectMessage("Le salaire n'a pas évolué, l'augmentation étant nulle");
-
+    {
         //given :
         Employe e = new Employe();
         e.setSalaire(1800.00);
 
         //When :
-        e.augmenterSalaire(0.0);
+        try
+        {
+            e.augmenterSalaire(0.0);
+            Assertions.fail("Ce test aurait dû lancer une exception !") ;
+        }
+        catch(IllegalArgumentException ex)
+        {
 
-        Assertions.assertEquals(1800.00, e.getSalaire().doubleValue());
+            Assertions.assertEquals( "Le salaire n'a pas évolué, l'augmentation étant nulle" , ex.getMessage());
+
+        }
+
+
+
 
     }
 
     //On teste avec une valeur doublant le salaire, considérée irréaliste
     //On vérifie qu'une exception est levée, le salaire reste inchangé
     @Test
-    public void augmenterSalaireDouble() throws Exception
-    {   thrownException.expect(IllegalArgumentException.class);
-        thrownException.expectMessage("L'augmentation est fantaisiste, est-ce une tentative de corruption ?");
+    public void augmenterSalaireDouble()
+    {
         //Given :
         Employe e = new Employe();
         e.setSalaire(1800.00);
 
-        //When :
-        e.augmenterSalaire(1.0);
+        //When
+        try
+        {
+            e.augmenterSalaire(1.0);
+            Assertions.fail("Ce test aurait dû lancer une exception !") ;
+        }
+        catch(IllegalArgumentException ex)
+        {
+
+            Assertions.assertEquals( "L'augmentation est fantaisiste, est-ce une tentative de corruption ?" , ex.getMessage());
+
+        }
 
 
     }
