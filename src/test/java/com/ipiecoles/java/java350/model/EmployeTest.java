@@ -58,12 +58,8 @@ public class EmployeTest {
         }
         catch(IllegalArgumentException ex)
         {
-
             Assertions.assertEquals( "Le salaire n'a pas évolué, l'augmentation étant nulle" , ex.getMessage());
-
         }
-
-
 
 
     }
@@ -182,6 +178,32 @@ public class EmployeTest {
 
         //Then
         Assertions.assertEquals(primeAnnuelle, prime);
+
+    }
+
+    //Test de la méthode getNbRtt
+    @ParameterizedTest
+
+
+    @CsvSource({
+            //Calcul pour 2019 : 365 - 218 - 104 - 10 - 25 = 8
+            "2019-03-31, 1, 8",
+            "2019-03-31, 0.5, 4",
+            "2020-03-31, 1.0, 10",
+            "2020-03-31, 0.5, 5",
+            "2022-03-31, 1, 10",
+            "2032-06-06, 1, 11",
+            "2032-02-29, 0.5, 6"
+    })
+    public void getNbRtt(LocalDate date, Double tempsPartiel, Integer nbRttAttendu){
+        //Given
+        Employe employe = new Employe("Doe", "John", "M00001", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, tempsPartiel);
+
+        //When
+        Integer nbRttCalcule = employe.getNbRtt(date);
+
+        //Then
+        Assertions.assertEquals(nbRttAttendu,nbRttCalcule);
 
     }
 
