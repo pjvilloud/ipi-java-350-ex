@@ -99,6 +99,7 @@ public class EmployeService {
      */
     public void calculPerformanceCommercial(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
         //Vérification des paramètres d'entrée
+        Integer performance = Entreprise.PERFORMANCE_BASE;
         if(caTraite == null || caTraite < 0){
             throw new EmployeException("Le chiffre d'affaire traité ne peut être négatif ou null !");
         }
@@ -114,9 +115,9 @@ public class EmployeService {
             throw new EmployeException("Le matricule " + matricule + " n'existe pas !");
         }
 
-        Integer performance = Entreprise.PERFORMANCE_BASE;
+
         //Cas 2 Si le chiffre d'affaire est inférieur entre 20% et 5% par rapport à l'ojectif fixé, il perd 2 de performance
-        if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
+        else if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
             performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
         }
         //Cas 3 Si le chiffre d'affaire est entre -5% et +5% de l'objectif fixé, la performance reste la même.
