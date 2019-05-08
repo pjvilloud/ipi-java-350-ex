@@ -86,6 +86,7 @@ public class Employe {
             case THURSDAY: if(d.isLeapYear()) nbJoursWeekEnd =  nbJoursWeekEnd + 1; break;
             case FRIDAY: if(d.isLeapYear()) nbJoursWeekEnd =  nbJoursWeekEnd + 2; else nbJoursWeekEnd =  nbJoursWeekEnd + 1; break;
             case SATURDAY: nbJoursWeekEnd = nbJoursWeekEnd + 1; break;
+            default: nbJoursWeekEnd += 0 ; break;
         }
         int nbJoursFeries = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         nbJoursRTTCalcules = (int) Math.ceil((nbJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbJoursWeekEnd - Entreprise.NB_CONGES_BASE - nbJoursFeries) * tempsPartiel);
