@@ -56,4 +56,23 @@ public class EmployeRepositoryTest {
         //Then
         Assertions.assertEquals("40325", lastMatricule);
     }
+    @Test
+    public void IntegrationAvgPerformanceWhereMatriculeStartsWith() {
+        //Given
+        employeRepository.save(new Employe("Rizal", "Jose", "C002018", LocalDate.now(), Entreprise.SALAIRE_BASE, 2, 1.0));
+        employeRepository.save(new Employe("Yourcenar", "Marguerite", "C002019", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 0.5));
+        employeRepository.save(new Employe("De Musset", "Alfred", "C002021", LocalDate.now(), Entreprise.SALAIRE_BASE, 4, 1.0));
+        employeRepository.save(new Employe("Couplan", "François", "C002022", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 0.5));
+        employeRepository.save(new Employe("Loiseau", "Bernard", "C002023", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Vincent", "Odile", "C002024", LocalDate.now(), Entreprise.SALAIRE_BASE, 3, 1.0));
+
+
+        //When
+        Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+
+        //Then
+        // performance moyenne attendue = (2+1+4+1+1+3)/6 = 2
+        Assertions.assertEquals(2, performanceMoyenne.doubleValue());
+
+    }
 }
