@@ -36,7 +36,7 @@ public class EmployeTest {
             e.augmenterSalaire(-0.3);
             Assertions.fail("Ce test aurait dû lancer une exception !") ;
         }
-        catch(IllegalArgumentException ex)
+        catch(EmployeException ex)
         {
             Assertions.assertEquals("On ne peut pas rétrograder le salaire d'un employé", ex.getMessage());
         }
@@ -56,7 +56,7 @@ public class EmployeTest {
             e.augmenterSalaire(0.0);
             Assertions.fail("Ce test aurait dû lancer une exception !") ;
         }
-        catch(IllegalArgumentException ex)
+        catch(EmployeException ex)
         {
             Assertions.assertEquals( "Le salaire n'a pas évolué, l'augmentation étant nulle" , ex.getMessage());
         }
@@ -79,7 +79,7 @@ public class EmployeTest {
             e.augmenterSalaire(1.0);
             Assertions.fail("Ce test aurait dû lancer une exception !") ;
         }
-        catch(IllegalArgumentException ex)
+        catch(EmployeException ex)
         {
 
             Assertions.assertEquals( "L'augmentation est fantaisiste, est-ce une tentative de corruption ?" , ex.getMessage());

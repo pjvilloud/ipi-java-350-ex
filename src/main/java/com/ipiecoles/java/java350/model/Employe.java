@@ -127,23 +127,22 @@ public class Employe {
     }
 
     //Augmenter salaire
-    public void augmenterSalaire(double pourcentage)
-    {
+    public void augmenterSalaire(double pourcentage) throws EmployeException{
         if (pourcentage > 0 && pourcentage < 1)
         {
             salaire = salaire + (salaire * pourcentage);
         }
         else if (pourcentage < 0 )
         {
-            throw new IllegalArgumentException("On ne peut pas rétrograder le salaire d'un employé");
+            throw new EmployeException("On ne peut pas rétrograder le salaire d'un employé");
         }
         else if (pourcentage == 0.00)
         {
-            throw new IllegalArgumentException("Le salaire n'a pas évolué, l'augmentation étant nulle");
+            throw new EmployeException("Le salaire n'a pas évolué, l'augmentation étant nulle");
         }
         else if (pourcentage >= 1.00)
         {
-            throw new IllegalArgumentException("L'augmentation est fantaisiste, est-ce une tentative de corruption ?");
+            throw new EmployeException("L'augmentation est fantaisiste, est-ce une tentative de corruption ?");
         }
     }
 
