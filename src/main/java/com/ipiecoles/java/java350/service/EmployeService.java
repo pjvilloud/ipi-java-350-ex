@@ -36,9 +36,9 @@ public class EmployeService {
      * @throws EmployeException Si on arrive au bout des matricules possibles
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
-    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException {
         logger.debug("Coucou");
-        logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(), poste.name(), tempsPartiel);
+        //logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(), poste.name(), tempsPartiel);
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
