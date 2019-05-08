@@ -84,7 +84,7 @@ public class Employe {
         int nbJoursRTTCalcules; //On déclare une variable correspondant au RTT calculés
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case THURSDAY: if(d.isLeapYear()) nbJoursWeekEnd =  nbJoursWeekEnd + 1; break;
-            case FRIDAY: if(d.isLeapYear()) nbJoursWeekEnd =  nbJoursWeekEnd + 2; else nbJoursWeekEnd =  nbJoursWeekEnd + 1;
+            case FRIDAY: if(d.isLeapYear()) nbJoursWeekEnd =  nbJoursWeekEnd + 2; else nbJoursWeekEnd =  nbJoursWeekEnd + 1; break;
             case SATURDAY: nbJoursWeekEnd = nbJoursWeekEnd + 1; break;
         }
         int nbJoursFeries = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
