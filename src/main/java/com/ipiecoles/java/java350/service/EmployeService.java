@@ -115,19 +115,19 @@ public class EmployeService {
         }
 
         Integer performance = Entreprise.PERFORMANCE_BASE;
-        //Cas 2
+        //Cas 2 Si le chiffre d'affaire est inférieur entre 20% et 5% par rapport à l'ojectif fixé, il perd 2 de performance
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
             performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
         }
-        //Cas 3
+        //Cas 3 Si le chiffre d'affaire est entre -5% et +5% de l'objectif fixé, la performance reste la même.
         else if(caTraite >= objectifCa*0.95 && caTraite <= objectifCa*1.05){
             performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance());
         }
-        //Cas 4
+        //Cas 4 Si le chiffre d'affaire est supérieur entre 5 et 20%, il gagne 1 de performance
         else if(caTraite <= objectifCa*1.2 && caTraite > objectifCa*1.05){
             performance = employe.getPerformance() + 1;
         }
-        //Cas 5
+        //Cas 5 Si le chiffre d'affaire est supérieur de plus de 20%, il gagne 4 de performance
         else if(caTraite > objectifCa*1.2){
             performance = employe.getPerformance() + 4;
         }
