@@ -192,10 +192,13 @@ public class EmployeTest {
             "2020-03-31, 1.0, 10",
             "2020-03-31, 0.5, 5",
             "2022-03-31, 1, 10",
+            "2022-03-31, 0.5, 5",
             "2027-03-31, 1, 10",
+            "2027-03-31, 0.5, 5",
             "2028-03-31, 1, 9",
             "2032-06-06, 1, 11",
-            "2032-02-29, 0.5, 6"
+            "2032-02-29, 0.5, 6",
+
     })
     public void getNbRtt(LocalDate date, Double tempsPartiel, Integer nbRttAttendu){
         //Given
