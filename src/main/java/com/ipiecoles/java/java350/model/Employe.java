@@ -103,7 +103,8 @@ public class Employe {
 
     //Augmenter salaire
     public void augmenterSalaire(double pourcentage){
-
+        if (pourcentage > 0 && salaire != null)
+            salaire = salaire + salaire * pourcentage;
     }
 
     public Long getId() {
