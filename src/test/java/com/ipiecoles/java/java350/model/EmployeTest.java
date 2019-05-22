@@ -128,4 +128,65 @@ public class EmployeTest {
 
 
         }
+
+        @Test
+
+        public void testAugmenterSalaire(){
+
+            //Given
+            Employe e = new Employe();
+            e.setSalaire(1000.0);
+
+            //When
+            e.augmenterSalaire(0.5);
+            Double newSalaire = 1500.0;
+
+            //Then
+            Assertions.assertEquals(newSalaire, e.getSalaire());
+        }
+
+        @Test
+
+        public void testAugmenterSalaireCero(){
+
+            //Given
+            Employe e = new Employe();
+            e.setSalaire(1000.0);
+
+            //When
+            e.augmenterSalaire(0);
+            Double newSalaire = 1000.0;
+
+            //Then
+            Assertions.assertEquals(newSalaire, e.getSalaire());
+        }
+
+        @Test
+
+        public void testAugmenterSalaireNegative(){
+            //Given
+            Employe e = new Employe();
+            e.setSalaire(1000.0);
+
+            //When
+            e.augmenterSalaire(-0.5);
+            Double newSalaire = 1000.0;
+
+            //Then
+            Assertions.assertEquals(newSalaire, e.getSalaire());
+        }
+
+        @Test
+
+        public void testAugmenterSalaireNull(){
+
+            //Given
+            Employe e = new Employe();
+
+            //When
+            e.augmenterSalaire(0.5);
+
+            //Then
+            Assertions.assertNull(e.getSalaire());
+        }
     }
