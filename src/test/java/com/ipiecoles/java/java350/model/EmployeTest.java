@@ -135,11 +135,10 @@ public class EmployeTest {
 
             //Given
             Employe e = new Employe();
-            e.setSalaire(1000.0);
 
             //When
             e.augmenterSalaire(0.5);
-            Double newSalaire = 1500.0;
+            Double newSalaire = 2281.83;
 
             //Then
             Assertions.assertEquals(newSalaire, e.getSalaire());
@@ -151,7 +150,6 @@ public class EmployeTest {
 
             //Given
             Employe e = new Employe();
-            e.setSalaire(1000.0);
 
             //When
             e.augmenterSalaire(0);
