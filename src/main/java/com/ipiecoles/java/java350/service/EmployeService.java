@@ -21,7 +21,6 @@ public class EmployeService {
     private EmployeRepository employeRepository;
 
     private static final Logger LOG = LoggerFactory.getLogger(EmployeService.class);
-    // ou private final logger LOG = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Méthode enregistrant un nouvel employé dans l'entreprise
@@ -66,7 +65,7 @@ public class EmployeService {
         }
 
         //Calcul du salaire
-        Double salaire = Entreprise.COEFF_SALAIRE_ETUDES.get(niveauEtude) * Entreprise.SALAIRE_BASE;
+        Double salaire = Entreprise.getCoeffSalaireEtudes().get(niveauEtude) * Entreprise.SALAIRE_BASE;
         if(tempsPartiel != null){
             salaire = salaire * tempsPartiel;
         }
