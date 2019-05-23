@@ -1,9 +1,6 @@
 package com.ipiecoles.java.java350.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -51,20 +48,59 @@ public class Employe {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
-    public Integer getNbRtt(){
+    /**
+     * Tester unitairement (en utilisant les tests paramétrés) la méthode getNbRtt d'Employe.
+     * Le nombre de RTT se calcule à partir de la formule suivante :
+     * - Nombre de jours dans l'année
+     * - Nombre de jours travaillés dans l'année en plein temps
+     * - Nombre de samedi et dimanche dans l'année
+     * - Nombre de jours fériés ne tombant pas le week-end
+     * - Nombre de congés payés. Le tout au pro-rata du taux d'activité du salarié.
+     * Attention, des erreurs sont présentes dans cette méthode.
+     * Faites donc vos calculs avant et débugguer votre code pour trouver les erreurs.
+     * Aidez-vous de Sonar... Rendre cette méthode plus propre, documentée et lisible.
+     *
+     * Infos :
+     *
+     * 2019 : l'année est non bissextile, a débuté un mardi et il y a 10 jours fériés ne tombant pas le week-end.
+     * 2021 : l'année est non bissextile, a débuté un vendredi et il y a 7 jours fériés ne tombant pas le week-end.
+     * 2022 : l'année est non bissextile, a débuté un samedi et il y a 7 jours fériés ne tombant pas le week-end.
+     * 2032 : l'année est bissextile, a débuté un jeudi et il y a 7 jours fériés ne tombant pas le week-end
+     *
+     * **/
+
+    public Double getNbRtt(){
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
+    public Double getNbRtt(LocalDate d){
+        int nbJoursAnnee = d.isLeapYear() ? 365 : 366;
+        int nbWeekEnd = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+            case THURSDAY:
+                if(d.isLeapYear())
+                    nbWeekEnd =  nbWeekEnd + 1;
+                break;
+            case FRIDAY:
+                if(d.isLeapYear())
+                    nbWeekEnd =  nbWeekEnd + 2;
+                else nbWeekEnd =  nbWeekEnd + 1;
+            case SATURDAY:
+                nbWeekEnd = nbWeekEnd + 1;
+                break;
+            case SUNDAY:
+                nbWeekEnd = nbWeekEnd + 1;
+                break;
+            default:
+                break;
         }
+
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+
+        int NbRtt = (int) Math.ceil(nbJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbWeekEnd - Entreprise.NB_CONGES_BASE - monInt);
+        if (tempsPartiel < 0)
+            return 0.0;
+        return NbRtt * tempsPartiel;
     }
 
     /**
@@ -89,7 +125,7 @@ public class Employe {
             prime = Entreprise.primeAnnuelleBase() * Entreprise.INDICE_PRIME_MANAGER + primeAnciennete;
         }
         //Pour les autres employés en performance de base, uniquement la prime annuelle plus la prime d'ancienneté.
-        else if (this.performance == null || Entreprise.PERFORMANCE_BASE == this.performance){
+        else if (this.performance == null || Entreprise.PERFORMANCE_BASE.equals(this.performance)){
             prime = Entreprise.primeAnnuelleBase() + primeAnciennete;
         }
         //Pour les employés plus performance, on bonnifie la prime de base en multipliant par la performance de l'employé
