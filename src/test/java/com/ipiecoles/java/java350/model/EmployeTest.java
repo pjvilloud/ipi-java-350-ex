@@ -188,4 +188,34 @@ public class EmployeTest {
             //Then
             Assertions.assertNull(e.getSalaire());
         }
+
+    /**
+     * - Nombre de jours dans l'année
+     * - Nombre de jours travaillés dans l'année en plein temps
+     * - Nombre de samedi et dimanche dans l'année
+     * - Nombre de jours fériés ne tombant pas le week-end
+     * - Nombre de congés payés.
+     */
+
+    @ParameterizedTest
+    @CsvSource({
+            "2019, 1,0, 8",
+            "2020, 1,0, 8",
+            "2021, 1.0, 11",
+            "2022, 0.5, 5",
+            "2023, 0.5, 4",
+            "2032, 1.0, 12",
+    })
+
+    public void testGetNbrRtt(int years, Double tempsPartiel, Double NbRtt){
+
+        //Given
+        Employe e = new Employe();
+
+        //When
+        e.setTempsPartiel(tempsPartiel);
+
+        // Then
+        Assertions.assertEquals(NbRtt, e.getNbRtt(LocalDate.ofYearDay(years, 1)));
     }
+}
