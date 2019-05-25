@@ -215,7 +215,7 @@ public class EmployeTest {
             "2028, 1.0, 8",
     })
 
-    public void testGetNbrRtt(int years, Double tempsPartiel, Double NbRtt){
+    public void testGetNbrRtt(int years, Double tempsPartiel, Integer NbRtt){
 
         //Given
         Employe e = new Employe();
