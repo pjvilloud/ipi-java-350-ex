@@ -93,7 +93,7 @@ public class Employe {
 
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
 
-        int NbRtt = nbJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbWeekEnd - Entreprise.NB_CONGES_BASE - monInt);
+        int NbRtt = nbJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbWeekEnd - Entreprise.NB_CONGES_BASE - monInt;
         if (tempsPartiel < 0)
             return 0.0;
         return NbRtt * tempsPartiel;
