@@ -50,9 +50,11 @@ public class EmployeService {
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
         if (numeroMatricule >= 80000){
-            //warning
+            //LOG WARNING
+            LOG.warn("Attention vous avez dépassé les 80000 matricules, le seuil maximal de 100000 est bientôt atteint");
         }
         if(numeroMatricule >= 100000){
+            LOG.error("Limite des 100000 matricules atteinte !");
             throw new EmployeException("Limite des 100000 matricules atteinte !");
         }
         //On complète le numéro avec des 0 à gauche
@@ -69,11 +71,14 @@ public class EmployeService {
         if(tempsPartiel != null){
             salaire = salaire * tempsPartiel;
         }
+        // LOG DEBUG : Salaire non arrondi
+        LOG.debug("Salaire avant arrondi : {} ", salaire);
         salaire = Math.round(salaire*100d)/100d;
 
         //Création et sauvegarde en BDD de l'employé.
         Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
-
+        // LOG INFO
+        LOG.info("Sauvegarde de l'employe : {}", employe);
         return employeRepository.save(employe);
 
     }
