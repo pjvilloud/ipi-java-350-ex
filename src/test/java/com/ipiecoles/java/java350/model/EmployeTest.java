@@ -213,8 +213,6 @@ public class EmployeTest {
             "2032, 1.0, 12",
             "2032, 0.5, 6",
             "2028, 1.0, 8",
-            "2028, 0.5, 4",
-            "2028, 1.5, 12"
     })
 
     public void testGetNbrRtt(int years, Double tempsPartiel, Double NbRtt){
