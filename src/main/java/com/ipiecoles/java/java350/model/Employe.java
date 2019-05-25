@@ -69,10 +69,6 @@ public class Employe {
      *
      * **/
 
-    public Double getNbRtt(){
-        return getNbRtt(LocalDate.now());
-    }
-
     public Double getNbRtt(LocalDate d){
         int nbJoursAnnee = d.isLeapYear() ? 366 : 365;
         int nbWeekEnd = 104;
