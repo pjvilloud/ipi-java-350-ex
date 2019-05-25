@@ -199,12 +199,16 @@ public class EmployeTest {
 
     @ParameterizedTest
     @CsvSource({
-            "2019, 1,0, 8",
-            "2020, 1,0, 8",
+            "2019, 1.0, 8",
+            "2019, 0.5, 4",
+            "2019, -1.0, 0",
             "2021, 1.0, 11",
-            "2022, 0.5, 5",
-            "2023, 0.5, 4",
+            "2021, 0.5, 5.5",
             "2032, 1.0, 12",
+            "2032, 0.5, 6",
+            "2028, 1.0, 8",
+            "2028, 0.5, 4",
+            "2028, 1.5, 12"
     })
 
     public void testGetNbrRtt(int years, Double tempsPartiel, Double NbRtt){
