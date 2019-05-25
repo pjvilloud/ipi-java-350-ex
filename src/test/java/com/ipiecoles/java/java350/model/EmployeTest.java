@@ -197,7 +197,7 @@ public class EmployeTest {
      * - Nombre de congés payés.
      */
 
-/*    @ParameterizedTest
+    @ParameterizedTest
     @CsvSource({
             "2019, 1,0, 8",
             "2020, 1,0, 8",
@@ -217,5 +217,5 @@ public class EmployeTest {
 
         // Then
         Assertions.assertEquals(NbRtt, e.getNbRtt(LocalDate.ofYearDay(years, 1)));
-    }*/
+    }
 }
