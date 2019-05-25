@@ -210,16 +210,14 @@ public class EmployeTest {
             "2028, 0.5, 4",
             "2028, 1.5, 12"
     })
-
     public void testGetNbrRtt(int years, Double tempsPartiel, Double NbRtt){
-
         //Given
         Employe e = new Employe();
 
         //When
         e.setTempsPartiel(tempsPartiel);
 
-        // Then
+        //Then
         Assertions.assertEquals(NbRtt, e.getNbRtt(LocalDate.ofYearDay(years, 1)));
     }
 }
