@@ -199,6 +199,7 @@ public class EmployeTest {
 
     @ParameterizedTest
     @CsvSource({
+            "2016, 1.0, 12",
             "2016, 0.5, 6",
             "2019, 1.0, 8",
             "2019, 0.5, 4",
@@ -212,17 +213,17 @@ public class EmployeTest {
             "2032, 1.0, 12",
             "2032, 0.5, 6",
             "2028, 1.0, 8",
+            "2028, 0.5, 4",
+            "2028, 1.5, 12"
     })
-
     public void testGetNbrRtt(int years, Double tempsPartiel, Double NbRtt){
-
         //Given
-        Employe e = new Employe();
+        Employe employe = new Employe();
 
         //When
-        e.setTempsPartiel(tempsPartiel);
+        employe.setTempsPartiel(tempsPartiel);
 
-        // Then
-        Assertions.assertEquals(NbRtt, e.getNbRtt(LocalDate.ofYearDay(years, 1)));
+        //Then
+        Assertions.assertEquals(NbRtt, employe.getNbRtt(LocalDate.ofYearDay(years, 1)));
     }
 }
