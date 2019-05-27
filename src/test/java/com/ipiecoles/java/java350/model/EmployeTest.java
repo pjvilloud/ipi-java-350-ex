@@ -199,7 +199,7 @@ public class EmployeTest {
 
     @ParameterizedTest
     @CsvSource({
-            "2016, 1.0, 12",
+            "2016, 0.5, 6",
     })
 
     public void testGetNbrRtt(int years, Double tempsPartiel, Double NbRtt){
