@@ -69,6 +69,10 @@ public class Employe {
      *
      * **/
 
+    public Double getNbRtt(){
+        return getNbRtt(LocalDate.now());
+    }
+
     public Double getNbRtt(LocalDate d){
         int nbJoursAnnee = d.isLeapYear() ? 366 : 365;
         int nbWeekEnd = 104;
@@ -93,7 +97,7 @@ public class Employe {
 
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
 
-        int NbRtt = nbJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbWeekEnd - Entreprise.NB_CONGES_BASE - monInt;
+        int NbRtt = (int) Math.ceil(nbJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbWeekEnd - Entreprise.NB_CONGES_BASE - monInt);
         if (tempsPartiel < 0)
             return 0.0;
         return NbRtt * tempsPartiel;
