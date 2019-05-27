@@ -212,12 +212,12 @@ public class EmployeTest {
     })
     public void testGetNbrRtt(int years, Double tempsPartiel, Double NbRtt){
         //Given
-        Employe employe = new Employe();
+        Employe e = new Employe();
 
         //When
-        employe.setTempsPartiel(tempsPartiel);
+        e.setTempsPartiel(tempsPartiel);
 
         //Then
-        Assertions.assertEquals(NbRtt, employe.getNbRtt(LocalDate.ofYearDay(years, 1)));
+        Assertions.assertEquals(NbRtt, e.getNbRtt(LocalDate.ofYearDay(years, 1)));
     }
 }
