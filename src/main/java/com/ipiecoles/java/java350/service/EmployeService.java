@@ -116,7 +116,7 @@ public class EmployeService {
 
         Integer performance = Entreprise.PERFORMANCE_BASE;
         //Cas 2
-        if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
+        /*if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
             performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
         }
         //Cas 3
@@ -130,7 +130,24 @@ public class EmployeService {
         //Cas 5
         else if(caTraite > objectifCa*1.2){
             performance = employe.getPerformance() + 4;
+        }*/
+        //Cas 5
+        if(caTraite > objectifCa*1.2){
+            performance = employe.getPerformance() + 4;
         }
+        //Cas 4
+        else if(caTraite > objectifCa*1.05){
+            performance = employe.getPerformance() + 1;
+        }
+        //Cas 3
+        else if(caTraite >= objectifCa*0.95){
+            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance());
+        }
+        //Cas 2
+        if(caTraite >= objectifCa*0.8){
+            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
+        }
+
         //Si autre cas, on reste à la performance de base.
 
         //Calcul de la performance moyenne
