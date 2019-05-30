@@ -3,6 +3,7 @@ package com.ipiecoles.java.java350.repository;
 import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.model.Entreprise;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,19 @@ public class EmployeRepositoryTest {
         String lastMatricule = employeRepository.findLastMatricule();
 
         assertEquals("45678", lastMatricule);
+    }
+
+    @Test
+    public void testAvgPerformanceWhereMatriculeStartsWith(){
+        //Given
+        employeRepository.save(new Employe("Doe", "John", "C12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Roa", "Walter", "C45678", LocalDate.now(), Entreprise.SALAIRE_BASE, 2, 1.0));
+        employeRepository.save(new Employe("Benitez", "Diana", "C23456", LocalDate.now(), Entreprise.SALAIRE_BASE, 3, 1.0));
+
+        //When
+        Double avgPerformanceC = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+
+        //Then
+        Assertions.assertEquals(2.5, (double) avgPerformanceC);
     }
 }
