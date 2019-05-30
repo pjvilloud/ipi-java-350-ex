@@ -132,6 +132,7 @@ public class EmployeServiceTest {
 
     @Test
     public void testCalculPerformanceCommercialCaTraiteNull() throws EmployeException {
+
         //Given
         String matricule = "C00001";
         Long caTraite = null;
@@ -146,6 +147,7 @@ public class EmployeServiceTest {
 
     @Test
     public void testCalculPerformanceCommercialCaTraiteNegative() throws EmployeException {
+
         //Given
         String matricule = "C00001";
         Long caTraite = -100L;
@@ -161,6 +163,7 @@ public class EmployeServiceTest {
 
     @Test
     public void testCalculPerformanceCommercialMatriculeDifferente() throws EmployeException {
+
         //Given
         String matricule = "M00001";
         Long caTraite = 2000L;
@@ -175,6 +178,7 @@ public class EmployeServiceTest {
 
     @Test
     public void testCalculPerformanceCommercialObjectifCaNull() throws EmployeException {
+
         //Given
         String matricule = "C00001";
         Long caTraite = 2000L;
@@ -189,6 +193,7 @@ public class EmployeServiceTest {
 
     @Test
     public void testCalculPerformanceCommercialObjectifCaNegative() throws EmployeException {
+
         //Given
         String matricule = "C00001";
         Long caTraite = 2000L;
@@ -203,6 +208,7 @@ public class EmployeServiceTest {
 
     @Test
     public void testCalculPerformanceCommercialEmployeNull() throws EmployeException {
+
         //Given
         String matricule = "C00001";
         Long caTraite = 2000L;
@@ -218,6 +224,7 @@ public class EmployeServiceTest {
 
     @Test
     public void testCalculPerformanceCommercialCasDeux() throws EmployeException {
+
         //Given
         String matricule = "C00001";
         Long caTraite = 1800L;
@@ -236,6 +243,7 @@ public class EmployeServiceTest {
 
     @Test
     public void testCalculPerformanceCommercialCasTrois() throws EmployeException {
+
         //Given
         String matricule = "C00001";
         Long caTraite = 2000L;
@@ -292,6 +300,7 @@ public class EmployeServiceTest {
 
     @Test
     public void testCalculPerformanceCommercialCasCinqMoyenSuperior() throws EmployeException {
+
         //Given
         String matricule = "C00001";
         Long caTraite = 2500L;
@@ -310,6 +319,7 @@ public class EmployeServiceTest {
 
     @Test
     public void testCalculPerformanceCommercialCasCinqMoyenInferiur() throws EmployeException {
+
         //Given
         String matricule = "C00001";
         Long caTraite = 2500L;
@@ -325,5 +335,26 @@ public class EmployeServiceTest {
         verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
         Assertions.assertEquals(6, (int)employeArgumentCaptor.getValue().getPerformance());
     }
+
+    @Test
+    public void testCalculPerformanceCommercialCaseNominal() throws EmployeException {
+
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 1000L;
+        Long objectifCa = 2000L;
+        when(employeRepository.findByMatricule("C00001")).thenReturn(new Employe());
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(1.0);
+
+        //When
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(1, (int)employeArgumentCaptor.getValue().getPerformance());
+    }
+
+
 
 }
