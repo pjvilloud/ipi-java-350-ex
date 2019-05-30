@@ -83,4 +83,22 @@ public class EmployeRepositoryTest {
         //Then
         Assertions.assertEquals(2.0, (double) avgPerformanceC);
     }
+
+
+    @Test
+    public void testAvgPerformanceWhereMatriculeStartsC(){
+        //Given
+
+        //When
+        Double avgPerformanceT = employeRepository.avgPerformanceWhereMatriculeStartsWith("T");
+        Double avgPerformanceC = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        Double avgPerformanceM = employeRepository.avgPerformanceWhereMatriculeStartsWith("M");
+
+
+        //Then
+        Assertions.assertNull(avgPerformanceT);
+        Assertions.assertNull(avgPerformanceC);
+        Assertions.assertNull(avgPerformanceM);
+
+    }
 }
