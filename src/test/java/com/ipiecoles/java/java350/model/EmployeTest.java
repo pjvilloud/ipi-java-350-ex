@@ -189,6 +189,35 @@ public class EmployeTest {
             Assertions.assertNull(e.getSalaire());
         }
 
+
+    @Test
+    public void getPrimeAnnuelleMatriculeNull(){
+        //Given
+        Employe employe = new Employe("Doe", "John", null, LocalDate.now().minusYears(2), Entreprise.SALAIRE_BASE, 1, 1.0);
+
+        //When
+        Double prime = employe.getPrimeAnnuelle();
+
+        //Then
+        Assertions.assertEquals(1200.0, prime.doubleValue());
+
+    }
+
+    @Test
+    public void getPrimeAnnuellePerformanceNull(){
+        //Given
+        Employe employe = new Employe("Doe", "John", "M28394", LocalDate.now().minusYears(5), Entreprise.SALAIRE_BASE, null, 1.0);
+
+        //When
+        Double prime = employe.getPrimeAnnuelle();
+
+        //Then
+        Assertions.assertEquals(2200.0, prime.doubleValue());
+
+    }
+
+    
+
     /**
      * - Nombre de jours dans l'année
      * - Nombre de jours travaillés dans l'année en plein temps
