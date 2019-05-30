@@ -101,4 +101,22 @@ public class EmployeRepositoryTest {
         Assertions.assertNull(avgPerformanceM);
 
     }
+
+    @Test
+    public void testAvgPerformanceWhereMatriculeStartsWithCNoC(){
+        //Given
+        employeRepository.save(new Employe("Roa", "John", "C12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Roa", "Walter", "M45678", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Benitez", "Diana", "C23456", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+
+        //When
+        Double avgPerformanceT = employeRepository.avgPerformanceWhereMatriculeStartsWith("T");
+        Double avgPerformanceC = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        Double avgPerformanceM = employeRepository.avgPerformanceWhereMatriculeStartsWith("M");
+
+        //Then
+        Assertions.assertEquals(1.0, (double) avgPerformanceC);
+        Assertions.assertEquals(1.0, (double) avgPerformanceM);
+        Assertions.assertNull(avgPerformanceT);
+    }
 }
