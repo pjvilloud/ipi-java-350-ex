@@ -216,4 +216,40 @@ public class EmployeServiceTest {
         Assertions.assertEquals("Le matricule " + matricule + " n'existe pas !", e.getMessage());
     }
 
+    @Test
+    public void testCalculPerformanceCommercialCasDeux() throws EmployeException {
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 1800L;
+        Long objectifCa = 2000L;
+        when(employeRepository.findByMatricule("C00001")).thenReturn(new Employe());
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(1.0);
+
+        //When
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(1, (int)employeArgumentCaptor.getValue().getPerformance());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialCasTrois() throws EmployeException {
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 2000L;
+        Long objectifCa = 2000L;
+        when(employeRepository.findByMatricule("C00001")).thenReturn(new Employe());
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(1.0);
+
+        //When
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(1, (int)employeArgumentCaptor.getValue().getPerformance());
+    }
+
 }
