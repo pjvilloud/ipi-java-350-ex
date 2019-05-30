@@ -252,4 +252,42 @@ public class EmployeServiceTest {
         Assertions.assertEquals(1, (int)employeArgumentCaptor.getValue().getPerformance());
     }
 
+    @Test
+    public void testCalculPerformanceCommercialCasQuatreMoyenSuperior() throws EmployeException {
+
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 2200L;
+        Long objectifCa = 2000L;
+        when(employeRepository.findByMatricule("C00001")).thenReturn(new Employe());
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(5.0);
+
+        //When
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(2, (int)employeArgumentCaptor.getValue().getPerformance());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialCasQuatreMoyenInferiur() throws EmployeException {
+        
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 2200L;
+        Long objectifCa = 2000L;
+        when(employeRepository.findByMatricule("C00001")).thenReturn(new Employe());
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(1.0);
+
+        //When
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(3, (int)employeArgumentCaptor.getValue().getPerformance());
+    }
+
 }
