@@ -81,6 +81,6 @@ public class EmployeRepositoryTest {
         Double avgPerformanceC = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
 
         //Then
-        Assertions.assertEquals(2.5, (double) avgPerformanceC);
+        Assertions.assertEquals(2.0, (double) avgPerformanceC);
     }
 }
