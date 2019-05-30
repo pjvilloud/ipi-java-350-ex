@@ -54,16 +54,21 @@ public class EmployeServiceIntegrationTest {
     @Test
     public void integrationPerformanceCommercial() throws EmployeException {
         // Given
+        String matricule = "C123456";
+        String prenom = "Diana";
+        String nom = "Benitez";
         Integer performance = 5;
         Double salaire = 2000.0;
         Long caTraite = 2200L;
         Long objectifCa = 2000L;
         Double tempsPartiel = 1.0;
-        employeRepository.save(new Employe("Benitez", "Diana", "C123456", LocalDate.now(), salaire, performance, tempsPartiel));
+        employeRepository.save(new Employe(nom, prenom, matricule, LocalDate.now(), salaire, performance, tempsPartiel));
+
         // When
-        employeService.calculPerformanceCommercial("C123456", caTraite, objectifCa);
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+
         // Then
-        Employe employe = employeRepository.findByMatricule("C123456");
+        Employe employe = employeRepository.findByMatricule(matricule);
         Assertions.assertEquals(5, (int) employe.getPerformance());
     }
 
