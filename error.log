@@ -21,3 +21,6 @@
 27-05-2019 10:00:22.298 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche d'un employé Doe John MANAGER MASTER 0.5
 27-05-2019 10:00:22.313 [main] WARN  c.i.j.java350.service.EmployeService.embaucheEmploye - Attention vous avez dépassé les 80000 matricules, le seuil maximal de 100000 est bientôt atteint
 27-05-2019 10:00:22.314 [main] ERROR c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !
+30-05-2019 11:21:28.288 [main] INFO  c.i.j.java350.service.EmployeService.embaucheEmploye - Embauche d'un employé Doe John MANAGER MASTER 0.5
+30-05-2019 11:21:28.317 [main] WARN  c.i.j.java350.service.EmployeService.embaucheEmploye - Attention vous avez dépassé les 80000 matricules, le seuil maximal de 100000 est bientôt atteint
+30-05-2019 11:21:28.318 [main] ERROR c.i.j.java350.service.EmployeService.embaucheEmploye - Limite des 100000 matricules atteinte !

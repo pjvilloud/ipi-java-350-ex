@@ -7,12 +7,10 @@ import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.AdditionalAnswers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityExistsException;
@@ -26,6 +24,12 @@ public class EmployeServiceTest {
 
     @Mock
     private EmployeRepository employeRepository;
+
+    @BeforeEach
+    public void setup(){
+        MockitoAnnotations.initMocks(this.getClass());
+        employeRepository.deleteAll();
+    }
 
     @Test
     void testEmbaucheEmployeTechnicienPleinTempsBts() throws EmployeException {
@@ -122,6 +126,18 @@ public class EmployeServiceTest {
         }catch (EntityExistsException e){
             Assertions.assertEquals("L'employé de matricule M00001 existe déjà en BDD", e.getMessage());
         }*/
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialCaTraiteNull() throws EmployeException {
+        //Given
+        String matricule = "C00001";
+        Long caTraite = null;
+        Long objectifCa = 2000L;
+
+        //When//Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa));
+        Assertions.assertEquals("Le chiffre d'affaire traité ne peut être négatif ou null !", e.getMessage());
     }
 
 }
