@@ -59,7 +59,7 @@ public class EmployeServiceIntegrationTest {
         String matricule = "C12345";
         Long caTraite = 2000L;
         Long objectifca = 2000L;
-        Integer performance = 3;
+        Integer performance = 5;
         employeRepository.save(new Employe("Benitez", "Diana", matricule, LocalDate.now(), Entreprise.SALAIRE_BASE, performance, 1.0));
 
         //When
