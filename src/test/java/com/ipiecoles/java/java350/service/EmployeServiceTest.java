@@ -16,6 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 public class EmployeServiceTest {
 
@@ -197,6 +199,21 @@ public class EmployeServiceTest {
 
         //Then
         Assertions.assertEquals("L'objectif de chiffre d'affaire ne peut être négatif ou null !", e.getMessage());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialEmployeNull() throws EmployeException {
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 2000L;
+        Long objectifCa = 2000L;
+        when(employeRepository.findByMatricule("C00001")).thenReturn(null);
+
+        //When
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa));
+
+        //Then
+        Assertions.assertEquals("Le matricule " + matricule + " n'existe pas !", e.getMessage());
     }
 
 }
