@@ -367,6 +367,24 @@ public class EmployeServiceTest {
         Assertions.assertEquals(1, (int)employeArgumentCaptor.getValue().getPerformance());
     }
 
+    @Test
+    public void testCalculPerformanceCommercialCaseNull() throws EmployeException {
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 1000L;
+        Long objectifCa = 2000L;
+        when(employeRepository.findByMatricule("C00001")).thenReturn(new Employe());
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(null);
+
+        //When
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(1, (int)employeArgumentCaptor.getValue().getPerformance());
+    }
+
 
 
 }
