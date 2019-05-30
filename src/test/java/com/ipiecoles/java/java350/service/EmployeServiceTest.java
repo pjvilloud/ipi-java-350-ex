@@ -124,21 +124,4 @@ public class EmployeServiceTest {
         }*/
     }
 
-
-    @Test
-    public void testCalculPerformanceCommercialCaTraiteNull() throws EmployeException {
-        //Given
-        String matricule = "C00001";
-        Long caTraite = null;
-        Long objectifCa = 2000L;
-
-        //When
-        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa));
-
-        //Then
-        Assertions.assertEquals("Le chiffre d'affaire traité ne peut pas être négatif ou null !", e.getMessage());
-
-    }
-
-
 }
