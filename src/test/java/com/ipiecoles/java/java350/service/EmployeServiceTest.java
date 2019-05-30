@@ -157,4 +157,18 @@ public class EmployeServiceTest {
     }
 
 
+    @Test
+    public void testCalculPerformanceCommercialMatriculeDifferente() throws EmployeException {
+        //Given
+        String matricule = "M00001";
+        Long caTraite = 2000L;
+        Long objectifCa = 2000L;
+
+        //When
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa));
+
+        //Then
+        Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !", e.getMessage());
+    }
+
 }
