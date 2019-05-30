@@ -40,8 +40,10 @@ public class Employe {
         this.tempsPartiel = tempsPartiel;
     }
 
+
     public final Integer getNombreAnneeAnciennete() {
         return dateEmbauche != null && LocalDate.now().getYear() >= dateEmbauche.getYear() ? LocalDate.now().getYear() - dateEmbauche.getYear() : 0;
+
     }
 
     public Integer getNbConges() {
@@ -95,8 +97,6 @@ public class Employe {
                 break;
         }
         int nbJF = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-
-        //Les RTT sont des Integers car les CP sont déclaré en Integer
         int nbRtt = nbDayInYear - Entreprise.NB_JOURS_MAX_FORFAIT - nbWeekEnd - Entreprise.NB_CONGES_BASE - nbJF;
         if(tempsPartiel < 0)
             return 0.0;
