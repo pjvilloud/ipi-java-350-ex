@@ -42,7 +42,7 @@
 
     </appender>
 
-    <logger name="com.ipiecoles.java" level="info" additivity="false">
+    <logger name="com.ipiecoles.java.java350" level="info">
         <appender-ref ref="ERROR_LOG" />
         <appender-ref ref="STDOUT" />
         <appender-ref ref="INFO_LOG" />

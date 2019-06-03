@@ -1,5 +1,6 @@
 package com.ipiecoles.java.java350.model;
 
+import javax.management.BadAttributeValueExpException;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -77,10 +78,17 @@ public class Employe {
     public Integer getNbRtt(LocalDate d){
         int i1 = d.isLeapYear() ? 365 : 366;
         int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
+            case FRIDAY:
+                if (d.isLeapYear()) var = var + 1;
+                break;
+            case SATURDAY:
+                if (d.isLeapYear()) var = var + 2;
+                else var = var + 1;
+                break;
+            case SUNDAY:
+                var = var+1;
+                break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
@@ -121,7 +129,19 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) throws BadAttributeValueExpException {
+        if(pourcentage<0){
+            throw new IllegalArgumentException("Le pourcentage ne peut être null");
+        }
+        if(this.getSalaire() == null){
+            throw new NullPointerException("Salaire null");
+        }
+        if(this.getSalaire()<0){
+            throw new BadAttributeValueExpException("Salaire négatif");
+        }
+        this.salaire += this.salaire * pourcentage;
+
+    }
 
     public Long getId() {
         return id;
@@ -234,5 +254,19 @@ public class Employe {
     @Override
     public int hashCode() {
         return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
+    }
+
+    @Override
+    public String toString() {
+        return "Employe{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", matricule='" + matricule + '\'' +
+                ", dateEmbauche=" + dateEmbauche +
+                ", salaire=" + salaire +
+                ", performance=" + performance +
+                ", tempsPartiel=" + tempsPartiel +
+                '}';
     }
 }

@@ -5,7 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import javax.management.BadAttributeValueExpException;
 import java.time.LocalDate;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class EmployeTest {
 
@@ -85,4 +89,54 @@ public class EmployeTest {
 
     }
 
+    @Test
+    public void augmenterSalairePourcentageNegatif() throws BadAttributeValueExpException {
+        //Given
+        Employe e = new Employe();
+        e.setSalaire(1500.0);
+        //When
+        try {
+            e.augmenterSalaire(-20);
+            fail("Pourcentage ne peut être null");
+        }catch (IllegalArgumentException e1) {
+            Assertions.assertEquals("Le pourcentage ne peut être null", e1.getMessage());
+        }
+    }
+
+    @Test
+    public void augmenterSalaireSalaireNull(){
+        //Given
+        Employe e = new Employe();
+        e.setSalaire(null);
+        //When
+        NullPointerException exception = Assertions.assertThrows(NullPointerException.class, () -> e.augmenterSalaire(10));
+        Assertions.assertEquals("Salaire null",exception.getMessage());
+    }
+
+    @Test
+    public void augmenterSalaireSalaireNegatif(){
+        //Given
+        Employe e = new Employe();
+        e.setSalaire(-500.0);
+        //When
+        BadAttributeValueExpException exception = Assertions.assertThrows(BadAttributeValueExpException.class, () -> e.augmenterSalaire(10));
+        Assertions.assertEquals("Salaire négatif",exception.getMessage());
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+            "2019, 10, 0.5",
+            "2021, 7, 1",
+            "2022, 7, 0.5",
+            "2032, 7, 1"
+    })
+    @Test
+    public void getNbRttTest(){
+        //Given
+
+        //When
+
+        //Then
+    }
 }
