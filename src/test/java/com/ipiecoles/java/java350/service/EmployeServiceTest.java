@@ -141,4 +141,129 @@ public class EmployeServiceTest {
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
     }
+
+    @Test
+    public void testCalculPerformanceCommercialcaTraiteNull(){
+        //Given
+        String matricule = "C12345";
+        Long caTraite = null;
+        Long objectifCa = 1000L;
+
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa));
+        Assertions.assertEquals("Le chiffre d'affaire traité ne peut être négatif ou null !", e.getMessage());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialobjectifCaNull(){
+        //Given
+        String matricule = "C12345";
+        Long caTraite = 20000L;
+        Long objectifCa = null;
+
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa));
+        Assertions.assertEquals("L'objectif de chiffre d'affaire ne peut être négatif ou null !", e.getMessage());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialEmployeNull(){
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 20000L;
+        Long objectifCa = 21000L;
+        when(employeRepository.findByMatricule(matricule)).thenReturn(null);
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa));
+        Assertions.assertEquals("Le matricule C00001 n'existe pas !", e.getMessage());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialMatriculNull(){
+        //Given
+        String matricule = null;
+        Long caTraite = 20000L;
+        Long objectifCa = 21000L;
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa));
+        Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !", e.getMessage());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialcaTraiteInf20AvgNull() throws EmployeException{
+        //Given
+        String matricule = "C12345";
+        Long caTraite = Long.valueOf(50);
+        Long objectifCa = Long.valueOf(100);
+        when(employeRepository.findByMatricule(matricule)).thenReturn(new Employe());
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(null);
+        //When
+        employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(1,  employeArgumentCaptor.getValue().getPerformance().intValue());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialcaTraiteInf20() throws EmployeException{
+        //Given
+        String matricule = "C12345";
+        Long caTraite = Long.valueOf(50);
+        Long objectifCa = Long.valueOf(100);
+        when(employeRepository.findByMatricule(matricule)).thenReturn(new Employe());
+        //When
+        employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(2,  employeArgumentCaptor.getValue().getPerformance().intValue());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialcaTraiteEntre80et95() throws EmployeException{
+        //Given
+        String matricule = "C12345";
+        Long caTraite = Long.valueOf(85);
+        Long objectifCa = Long.valueOf(100);
+        when(employeRepository.findByMatricule(matricule)).thenReturn(new Employe());
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(null);
+        //When
+        employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(2,  employeArgumentCaptor.getValue().getPerformance().intValue());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialcaTraiteEntre105et120() throws EmployeException{
+        //Given
+        String matricule = "C12345";
+        Long caTraite = Long.valueOf(110);
+        Long objectifCa = Long.valueOf(100);
+        when(employeRepository.findByMatricule(matricule)).thenReturn(new Employe());
+        //When
+        employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(3,  employeArgumentCaptor.getValue().getPerformance().intValue());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialcaTraiteSup120() throws EmployeException{
+        //Given
+        String matricule = "C12345";
+        Long caTraite = Long.valueOf(121);
+        Long objectifCa = Long.valueOf(100);
+        when(employeRepository.findByMatricule(matricule)).thenReturn(new Employe());
+        //When
+        employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(6,  employeArgumentCaptor.getValue().getPerformance().intValue());
+    }
+
 }
