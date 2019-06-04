@@ -145,16 +145,16 @@ public class Employe {
         if (pourcentage < 0.0) {
             throw new IllegalArgumentException("Impossible de diminuer le salaire d'un employé.");
         }
+        else if(pourcentage == 0){
+            throw new EmployeException("Le pourcentage ne peut être égal à 0");
+        }
         else if (this.getSalaire() == 0) {
             throw new EmployeException("Le salaire ne peut être égal à 0 !");
         }
-        else if(pourcentage <= 0){
-            throw new EmployeException("Le pourcentage ne peut être égal ou inférieur à 0");
-        }
         else {
-            this.setSalaire(this.getSalaire() + (this.getSalaire() * pourcentage / 100));
+            this.setSalaire(salaire * (1 + pourcentage));
         }
-        salaire = salaire * (1 + pourcentage);
+
     }
 
     public Long getId() {

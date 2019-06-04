@@ -117,9 +117,9 @@ public class EmployeTest {
         employe.setSalaire(1500.00);
 
         //When
-        employe.augmenterSalaire(0);
-
-        Assertions.assertEquals(1500.00, (double) employe.getSalaire());
+        EmployeException exception = Assertions.assertThrows(
+                EmployeException.class, () -> employe.augmenterSalaire(0));
+        Assertions.assertEquals("Le pourcentage ne peut être égal à 0", exception.getMessage());
     }
 
     @Test
