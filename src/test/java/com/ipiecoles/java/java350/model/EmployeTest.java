@@ -1,6 +1,5 @@
 package com.ipiecoles.java.java350.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import javax.management.BadAttributeValueExpException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.fail;
 
@@ -124,10 +124,22 @@ public class EmployeTest {
     }
 
 
-    @ParameterizedTest(name = "date {0} possede rtt : {1} ")
-    @CsvSource({"0, 9","2, 11"," 3, 11"," 13, 10"})
-    public void testNbRTT(int date, int rtt){
-        //Employe emp = new Employe();
-        //Assertions.assertThat(emp.getNbRtt(LocalDate.now().plusYears(date))).isEqualTo(rtt);// Erreur, je ne sais pas pourquoi sur le assertThat
+    @ParameterizedTest
+    @CsvSource({
+            "'01/01/2019', 8",
+            "'01/01/2021', 11",
+            "'01/01/2022', 10",
+            "'01/01/2032', 12"
+    })
+    @Test
+    public void getNbRttTest(String annee, Integer rtt){
+        //Given
+        Employe e = new Employe();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate maDate = LocalDate.parse(annee,formatter);
+        //When
+        Integer nbRtt = e.getNbRtt(maDate);
+        //Then
+        Assertions.assertEquals(rtt,nbRtt);
     }
 }

@@ -76,25 +76,19 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate date){
-        int nbDayInYear = date.isLeapYear() ? 365 : 366;
+        int nbDayInYear = date.isLeapYear() ? 366 : 365;
         int nbSaturdayAndSunday = 104;
         switch (LocalDate.of(date.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY:
-                if(date.isLeapYear()) {
-                    nbSaturdayAndSunday ++;
-                }
-                break;
             case FRIDAY:
                 if(date.isLeapYear()) {
-                    nbSaturdayAndSunday =  nbSaturdayAndSunday + 2;
-                } else {
                     nbSaturdayAndSunday ++;
                 }
                 break;
             case SATURDAY:
-                nbSaturdayAndSunday ++;
+                if(!date.isLeapYear()) {
+                    nbSaturdayAndSunday ++;
+                }
                 break;
-
             default:
                 break;
         }
