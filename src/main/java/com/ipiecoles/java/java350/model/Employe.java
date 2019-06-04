@@ -94,9 +94,13 @@ public class Employe {
             case SATURDAY:
                 nbSaturdayAndSunday ++;
                 break;
+
+            default:
+                break;
         }
         int noneWorkingDayOutOfWeekEnd = (int) Entreprise.joursFeries(date).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        int nbRttResult = (int) Math.ceil((nbDayInYear - Entreprise.NB_JOURS_MAX_FORFAIT - nbSaturdayAndSunday - Entreprise.NB_CONGES_BASE - noneWorkingDayOutOfWeekEnd) * tempsPartiel);
+        int nbRttResult;
+        nbRttResult = (int) Math.ceil((nbDayInYear - Entreprise.NB_JOURS_MAX_FORFAIT - nbSaturdayAndSunday - Entreprise.NB_CONGES_BASE - noneWorkingDayOutOfWeekEnd) * tempsPartiel);
         return nbRttResult;
     }
 

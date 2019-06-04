@@ -19,8 +19,7 @@ public class EmployeService {
 
     @Autowired
     private EmployeRepository employeRepository;
-
-    //private Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     private static final Logger LOG = LoggerFactory.getLogger(EmployeService.class);
 
 
