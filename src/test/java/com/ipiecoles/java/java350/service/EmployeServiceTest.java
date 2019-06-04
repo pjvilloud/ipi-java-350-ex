@@ -227,7 +227,7 @@ public class EmployeServiceTest {
         Long caTraite = Long.valueOf(85);
         Long objectifCa = Long.valueOf(100);
         when(employeRepository.findByMatricule(matricule)).thenReturn(new Employe());
-        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(null);
+        //when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(null);
         //When
         employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
         //Then
