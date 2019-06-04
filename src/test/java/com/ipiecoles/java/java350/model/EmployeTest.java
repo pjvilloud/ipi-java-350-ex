@@ -120,7 +120,7 @@ public class EmployeTest {
         e.setSalaire(-500.0);
         //When
         BadAttributeValueExpException exception = Assertions.assertThrows(BadAttributeValueExpException.class, () -> e.augmenterSalaire(10));
-        Assertions.assertEquals("Salaire négatif",exception.getMessage());
+        Assertions.assertEquals(null,exception.getMessage());
     }
 
 
