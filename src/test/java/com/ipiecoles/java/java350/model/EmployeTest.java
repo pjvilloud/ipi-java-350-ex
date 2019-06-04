@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.fail;
 
-public class EmployeTest {
+public class EmployeTest{
 
     @Test
     public void getNombreAnneeAncienneteNow(){
@@ -131,8 +131,7 @@ public class EmployeTest {
             "'01/01/2022', 10",
             "'01/01/2032', 12"
     })
-    @Test
-    public void getNbRttTest(String annee, Integer rtt){
+    public void getNbRtt(String annee, Integer rtt){
         //Given
         Employe e = new Employe();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -142,4 +141,5 @@ public class EmployeTest {
         //Then
         Assertions.assertEquals(rtt,nbRtt);
     }
+
 }
