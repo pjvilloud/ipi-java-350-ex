@@ -245,7 +245,22 @@ public class EmployeServiceTest {
         Long caTraite = Long.valueOf(50);
         Long objectifCa = Long.valueOf(100);
         when(employeRepository.findByMatricule(matricule)).thenReturn(new Employe());
-        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(-1.0);
+        //When
+        employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(2,  employeArgumentCaptor.getValue().getPerformance().intValue());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialcaTraiteInf20PerfMoyenneSup() throws EmployeException{
+        //Given
+        String matricule = "C12345";
+        Long caTraite = Long.valueOf(50);
+        Long objectifCa = Long.valueOf(100);
+        when(employeRepository.findByMatricule(matricule)).thenReturn(new Employe());
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(3.0);
         //When
         employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
         //Then
