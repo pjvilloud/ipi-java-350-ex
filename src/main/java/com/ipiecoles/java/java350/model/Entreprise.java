@@ -89,4 +89,8 @@ public final class Entreprise {
         );
     }
 
+    public static Double getCoeffSalaireEtudes(NiveauEtude niveauEtude) {
+        return COEFF_SALAIRE_ETUDES.get(niveauEtude);
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -74,16 +76,30 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+    public Integer getNbRtt(LocalDate date){
+        int nbJourAnnee = date.isLeapYear() ? 366 : 365;
+        int nbWeekEnds = 104;
+        switch (LocalDate.of(date.getYear(),1,1).getDayOfWeek()){
+            case THURSDAY:
+                if(date.isLeapYear()) nbWeekEnds += 1;
+                break;
+            case FRIDAY:
+                if(date.isLeapYear()) nbWeekEnds += 2;
+                else nbWeekEnds += 1;
+                break;
+            case SATURDAY:
+                nbWeekEnds += 1;
+                break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        int jourFeriesHorsWeekEnds = (int) Entreprise
+                .joursFeries(date)
+                .stream()
+                .filter(
+                        localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()
+                )
+                .count();
+
+        return (int) Math.ceil((nbJourAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbWeekEnds - Entreprise.NB_CONGES_BASE - jourFeriesHorsWeekEnds) * tempsPartiel);
     }
 
     /**
@@ -120,8 +136,26 @@ public class Employe {
         return Math.round(prime * this.tempsPartiel * 100)/100.0;
     }
 
-    //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    /**
+     * Augmente le salaire d'un pourcentage passé en entrée
+     *
+     * @param pourcentage double Pourcentage d'augmentation du salaire de l'employé
+     */
+    public void augmenterSalaire(double pourcentage) throws EmployeException {
+        if (pourcentage < 0.0) {
+            throw new IllegalArgumentException("Impossible de diminuer le salaire d'un employé.");
+        }
+        else if (this.getSalaire() == 0) {
+            throw new EmployeException("Le salaire ne peut être égal à 0 !");
+        }
+        else if(pourcentage <= 0){
+            throw new EmployeException("Le pourcentage ne peut être égal ou inférieur à 0");
+        }
+        else {
+            this.setSalaire(this.getSalaire() + (this.getSalaire() * pourcentage / 100));
+        }
+        salaire = salaire * (1 + pourcentage);
+    }
 
     public Long getId() {
         return id;
@@ -234,5 +268,19 @@ public class Employe {
     @Override
     public int hashCode() {
         return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
+    }
+
+    @Override
+    public String toString() {
+        return "Employe{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", matricule='" + matricule + '\'' +
+                ", dateEmbauche=" + dateEmbauche +
+                ", salaire=" + salaire +
+                ", performance=" + performance +
+                ", tempsPartiel=" + tempsPartiel +
+                '}';
     }
 }

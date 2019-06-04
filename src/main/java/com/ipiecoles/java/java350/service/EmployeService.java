@@ -6,17 +6,66 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Service
 public class EmployeService {
 
     @Autowired
     private EmployeRepository employeRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(EmployeService.class);
+
+    /**
+     * Alows to abstract rules for calculating performance
+     */
+    private class PerformanceRule {
+        private Double lowerBound;
+        private Double upperBound;
+        private int modifier;
+
+        /**
+         * Verify the rule has to be applied
+         *
+         * @param caTraite The ca the employe made this year
+         * @return
+         */
+        public boolean verify(Long caTraite) {
+            return (lowerBound == null || caTraite >= lowerBound) &&
+                    (upperBound == null || caTraite < upperBound);
+        }
+
+        /**
+         * Computes the new value for employe's performance
+         * Neither initial value nor computed value can be inferior to Entreprise's base value
+         *
+         * @param performance the employe's initial performance
+         * @return int The new performance
+         */
+        public int apply(int performance) {
+            if (performance <= Entreprise.PERFORMANCE_BASE) performance = Entreprise.PERFORMANCE_BASE;
+            return  Math.max(Entreprise.PERFORMANCE_BASE, performance + modifier);
+        }
+
+        /**
+         * Constructor
+         *
+         * @param lowerBound The minimal value for which this rule will apply
+         * @param modifier The modifier to be applied to the employe's performance
+         */
+        PerformanceRule(Double lowerBound, Double upperBound, int modifier) {
+            this.lowerBound = lowerBound;
+            this.upperBound = upperBound;
+            this.modifier = modifier;
+        }
+    }
 
     /**
      * Méthode enregistrant un nouvel employé dans l'entreprise
@@ -30,7 +79,9 @@ public class EmployeService {
      * @throws EmployeException Si on arrive au bout des matricules possibles
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
-    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException {
+        String infoMessage = String.format("Trying to hire new %s named %s %s, with diploma : %s, working at %f of time.", poste, prenom, nom, niveauEtude, tempsPartiel);
+        logger.info(infoMessage);
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
@@ -42,8 +93,14 @@ public class EmployeService {
         }
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
-        if(numeroMatricule >= 100000){
-            throw new EmployeException("Limite des 100000 matricules atteinte !");
+        if (numeroMatricule >= 80000 && numeroMatricule < 100000){
+            String warningMessage = String.format("Close to limit of 100000 matricules, actual matricule number: %d", numeroMatricule );
+            logger.warn(warningMessage);
+        }
+        else if(numeroMatricule >= 100000){
+            String errorMessage = "Limite des 100000 matricules atteinte !";
+            logger.error(errorMessage);
+            throw new EmployeException(errorMessage);
         }
         //On complète le numéro avec des 0 à gauche
         String matricule = "00000" + numeroMatricule;
@@ -51,18 +108,22 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
-            throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
+            String errorMessage = String.format("L'employé de matricule %s existe déjà en BDD", matricule);
+            logger.error(errorMessage);
+            throw new EntityExistsException(errorMessage);
         }
 
         //Calcul du salaire
-        Double salaire = Entreprise.COEFF_SALAIRE_ETUDES.get(niveauEtude) * Entreprise.SALAIRE_BASE;
+        Double salaire = Entreprise.getCoeffSalaireEtudes(niveauEtude) * Entreprise.SALAIRE_BASE;
         if(tempsPartiel != null){
             salaire = salaire * tempsPartiel;
         }
+        logger.debug("Wage before rounding : {}", salaire);
         salaire = Math.round(salaire*100d)/100d;
 
         //Création et sauvegarde en BDD de l'employé.
         Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
+        logger.info("Saving employe : {}", employe);
 
         employeRepository.save(employe);
 
@@ -104,33 +165,24 @@ public class EmployeService {
             throw new EmployeException("Le matricule " + matricule + " n'existe pas !");
         }
 
-        Integer performance = Entreprise.PERFORMANCE_BASE;
-        //Cas 2
-        if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
-            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
-        }
-        //Cas 3
-        else if(caTraite >= objectifCa*0.95 && caTraite <= objectifCa*1.05){
-            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance());
-        }
-        //Cas 4
-        else if(caTraite <= objectifCa*1.2 && caTraite > objectifCa*1.05){
-            performance = employe.getPerformance() + 1;
-        }
-        //Cas 5
-        else if(caTraite > objectifCa*1.2){
-            performance = employe.getPerformance() + 4;
-        }
-        //Si autre cas, on reste à la performance de base.
+        ArrayList<PerformanceRule> rules = new ArrayList<>();
+        rules.add(new PerformanceRule(null, objectifCa * 0.8, -employe.getPerformance()));
+        rules.add(new PerformanceRule(objectifCa * 0.8, objectifCa * 0.95, -2));
+        rules.add(new PerformanceRule(objectifCa * 0.95, objectifCa * 1.05 + 1, 0));
+        rules.add(new PerformanceRule(objectifCa * 1.05 + 1,  objectifCa * 1.2 + 1, 1));
+        rules.add(new PerformanceRule(objectifCa * 1.2 + 1, null, 4));
 
-        //Calcul de la performance moyenne
-        Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
-        if(performanceMoyenne != null && performance > performanceMoyenne){
-            performance++;
+        rules.forEach(rule ->{ if (rule.verify(caTraite)) {
+            employe.setPerformance(rule.apply(employe.getPerformance()));
+        }});
+
+        // calcul de la performance moyenne
+        Double performanceAVG = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        if(performanceAVG != null && employe.getPerformance() > performanceAVG){
+            employe.setPerformance(1 + employe.getPerformance());
         }
 
-        //Affectation et sauvegarde
-        employe.setPerformance(performance);
+        // sauvegarde de l'employé
         employeRepository.save(employe);
     }
 }

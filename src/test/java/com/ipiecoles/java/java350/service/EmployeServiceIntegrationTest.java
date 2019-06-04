@@ -25,15 +25,66 @@ import java.util.List;
 public class EmployeServiceIntegrationTest {
 
     @Autowired
-    EmployeService employeService;
+    private EmployeRepository employeRepository;
 
     @Autowired
-    private EmployeRepository employeRepository;
+    private EmployeService employeService;
 
     @BeforeEach
     @AfterEach
     public void setup(){
         employeRepository.deleteAll();
+    }
+
+    @Test
+    public void testFindLastMatriculeEmpty(){
+        //Given
+
+        //When
+        String lastMatricule = employeRepository.findLastMatricule();
+
+        //Then
+        Assertions.assertNull(lastMatricule);
+    }
+
+    @Test
+    public void testFindLastMatriculeSingle(){
+        //Given
+        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+
+        //When
+        String lastMatricule = employeRepository.findLastMatricule();
+
+        //Then
+        Assertions.assertEquals("12345", lastMatricule);
+    }
+
+    @Test
+    public void testFindLastMatriculeMultiple(){
+        //Given
+        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "Jane", "M40325", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "Jim", "C06432", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+
+        //When
+        String lastMatricule = employeRepository.findLastMatricule();
+
+        //Then
+        Assertions.assertEquals("40325", lastMatricule);
+    }
+
+    @Test
+    public void testAvgPerformanceWhereMatriculeStartsWith() {
+        //Given
+        employeRepository.save(new Employe("Doe", "Jim", "C06432", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "Jerry", "C00211", LocalDate.now(), Entreprise.SALAIRE_BASE, 2, 1.0));
+
+
+        //When
+        Double avgPerformance = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+
+        //Then
+        Assertions.assertEquals(1.5, (double) avgPerformance);
     }
 
     @Test
@@ -60,6 +111,26 @@ public class EmployeServiceIntegrationTest {
 
         //1521.22 * 1.2 * 1.0
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialObjectifRempli() throws EmployeException {
+        //Given
+        String nom = "Martin";
+        String prenom = "Patricia";
+        String matricule = "C01234";
+        LocalDate dateEmbauche = LocalDate.now();
+        Double salaire = 2500.0;
+        Integer performance = 2;
+        Double tempsPartiel = 1.0;
+        employeRepository.save(new Employe(nom, prenom, matricule, dateEmbauche, salaire, performance, tempsPartiel));
+
+        //When
+        employeService.calculPerformanceCommercial(matricule, 200000L, 200000L);
+
+        //Then
+        Employe employe = employeRepository.findByMatricule(matricule);
+        Assertions.assertEquals(2, (int) employe.getPerformance());
     }
 
 }
