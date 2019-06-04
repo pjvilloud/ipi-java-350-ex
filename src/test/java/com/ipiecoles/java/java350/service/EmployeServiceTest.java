@@ -18,8 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.mockito.Mockito.*;
 
@@ -155,11 +153,35 @@ public class EmployeServiceTest {
     }
 
     @Test
+    public void testCalculPerformanceCommercialcaTraiteInf0(){
+        //Given
+        String matricule = "C12345";
+        Long caTraite = -1000L;
+        Long objectifCa = 1000L;
+
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa));
+        Assertions.assertEquals("Le chiffre d'affaire traité ne peut être négatif ou null !", e.getMessage());
+    }
+
+    @Test
     public void testCalculPerformanceCommercialobjectifCaNull(){
         //Given
         String matricule = "C12345";
         Long caTraite = 20000L;
         Long objectifCa = null;
+
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa));
+        Assertions.assertEquals("L'objectif de chiffre d'affaire ne peut être négatif ou null !", e.getMessage());
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialobjectifCaInf0(){
+        //Given
+        String matricule = "C12345";
+        Long caTraite = 20000L;
+        Long objectifCa = -10000L;
 
         //When/Then
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa));
@@ -190,6 +212,17 @@ public class EmployeServiceTest {
     }
 
     @Test
+    public void testCalculPerformanceCommercialMatriculStartWithM(){
+        //Given
+        String matricule = "M12345";
+        Long caTraite = 20000L;
+        Long objectifCa = 21000L;
+        //When/Then
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa));
+        Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !", e.getMessage());
+    }
+
+    @Test
     public void testCalculPerformanceCommercialcaTraiteInf20AvgNull() throws EmployeException{
         //Given
         String matricule = "C12345";
@@ -212,6 +245,7 @@ public class EmployeServiceTest {
         Long caTraite = Long.valueOf(50);
         Long objectifCa = Long.valueOf(100);
         when(employeRepository.findByMatricule(matricule)).thenReturn(new Employe());
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(-1.0);
         //When
         employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
         //Then
