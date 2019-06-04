@@ -266,7 +266,7 @@ public class EmployeServiceTest {
         //Then
         ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
         verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
-        Assertions.assertEquals(2,  employeArgumentCaptor.getValue().getPerformance().intValue());
+        Assertions.assertEquals(1,  employeArgumentCaptor.getValue().getPerformance().intValue());
     }
 
     @Test
