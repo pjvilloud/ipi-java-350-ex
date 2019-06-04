@@ -81,13 +81,7 @@ public class Employe {
         //Nombre de samedi et dimanche de base
         int nbSaturdayAndSunday = 104;
         switch (LocalDate.of(date.getYear(),1,1).getDayOfWeek()){
-            //Si premier jour de l'année est un Vendredi et que l'année est bisextile, l'année se finit un samedi, on le rajoute
-            case FRIDAY:
-                if(date.isLeapYear()) {
-                    nbSaturdayAndSunday ++;
-                }
-                break;
-                //Si premier jour est un samedi et que l'année n'est pas bisextile, elle se finit un samedi, on l'ajoute
+            //Si premier jour est un samedi et que l'année n'est pas bisextile, elle se finit un samedi, on l'ajoute
             case SATURDAY:
                 if(!date.isLeapYear()) {
                     nbSaturdayAndSunday ++;
