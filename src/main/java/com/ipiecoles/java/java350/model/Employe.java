@@ -71,19 +71,23 @@ public class Employe {
      *
      * @return le nombre de jours de RTT
      */
-    public Integer getNbRtt(){
+    /*public Integer getNbRtt(){
         return getNbRtt(LocalDate.now());
-    }
+    }*/
 
     public Integer getNbRtt(LocalDate date){
+        //Vérification si année bisextile ou non
         int nbDayInYear = date.isLeapYear() ? 366 : 365;
+        //Nombre de samedi et dimanche de base
         int nbSaturdayAndSunday = 104;
         switch (LocalDate.of(date.getYear(),1,1).getDayOfWeek()){
+            //Si premier jour de l'année est un Vendredi et que l'année est bisextile, l'année se finit un samedi, on le rajoute
             case FRIDAY:
                 if(date.isLeapYear()) {
                     nbSaturdayAndSunday ++;
                 }
                 break;
+                //Si premier jour est un samedi et que l'année n'est pas bisextile, elle se finit un samedi, on l'ajoute
             case SATURDAY:
                 if(!date.isLeapYear()) {
                     nbSaturdayAndSunday ++;
@@ -92,8 +96,10 @@ public class Employe {
             default:
                 break;
         }
+        //Récupère le nombre de jour férié ne tombant pas un week-end
         int noneWorkingDayOutOfWeekEnd = (int) Entreprise.joursFeries(date).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         int nbRttResult;
+        //Le calcul final
         nbRttResult = (int) Math.ceil((nbDayInYear - Entreprise.NB_JOURS_MAX_FORFAIT - nbSaturdayAndSunday - Entreprise.NB_CONGES_BASE - noneWorkingDayOutOfWeekEnd) * tempsPartiel);
         return nbRttResult;
     }
