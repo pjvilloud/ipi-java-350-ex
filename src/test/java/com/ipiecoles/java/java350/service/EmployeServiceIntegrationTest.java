@@ -83,15 +83,4 @@ public class EmployeServiceIntegrationTest {
         Assertions.assertEquals(6, employe.getPerformance().intValue());
     }
 
-    @Test
-    public void integrationAvgPerformanceWhereMatriculeStartsWit() throws EmployeException {
-        //Given
-        employeRepository.save(new Employe("Doe", "John", "C12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
-        employeRepository.save(new Employe("Doe", "John", "C23456", LocalDate.now(), Entreprise.SALAIRE_BASE, 2, 1.0));
-        employeRepository.save(new Employe("Doe", "John", "C34567", LocalDate.now(), Entreprise.SALAIRE_BASE, 3, 1.0));
-
-        //When/Then
-        Assertions.assertEquals(2, employeRepository.avgPerformanceWhereMatriculeStartsWith("C").intValue());
-    }
-
 }
