@@ -172,7 +172,7 @@ public class EmployeService {
         rules.add(new PerformanceRule(objectifCa * 1.05 + 1,  objectifCa * 1.2 + 1, 1));
         rules.add(new PerformanceRule(objectifCa * 1.2 + 1, null, 4));
 
-        rules.forEach(rule ->{ if (rule.verify(caTraite)) {
+        rules.filter(rule -> rule.verify(caTraite)).forEach(rule ->{{
             employe.setPerformance(rule.apply(employe.getPerformance()));
         }});
 
