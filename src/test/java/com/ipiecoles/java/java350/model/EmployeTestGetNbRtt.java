@@ -26,7 +26,7 @@ class EmployeTestGetNbRtt {
         //When
         Integer res = e.getNbRtt(LocalDate.now());
         //Then
-        Object wish;
-        Assertions.isEqualTo(wish, res);
+        //Object wish;
+        //Assertions.assertEquals(wish, res);
     }
 }
