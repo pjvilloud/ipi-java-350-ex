@@ -105,8 +105,13 @@ public class Employe {
     }
 
     //Augmenter salaire
-    public void augmenterSalaire(double pourcentage){
+    public void augmenterSalaire(double pourcentage) {
+    	if(pourcentage < -100) throw new IllegalArgumentException("Le pourcentage ne peut pas être en-dessous de -100");
     	
+    	double pcent = pourcentage/100;
+    	double increase = getSalaire() * pcent;
+    	double newSalaire = getSalaire() + increase;
+    	setSalaire(newSalaire);
     }
 
     public Long getId() {
