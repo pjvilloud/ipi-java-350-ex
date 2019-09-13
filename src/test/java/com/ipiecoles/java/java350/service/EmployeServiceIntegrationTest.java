@@ -58,5 +58,5 @@ public class EmployeServiceIntegrationTest {
         //1521.22 * 1.2 * 1.0
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
     }
-
+        
 }
