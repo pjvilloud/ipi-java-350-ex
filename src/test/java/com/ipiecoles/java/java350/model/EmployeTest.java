@@ -22,27 +22,27 @@ class EmployeTest {
 
     @Test
     public void testGetNombreAnneeAncienneteDtEmbaucheTodayPlus2() {
-        //Given Création employe avec une date embauche à null
+        //Given 
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now().plusYears(2));
 
-        // When Initiatiolisation d'un nb d'année d'anciennete
+        // When
         Integer nbAnneeAnciennete = employe.getNombreAnneeAnciennete();
 
-        //Then Vérification que c'est bien à 0
+        //Then
         Assertions.assertThat(nbAnneeAnciennete).isEqualTo(0);
     }
 
     @Test
     public void testGetNombreAnneeAncienneteDtEmbaucheTodayMinus3() {
-        //Given Création employe avec une date embauche à null
+        //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now().minusYears(3));
 
-        // When Initiatiolisation d'un nb d'année d'anciennete
+        // When
         Integer nbAnneeAnciennete = employe.getNombreAnneeAnciennete();
 
-        //Then Vérification que c'est bien à 0
+        //Then
         Assertions.assertThat(nbAnneeAnciennete).isEqualTo(3);
     }
 }
