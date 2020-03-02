@@ -43,6 +43,6 @@ class EmployeTest {
         Integer nbAnneeAnciennete = employe.getNombreAnneeAnciennete();
 
         //Then
-        Assertions.assertThat(employe.getNombreAnneeAnciennete()).isEqualTo(3);
+        Assertions.assertThat(employe.getNombreAnneeAnciennete()).isEqualTo(0);
     }
 }
