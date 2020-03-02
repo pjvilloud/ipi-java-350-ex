@@ -1,1 +1,17 @@
 language : java
+jdk:
+  - oraclejdk11
+#  - oraclejdk9
+#  - openjdk8
+
+dist: trusty
+
+addons:
+  sonarcloud:
+    organization: "afterbreak"
+    token:
+      secure: cf8db856a91c8d3ec8565dc86a6b66149d3edcd0" # encrypted value of your token
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=afterbreak_ipi-java-350-ex
