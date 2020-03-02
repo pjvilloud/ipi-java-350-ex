@@ -1,1 +1,7 @@
-language: java
+addons:
+  sonarcloud:
+    organization: "psygaoh" # the key of the org you chose at step #3
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean verify sonar:sonar -Pcoverage -Dsonar.projectKey=Psygaoh_ipi-java-350-ex
