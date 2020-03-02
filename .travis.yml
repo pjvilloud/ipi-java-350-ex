@@ -4,7 +4,7 @@ jdk:
 #  - oraclejdk9
 #  - openjdk8
 
-dist: trusty
+# dist: trusty
 
 addons:
   sonarcloud:
