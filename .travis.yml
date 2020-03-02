@@ -1,1 +1,10 @@
 language: java
+addons:
+  sonarcloud:
+    organization: "phlaxith"
+    token:
+      secure: "f9686e2401f5665b48c687d6a2aea9204f2f6495" # encrypted value of your token
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
