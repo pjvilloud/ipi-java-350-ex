@@ -38,7 +38,7 @@ public class Employe {
         this.prenom = prenom;
         this.matricule = matricule;
         this.dateEmbauche = dateEmbauche;
-        this.salaire = salaire;
+        this.salaire = salaire;0é
         this.performance = performance;
         this.tempsPartiel = tempsPartiel;
     }
