@@ -1,3 +1,5 @@
+language: java
+
 addons:
   sonarcloud:
     organization: "psygaoh" # the key of the org you chose at step #3
