@@ -4,13 +4,11 @@ jdk:
 #  - oraclejdk9
 #  - openjdk8
 
-# dist: trusty
-
 addons:
   sonarcloud:
     organization: "afterbreak"
-    token:
-      secure: "cf8db856a91c8d3ec8565dc86a6b66149d3edcd0" # encrypted value of your token
+#    token:
+#      secure: "cf8db856a91c8d3ec8565dc86a6b66149d3edcd0" # encrypted value of your token
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
