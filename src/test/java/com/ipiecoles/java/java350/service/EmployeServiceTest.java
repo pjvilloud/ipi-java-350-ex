@@ -15,7 +15,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
+
+import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -35,7 +38,7 @@ public class EmployeServiceTest {
         Poste poste = Poste.TECHNICIEN;
         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;
-        Mockito.when(employeRepository.findLastMatricule()).thenReturn("00345");
+        when(employeRepository.findLastMatricule()).thenReturn("00345");
 
         //When
         employeService.embaucheEmploye(nom,prenom,poste,niveauEtude,tempsPartiel);
@@ -49,5 +52,35 @@ public class EmployeServiceTest {
         Assertions.assertThat(employeArgumentCaptor.getValue().getDateEmbauche()).isEqualTo(LocalDate.now());
         Assertions.assertThat(employeArgumentCaptor.getValue().getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
         Assertions.assertThat(employeArgumentCaptor.getValue().getSalaire()).isEqualTo(1825.46);
+    }
+
+    @Test
+    public void testEmbaucheTechnicienBTSPleinTempsLimiteMatricule() {
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.MANAGER;
+        NiveauEtude niveauEtude = NiveauEtude.MASTER;
+        Double tempsPartiel = 0.5;
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
+        Mockito.when(employeRepository.findByMatricule("M00001")).thenReturn(new Employe());
+
+        //When/Then
+        EntityExistsException e = org.junit.jupiter.api.Assertions.assertThrows(EntityExistsException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
+        org.junit.jupiter.api.Assertions.assertEquals("L'employé de matricule M00001 existe déjà en BDD", e.getMessage());
+    }
+
+    @Test
+    public void testEmbaucheEmployeManagerMiTempsMaster99999(){
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.MANAGER;
+        NiveauEtude niveauEtude = NiveauEtude.MASTER;
+        Double tempsPartiel = 0.5;
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
+
+        //When/Then
+        EmployeException e = org.junit.jupiter.api.Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
+        org.junit.jupiter.api.Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
     }
 }

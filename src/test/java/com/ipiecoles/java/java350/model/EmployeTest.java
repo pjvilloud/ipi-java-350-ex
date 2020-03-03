@@ -36,7 +36,7 @@ class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAncienneteNull(){
+    public void getNombreAnneeAncienneteNull() {
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(null);
@@ -49,7 +49,7 @@ class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAncienneteNplus2(){
+    public void getNombreAnneeAncienneteNplus2() {
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().plusYears(2L));
