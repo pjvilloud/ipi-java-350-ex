@@ -37,13 +37,16 @@ public class EmployeServiceTest {
     Double tempsPartiel = 1.0;
 
     when(employeRepository.findLastMatricule()).thenReturn("00345");
-    when(employeRepository.findByMatricule("T00346")).thenReturn(null);
+    //Par défault les méthodes retournent nulles --> ci-dessous la ligne est par défault
+    //when(employeRepository.findByMatricule("T00346")).thenReturn(null);
 
     employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
 
+    verify(employeRepository, times(1)).findByMatricule("T00346");
     // simulation d'un save : ici on récupère l'objet généré par le .save dans la méthode embauchEmploye
     ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
     verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+    // On vérifie si l'objet correspond
     Assertions.assertEquals(prenom, employeArgumentCaptor.getValue().getPrenom());
     Assertions.assertEquals(nom, employeArgumentCaptor.getValue().getNom());
     Assertions.assertEquals("T00346", employeArgumentCaptor.getValue().getMatricule());
