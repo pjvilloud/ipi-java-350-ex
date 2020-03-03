@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -63,8 +64,26 @@ public class EmployeServiceTest {
         Double tempsPartiel = 0.5;
         when(employeRepository.findLastMatricule()).thenReturn("99999");
 
-        //When/Then
-        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
+        EmployeException e = Assertions.assertThrows(EmployeException.class, ()
+                -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
+
+    }
+
+    @Test
+    public void testEmbaucheEmployeManagerMiTempsMasterExistingEmploye(){
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.MANAGER;
+        NiveauEtude niveauEtude = NiveauEtude.MASTER;
+        Double tempsPartiel = 0.5;
+        when(employeRepository.findLastMatricule()).thenReturn(null);
+        when(employeRepository.findByMatricule("M00001")).thenReturn(new Employe());
+
+        Throwable exception = org.assertj.core.api.Assertions.catchThrowable(()
+                -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
+        org.assertj.core.api.Assertions.assertThat(exception).isInstanceOf(EntityExistsException.class);
+        org.assertj.core.api.Assertions.assertThat(exception.getMessage()).isEqualTo("L'employé de matricule M00001 existe déjà en BDD");
     }
 }
