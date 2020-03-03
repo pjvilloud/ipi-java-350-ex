@@ -38,29 +38,6 @@ public class EmployeServiceTest {
     when(employeRepository.findByMatricule("00001")).thenReturn(null);
 
     employeService.embaucheEmploye(nom, prenom, poste, niveauEtude,tempsPartiel);
-
-
     }
 
-    @Test
-    public void embaucheTechnicienBTSTempsPleinTest() throws EmployeException {
-        String nom = "Name";
-        String prenom = "Prenom";
-        Poste poste = Poste.TECHNICIEN;
-        NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
-        Double tempsPartiel = 1.0;
-
-        employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
-
-        Employe employe = employeRepository.findAll().get(0);
-        Assertions.assertThat(employe.getNom()).isEqualTo(nom);
-        Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
-        Assertions.assertThat(employe.getDateEmbauche()).isEqualTo(LocalDate.now());
-        Assertions.assertThat(employe.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
-        Assertions.assertThat(employe.getMatricule()).isEqualTo("T00001");
-        // 1521.22 * 1.2 = 1825.46
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(1825.46);
-
-
-    }
     }
