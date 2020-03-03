@@ -7,11 +7,13 @@ import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityExistsException;
@@ -28,6 +30,11 @@ public class EmployeServiceTest {
 
     @InjectMocks
     EmployeService employeService;
+
+    @BeforeEach
+    public void setup(){
+        MockitoAnnotations.initMocks((this.getClass()));
+    }
 
     @Test
     public void embaucheEmployeTest() throws EmployeException {
