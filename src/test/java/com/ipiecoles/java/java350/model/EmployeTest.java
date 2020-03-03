@@ -67,15 +67,8 @@ public class EmployeTest {
 
     @ParameterizedTest(name = "Employé matricule {0}, {1} années d ancienneté, {2}, {3} gagnera une prime de {4}")
     @CsvSource({
-            "'T12345', 0, 1.0, 1, 1000.0",
-            "'T12345', 2, 0.5, 1, 600.0",
-            "'T12345', 2, 1.0, 1, 1200.0",
-            "'T12345', 0, 1.0, 1, 2300.0",
-            "'T12345', 1, 1.0, 1, 2400.0",
-            "'M12345', 0, 1.0, 1, 1700.0",
-            "'M12345', 5, 1.0, 1, 2200.0",
-            "'M12345', 0, 1.0, 1, 1700.0",
-            "'M12345', 8, 1.0, 1, 2500.0"
+            "T12345, 0, 1.0, 1, 1000",
+            "T12345, 0, 0.5, 1, 500.0"
     })
     void testGetPrimeAnnuelle(String matricule, Integer nbAnneeAnciennete, Double tempPartiel, Integer performance, Double primeFinale) {
         //Given
