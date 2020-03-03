@@ -47,7 +47,6 @@ class EmployeServiceMockTest {
         employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
 
         //Then
-        Mockito.verify(employeRepository).findByMatricule("T00346");
         ArgumentCaptor<Employe> employeCaptor = ArgumentCaptor.forClass(Employe.class);
         Mockito.verify(employeRepository).save(employeCaptor.capture());
         Employe employe = employeCaptor.getValue();
