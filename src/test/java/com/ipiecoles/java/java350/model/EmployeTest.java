@@ -83,7 +83,7 @@ public class EmployeTest {
             "'test', 2, 1.0, 2500d",
             "'Mtest', 1, 0, 0d"
     })
-    public void getPrimeAnnuellePourManagerParamTest (String matricule, Integer performance, Double tempsPartiel, Double result) {
+    public void getPrimeAnnuelleTest (String matricule, Integer performance, Double tempsPartiel, Double expected) {
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now().minusYears(2));
         employe.setMatricule(matricule);
@@ -92,7 +92,7 @@ public class EmployeTest {
 
         Double Prime = employe.getPrimeAnnuelle();
 
-        Assertions.assertThat(Prime).isEqualTo(result);
+        Assertions.assertThat(Prime).isEqualTo(expected);
     }
 
 }
