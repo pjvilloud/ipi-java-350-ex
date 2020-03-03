@@ -55,7 +55,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheTechnicienBTSPleinTempsLimiteMatricule() {
+    public void testEmbaucheManagerMasterPleinTempsLimiteMatricule() {
         String nom = "Doe";
         String prenom = "John";
         Poste poste = Poste.MANAGER;
