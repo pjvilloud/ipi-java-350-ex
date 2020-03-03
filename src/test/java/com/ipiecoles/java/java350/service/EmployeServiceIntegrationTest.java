@@ -12,14 +12,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
 @SpringBootTest
-public class EmployeServiceTest {
+public class EmployeServiceIntegrationTest {
     @Autowired
     private EmployeService employeService;
     @Autowired
-    public EmployeRepository employeRepository;
+    private EmployeRepository employeRepository;
 
     @BeforeEach
     public void before(){
@@ -31,6 +32,8 @@ public class EmployeServiceTest {
     @Test
     public void testEmbaucheTechnicienBTSPleinTemps() throws EmployeException {
         //Given
+        Employe employe1 = new Employe("Doe", "John", "T00146", LocalDate.now(), Entreprise.SALAIRE_BASE, Entreprise.PERFORMANCE_BASE, 1.0);
+        employeRepository.save(employe1);
         String nom = "Doe";
         String prenom = "John";
         Poste poste = Poste.TECHNICIEN;
@@ -41,12 +44,13 @@ public class EmployeServiceTest {
         employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
 
         //Then
-        Employe employe = employeRepository.findAll().get(0);
+        Employe employe = employeRepository.findByMatricule("T00147");
+        Assertions.assertThat(employe).isNotNull();
         Assertions.assertThat(employe.getNom()).isEqualTo(nom);
         Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
         Assertions.assertThat(employe.getDateEmbauche()).isEqualTo(LocalDate.now());
         Assertions.assertThat(employe.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
-        Assertions.assertThat(employe.getMatricule()).isEqualTo("T00001");
+        Assertions.assertThat(employe.getMatricule()).isEqualTo("T00147");
         //1521.22 * 1.2 = 1825.464
         Assertions.assertThat(employe.getSalaire()).isEqualTo(1825.46d);
     }
