@@ -50,17 +50,4 @@ public class EmployeServiceTest {
         Assertions.assertThat(employeArgumentCaptor.getValue().getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
         Assertions.assertThat(employeArgumentCaptor.getValue().getSalaire()).isEqualTo(1825.46);
     }
-
-    @Test
-    public void testFindByMatriculeIsNull(){
-        //Given
-        Mockito.when(employeRepository.findByMatricule("X")).thenReturn(null);
-        //When Junit 5
-        NullPointerException e =
-                org.junit.jupiter.api.Assertions.assertThrows(NullPointerException.class, () ->
-                        employeService.embaucheEmploye(null,null,null,null,null)
-                );
-        //Then Exception
-        org.junit.jupiter.api.Assertions.assertEquals(e.getMessage(), null);
-    }
 }
