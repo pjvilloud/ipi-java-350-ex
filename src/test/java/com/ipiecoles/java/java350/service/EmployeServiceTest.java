@@ -8,20 +8,23 @@ import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class EmployeServiceTest {
 
-    @Autowired
+    @InjectMocks
     private EmployeService employeService;
 
-    @Autowired
+    @Mock
     private EmployeRepository employeRepository;
 
     @Test
@@ -32,16 +35,32 @@ public class EmployeServiceTest {
         Poste poste = Poste.TECHNICIEN;
         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn("00345");
+
         //When
         employeService.embaucheEmploye(nom,prenom,poste,niveauEtude,tempsPartiel);
-        //Then
-        Employe employe = employeRepository.findAll().get(0);
 
-        Assertions.assertThat(employe.getNom()).isEqualTo(nom);
-        Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
-        Assertions.assertThat(employe.getDateEmbauche()).isEqualTo(LocalDate.now());
-        Assertions.assertThat(employe.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
-        Assertions.assertThat(employe.getMatricule()).isEqualTo("T00001");
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(1825.46);
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository, Mockito.times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertThat(employeArgumentCaptor.getValue().getMatricule()).isEqualTo("T00346");
+        Assertions.assertThat(employeArgumentCaptor.getValue().getNom()).isEqualTo(nom);
+        Assertions.assertThat(employeArgumentCaptor.getValue().getPrenom()).isEqualTo(prenom);
+        Assertions.assertThat(employeArgumentCaptor.getValue().getDateEmbauche()).isEqualTo(LocalDate.now());
+        Assertions.assertThat(employeArgumentCaptor.getValue().getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
+        Assertions.assertThat(employeArgumentCaptor.getValue().getSalaire()).isEqualTo(1825.46);
+    }
+
+    @Test
+    public void testFindByMatriculeIsNull(){
+        //Given
+        Mockito.when(employeRepository.findByMatricule("X")).thenReturn(null);
+        //When Junit 5
+        NullPointerException e =
+                org.junit.jupiter.api.Assertions.assertThrows(NullPointerException.class, () ->
+                        employeService.embaucheEmploye(null,null,null,null,null)
+                );
+        //Then Exception
+        org.junit.jupiter.api.Assertions.assertEquals(e.getMessage(), null);
     }
 }
