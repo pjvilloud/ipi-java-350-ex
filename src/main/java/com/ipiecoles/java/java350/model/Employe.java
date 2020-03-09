@@ -44,7 +44,10 @@ public class Employe {
     }
 
     public Integer getNombreAnneeAnciennete() {
-        return LocalDate.now().getYear() - dateEmbauche.getYear();
+    	if (dateEmbauche != null && dateEmbauche.isBefore(LocalDate.now())) {
+    		 return LocalDate.now().getYear() - dateEmbauche.getYear();
+    	}
+       return 0;
     }
 
     public Integer getNbConges() {
@@ -80,6 +83,9 @@ public class Employe {
      * @return la prime annuelle de l'employé en Euros et cents
      */
     public Double getPrimeAnnuelle(){
+    	if(this.tempsPartiel>1 || this.tempsPartiel<0) {
+    		this.tempsPartiel=1d;
+    	}
         //Calcule de la prime d'ancienneté
         Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
         Double prime;
