@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Java350Application<java350>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.ipiecoles.java.java350.Java350Application",
+            "projectName": "java350",
+            "args": ""
+        }
+    ]
+}
