@@ -2,6 +2,8 @@ package com.ipiecoles.java.java350.model;
 
 import java.time.LocalDate;
 
+import javax.swing.JSpinner.DateEditor;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -32,7 +34,7 @@ public class EmployeTest {
         Integer anneeAnciennete = employe.getNombreAnneeAnciennete();
 
         //Then
-        Assertions.assertThat(anneeAnciennete.intValue()).isEqualTo(3);
+        Assertions.assertThat(anneeAnciennete.intValue()).isEqualTo(-3);
     }
 	
 	@Test
