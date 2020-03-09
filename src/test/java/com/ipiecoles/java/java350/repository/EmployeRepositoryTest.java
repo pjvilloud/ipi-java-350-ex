@@ -3,6 +3,8 @@ package com.ipiecoles.java.java350.repository;
 import java.time.LocalDate;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,13 @@ public class EmployeRepositoryTest {
 
 	    @Autowired
 	    EmployeRepository employeRepository;
+	    
+	    @BeforeEach
+	    @AfterAll
+	    public void setup() {
+	    	employeRepository.deleteAll();
+	    }
+	    
 	    
 		@Test
 		public void testFindByImmatNull(){
@@ -43,6 +52,9 @@ public class EmployeRepositoryTest {
 	        //Then
 	        Assertions.assertThat(result).isEqualTo("99999"); 
 	    }
+	    
+	    
+	    
 
 	
 }
