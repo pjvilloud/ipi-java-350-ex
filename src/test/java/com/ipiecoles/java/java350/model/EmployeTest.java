@@ -50,7 +50,7 @@ public class EmployeTest {
 			Integer nbAnnee= employe.getNombreAnneeAnciennete();
 			
 			//Then
-			Assertions.assertThat(nbAnnee).isEqualTo(0);	
+			Assertions.assertThat(nbAnnee).isEqualTo(-2);	
 		}
 		// Date aujourd'hui => 0
 		
