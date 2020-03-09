@@ -18,11 +18,11 @@ import com.ipiecoles.java.java350.model.Employe;
 public class EmployeRepositoryTest {
 
 	    @Autowired
+		static
 	    EmployeRepository employeRepository;
 	    
 	    @BeforeEach
-	    @AfterAll
-	    public void setup() {
+	    public static void setup() {
 	    	employeRepository.deleteAll();
 	    }
 	    
