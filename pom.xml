@@ -139,10 +139,10 @@
 				</dependencies>
 				<configuration>
 					<targetClasses>
-						<param>com.ipiecoles.java.java350.service*</param>
+						<param>com.ipiecoles.java.java350.*</param> <!-- add service after .service* -->
 					</targetClasses>
 					<targetTests>
-						<param>com.ipiecoles.java.java350.service*</param>
+						<param>com.ipiecoles.java.java350.*</param><!-- add service after .service* -->
 					</targetTests>
 				</configuration>
 			</plugin>
