@@ -41,7 +41,7 @@ public class EmployeRepositoryTest {
 		String lastMatricule = employeRepository.findLastMatricule();
 		
 		//Then
-		Assertions.assertThat(lastMatricule).isEqualTo("M99999"); 
+		Assertions.assertThat(lastMatricule).isEqualTo("99999"); 
 	}
 	
 
