@@ -6,10 +6,17 @@ import java.time.LocalDate;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ipiecoles.java.java350.model.Employe;
+import com.ipiecoles.java.java350.repository.EmployeRepository;
 
 
 public class EmployeTest {
@@ -108,4 +115,5 @@ public class EmployeTest {
 				    Assertions.assertThat(primecalcule).isEqualTo(prime);
 				}
 
+	
 }
