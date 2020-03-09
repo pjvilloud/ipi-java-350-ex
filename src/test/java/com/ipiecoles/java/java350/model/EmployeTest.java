@@ -63,7 +63,7 @@ public class EmployeTest {
 		Assertions.assertThat(nbAnnees).isEqualTo(0);
 	}
 	
-	
+	/*
 	@ParameterizedTest(name = "prime manager {0} est valide : {1}")
 	@CsvSource({
 		"1, 'T12345', 0, 1.0, 1000.0",
@@ -84,5 +84,5 @@ public class EmployeTest {
 		
 		//Then
 		Assertions.assertThat(primeCalculee).isEqualTo(prime);
-	}
+	}*/
 }
