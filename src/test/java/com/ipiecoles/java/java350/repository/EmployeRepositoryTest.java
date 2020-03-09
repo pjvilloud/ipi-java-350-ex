@@ -19,7 +19,7 @@ public class EmployeRepositoryTest {
 	public EmployeRepository employeRepository;
 	
 	@Test
-	public void findLastMatriculTest() {
+	public void findLastMatriculTestTwoEmploye() {
 		//Given
 		Employe e1 = new Employe();
 		Employe e2 = new Employe();
@@ -33,6 +33,17 @@ public class EmployeRepositoryTest {
 		
 		//Then
 		Assertions.assertThat(result).isEqualTo(e2.getMatricule().substring(1));
+		
+	}
+	@Test
+	public void findLastMatriculTestZeroEmploye() {
+		//Given
+		
+		//When
+		String result = employeRepository.findLastMatricule();
+		
+		//Then
+		Assertions.assertThat(result).isNull();;
 		
 	}
 	
