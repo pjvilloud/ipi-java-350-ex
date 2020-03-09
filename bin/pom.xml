@@ -29,13 +29,6 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>3.13.2</version>
-		</dependency>
-		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -146,10 +139,10 @@
 				</dependencies>
 				<configuration>
 					<targetClasses>
-						<param>com.ipiecoles.java.java350.*</param>
+						<param>com.ipiecoles.java.java350.service*</param>
 					</targetClasses>
 					<targetTests>
-						<param>com.ipiecoles.java.java350.*</param>
+						<param>com.ipiecoles.java.java350.service*</param>
 					</targetTests>
 				</configuration>
 			</plugin>
