@@ -2,7 +2,7 @@ package com.ipiecoles.java.java350.model;
 
 import java.time.LocalDate;
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -21,7 +21,7 @@ public class EmployeTest
         Integer anneeAnciennete = e.getNombreAnneeAnciennete();
 
         //Then
-        Assertions.assertThat(0, anneeAnciennete.intValue());
+        Assertions.assertEquals(0, anneeAnciennete.intValue());
     }
 	
 	
@@ -38,7 +38,7 @@ public class EmployeTest
 		Integer nbAnnees = employe.getNombreAnneeAnciennete();
 		
 		//Then
-		Assertions.assertThat(nbAnnees).isEqualTo(2);
+		Assertions.assertEquals(2, nbAnnees.intValue());
 	}
 	
 	
@@ -53,7 +53,7 @@ public class EmployeTest
 		Integer nbAnnees = employe.getNombreAnneeAnciennete();
 		
 		//Then
-		Assertions.assertThat(nbAnnees).isEqualTo(0);
+		Assertions.assertEquals(0, nbAnnees.intValue());
 	}
 	
 	//Date aujourd'hui => 0
@@ -68,7 +68,7 @@ public class EmployeTest
 		Integer nbAnnees = employe.getNombreAnneeAnciennete();
 		
 		//Then
-		Assertions.assertThat(nbAnnees).isEqualTo(0);
+		Assertions.assertEquals(0, nbAnnees.intValue());
 	}
 	
 	
@@ -85,7 +85,7 @@ public class EmployeTest
 	            "2, 'M12345', 0, 1.0, 1700.0",
 	            "2, 'M12345', 8, 1.0, 2500.0"
 			})
-	void testPrimeAnnuelle(Integer performance, String matricule, Integer nbAnneesAnciennete, Double TempsPartiel, Double prime) 
+	void testPrimeAnnuelle(Integer performance, String matricule, Integer nbAnneesAnciennete, Double TempsPartiel, Double primeAnnuelle) 
 	{
 	    //Given
 		Employe employe = new Employe();
