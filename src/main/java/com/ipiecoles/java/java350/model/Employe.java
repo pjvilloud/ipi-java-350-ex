@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import net.bytebuddy.asm.Advice.Return;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -44,7 +47,10 @@ public class Employe {
     }
 
     public Integer getNombreAnneeAnciennete() {
-        return LocalDate.now().getYear() - dateEmbauche.getYear();
+    	if(dateEmbauche != null && dateEmbauche.isBefore(LocalDate.now())){
+    		return LocalDate.now().getYear() - dateEmbauche.getYear();
+    	}
+    	return 0;
     }
 
     public Integer getNbConges() {
