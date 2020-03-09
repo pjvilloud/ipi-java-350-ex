@@ -14,7 +14,6 @@ import com.ipiecoles.java.java350.repository.EmployeRepository;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-
 public class employeRepositoryTest {
 
     @Autowired
@@ -23,6 +22,7 @@ public class employeRepositoryTest {
     public void testFindByMatricule(){
         //Given
         Employe e = new Employe("John", "Doe", "T12345", LocalDate.now(), 1200.0, 1, 1.0);
+        employeRepository.save(e);
         //When
         Employe result = employeRepository.findByMatricule("T12345");
         //Then
