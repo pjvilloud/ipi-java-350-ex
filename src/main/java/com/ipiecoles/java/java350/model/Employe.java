@@ -44,8 +44,12 @@ public class Employe {
     }
 
     public Integer getNombreAnneeAnciennete() {
-        return LocalDate.now().getYear() - dateEmbauche.getYear();
+    	if (dateEmbauche != null && dateEmbauche.isBefore(LocalDate.now())) {
+    		return LocalDate.now().getYear() - dateEmbauche.getYear();
+    	}
+    	return 0;
     }
+    //On déf les 4 test unitaires puis on code
 
     public Integer getNbConges() {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
