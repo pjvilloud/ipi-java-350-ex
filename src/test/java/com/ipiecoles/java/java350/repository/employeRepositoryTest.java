@@ -1,4 +1,4 @@
-package com.ipiecoles.java.java350.model;
+package com.ipiecoles.java.java350.repository;
 
 import java.time.LocalDate;
 
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-
+import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 
 @ExtendWith(SpringExtension.class)
