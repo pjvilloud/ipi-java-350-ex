@@ -1,20 +1,27 @@
 package com.ipiecoles.java.java350.service;
 
-import java.time.LocalDate;
-
-import org.assertj.core.api.Assertions;
+import com.ipiecoles.java.java350.exception.EmployeException;
+import com.ipiecoles.java.java350.model.Employe;
+import com.ipiecoles.java.java350.model.NiveauEtude;
+import com.ipiecoles.java.java350.model.Poste;
+import com.ipiecoles.java.java350.repository.EmployeRepository;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.ipiecoles.java.java350.exception.EmployeException;
-import com.ipiecoles.java.java350.model.Employe;
-import com.ipiecoles.java.java350.model.Entreprise;
-import com.ipiecoles.java.java350.model.NiveauEtude;
-import com.ipiecoles.java.java350.model.Poste;
+import javax.persistence.EntityExistsException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 @ExtendWith(MockitoExtension.class)
 public class EmployeServiceTest 
@@ -23,7 +30,7 @@ public class EmployeServiceTest
 	private EmployeService employeService;
 	
 	@Mock
-	private EmployeRepository employeRepository
+	private EmployeRepository employeRepository;
 	
 	@Test
 	public void testEmbaucheEmployeCommercialPleinTempsBTS()
@@ -44,12 +51,12 @@ public class EmployeServiceTest
 		
 		//Then
 		//BDD si l'employé est bien créer (nom, prenom, matricule, salaire, date d'embauche, performance).
-		ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor<T>.forClass(Employe.class);
-		Mockito.verify(employeRepository, Mockito.times(wantedNumberOfInvocations:1)).save(employeArgumentCaptor.getValue();
+		ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor/*<T>*/.forClass(Employe.class);
+		Mockito.verify(employeRepository, Mockito.times(wantedNumberOfInvocations:1)).save(employeArgumentCaptor.getValue());
 		Employe employe = employeArgumentCaptor.getValue();
 		
 		//Employe employeVerif = new Employe(nom,prenom, ...)
-		//
+		
 		Assertions.assertThat(employe.getNom())isEqualTo(nom);
 		Assertions.assertThat(employe.getPrenom())isEqualTo(prenom);
 		Assertions.assertThat(employe.getNom())isEqualTo("C00346");
