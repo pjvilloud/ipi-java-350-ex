@@ -39,7 +39,7 @@ public class EmployeServiceTest {
 		Poste poste = Poste.COMMERCIAL;
 		NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
 		Double tempsPartiel = 1.0;
-		
+		// on donne les cas car on n'a pas de BDD donc les données sont apportées avec when
 		// cas nominal, findLastMatricule => 00345 / null
 		Mockito.when(employeRep.findLastMatricule()).thenReturn("00345");
 		// findByMatricule => null / pensez à incrémenter d'1 par rapport au test du dessus 00345, et je veux que ça renvoi null
@@ -87,5 +87,37 @@ public class EmployeServiceTest {
 		
 		
 	}
+	
+	@Test 
+	public void testEmbaucheEmployeLimiteMatricule() throws EmployeException{
+		
+		// Given
+		String nom = "Doe";
+		String prenom = "John";
+		Poste poste = Poste.COMMERCIAL;
+		NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+		Double tempsPartiel = 1.0;
+		
+		// je simule que la base arrive à terme
+		Mockito.when(employeRep.findLastMatricule()).thenReturn("99999");
+		
+		// When
+		try {
+		employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+		Assertions.fail("Aurait dû planter!"); // fail fait échourer le test qd même et signale que ça aurait du planter
+		} catch (Exception e) {
+			// Then
+			// je fais en sorte que j'ai bien une exception avec le try catch dans when
+			Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+			Assertions.assertThat(e.getMessage()).isEqualTo("Limite des 100000 matricules atteinte !");
+		}
+		
+		
+		
+		
+		
+		
+	}
+
 
 }
