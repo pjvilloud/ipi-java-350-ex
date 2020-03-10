@@ -77,5 +77,31 @@ public class EmployeServiceTest {
 		
 		
 	}
+	@Test
+	public void embaucheEmployeTestLimite() throws EmployeException {
+		// Given
+		String nom= "Dao";
+		String prenom = "John";
+		Poste poste=Poste.COMMERCIAL;
+		NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+		Double tempsPartiel = 1.0;
+		Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
+		
+		
+		//when/Then assertJ
+		Assertions.assertThatThrownBy(() -> {employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);})
+				.isInstanceOf(EmployeException.class).hasMessage("Limite des 100000 matricules atteinte !");
+		// When 
+		try {
+		employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+		Assertions.fail(" Aurait du planter");
+		}
+		catch(Exception e) {
+			Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+			Assertions.assertThat(e.getMessage()).isEqualTo("Limite des 100000 matricules atteinte !");
+		}
+		
+		// Then 	
+	}
 
 }
