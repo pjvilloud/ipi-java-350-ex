@@ -69,8 +69,39 @@ public class EmployeServiceTest {
 	        //Assertions.assertThat(employeCaptor.getValue().getNom()).isEqualTo("Doe");
 	        //Assertions.assertThat(employeCaptor.getValue().getPrenom()).isEqualTo("Jean");
 	        //Assertions.assertThat(employeCaptor.getValue().getTempsPartiel()).isEqualTo(1.0);
-	        //Assertions.assertThat(employeCaptor.getValue().getMatricule()).isEqualTo("C00346");		
+	        //Assertions.assertThat(employeCaptor.getValue().getMatricule()).isEqualTo("C00346");		        
 		
+		
+	}
+	
+	@Test
+	public void testEmbaucheEmployeLimiteMatricule() throws EmployeException{
+		
+	//Given
+		String nom ="Doe";
+		String prenom = "Jean";
+		Poste poste = Poste.COMMERCIAL;
+		NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+		Double tempsPartiel = 1.0;
+	
+		Mockito.when(employeRep.findLastMatricule()).thenReturn("99999");
+		
+	//When/Then AssertJ (This does same job as the one below with TRY and CATCH)
+		Assertions.assertThatThrownBy(()-> {employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);})
+		.isInstanceOf(EmployeException.class).hasMessage("Limite des 100000 matricules atteinte !");
+		
+	//When
+		try {
+		 employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+		 Assertions.fail("Aurait du planter!");
+		}catch(Exception e) {
+			Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+			Assertions.assertThat(e.getMessage()).isEqualTo("Limite des 100000 matricules atteinte !");
+			
+		}
+				
+	//Then
+		 
 		
 	}
 
