@@ -63,4 +63,23 @@ public class EmployeServiceTest {
         //Calcule Salaire 1521.22 * 1.2 * 170
         Assertions.assertThat(employe.getSalaire()).isEqualTo(1825.46);
 	}
+	
+	@Test
+	public void testEmbaucheEmployeLimiteMatricule() throws EmployeException {
+	
+		//Given
+		String nom = "Smith";
+		String prenom = "John";
+		Poste poste = Poste.COMMERCIAL;
+		NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+		Double tempsPartiel = 1.0;
+		
+		//When
+		try {
+			employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+		} catch(Exception e) {
+			Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+			Assertions.assertThat(e.getMessage()).isEqualTo("Limite des 10000 matricules atteinte !");
+		}
+		
 }
