@@ -7,9 +7,55 @@ import org.junit.jupiter.api.Test; //Junit 5 : org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.model.Employe;
 
 public class EmployeTest {
+	
+	// ---------------- EVALUATION -----------------------------
+	@Test
+	public void testAugmenterSalaireSiAugmentationNegative() throws EmployeException {	
+		  //Given 
+		  Employe employe = new Employe();
+		  employe.setSalaire(1521.22);	      
+	      //When 
+		  double result = employe.augmenterSalaire(-1.0);
+	      //Then
+		  Assertions.assertThat(result).isEqualTo(1521.22);
+	}
+	@Test
+	public void testAugmenterSalaireSiAugmentationA0() throws EmployeException {	
+		  //Given 
+		  Employe employe = new Employe();
+		  employe.setSalaire(1521.22);	      
+	      //When 
+		  double result = employe.augmenterSalaire(0.0);
+	      //Then
+		  Assertions.assertThat(result).isEqualTo(1521.22);
+	}
+	@Test
+	public void testAugmenterSalaire() throws EmployeException {	
+		  //Given 
+		  Employe employe = new Employe();
+		  employe.setSalaire(1521.22);	      
+	      //When 
+		  double result = employe.augmenterSalaire(0.5);
+	      //Then
+		  Assertions.assertThat(result).isEqualTo(2281.83);
+	}
+	@Test
+	public void testAugmenterSalaireAugmentationTropElevee() throws EmployeException {	
+		  //Given 
+		  Employe employe = new Employe();
+		  employe.setSalaire(1521.22);	      
+	      //When 
+		  double result = employe.augmenterSalaire(15.0);
+	      //Then
+		  Assertions.assertThat(result).isEqualTo(3042.44);
+	}
+	
+	// ---------------- FIN EVALUATION -----------------------------
+	
 	
 // -----------  Exercice 1 - Tests unitaires classiques  -----------  
 	// Employé  2 années d'ancienneté
