@@ -11,6 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ipiecoles.java.java350.model.Employe;
 
+/*
+ * Méthode dans laquelle on simule l'utilisation d'un base de données via Travis
+ */
+
 @SpringBootTest
 public class EmployeRepositoryTest {
 	
