@@ -1,6 +1,7 @@
 package com.ipiecoles.java.java350.repository;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,8 +14,13 @@ public class EmployeRepositoryTest {
 	@Autowired
 	EmployeRepository employeRepository;
 	
+	@BeforeEach
+	public void setup() {
+		employeRepository.deleteAll();
+	}
+	
 	@Test
-    public void testFindLastMatricule3Employes(){
+    public void testFindLastMatriculeA(){
 		//Given
 		Employe e = new Employe();
 		e.setMatricule("M22345");
@@ -32,7 +38,7 @@ public class EmployeRepositoryTest {
 	}
 	
 	@Test
-    public void testFindLastMatricule0Employe(){
+    public void testFindLastMatriculeZ(){
 		//Civen
 		//Wheb
 		
