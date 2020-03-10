@@ -110,13 +110,13 @@ public class EmployeService {
     public void calculPerformanceCommercial(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
         //Vérification des paramètres d'entrée
         if(caTraite == null || caTraite < 0){
-            throw new EmployeException("Le chiffre d'affaire traité ne peut être négatif ou null !");
+            throw new EmployeException("Le chiffre d'affaires traité ne peut être négatif ou nul !");
         }
         if(objectifCa == null || objectifCa < 0){
-            throw new EmployeException("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+            throw new EmployeException("L'objectif de chiffre d'affaires ne peut être négatif ou nul !");
         }
         if(matricule == null || !matricule.startsWith("C")){
-            throw new EmployeException("Le matricule ne peut être null et doit commencer par un C !");
+            throw new EmployeException("Le matricule ne peut être nul et doit commencer par un C !");
         }
         //Recherche de l'employé dans la base
         Employe employe = employeRepository.findByMatricule(matricule);

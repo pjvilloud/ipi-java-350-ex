@@ -75,7 +75,7 @@ public class EmployeTest {
 	}
 
 	/**
-	 * TESTS PARAMETRES
+	 * Tests paramétrés
 	 */
 	
 	@ParameterizedTest
@@ -105,6 +105,76 @@ public class EmployeTest {
 
 	}
 	
+	/*
+	 * Tests sur méthode augmenterSalaire
+	 */
 	
 	
+	@Test
+    public void testAugmentationNulle() {
+        // Given
+        Employe employe = new Employe();
+        employe.setSalaire(3000.0);
+
+        // When
+        employe.augmenterSalaire(0);
+        Double salaireAug = employe.getSalaire();
+
+        // Then
+        Assertions.assertThat(salaireAug).isEqualTo(3000.0);
+    }
+	
+	@Test
+    public void testAugmentationNegative() {
+        // Given
+        Employe employe = new Employe();
+        employe.setSalaire(3000.0);
+
+        // When
+        employe.augmenterSalaire(-0.5);
+        Double salaireAug = employe.getSalaire();
+
+        // Then
+        Assertions.assertThat(salaireAug).isEqualTo(3000.0);
+    }
+	
+	 @Test
+	    public void testAugmentationPositive() {
+	        // Given
+	        Employe employe = new Employe();
+	        employe.setSalaire(3000.0);
+
+	        // When
+	        employe.augmenterSalaire(0.1);
+	        Double salaireAug = employe.getSalaire();
+
+	        // Then
+	        Assertions.assertThat(salaireAug).isEqualTo(3300.0);
+
+	    }
+	 
+	 /*
+	 @ParameterizedTest
+	    @CsvSource({
+	            "3000 ,-0.5, 3000",
+	            "3000, 0, 3000",
+	            "3000 , 0.1, 3300",
+	    })
+	    public void testAugmenterSalaire(
+	            Double salaire,
+	            double pourcentage,
+	            Double salaireAug
+	    ) {
+	        // given
+	        Employe emp = new Employe();
+	        emp.setSalaire(salaire);
+
+	        // when
+	        emp.augmenterSalaire(pourcentage);
+	        Double newSalaire = emp.getSalaire();
+	        // then
+	        Assertions.assertThat(newSalaire).isEqualTo(salaireAug);
+	    }
+	*/
+	 
 }
