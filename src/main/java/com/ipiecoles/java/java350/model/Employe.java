@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -105,9 +108,27 @@ public class Employe {
         return prime * this.tempsPartiel;
     }
 
+    /**
+     * Augmente le salaire avec le pourcentage en paramètre :
+     * si le pourcentage est négatif, le salaire n'est pas augmenté
+     * si le pourcentage est de 100% et plus, le salaire est doublé (plafonné)
+     * @param pourcentage
+     * @return Double salaireAugmente
+     */
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public Double augmenterSalaire(double pourcentage){
+    	if(pourcentage < 0) {
+    		return salaire;
+    	}
+    	if(pourcentage >= 1) {;
+    		return salaire * 2;
+    	}
+    	Double salaireAugmente = salaire + (salaire * pourcentage);
+    	return salaireAugmente;	
+    }
 
+    
+    
     public Long getId() {
         return id;
     }

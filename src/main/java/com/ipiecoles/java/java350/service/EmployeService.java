@@ -37,12 +37,6 @@ public class EmployeService {
      */
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
 
-    	//logger.debug("A DEBUG message");
-    	//logger.info("An INFO message");
-    	//logger.warn("A WARN message");
-    	//logger.error("An ERROR message");
-    	
-    	
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
 
