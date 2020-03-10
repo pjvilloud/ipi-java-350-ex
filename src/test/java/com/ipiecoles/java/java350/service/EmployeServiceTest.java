@@ -151,7 +151,7 @@ public class EmployeServiceTest {
 		// Then
 		ArgumentCaptor<Employe> employeCaptor = ArgumentCaptor.forClass(Employe.class);		
 		Mockito.verify(employeRep, Mockito.times(1)).save(employeCaptor.capture());
-		// la performance est supérieure à la moyenne il reçoit + 1 de performance
+		// la performance est supérieure à la moyenne il reçoit + 1 de performance en plus du 1 de l'énoncé
 		Assertions.assertThat(employeCaptor.getValue().getPerformance()).isEqualTo(3);
 	}
 	
@@ -176,11 +176,9 @@ public class EmployeServiceTest {
 		// Then
 		ArgumentCaptor<Employe> employeCaptor = ArgumentCaptor.forClass(Employe.class);		
 		Mockito.verify(employeRep, Mockito.times(1)).save(employeCaptor.capture());	
-		// la performance est supérieure à la moyenne il reçoit + 1 de performance
+		// la performance est supérieure à la moyenne il reçoit + 1 de performance en plus du 4 de l'énoncé
 		Assertions.assertThat(employeCaptor.getValue().getPerformance()).isEqualTo(7);
 	}
-	
-	
 	
 		
 	// ---------------- FIN EVALUATION -----------------------------
