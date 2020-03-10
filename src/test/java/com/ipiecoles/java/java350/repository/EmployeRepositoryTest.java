@@ -7,6 +7,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -16,7 +18,8 @@ import com.ipiecoles.java.java350.model.Employe;
 @ExtendWith(SpringExtension.class) //Junit 5 
 @DataJpaTest // ou @SpringBootTest
 public class EmployeRepositoryTest {
-
+	private Logger LOGGER=LoggerFactory.getLogger(EmployeRepositoryTest.class);
+	
 	    @Autowired
 		static
 	    EmployeRepository employeRepository;
@@ -51,6 +54,12 @@ public class EmployeRepositoryTest {
 	        
 	        //Then
 	        Assertions.assertThat(result).isEqualTo("99999"); 
+	        
+	        
+	        //debug is thechnique    
+	        LOGGER.info("La test by immat a eté bien exécutée ");
+	        
+	        LOGGER.info("après la test: {}", result);// {} is for putting the message that comes after , in the method
 	    }
 	    
 	    
