@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface EmployeRepository extends JpaRepository<Employe, Long> {
+	
     @Query("select max(substring(matricule,2)) from Employe")
     String findLastMatricule();
 
