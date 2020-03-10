@@ -5,8 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.ipiecoles.java.java350.exception.EmployeException;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -120,11 +118,10 @@ public class Employe {
     	if(pourcentage < 0) {
     		return salaire;
     	}
-    	if(pourcentage >= 1) {;
+    	if(pourcentage >= 1) {
     		return salaire * 2;
     	}
-    	Double salaireAugmente = salaire + (salaire * pourcentage);
-    	return salaireAugmente;	
+    	return salaire + (salaire * pourcentage);	
     }
 
     
