@@ -70,13 +70,6 @@ public class Employe {
         int nbJoursWeekEnd = 104;
         // En fonction du premier jour de l'année considérée, on change le nombre de jours de week-end
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-        	default:
-	        	if(d.isLeapYear()) {
-            		nbJoursWeekEnd = nbJoursWeekEnd - 1;
-            	} else { 
-            		nbJoursWeekEnd = nbJoursWeekEnd + 1;
-            	}
-            	break;
             case FRIDAY:
             	if(d.isLeapYear()) {
             		nbJoursWeekEnd = nbJoursWeekEnd + 2;
@@ -96,6 +89,13 @@ public class Employe {
             		nbJoursWeekEnd = nbJoursWeekEnd - 3;
             	} else { 
             		nbJoursWeekEnd = nbJoursWeekEnd + 2;
+            	}
+            	break;
+        	default:
+	        	if(d.isLeapYear()) {
+            		nbJoursWeekEnd = nbJoursWeekEnd - 1;
+            	} else { 
+            		nbJoursWeekEnd = nbJoursWeekEnd + 1;
             	}
             	break;
         }
