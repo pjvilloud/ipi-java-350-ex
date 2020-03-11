@@ -31,7 +31,7 @@ public class EmployeServiceTest {
 	private EmployeRepository employeRepository;
 	
 	/**
-	 * Méthode qui teste la méthode embaucheEmploye avec un commercial à plein temps de niveau BTS
+	 * Test de la méthode embaucheEmploye avec un commercial à plein temps de niveau BTS
 	 * @throws EmployeException
 	 * @throws EntityExistsException
 	 */
@@ -71,7 +71,7 @@ public class EmployeServiceTest {
 	}
 	
 	/**
-	 * Méthode qui teste la méthode embaucheEmploye avec un manager à plein temps de niveau BTS
+	 * Test de la méthode embaucheEmploye avec un manager à plein temps de niveau BTS
 	 * @throws EmployeException
 	 * @throws EntityExistsException
 	 */
@@ -111,7 +111,7 @@ public class EmployeServiceTest {
 	}
 	
 	/**
-	 * Méthode qui teste la méthode embaucheEmploye avec un matricule trop élevé
+	 * Test de la méthode embaucheEmploye avec un matricule trop élevé
 	 * @throws EmployeException
 	 * @throws EntityExistsException
 	 */
@@ -145,7 +145,7 @@ public class EmployeServiceTest {
 	
 	
 	/**
-	 * Méthode qui teste la méthode calculPerformanceCommercial (hors cas d'exception)
+	 * Test de la méthode calculPerformanceCommercial (hors cas d'exception)
 	 * @param matriculeE1 : le matricule d'un 1er employé (String)
 	 * @param performanceE1 : la performance du 1er employé (Integer)
 	 * @param matriculeE2 : le matricule d'un 2ème employé (String)
@@ -199,7 +199,7 @@ public class EmployeServiceTest {
 	
 	
 	/**
-	 * Méthode qui teste la méthode calculPerformanceCommercial avec un CA traité négatif
+	 * Test de la méthode calculPerformanceCommercial avec un CA traité négatif
 	 * @throws EmployeException
 	 */
 	@Test
@@ -217,7 +217,7 @@ public class EmployeServiceTest {
 	}
 	
 	/**
-	 * Méthode qui teste la méthode calculPerformanceCommercial avec un CA traité null
+	 * Test de la méthode calculPerformanceCommercial avec un CA traité null
 	 * @throws EmployeException
 	 */
 	@Test
@@ -235,7 +235,7 @@ public class EmployeServiceTest {
 	}
 	
 	/**
-	 * Méthode qui teste la méthode calculPerformanceCommercial avec un objectif de CA négatif
+	 * Test de la méthode calculPerformanceCommercial avec un objectif de CA négatif
 	 * @throws EmployeException
 	 */
 	@Test
@@ -253,7 +253,7 @@ public class EmployeServiceTest {
 	}
 	
 	/**
-	 * Méthode qui teste la méthode calculPerformanceCommercial avec un objectif de CA null
+	 * Test de la méthode calculPerformanceCommercial avec un objectif de CA null
 	 * @throws EmployeException
 	 */
 	@Test
@@ -271,7 +271,7 @@ public class EmployeServiceTest {
 	}
 	
 	/**
-	 * Méthode qui teste la méthode calculPerformanceCommercial avec un matricule null
+	 * Test de la méthode calculPerformanceCommercial avec un matricule null
 	 * @throws EmployeException
 	 */
 	@Test
@@ -289,7 +289,7 @@ public class EmployeServiceTest {
 	}
 	
 	/**
-	 * Méthode qui teste la méthode calculPerformanceCommercial avec un matricule incorrect
+	 * Test de la méthode calculPerformanceCommercial avec un matricule incorrect
 	 * @throws EmployeException
 	 */
 	@Test
@@ -307,7 +307,7 @@ public class EmployeServiceTest {
 	}
 	
 	/**
-	 * Méthode qui teste la méthode calculPerformanceCommercial avec un matricule qui n'existe pas en BDD
+	 * Test de la méthode calculPerformanceCommercial avec un matricule qui n'existe pas en BDD
 	 * @throws EmployeException
 	 */
 	@Test

@@ -5,16 +5,12 @@ import java.time.LocalDate;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 
-//@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class EmployeServiceIntegrationTest {
 	
@@ -29,6 +25,10 @@ public class EmployeServiceIntegrationTest {
 		employeRepository.deleteAll();
 	}
 	
+	/**
+	 * Test d'intégration de la méthode calculPerformanceCommercial
+	 * @throws EmployeException
+	 */
 	@Test
 	public void testIntegreCalculPerformanceCommercial() throws EmployeException {
 		//Given

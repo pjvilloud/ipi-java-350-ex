@@ -60,16 +60,46 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
+    /**
+     * Méthode qui retourne le nombre de jours de RTT pour une année donnée
+     * @param d : la date à considérer
+     * @return : le nombre de jours de RTT trouvés sous forme d'integer
+     */
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
+        int nbJoursParAn = d.isLeapYear() ? 365 : 366;
+        int nbJoursWeekEnd = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+        	default:
+	        	if(d.isLeapYear()) {
+            		nbJoursWeekEnd =  nbJoursWeekEnd - 1;
+            	} else { 
+            		nbJoursWeekEnd =  nbJoursWeekEnd + 1;
+            	}
+            	break;
+            case FRIDAY:
+            	if(d.isLeapYear()) {
+            		nbJoursWeekEnd =  nbJoursWeekEnd + 2;
+            	} else { 
+            		nbJoursWeekEnd =  nbJoursWeekEnd + 1;
+            	}
+            	break;
+            case SATURDAY:
+            	if(d.isLeapYear()) {
+            		nbJoursWeekEnd =  nbJoursWeekEnd + 1;
+            	} else { 
+            		nbJoursWeekEnd = nbJoursWeekEnd + 2;
+            	}
+            	break;
+            case SUNDAY:
+            	if(d.isLeapYear()) {
+            		nbJoursWeekEnd =  nbJoursWeekEnd - 3;
+            	} else { 
+            		nbJoursWeekEnd = nbJoursWeekEnd + 2;
+            	}
+            	break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        int nbJoursFeriesEnSemaine = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        return (int) Math.ceil((nbJoursParAn - Entreprise.NB_JOURS_MAX_FORFAIT - nbJoursWeekEnd - Entreprise.NB_CONGES_BASE - nbJoursFeriesEnSemaine) * tempsPartiel);
     }
 
     /**
@@ -106,9 +136,13 @@ public class Employe {
         return prime * this.tempsPartiel;
     }
 
-    //Augmenter salaire
-    //Je pars du principe qu'on ne peut qu'augmenter un salaire (pourcentage positif)
-    //Si l'on doit diminuer un salaire, cela se fera avec une nouvelle méthode (diminuerSalaire par ex.)
+
+    /**
+     * Méthode qui augmente le salaire d'un employé selon un pourcentage donné.
+     * On part du principe qu'on ne peut qu'augmenter un salaire (pourcentage positif).
+     * Si l'on doit diminuer un salaire, cela fera l'objet d'une nouvelle méthode (diminuerSalaire par ex.)
+     * @param pourcentage : le pourcentage d'augmentation sous forme de double
+     */
     public void augmenterSalaire(double pourcentage){
     	if (pourcentage >= 0 && salaire != null) {
     		this.setSalaire((this.getSalaire()*pourcentage)+this.getSalaire());
