@@ -78,6 +78,8 @@ public class EmployeServiceTest {
         //1521.22 * 1.2 * 1.0 
         Assertions.assertThat(employe.getSalaire()).isEqualTo(1825.46);	
         
+        
+        
 	}
 	
 	
