@@ -107,7 +107,16 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    //Je pars du principe qu'on ne peut qu'augmenter un salaire (pourcentage positif)
+    //Si l'on doit diminuer un salaire, cela se fera avec une nouvelle méthode (diminuerSalaire par ex.)
+    public void augmenterSalaire(double pourcentage){
+    	if (pourcentage >= 0 && salaire != null) {
+    		this.setSalaire((this.getSalaire()*pourcentage)+this.getSalaire());
+    	} else {
+    		this.setSalaire(this.getSalaire());
+    	}
+    	
+    }
 
     public Long getId() {
         return id;

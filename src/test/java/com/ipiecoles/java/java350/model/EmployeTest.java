@@ -105,5 +105,22 @@ public class EmployeTest {
 		  // Then
 	      Assertions.assertThat(primeCalculee).isEqualTo(prime);
 	  }
+	  
+	  @ParameterizedTest
+	  @CsvSource({
+	          "2000.0, 0.1, 2200.0",
+	          "0.0, 0.5, 0.0",
+	          "1000.0, -0.1, 1000.0",
+	          ", 0.5,"
+	  })
+	  public void testAugmenterSalaire(Double salaire, Double pourcentage, Double salaireAugmente) {
+		  //Given
+		  Employe e = new Employe();
+		  e.setSalaire(salaire);
+		  //When
+		  e.augmenterSalaire(pourcentage);
+		  //Then
+		  Assertions.assertThat(e.getSalaire()).isEqualTo(salaireAugmente);
+	  }
 
 }

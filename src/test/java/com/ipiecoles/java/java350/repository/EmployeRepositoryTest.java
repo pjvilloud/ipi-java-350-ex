@@ -13,7 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.ipiecoles.java.java350.model.Employe;
 
-@ExtendWith(SpringExtension.class)
+//@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class EmployeRepositoryTest {
 	
@@ -21,7 +21,6 @@ public class EmployeRepositoryTest {
 	EmployeRepository employeRepository;
 	
 	@BeforeEach
-	@AfterAll
 	public void setup() {
 		employeRepository.deleteAll();
 	}
