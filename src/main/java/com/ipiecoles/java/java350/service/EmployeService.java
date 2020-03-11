@@ -22,10 +22,8 @@ public class EmployeService {
     private EmployeRepository employeRepository;
     
     //pour log
+    //On def un logger et on utilise le factory pour le créer (cf. correction)
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    
-    /** Méthode enregistrant un nouvel employé employé dfans l'Entreprise... */
-     
     
 
     /**
@@ -45,6 +43,7 @@ public class EmployeService {
 	    logger.info("An INFO message");
 	    logger.warn("A WARN Message");
 	    logger.error("An ERROR Message");
+	    
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
 
@@ -55,9 +54,12 @@ public class EmployeService {
         }
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
+        
         if(numeroMatricule >= 100000){
-        	logger.error("Limite des 100000 matricules atteints!");
-            throw new EmployeException("Limite des 100000 matricules atteinte !");
+        	logger.error("Limites des 100000 matricules atteints!");
+            throw new EmployeException("Limites des 100000 matricules atteinte !");
+        } else if (numeroMatricule > 90000) {
+        	logger.warn("Seuil des matricules en 90000 atteints");
         }
         //On complète le numéro avec des 0 à gauche
         String matricule = "00000" + numeroMatricule;
@@ -65,6 +67,7 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
+        	logger.error("L'employé de matricule " + matricule + " existe déjà en BDD");
             throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
@@ -79,9 +82,14 @@ public class EmployeService {
         Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
         
         //logger
-        
+        //logger.debug("Avant sauvegarde : {}", employe.toString());
         employeRepository.save(employe);
 
+        //logger.info("Après sauvegarde : {}", employe.toString());
+        
+        //Les 2 loggers ci-dessus lèveront une NPE car on n'a pas mocké le save
+        // Avec un fichier de config, on peut mettre des critères pour la sauvegarde des logs (cf. correction : main/ressources/logback.xml)
+        
     }
 
 
