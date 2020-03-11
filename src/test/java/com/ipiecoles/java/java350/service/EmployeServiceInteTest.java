@@ -49,10 +49,9 @@ public class EmployeServiceInteTest {
 		
         // when
         employeService.calculPerformanceCommercial(employe.getMatricule(), caTraite, objectifCa);
-        Employe empl = employeRepository.findByMatricule("C12345");
         
         // then
-        Assertions.assertThat(empl.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
         
 	}
 	
@@ -79,7 +78,7 @@ public class EmployeServiceInteTest {
 	        Double moyenneC = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
 	        
 	        // then
-	        Assertions.assertThat(moyenneC).isEqualTo(Entreprise.PERFORMANCE_BASE.doubleValue());
+	        Assertions.assertThat(employe.getPerformance().doubleValue()).isEqualTo(moyenneC);
 	        
 		}
 	
