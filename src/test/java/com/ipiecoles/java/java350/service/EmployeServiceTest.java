@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -70,6 +72,49 @@ public class EmployeServiceTest {
 	        //Assertions.assertThat(employeCaptor.getValue().getPrenom()).isEqualTo("Jean");
 	        //Assertions.assertThat(employeCaptor.getValue().getTempsPartiel()).isEqualTo(1.0);
 	        //Assertions.assertThat(employeCaptor.getValue().getMatricule()).isEqualTo("C00346");		
+		
+		
+	}
+	
+	//Test paramétrés
+	//matricule, performance, date d'embauche, temps partiel, prime
+		
+		@ParameterizedTest(name = "perf {0} est valide : {1}")
+		@CsvSource({
+		        
+		        "'C00002', 1, 'C00003', 1, 'C00004', 1, 1, 25000, 100000, 1 "        
+			
+		})
+	public void testcalculPerformanceCommercial(String matriculEmp1, Integer performanceEmp1,
+			String matriculEmp2, Integer performanceEmp2,
+			String matriculEmp3, Integer performanceEmp3,
+			Double average, Long caTraite, Long caObjectif, Integer performanceCalc) throws EmployeException{
+		
+	//Given
+		Employe emp1 = new Employe();
+		emp1.setMatricule(matriculEmp1);
+		emp1.setPerformance(performanceEmp1);
+		Employe emp2 = new Employe();
+		emp1.setMatricule(matriculEmp2);
+		emp1.setPerformance(performanceEmp2);
+		Employe emp3 = new Employe();
+		emp1.setMatricule(matriculEmp3);
+		emp1.setPerformance(performanceEmp3);
+		
+		//findLastMatricule => "00345"
+		Mockito.when(employeRep.findByMatricule(matriculEmp1)).thenReturn(emp1);
+		
+		//findByMatricule => null
+		Mockito.when(employeRep.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(average);
+		
+	//When
+		 employeService.calculPerformanceCommercial(matriculEmp1, caTraite, caObjectif);
+		 	
+	//Then
+		 ArgumentCaptor<Employe> employeCaptor = ArgumentCaptor.forClass(Employe.class);
+	        Mockito.verify(employeRep, Mockito.times(1)).save(employeCaptor.capture());
+	        emp1 = employeCaptor.getValue();
+	        Assertions.assertThat(emp1.getPerformance()).isEqualTo(performanceCalc);	
 		
 		
 	}

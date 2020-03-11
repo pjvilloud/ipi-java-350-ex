@@ -38,7 +38,7 @@ public class EmployeTest {
 		//When
 		Integer nbAnnees = employe.getNombreAnneeAnciennete();
 		
-		//Then
+		//ThenLli
 		Assertions.assertThat(nbAnnees).isEqualTo(0);
 	}
 	
@@ -102,6 +102,36 @@ public class EmployeTest {
 		//Then
 		Assertions.assertThat(primeAnnee).isEqualTo(prime);
 		
+	}
+	
+	
+	@Test
+	public void testAugmenterSalaire() {
+		
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(1600.00);
+		
+		//When
+		//Integer Augment = employe.augmenterSalaire(10);
+		employe.augmenterSalaire(0.1);
+		
+		//Then
+		Assertions.assertThat(employe.getSalaire()).isEqualTo(1760.00);
+	}
+	
+	@Test
+	public void testAugmenterSalaireNull() {
+		
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(null);
+		
+		//When
+		employe.augmenterSalaire(0.1);
+		
+		//Then
+		Assertions.assertThat(employe.getSalaire()).isEqualTo(null);								
 	}
 	
 	

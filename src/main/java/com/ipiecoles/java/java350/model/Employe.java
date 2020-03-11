@@ -105,7 +105,13 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+    	if(salaire != null && pourcentage >= 0) {
+    		Double salAug =  this.getSalaire() *pourcentage;
+    		System.out.println(salAug);
+    		this.setSalaire(this.getSalaire()+ salAug);    		
+        	}
+    } 
 
     public Long getId() {
         return id;
