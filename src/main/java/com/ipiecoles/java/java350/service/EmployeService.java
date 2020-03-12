@@ -37,8 +37,8 @@ public class EmployeService {
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
-        logger.debug("Coucou");
-        logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(), poste.name(), tempsPartiel);
+
+
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
@@ -51,7 +51,7 @@ public class EmployeService {
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
         if(numeroMatricule >= 100000){
-            logger.error("Limite des 100000 matricules atteinte !");
+
             throw new EmployeException("Limite des 100000 matricules atteinte !");
         }
         //On complète le numéro avec des 0 à gauche
@@ -60,7 +60,7 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
-            logger.error("L'employé de matricule " + matricule + " existe déjà en BDD");
+
             throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
