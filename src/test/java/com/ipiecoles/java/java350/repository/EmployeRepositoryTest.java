@@ -1,6 +1,7 @@
 package com.ipiecoles.java.java350.repository;
 
 import com.ipiecoles.java.java350.model.Employe;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +22,7 @@ class EmployeRepositoryTest {
 
     @BeforeEach
     public void setUpDB() {
+
         employeRepository.deleteAll();
     }
 

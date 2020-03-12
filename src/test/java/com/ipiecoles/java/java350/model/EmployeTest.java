@@ -1,13 +1,14 @@
 package com.ipiecoles.java.java350.model;
 
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
-
 
 public class EmployeTest {
 
@@ -70,11 +71,13 @@ public class EmployeTest {
 
         //Then
         Assertions.assertThat(nbAnnees).isEqualTo(0);
+
     }
 
     @ParameterizedTest
     @CsvSource({
             "1, 'T12345', 0, 1.0, 1000.0",
+
             "1, 'T12345', 0, 0.5, 500.0",
             "1, 'M12345', 0, 1.0, 1700.0",
             "2, 'T12345', 0, 1.0, 2300.0",
@@ -101,3 +104,4 @@ public class EmployeTest {
         Assertions.assertThat(result).isEqualTo(prime);
     }
 }
+
