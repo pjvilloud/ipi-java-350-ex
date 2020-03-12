@@ -3,6 +3,7 @@ package com.ipiecoles.java.java350.repository;
 import com.ipiecoles.java.java350.model.Employe;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 class EmployeRepositoryTest {
+
     @Autowired
     EmployeRepository employeRepository;
 
@@ -23,38 +25,42 @@ class EmployeRepositoryTest {
     }
 
     @Test
+    @DisplayName("Test findNoMatricule")
     public void testFindNoMatricule() {
         String lastMatricule = employeRepository.findLastMatricule();
         Assertions.assertThat(lastMatricule).isNull();
     }
 
     @Test
+    @DisplayName("Test findByMatricule")
     public void testFindByMatricule() {
         // given
-        Employe emp = new Employe();
-        emp.setMatricule("M12345");
-        employeRepository.save(emp);
+        Employe employe = new Employe();
+        employe.setMatricule("M12345");
+        employeRepository.save(employe);
 
         // when
         Employe result = employeRepository.findByMatricule("M12345");
         // then
-        Assertions.assertThat(result).isEqualTo(emp);
+        Assertions.assertThat(result).isEqualTo(employe);
     }
 
     @Test
+    @DisplayName("Test findLastMatricule")
     public void testFindLast1Matricule() {
         // given
-        Employe emp = new Employe();
-        emp.setMatricule("M22222");
-        employeRepository.save(emp);
+        Employe employe = new Employe();
+        employe.setMatricule("M22222");
+        employeRepository.save(employe);
         // when
         String result = employeRepository.findLastMatricule();
         // then
-        String lastMatricule = emp.getMatricule().substring(1);
+        String lastMatricule = employe.getMatricule().substring(1);
         Assertions.assertThat(result).isEqualTo(lastMatricule);
     }
 
     @Test
+    @DisplayName("Test findLastMatricule le plus grand nombre des matricules")
     public void testFindLastMatricule2Employes() { //le plus grand nombre des matricules
         // given
         Employe emp1 = employeRepository.save(new Employe("Doe", "John", "M56789",

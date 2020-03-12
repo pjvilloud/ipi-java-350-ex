@@ -1,18 +1,21 @@
 package com.ipiecoles.java.java350.model;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 
+
 public class EmployeTest {
 
     //Employé dateEmbauche avec date 2 ans avant aujourd'hui =>
     //2 années d'ancienneté
     @Test
-    public void testAncienneteDateEmbaucheNmoins2(){
+    @DisplayName("Test getNombreAnneeAnciennete a N-2")
+    public void testAncienneteDateEmbaucheNmoins2() {
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now().minusYears(2));
@@ -26,7 +29,8 @@ public class EmployeTest {
 
     //Date dans le futur => 0
     @Test
-    public void testAncienneteDateEmbaucheNplus2(){
+    @DisplayName("Test getNombreAnneeAnciennete a N+2")
+    public void testAncienneteDateEmbaucheNplus2() {
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now().plusYears(2));
@@ -40,7 +44,8 @@ public class EmployeTest {
 
     //Date aujourd'hui => 0
     @Test
-    public void testAncienneteDateEmbaucheAujourdhui(){
+    @DisplayName("Test getNombreAnneeAnciennete a N now")
+    public void testAncienneteDateEmbaucheAujourdhui() {
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now());
@@ -54,7 +59,8 @@ public class EmployeTest {
 
     //Date d'embauche indéfinie => 0
     @Test
-    public void testAncienneteDateEmbaucheNull(){
+    @DisplayName("Test getNombreAnneeAnciennete a N null")
+    public void testAncienneteDateEmbaucheNull() {
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(null);
@@ -73,23 +79,25 @@ public class EmployeTest {
             "1, 'M12345', 0, 1.0, 1700.0",
             "2, 'T12345', 0, 1.0, 2300.0",
     })
-    public void testPrimeAnnuelle(Integer performance, String matricule,
-        Integer nbAnneesAnciennete, Double tempsPartiel, Double prime){
-        //Given
-        Employe employe = new Employe();
-        employe.setMatricule(matricule);
-        employe.setPerformance(performance);
-        employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneesAnciennete));
-        employe.setTempsPartiel(tempsPartiel);
+    @DisplayName("Test parametré Get Prime Annuelle")
+    public void testGetPrimeAnnuelle(Integer performance,
+                                     String matricule,
+                                     Integer nbAnneesAnciennete,
+                                     Double tempsPartiel,
+                                     Double prime
+    ) {
+
+        // Given
+        Employe e = new Employe();
+        e.setMatricule(matricule);
+        e.setDateEmbauche(LocalDate.now().minusYears(nbAnneesAnciennete));
+        e.setPerformance(performance);
+        e.setTempsPartiel(tempsPartiel);
 
         //When
-        Double primeCalculee = employe.getPrimeAnnuelle();
+        Double result = e.getPrimeAnnuelle();
 
         //Then
-        Assertions.assertThat(primeCalculee).isEqualTo(prime);
+        Assertions.assertThat(result).isEqualTo(prime);
     }
-
-
-
-
 }
