@@ -43,6 +43,12 @@ public class Employe {
         this.tempsPartiel = tempsPartiel;
     }
 
+    //Augmenter salaire
+    public double augmenterSalaire(double pourcentage){
+        salaire = salaire + pourcentage*salaire;
+        return salaire;
+    }
+
 
     /**
      * Retourne le nombre d'année d'ancienneté de l'employé par rapport à sa date d'embauche (on ne prend pas en compte
