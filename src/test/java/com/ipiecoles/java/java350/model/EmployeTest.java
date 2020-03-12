@@ -93,4 +93,17 @@ public class EmployeTest {
 		Assertions.assertThat(primeCalculee).isEqualTo(prime);
 	}
 	
+	@Test
+	public void testAugmenterSalaire() {
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(0.0);
+		
+		//When
+		employe.augmenterSalaire(2.0);
+		
+		//Then
+		Assertions.assertThat(employe.getSalaire()).isEqualTo(1.0);
+	}
+	
 }
