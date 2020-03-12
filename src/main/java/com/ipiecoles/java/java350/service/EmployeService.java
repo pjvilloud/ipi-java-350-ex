@@ -34,7 +34,7 @@ public class EmployeService {
      * @throws EmployeException Si on arrive au bout des matricules possibles
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
-    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException {
     	
     	
     	logger.debug("A DEBUG Message");
@@ -62,7 +62,7 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
-        	logger.error("L'employe de matricule "+matricule+" existe déjà en BDD");
+        	logger.error("L'employe de matricule {}",matricule," existe déjà en BDD");
             throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
@@ -115,7 +115,7 @@ public class EmployeService {
         if(employe == null){
             throw new EmployeException("Le matricule " + matricule + " n'existe pas !");
         }
-
+        /*
         Integer performance = Entreprise.PERFORMANCE_BASE;
         //Cas 2
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
@@ -139,10 +139,39 @@ public class EmployeService {
         Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
         if(performanceMoyenne != null && performance > performanceMoyenne){
             performance++;
-        }
-
+        }*/
+        Integer performance = this.calculPerformance(caTraite, objectifCa, employe);
         //Affectation et sauvegarde
         employe.setPerformance(performance);
         employeRepository.save(employe);
     }
+    
+    private Integer calculPerformance(Long caTraite,Long objectifCa,Employe employe) {
+    	Integer performance = Entreprise.PERFORMANCE_BASE;
+        //Cas 2
+        if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
+            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
+        }
+        //Cas 3
+        else if(caTraite >= objectifCa*0.95 && caTraite <= objectifCa*1.05){
+            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance());
+        }
+        //Cas 4
+        else if(caTraite <= objectifCa*1.2 && caTraite > objectifCa*1.05){
+            performance = employe.getPerformance() + 1;
+        }
+        //Cas 5
+        else if(caTraite > objectifCa*1.2){
+            performance = employe.getPerformance() + 4;
+        }
+        //Si autre cas, on reste à la performance de base.
+
+        //Calcul de la performance moyenne
+        Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        if(performanceMoyenne != null && performance > performanceMoyenne){
+            performance++;
+        }
+    	return performance;
+    }
+    
 }

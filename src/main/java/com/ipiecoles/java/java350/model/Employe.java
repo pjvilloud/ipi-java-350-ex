@@ -5,8 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.ipiecoles.java.java350.exception.EmployeException;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -63,9 +61,9 @@ public class Employe {
         int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; 
-            default : break;
+            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;break;
+            case SATURDAY: var = var + 1; break;
+            default : System.out.println("getNbRtt : condition non remplie");break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
