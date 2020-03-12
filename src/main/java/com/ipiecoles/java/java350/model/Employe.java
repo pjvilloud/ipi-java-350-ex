@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -103,7 +106,25 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) throws EmployeException{
+    	if(pourcentage >= 0 && this.salaire != null && this.salaire > 0) 
+    	{
+    		Double salaireAugmente = this.getSalaire()*(1+pourcentage);
+        	this.setSalaire(salaireAugmente);
+    	} 
+    	else if (this.salaire == null) 
+    	{
+    		//throw new EmployeException("Le salaire de l'employé n'a pas été saisi");
+    	} 
+    	else if (this.salaire == 0)
+    	{
+    		//throw new EmployeException("Impossible d'appliquer un pourcentage d'augmentation sur un salaire nul");
+    	} 
+    	else 
+    	{
+    		//throw new EmployeException("Le pourcentage est négatif");
+    	}
+    }
 
     public Long getId() {
         return id;

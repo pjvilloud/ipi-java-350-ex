@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -29,7 +31,7 @@ public class EmployeServiceTest {
 	@Mock
 	private EmployeRepository employeRep;
 	
-	
+	/*
 	@Test
 	public void testEmbaucheEmployeCommercialPleinTempsBTS() throws EmployeException {
 		
@@ -96,10 +98,64 @@ public class EmployeServiceTest {
 			Assertions.assertThat(e).isInstanceOf(EmployeException.class);
 			Assertions.assertThat(e.getMessage()).isEqualTo("Limite des 100000 matricules atteinte !");
 		}
+			
+	}
+	*/
+	
+	
+	@ParameterizedTest
+	@CsvSource({
+		"'C12345' , , 50000 , Le chiffre d'affaire traité ne peut être négatif ou null !",
+		"'C12345' , -10000 , 50000 , Le chiffre d'affaire traité ne peut être négatif ou null !",
+		"'C12345' , 50000 , , L'objectif de chiffre d'affaire ne peut être négatif ou null !",
+		"'C12345' , 50000 , -10000 , L'objectif de chiffre d'affaire ne peut être négatif ou null !",
+		" , 50000 , 50000 , 'Le matricule ne peut être null et doit commencer par un C !'",
+		"'M12345' , 50000 , 50000 , 'Le matricule ne peut être null et doit commencer par un C !'"
+	})
+	public void testCalculPerformanceCommercialeException(String matricule, Long caTraite, Long objectifCa, String exception) throws EmployeException 
+	{
+		//Given
 		
-		
+		//When
+		try 
+		{
+			employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+			Assertions.fail("Aurait du planter");
+		} 
+		catch (Exception e) 
+		{
+			//Then
+			Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+			Assertions.assertThat(e.getMessage()).isEqualTo(exception);
+			
+		}
 		
 	}
+	
+	
+	@ParameterizedTest
+	@CsvSource({
+		"'C12345' , 900 , 1000 , 2",
+		"'C12345' , 999 , 1000 , 2",
+		"'C12345' , 1100 , 1000 , 3",
+		"'C12345' , 1300 , 1000 , 6"
+	})
+	public void testCalculPerformanceCommerciale(String matricule, Long caTraite, Long objectifCa, Integer resultat) throws EmployeException 
+	{
+		//Given
+		Employe employe = new Employe();
+		employe.setMatricule(matricule);
+		
+		//When
+		Mockito.when(employeRep.findByMatricule("C12345")).thenReturn(employe);
+		Mockito.when(employeRep.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(0d);
+		employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+		
+		//Then
+		Assertions.assertThat(employe.getPerformance()).isEqualTo(resultat);
+		
+	}
+	
 	
 }
 

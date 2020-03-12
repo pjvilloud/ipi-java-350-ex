@@ -7,9 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 
 public class EmployeTest {
-	
+	/*
 	@Test
 	public void testAncienneteDateEmbaucheNMoins2() {
 		//Given
@@ -85,4 +87,68 @@ public class EmployeTest {
 		//Then
 		Assertions.assertThat(primeCalculee).isEqualTo(prime);
 	}
+	*/
+	
+	@Test
+	public void testAugmenterSalaireDe10Pourcent() throws EmployeException 
+	{
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(1000d);
+		
+		//When
+		employe.augmenterSalaire(0.1);
+		Double salaireAugmente = employe.getSalaire();
+		
+		//Then
+		Assertions.assertThat(salaireAugmente).isEqualTo(1100d);
+	}
+	
+	@Test
+	public void testAugmenterSalaireAvecUnPourcentageNegatif() throws EmployeException
+	{
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(1000d);
+		
+		//When
+		employe.augmenterSalaire(-0.1);
+		Double salaireAugmente = employe.getSalaire();
+		
+		//Then
+		Assertions.assertThat(salaireAugmente).isEqualTo(1000d);
+	}
+	
+	@Test
+	public void testAugmenterSalaireAvecSalaireNull() throws EmployeException
+	{
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(null);
+		
+		//When
+		employe.augmenterSalaire(0.1);
+		Double salaireAugmente = employe.getSalaire();
+		
+		//Then
+		Assertions.assertThat(salaireAugmente).isEqualTo(null);
+	}
+	
+	
+	@Test 
+	public void testAugmenterSalaireEgalZero() throws EmployeException
+	{
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(0d);
+		
+		//When
+		employe.augmenterSalaire(0.1);
+		Double salaireAugmente = employe.getSalaire();
+		
+		//Then
+		Assertions.assertThat(salaireAugmente).isEqualTo(0d);
+	}
+	//Nous ne faisons pas de test pour traîter le cas du salaire négatif. Ce cas devant être traité par la méthode qui set le salaire
+	
 }
