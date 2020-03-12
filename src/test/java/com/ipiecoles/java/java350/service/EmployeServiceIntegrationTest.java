@@ -1,10 +1,7 @@
 package com.ipiecoles.java.java350.service;
 
 import com.ipiecoles.java.java350.exception.EmployeException;
-import com.ipiecoles.java.java350.model.Employe;
-import com.ipiecoles.java.java350.model.Entreprise;
-import com.ipiecoles.java.java350.model.NiveauEtude;
-import com.ipiecoles.java.java350.model.Poste;
+import com.ipiecoles.java.java350.model.*;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
 @SpringBootTest
@@ -32,8 +28,9 @@ public class EmployeServiceIntegrationTest {
     @Test
     public void testEmbaucheTechnicienBTSPleinTemps() throws EmployeException {
         //Given
-        Employe employe1 = new Employe("Doe", "John", "T00146", LocalDate.now(), Entreprise.SALAIRE_BASE, Entreprise.PERFORMANCE_BASE, 1.0);
-        employeRepository.save(employe1);
+//        Employe employe1 = new Employe("Doe", "John", "T00146", LocalDate.now(), Entreprise.SALAIRE_BASE, Entreprise.PERFORMANCE_BASE, 1.0);
+//        employeRepository.save(employe1);
+        employeRepository.save(EmployeMaker.technicienAPleinTemps().withPerformance(2).build());
         String nom = "Doe";
         String prenom = "John";
         Poste poste = Poste.TECHNICIEN;
