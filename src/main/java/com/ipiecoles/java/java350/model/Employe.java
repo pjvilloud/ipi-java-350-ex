@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import net.bytebuddy.asm.Advice.Return;
 
 import java.time.DayOfWeek;
@@ -108,7 +110,9 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) {
+    	this.salaire = this.salaire * (1+ pourcentage); 
+    }
 
     public Long getId() {
         return id;

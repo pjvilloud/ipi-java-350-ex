@@ -4,12 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.ipiecoles.java.java350.exception.EmployeException;
@@ -30,18 +32,23 @@ public class EmployeServiceTest {
 	@Mock
 	private EmployeRepository employeRepository;
 	
+	@BeforeEach
+    public void setup(){
+        MockitoAnnotations.initMocks(this.getClass());
+    }
+	
 	@Test
 	public void testEmbaucheEmployeCommercialPleinTempsBTS() throws EmployeException{
 		//Given
 		String nom = "Doe";
 		String prenom = "John";
-		Poste poste = Poste.COMMERCIAL;
+		Poste poste = Poste.TECHNICIEN;
 		NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
 		Double tempsPartiel = 1.0;
 		//findLastMatricule => 00345 / null
 		Mockito.when(employeRepository.findLastMatricule()).thenReturn("00345");
 		//findByMatricule => null
-		Mockito.when(employeRepository.findByMatricule("00346")).thenReturn(null);
+		Mockito.when(employeRepository.findByMatricule("T00346")).thenReturn(null);
 		
 		//When
 		employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
@@ -100,5 +107,31 @@ public class EmployeServiceTest {
 		
 	}
 	
-}
+	@Test
+	public void testCalculPerformanceCommercialCANull() throws EmployeException{
+		//Given
+		String nom = "Doe";
+		String prenom = "John";
+		Poste poste = Poste.COMMERCIAL;
+		NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+		Double tempsPartiel = 1.0;
+		String matricule = "C23455";
+		Long caTraite = 0l;
+		Long objectifCa = 30000l;
+		Mockito.when(employeRepository.findLastMatricule()).thenReturn("C23455");
+		
+		//When
+		employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+		employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+		
+		//Then
+		ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+		
+		Mockito.verify(employeRepository, Mockito.times(1)).save(employeArgumentCaptor.capture());
+		Employe employe = employeArgumentCaptor.getValue();
+		Assertions.assertThat(employe.getMatricule()).isEqualTo("C23455");
+		Assertions.assertThat(employe.getPerformance()).isEqualTo(0);
+	
+	}
 
+}
