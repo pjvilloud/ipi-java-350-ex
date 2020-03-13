@@ -87,5 +87,51 @@ public class EmployeTest {
         Assertions.assertThat(prime).isEqualTo(primeFinale);
     }
 
+    @Test
+    public void testAugmentationSalaire10() throws Exception {
+
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(1000d);
+
+        //When
+        employe.augmenterSalaire(10);
+
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1100d);
+
+    }
+
+    @Test
+    public void testAugmentationSalaire0() throws Exception {
+
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(1000d);
+
+        //When
+        employe.augmenterSalaire(0);
+
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1000d);
+
+    }
+
+    @Test
+    public void testAugmentationSalaireValeurNegative(){
+
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(1000d);
+
+        //When
+        Throwable exception = Assertions.catchThrowable(() ->
+                employe.augmenterSalaire(-20));
+
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1000d);
+        Assertions.assertThat(exception.getMessage()).isEqualTo("Diminution de salaire impossible");
+    }
+
 
 }

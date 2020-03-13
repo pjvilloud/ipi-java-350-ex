@@ -105,12 +105,23 @@ public class Employe {
         return prime * this.tempsPartiel;
     }
 
-    public void findEmployeGagnantMoinsQue(String matricule){
-
-    }
-
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) throws Exception {
+        Double salaireBase = this.salaire;
+        Double salaireAugmente;
+
+        if (pourcentage > 0) {
+            salaireAugmente = salaireBase + salaireBase * pourcentage / 100;
+            salaireAugmente =  Double.valueOf(Math.round(salaireAugmente));
+            this.setSalaire(salaireAugmente);
+        } else if (pourcentage == 0) {
+            salaireAugmente = salaireBase;
+            salaireAugmente =  Double.valueOf(Math.round(salaireAugmente));
+            this.setSalaire(salaireAugmente);
+        } else {
+            throw new Exception("Diminution de salaire impossible");
+        }
+    }
 
     public Long getId() {
         return id;
