@@ -79,15 +79,21 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
+        int nbJourAnnee = d.isLeapYear() ? 366 : 365;
+        int nbSamediDimanche = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+//            case THURSDAY:
+//                if(d.isLeapYear()) nbSamediDimanche =  nbSamediDimanche + 1;
+//                break;
+            case FRIDAY:
+                if(d.isLeapYear()) nbSamediDimanche =  nbSamediDimanche + 1;
+                break;
+            case SATURDAY:
+                nbSamediDimanche = nbSamediDimanche + 1;
+                break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        return (int) Math.ceil((nbJourAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbSamediDimanche - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
     }
 
     /**
@@ -130,13 +136,10 @@ public class Employe {
     * faire du TDD.
     * Décommenter la méthode dans Employe et écrire d'abord les tests entièrement (en réflechissant particulièrement
     * aux cas limites) avant d'écrire la méthode. Pensez-vous que vous auriez écrit la méthode directement comme cela
-    * si vous n'aviez pas écrit les tests en premier ?*/
+    * si vous n'aviez pas écrit les tests en premier ?  ----> oui surement */
     public void augmenterSalaire(double pourcentage) throws EmployeException {
-
-        // TODO remplacer le Sysout par un log
         if (pourcentage > 100 ||  pourcentage <= -100 ) throw new EmployeException("Attention, augmentation ou diminution de plus de 100%" +
                 " effectuée le: " + LocalDate.now() + " pour l'employe de matricule " + this.matricule);
-
         if (pourcentage == 0) throw new EmployeException(("Attention, pas de modifications de salaire"));
         this.salaire+=(this.getSalaire()*(pourcentage/100));
     }
@@ -257,4 +260,5 @@ public class Employe {
     public int hashCode() {
         return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
     }
+
 }
