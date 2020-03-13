@@ -117,6 +117,20 @@ public class Employe {
     }
 
     //Augmenter salaire
+    public void augmenterSalaire(Double pourcentage) throws Exception {
+        if(pourcentage > 0d) {
+            double augmentation = salaire * (1 + pourcentage/100);
+            augmentation = augmentation * 100;
+            double augmentationLong = (double) Math.round(augmentation);
+            this.salaire = augmentationLong / 100;
+        }else if (pourcentage < 0d){
+            throw new Exception("Une augmentation négative n'est pas possible !");
+        }else{
+            throw new Exception("Aucune augmentation appliquée");
+        }
+    }
+
+
 
     public Long getId() {
         return id;

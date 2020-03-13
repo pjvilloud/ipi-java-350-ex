@@ -83,9 +83,38 @@ class EmployeTest {
         employe.setTempsPartiel(0.5);
 
         //Then
-
         Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(0.5);
     }
 
+    @Test
+    public void testAugmenterSalaireSupZero() throws Exception{
+        // Given
+        Employe employe = new Employe();
+        employe.setSalaire(Entreprise.SALAIRE_BASE);
+        Double pourcentage = 15d;
+
+        // When
+        employe.augmenterSalaire(pourcentage);
+
+        // Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1749.4);
+    }
+
+    @Test
+    public void testAugmenterSalaireInfZero() throws Exception{
+        // Given
+        Employe employe = new Employe();
+        employe.setSalaire(Entreprise.SALAIRE_BASE);
+        Double pourcentage = -15d;
+
+        // When
+//        employe.augmenterSalaire(pourcentage);
+
+        // Then
+        Throwable throwable = Assertions.catchThrowable(() -> employe.augmenterSalaire(pourcentage));
+        Assertions.assertThat(throwable.getMessage()).isEqualTo("Une augmentation négative n'est pas possible !");
+    }
+
+    
 
 }
