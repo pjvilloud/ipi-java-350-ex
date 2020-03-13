@@ -109,4 +109,49 @@ public class EmployeTest {
 
         }
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'1.7', '2586.0', '1521.22'",
+            "'1.2', '1825.0', '1521.22'"
+    })
+    public void augmeterSalaireTest(Double pourcentage, Double result, Double salaire) throws EmployeException {
+
+        Employe employe = new Employe("Doe", "John", "T12345", LocalDate.now().minusYears(2), salaire,1, 1.0);
+
+        employe.augmenterSalaire(pourcentage);
+
+        // cas passant
+        Assertions.assertEquals(employe.getSalaire(), result);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'-1'",
+            "'0.5'"
+    })
+    public void augmeterSalaireTestWithBadValue(Double pourcentage) throws EmployeException {
+
+        Employe employe = new Employe("Doe", "John", "T12345", LocalDate.now().minusYears(2), Entreprise.SALAIRE_BASE,1, 1.0);
+
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () ->  employe.augmenterSalaire(pourcentage));
+        Assertions.assertEquals("Une augmentation de salaire ne peut pas être inférieure ou égale à 1 !", e.getMessage());
+        Assertions.assertEquals(employe.getSalaire(), Entreprise.SALAIRE_BASE);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'2019-03-13', '1', '8'",
+            "'2021-03-13', '1','10'",
+            "'2022-03-13', '1','10'",
+            "'2032-03-13', '1','11'",
+            "'2022-03-13', '0.5','5'"
+    })
+    public void getNbrRTTTest(LocalDate d, Double tempsPartiel, Integer expected) throws EmployeException {
+        Employe employe = new Employe("Doe", "John", "T12345", LocalDate.now().minusYears(2), Entreprise.SALAIRE_BASE,1, tempsPartiel);
+
+        Assertions.assertEquals(employe.getNbRtt(d), expected);
+
+
+    }
 }

@@ -77,13 +77,22 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
+        // nbr de jour dans l'année
+        int i1 = d.isLeapYear() ? 366 : 365;
+        // 52 * 2 week-end
         int var = 104;
+        // switch, ici on ajoute un ou deux jour de WE en fonction du jour ou commence l'année
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+            case THURSDAY: if(d.isLeapYear()) var =  var + 1;
+                            break;
+            case FRIDAY: if(d.isLeapYear()) var =  var + 2;
+                         else var =  var + 1;
+                         break;
+            case SATURDAY: var = var + 1;
+                           break;
+            default : break;
         }
+
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
     }
@@ -122,8 +131,17 @@ public class Employe {
         return Math.round(prime * this.tempsPartiel * 100)/100.0;
     }
 
-    //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+//    Augmenter salaire
+    public Double augmenterSalaire(Double pourcentage) throws EmployeException{
+
+        if(pourcentage != null && pourcentage > 1.0 ) {
+            this.salaire = (double) Math.floor(this.salaire * pourcentage);
+            return this.salaire;
+        }
+        else {
+            throw new EmployeException("Une augmentation de salaire ne peut pas être inférieure ou égale à 1 !");
+        }
+    }
 
     public Long getId() {
         return id;

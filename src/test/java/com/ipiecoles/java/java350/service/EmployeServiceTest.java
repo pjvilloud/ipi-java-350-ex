@@ -2,6 +2,7 @@ package com.ipiecoles.java.java350.service;
 
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.model.Employe;
+import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
@@ -178,5 +179,64 @@ public class EmployeServiceTest {
 
         Exception e = Assertions.assertThrows(Exception.class, () -> employeService.calculSalaireMoyenETP());
         Assertions.assertEquals("Taux d'activité des employés incohérent !", e.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'-15000'",
+            ","
+    })
+    public void calculPerformanceCommercialTestBadCaTraite(Long caTraite) throws EmployeException {
+
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () ->  employeService.calculPerformanceCommercial("C00001", caTraite, 96L));
+        Assertions.assertEquals("Le chiffre d'affaire traité ne peut être négatif ou null !", e.getMessage());
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+            ",",
+            "'T00001'"
+    })
+    public void calculPerformanceCommercialTestBadMatricule(String matricule) throws EmployeException {
+        System.out.println("coucou "+matricule);
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () ->  employeService.calculPerformanceCommercial(matricule, 1500L, 96L));
+        Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !", e.getMessage());
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+            ",",
+            "'-1'"
+    })
+    public void calculPerformanceCommercialTestBadObjectifca(Long objectifCa) throws EmployeException {
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () ->  employeService.calculPerformanceCommercial("C00001", 1500L, objectifCa));
+        Assertions.assertEquals("L'objectif de chiffre d'affaire ne peut être négatif ou null !", e.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'C00001','9', '10', '1', '1'",
+            "'C00001','9', '10', '4', '2'",
+            "'C00001','10', '10', '1', '1'",
+            "'C00001','1', '1', '4', '4'",
+            "'C00001','106', '100', '1', '2'",
+            "'C00001','12', '10', '1', '2'",
+            "'C00001','13', '10', '5', '10'"
+    })
+    public void calculPerformanceCommercialTestPassant(String matricule, Long caTraite, Long objectifCa, Integer performance, Integer performanceFinal) throws EmployeException {
+
+        Employe employe = new Employe("Doe", "John", matricule, LocalDate.now().minusYears(2), Entreprise.SALAIRE_BASE,performance, 1.0);
+
+        when(employeRepository.findByMatricule(matricule)).thenReturn(employe);
+//        when(employe.getPerformance()).thenReturn(employe.getPerformance());
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(Double.valueOf("4"));
+
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+        Assertions.assertEquals(performanceFinal, employeArgumentCaptor.getValue().getPerformance());
     }
 }
