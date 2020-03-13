@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -16,6 +18,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -59,4 +63,37 @@ public class EmployeServiceIntegrationTest {
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
     }
 
+    /**
+     * Test Intégration Calcul performance entre 5 et 20
+     * @throws EmployeException
+     */
+    @Test
+    public void integrationCalculPerformanceEntre5Et20() throws EmployeException {
+        // GIVEN
+        String matricule = "C12345";
+        Long caTraite = Long.valueOf(1100);
+        Long objectifCa = Long.valueOf(1000);
+        employeRepository.save(new Employe("Doe", "John", matricule, LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        // WHEN
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        // THEN
+        Employe employe = employeRepository.findByMatricule("C12345");
+        Assertions.assertEquals(3, employe.getPerformance().intValue());
+    }
+
+    /**
+     * Test intégration AvgPerformance
+     */
+    @Test
+    public void testIntegrationAvgPerformance(){
+        //Given
+        Double avgPerformanceExpected = 4.00;
+        employeRepository.save(new Employe("Pierre", "Martin", "C00001", LocalDate.now(), Entreprise.SALAIRE_BASE, 3, 1.0));
+        employeRepository.save(new Employe("Paul", "Dupont", "C00002", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Jacques", "Durand", "C0002", LocalDate.now(), Entreprise.SALAIRE_BASE, 8, 1.0));
+        //When
+        Double performanceCalculated = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        //Then
+        Assertions.assertEquals(avgPerformanceExpected,performanceCalculated);
+    }
 }
