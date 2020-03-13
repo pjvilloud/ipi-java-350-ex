@@ -63,18 +63,22 @@ public class Employe {
         int nombreSamediDimancheAnnee = 104;
         switch (LocalDate.of(date.getYear(),1,1).getDayOfWeek()){
             case THURSDAY:
-                if(date.isLeapYear())
+                if(date.isLeapYear()) {
                     nombreSamediDimancheAnnee += 1;
+                }
                 break;
             case FRIDAY:
-                if(date.isLeapYear())
+                if(date.isLeapYear()) {
                     nombreSamediDimancheAnnee += 2;
-                else
+                }
+                else {
                     nombreSamediDimancheAnnee += 1;
+                }
                 break;
             case SATURDAY:
                 nombreSamediDimancheAnnee += 1;
                 break;
+            default : break;
         }
         int nombreFeriesHorsWeekEnd = (int) Entreprise.joursFeries(date).stream().filter(localDate ->
                 localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();

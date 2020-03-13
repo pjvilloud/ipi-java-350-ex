@@ -133,7 +133,27 @@ public class EmployeTest {
         Assertions.assertThat(exception.getMessage()).isEqualTo("Diminution de salaire impossible");
     }
 
+    @ParameterizedTest(name = "Pour l année {0}, l employé de matricule {1}, {2} aura {3} jours de RTT")
+    @CsvSource({
+            "2019-01-21, T12345, 1.0, 9",
+            "2020-05-16, T12345, 0.5, 5"
+    })
+    public void testGetNbrRTTLeapYear(LocalDate date, String matricule, Double tempsPartiel, Integer nbRTT) {
 
+        //given
+        LocalDate localdate = date;
+
+        Employe employe = new Employe();
+        employe.setMatricule(matricule);
+        employe.setPerformance(Entreprise.PERFORMANCE_BASE);
+        employe.setTempsPartiel(tempsPartiel);
+
+        //when
+        Integer NombreJourRTT = employe.getNbRtt(localdate);
+
+        //then
+        Assertions.assertThat(NombreJourRTT).isEqualTo(nbRTT);
+    }
 
 
 }
