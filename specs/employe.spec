@@ -11,8 +11,3 @@
 * J'embauche une personne appelée "Jane" "Doe" diplômée d'un "master" en tant que "Manager" à "mi-temps"
 * J'obtiens bien un nouvel employé appelé "Jane" "Doe" portant le matricule "M00124" et touchant un salaire de "1064.85" €
 
-## Passage d'un employé à temps partiel
-
-* Soit un employé "John" "Doe" de matricule "C01234"
-* Je modifie le "temps plein" d'un employé appelé "John" "Doe" touchant "1521.22" €
-* J'obtiens l'employé "John" "Doe" à "temps partiel" et touchant "1064.85" €
