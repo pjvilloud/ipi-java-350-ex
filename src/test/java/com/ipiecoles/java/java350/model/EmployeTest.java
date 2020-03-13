@@ -1,7 +1,8 @@
 package com.ipiecoles.java.java350.model;
 
+
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -88,4 +89,36 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(primeAnnuelle).isEqualTo(primeFinale);
     }
+
+    // EVALUATION ///////////////////////////////////////////////////
+    @Test
+    public void testAugmenterSalaire(){
+    //Given = Initialisation des données d'entrée
+        Employe employe = new Employe();
+        Double pourcentage = 10d;
+
+    //When = Exécution de la méthode à tester
+        employe.augmenterSalaire(pourcentage);
+
+
+    //Then = Vérifications de ce qu'a fait la méthode
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1673.342);
+        System.out.println(employe.getSalaire());
+    }
+
+    @Test
+    public void testAugmenterSalaireZero(){
+    //Given = Initialisation des données d'entrée
+        Employe employe = new Employe();
+        employe.setSalaire(0d);
+
+    //When = Exécution de la méthode à tester
+        employe.augmenterSalaire(10);
+
+    //Then = Vérifications de ce qu'a fait la méthode
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(0);
+        System.out.println(employe.getSalaire());
+    }
+
+
 }

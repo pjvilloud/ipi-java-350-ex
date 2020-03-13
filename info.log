@@ -1,3 +1,11 @@
 2020-03-13 10:06:25 - INFO  - Starting EmployeRepositoryTest on FR-L3356947 with PID 1684 (started by ludovic.ferreira in C:\Users\ludovic.ferreira\Documents\GitHub\Eval_Java_Qualite_Logicielle\ipi-java-350-eval)
 2020-03-13 10:06:25 - INFO  - No active profile set, falling back to default profiles: default
 2020-03-13 10:06:32 - INFO  - Started EmployeRepositoryTest in 7.573 seconds (JVM running for 12.162)
+2020-03-13 10:31:47 - INFO  - Starting EmployeServiceTest on FR-L3356947 with PID 7940 (started by ludovic.ferreira in C:\Users\ludovic.ferreira\Documents\GitHub\Eval_Java_Qualite_Logicielle\ipi-java-350-eval)
+2020-03-13 10:31:47 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-13 10:31:54 - INFO  - Started EmployeServiceTest in 7.131 seconds (JVM running for 10.344)
+2020-03-13 10:31:55 - INFO  - L'employé a bien été sauvegardé !Employe{id=1, nom='Doe', prenom='John', matricule='T00001', dateEmbauche=2020-03-13, salaire=1825.46, performance=1, tempsPartiel=1.0}
+2020-03-13 10:31:55 - INFO  - L'employé a bien été sauvegardé !Employe{id=null, nom='Doe', prenom='John', matricule='T00346', dateEmbauche=2020-03-13, salaire=1825.46, performance=1, tempsPartiel=1.0}
+2020-03-13 10:31:55 - INFO  - Starting EmployeRepositoryTest on FR-L3356947 with PID 7940 (started by ludovic.ferreira in C:\Users\ludovic.ferreira\Documents\GitHub\Eval_Java_Qualite_Logicielle\ipi-java-350-eval)
+2020-03-13 10:31:55 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-13 10:31:57 - INFO  - Started EmployeRepositoryTest in 1.681 seconds (JVM running for 12.928)

@@ -73,7 +73,7 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
+        int i1 = d.isLeapYear() ? 366 : 365;
         int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
@@ -118,6 +118,15 @@ public class Employe {
         return prime * this.tempsPartiel;
     }
 
+    //Augmenter salaire
+    public void augmenterSalaire(double pourcentage){
+        if(pourcentage > 0){
+            salaire += salaire * (pourcentage / 100.0);
+        }else{
+            throw new IllegalArgumentException("Le pourcentage ne doit pas être négatif !");
+        }
+    }
+
     public Long getId() {
         return id;
     }
@@ -125,6 +134,7 @@ public class Employe {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     /**
      * @return the nom
