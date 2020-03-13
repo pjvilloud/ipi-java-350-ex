@@ -1,9 +1,12 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
 import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDate;
 
@@ -12,11 +15,11 @@ public class EmployeTest {
     @Test
     public void getNombreAnneeAncienneteNow(){
         //Given
-        Employe e = new Employe();
-        e.setDateEmbauche(LocalDate.now());
+        Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now());
 
         //When
-        Integer anneeAnciennete = e.getNombreAnneeAnciennete();
+        Integer anneeAnciennete = employe.getNombreAnneeAnciennete();
 
         //Then
         Assertions.assertEquals(0, anneeAnciennete.intValue());
@@ -25,11 +28,11 @@ public class EmployeTest {
     @Test
     public void getNombreAnneeAncienneteNminus2(){
         //Given
-        Employe e = new Employe();
-        e.setDateEmbauche(LocalDate.now().minusYears(2L));
+        Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now().minusYears(2L));
 
         //When
-        Integer anneeAnciennete = e.getNombreAnneeAnciennete();
+        Integer anneeAnciennete = employe.getNombreAnneeAnciennete();
 
         //Then
         Assertions.assertEquals(2, anneeAnciennete.intValue());
@@ -38,11 +41,11 @@ public class EmployeTest {
     @Test
     public void getNombreAnneeAncienneteNull(){
         //Given
-        Employe e = new Employe();
-        e.setDateEmbauche(null);
+        Employe employe = new Employe();
+        employe.setDateEmbauche(null);
 
         //When
-        Integer anneeAnciennete = e.getNombreAnneeAnciennete();
+        Integer anneeAnciennete = employe.getNombreAnneeAnciennete();
 
         //Then
         Assertions.assertEquals(0, anneeAnciennete.intValue());
@@ -51,26 +54,92 @@ public class EmployeTest {
     @Test
     public void getNombreAnneeAncienneteNplus2(){
         //Given
-        Employe e = new Employe();
-        e.setDateEmbauche(LocalDate.now().plusYears(2L));
+        Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now().plusYears(2L));
 
         //When
-        Integer anneeAnciennete = e.getNombreAnneeAnciennete();
+        Integer anneeAnciennete = employe.getNombreAnneeAnciennete();
 
         //Then
         Assertions.assertEquals(0, anneeAnciennete.intValue());
     }
 
-    // Test Augmenter Salaire en TDD
+    /**
+     * AugmentationSalaire +10%
+     * @throws EmployeException
+     */
     @Test
-    public void getAugmenterSalaire() {
-        // Given
+    public void augmenterSalairePourcentage10() throws EmployeException {
+        // GIVEN
         Employe employe = new Employe();
-        employe.setSalaire(1000D);
-        // When
-        Double augmenterSalaire = employe.augmenterSalaire(10D, employe.getSalaire());
-        // Then
-        Assertions.assertEquals(1100D, augmenterSalaire);
+        employe.setSalaire(1100.0);
+        // WHEN
+        employe.augmenterSalaire(10);
+        // THEN
+        Assertions.assertEquals(1210.0,employe.getSalaire());
+    }
+
+    /**
+     * AugmentaitionSalaire +100%
+     * @throws EmployeException
+     */
+    @Test
+    public void augmenterSalairePourcentageMaximum() throws EmployeException {
+        // GIVEN
+        Employe employe = new Employe();
+        employe.setSalaire(1100.0);
+        // WHEN
+        employe.augmenterSalaire(100);
+        // THEN
+        Assertions.assertEquals(2200.0,employe.getSalaire());
+    }
+
+    /**
+     * Gestion Exception Salaire trop élévé
+     * @throws EmployeException
+     */
+    @Test
+    public void augmenterSalaireError() throws EmployeException {
+        // GIVEN
+        Employe employe = new Employe();
+        employe.setSalaire(1100.0);
+        // WHEN
+        Assertions.assertThrows(EmployeException.class, () ->
+                employe.augmenterSalaire(110)
+        );
+        // THEN
+        Assertions.assertEquals(1100.0,employe.getSalaire());
+    }
+
+    /**
+     * Gestion exception - Pourcentage Negatif
+     * @throws EmployeException
+     */
+    @Test
+    public void augmenterSalaireNegatif() throws EmployeException {
+        // GIVEN
+        Employe employe = new Employe();
+        employe.setSalaire(1100.0);
+        // WHEN
+        employe.augmenterSalaire(-10);
+        // THEN
+        Assertions.assertEquals(990.0,employe.getSalaire());
+    }
+
+    /**
+     * Gestion exception - Pourcentage Null
+     * @throws EmployeException
+     */
+    @Test
+    public void augmenterSalaire0Pourcent() throws EmployeException {
+        // GIVEN
+        Employe employe = new Employe();
+        employe.setSalaire(1100.0);
+        // WHEN
+        Assertions.assertThrows(EmployeException.class, () ->
+                employe.augmenterSalaire(0));
+        // THEN
+        Assertions.assertEquals(1100.0,employe.getSalaire());
     }
 
 
@@ -96,6 +165,63 @@ public class EmployeTest {
         //Then
         Assertions.assertEquals(primeAnnuelle, prime);
 
+    }
+
+    /**
+     * NbreRttTest
+     * @param dateString
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"2019-01-01", "2021-01-01", "2022-01-01", "2032-01-01"})
+    public void NbreRttTest(String dateString) {
+        // GIVEN
+        Employe employe = new Employe();
+        LocalDate localDate = LocalDate.parse(dateString);
+        employe.setDateEmbauche(localDate);
+        // WHEN
+        Integer nbreRtt = employe.getNbRtt(localDate);
+        // THEN
+        switch (localDate.toString()) {
+            case "2019-01-01":
+                Assertions.assertEquals(8, nbreRtt);
+                break;
+            case "2021-01-01":
+                Assertions.assertEquals(11, nbreRtt);
+                break;
+            case "2022-01-01":
+                Assertions.assertEquals(10, nbreRtt);
+                break;
+            case "2032-01-01":
+                Assertions.assertEquals(12, nbreRtt);
+                break;
+        }
+    }
+
+    /**
+     * NbreRttTest2ans
+     * @param dateString
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"2021-01-01", "2022-01-01", "2032-01-01"})
+    public void NbreRttTest2ans(String dateString) {
+        // GIVEN
+        Employe employe = new Employe();
+        LocalDate localDate = LocalDate.parse(dateString);
+        employe.setDateEmbauche(localDate.minusYears(2L));
+        // WHEN
+        Integer nbreRtt = employe.getNbRtt(localDate);
+        // THEN
+        switch (localDate.toString()) {
+            case "2021-01-01":
+                Assertions.assertEquals(9, nbreRtt);
+                break;
+            case "2022-01-01":
+                Assertions.assertEquals(8, nbreRtt);
+                break;
+            case "2032-01-01":
+                Assertions.assertEquals(10, nbreRtt);
+                break;
+        }
     }
 
 }
