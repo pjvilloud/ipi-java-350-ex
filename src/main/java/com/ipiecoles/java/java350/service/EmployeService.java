@@ -6,17 +6,24 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class EmployeService {
 
     @Autowired
     private EmployeRepository employeRepository;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+
 
     /**
      * Méthode enregistrant un nouvel employé dans l'entreprise
@@ -30,7 +37,12 @@ public class EmployeService {
      * @throws EmployeException Si on arrive au bout des matricules possibles
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
-    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException {
+    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+        logger.debug("Coucou");
+        logger.warn("Coucou");
+        logger.error("Coucou");
+        logger.debug("Coucou");
+        logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(), poste.name(), tempsPartiel);
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
@@ -43,6 +55,7 @@ public class EmployeService {
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
         if(numeroMatricule >= 100000){
+            logger.error("Limite des 100000 matricules atteinte !");
             throw new EmployeException("Limite des 100000 matricules atteinte !");
         }
         //On complète le numéro avec des 0 à gauche
@@ -51,6 +64,7 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
+            logger.error("L'employé de matricule " + matricule + " existe déjà en BDD");
             throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
@@ -107,7 +121,7 @@ public class EmployeService {
         Integer performance = Entreprise.PERFORMANCE_BASE;
         //Cas 2
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
-                performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
+            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
         }
         //Cas 3
         else if(caTraite >= objectifCa*0.95 && caTraite <= objectifCa*1.05){
@@ -132,5 +146,32 @@ public class EmployeService {
         //Affectation et sauvegarde
         employe.setPerformance(performance);
         employeRepository.save(employe);
+    }
+
+    public List<Employe> findEmployeGagnantMoinsQue(String matricule) {
+        return employeRepository.findEmployeGagnantMoinsQue(matricule);
+    }
+
+    /**
+     * Cette méthode calcule le salaire moyen de tous les employés ramené
+     * à un équivalent temps plein : Ex : Si un personne à mi-temps gagne 800 € son salaire ETP est 1600 €
+     */
+    public Double calculSalaireMoyenETP() throws Exception {
+        //On compte le nombre de salariés
+        Long nbEmployes = employeRepository.count();
+        if(nbEmployes == 0){
+            throw new Exception("Aucun employé, impossible de calculer le salaire moyen !");
+        }
+        //On récupère la somme des taux d'activité
+        Double smTxActivite = employeRepository.sumTempsPartiel();
+        if(smTxActivite > nbEmployes){
+            throw new Exception("Taux d'activité des employés incohérent !");
+        }
+
+        //On récupère la somme des salaires
+        Double smSalaire = employeRepository.sumSalaire();
+
+        //On calcul le salaire moyen par ETP
+        return Math.round(smSalaire * 100 / smTxActivite) / 100d;
     }
 }

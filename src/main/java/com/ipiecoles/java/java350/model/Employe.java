@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,17 +45,33 @@ public class Employe {
         this.tempsPartiel = tempsPartiel;
     }
 
-    public Integer getNombreAnneeAnciennete() {
-        if(dateEmbauche != null && dateEmbauche.isBefore(LocalDate.now())){
-            return LocalDate.now().getYear() - dateEmbauche.getYear();
-        }
-        return 0;
+    /**
+     * Retourne le nombre d'année d'ancienneté de l'employé par rapport à sa date d'embauche (on ne prend pas en compte
+     * les mois et les jours. Il faut en revanche que la d'embauche soit non nulle et l'année antérieure à l'année courante
+     * sinon on renvoie une ancienneté de 0
+     *
+     * @return le nombre d'année d'ancienneté
+     */
+    public final Integer getNombreAnneeAnciennete() {
+        return dateEmbauche != null && LocalDate.now().getYear() >= dateEmbauche.getYear() ? LocalDate.now().getYear() - dateEmbauche.getYear() : 0;
     }
 
     public Integer getNbConges() {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
+    /**
+     * Nombre de jours de RTT =
+     *   Nombre de jours dans l'année
+     * – plafond maximal du forfait jours de la convention collective
+     * – nombre de jours de repos hebdomadaires
+     * – jours de congés payés
+     * – nombre de jours fériés tombant un jour ouvré
+     *
+     * Au prorata de son pourcentage d'activité (arrondi au supérieur)
+     *
+     * @return le nombre de jours de RTT
+     */
     public Integer getNbRtt(){
         return getNbRtt(LocalDate.now());
     }
@@ -63,9 +81,8 @@ public class Employe {
         int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1; break;
+            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
             case SATURDAY: var = var + 1; break;
-            default: break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
@@ -102,8 +119,11 @@ public class Employe {
             prime = Entreprise.primeAnnuelleBase() * (this.performance + Entreprise.INDICE_PRIME_BASE) + primeAnciennete;
         }
         //Au pro rata du temps partiel.
-        return prime * this.tempsPartiel;
+        return Math.round(prime * this.tempsPartiel * 100)/100.0;
     }
+
+    //Augmenter salaire
+    //public void augmenterSalaire(double pourcentage){}
 
     public Long getId() {
         return id;
@@ -195,7 +215,12 @@ public class Employe {
         return tempsPartiel;
     }
 
-    public void setTempsPartiel(Double tempsPartiel) {
+    public void setTempsPartiel(Double tempsPartiel) throws EmployeException {
+        if (tempsPartiel == null || tempsPartiel == 0.0) {
+            throw new EmployeException("Le temps partiel ne peut pas être null ou égal à 0 !");
+        }
+        this.salaire = this.salaire * tempsPartiel / this.tempsPartiel;
+        this.salaire = Math.round(this.salaire*100d)/100d;
         this.tempsPartiel = tempsPartiel;
     }
 
