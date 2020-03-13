@@ -62,12 +62,12 @@ public class Employe {
         int nombreJoursAnnee = date.isLeapYear() ? 366 : 365;
         int nombreSamediDimancheAnnee = 104;
         switch (LocalDate.of(date.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY:
+            case FRIDAY:
                 if(date.isLeapYear()) {
                     nombreSamediDimancheAnnee += 1;
                 }
                 break;
-            case FRIDAY:
+            case SATURDAY:
                 if(date.isLeapYear()) {
                     nombreSamediDimancheAnnee += 2;
                 }
@@ -75,7 +75,7 @@ public class Employe {
                     nombreSamediDimancheAnnee += 1;
                 }
                 break;
-            case SATURDAY:
+            case SUNDAY:
                 nombreSamediDimancheAnnee += 1;
                 break;
             default : break;
