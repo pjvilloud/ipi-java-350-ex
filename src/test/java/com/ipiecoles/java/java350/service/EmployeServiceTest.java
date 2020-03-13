@@ -163,4 +163,23 @@ public class EmployeServiceTest {
         Assertions.assertThat(exception).isInstanceOf(EmployeException.class);
         Assertions.assertThat(exception.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
     }
+
+    @Test
+    public void testCalculPerformanceCommercialMatriculeNotFound() throws EmployeException {
+
+        //given
+        String matricule = "C12345";
+        Long caTraite = 100000L;
+        Long objCa = 100000L;
+        Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
+
+        //when
+        Throwable exception = Assertions.catchThrowable(() ->
+                employeService.calculPerformanceCommercial(matricule, caTraite, objCa));
+
+        //then
+        Assertions.assertThat(exception).isInstanceOf(EmployeException.class);
+        Assertions.assertThat(exception.getMessage()).isEqualTo("Le matricule " + matricule + " n'existe pas !");
+    }
+
 }
