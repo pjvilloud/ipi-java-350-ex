@@ -2,6 +2,7 @@ package com.ipiecoles.java.java350.service;
 
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.model.Employe;
+import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
@@ -141,4 +142,189 @@ public class EmployeServiceTest {
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
     }
+
+    /**
+     * Si le chiffre d'affaire est inférieur de plus de 20% à l'objectif fixé, le commercial retombe à la performance de bas
+     * @throws EmployeException
+     */
+    @Test
+    public void testCalculPerformanceCommercialInferieurdeplusde20() throws EmployeException {
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 500L;
+        Long objectifCa = 1000L;
+        Employe e = new Employe();
+        e.setNom("Doe")
+                .setPrenom("John")
+                .setMatricule(matricule)
+                .setDateEmbauche(LocalDate.now())
+                .setSalaire(Entreprise.SALAIRE_BASE)
+                .setPerformance(1)
+                .setTempsPartiel(1D);
+        when(employeRepository.findByMatricule("C00001")).thenReturn(e);
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn((1D));
+        Integer newPerf = employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        //When
+        e.setPerformance(newPerf);
+
+        //Then
+        Assertions.assertEquals(1, e.getPerformance().intValue());
+    }
+
+    /**
+     * Si le chiffre d'affaire est inférieur entre 20% et 5% par rapport à l'ojectif fixé, il perd 2 de performance (dans la limite de la performance de base)
+     * @throws EmployeException
+     */
+    @Test
+    public void testCalculPerformanceCommercialEntre20et5() throws EmployeException {
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 900L;
+        Long objectifCa = 1000L;
+        Employe e = new Employe();
+        e.setNom("Doe")
+                .setPrenom("John")
+                .setMatricule(matricule)
+                .setDateEmbauche(LocalDate.now())
+                .setSalaire(Entreprise.SALAIRE_BASE)
+                .setPerformance(1)
+                .setTempsPartiel(1D);
+        when(employeRepository.findByMatricule("C00001")).thenReturn(e);
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn((1D));
+        Integer newPerf = employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        //When
+        e.setPerformance(newPerf);
+
+        //Then
+        Assertions.assertEquals(1, e.getPerformance().intValue());
+    }
+
+
+    /**
+     * Si le chiffre d'affaire est entre -5% et +5% de l'objectif fixé, la performance reste la même.
+     * @throws EmployeException
+     */
+    @Test
+    public void testCalculPerformanceCommercialEntreMoins5Plus5() throws EmployeException {
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 1100L;
+        Long objectifCa = 1100L;
+        Employe e = new Employe();
+        e.setNom("Doe")
+                .setPrenom("John")
+                .setMatricule(matricule)
+                .setDateEmbauche(LocalDate.now())
+                .setSalaire(Entreprise.SALAIRE_BASE)
+                .setPerformance(1)
+                .setTempsPartiel(1D);
+        when(employeRepository.findByMatricule("C00001")).thenReturn(e);
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn((1D));
+        Integer newPerf = employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        //When
+        e.setPerformance(newPerf);
+
+        //Then
+        Assertions.assertEquals(1, e.getPerformance().intValue());
+    }
+
+    /**
+     * Si le chiffre d'affaire est supérieur entre 5 et 20%, il gagne 1 de performance
+     * @throws EmployeException
+     */
+    @Test
+    public void testCalculPerformanceCommercialSuperieur5à20() throws EmployeException {
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 1100L;
+        Long objectifCa = 1000L;
+        Employe e = new Employe();
+        e.setNom("Doe")
+                .setPrenom("John")
+                .setMatricule(matricule)
+                .setDateEmbauche(LocalDate.now())
+                .setSalaire(Entreprise.SALAIRE_BASE)
+                .setPerformance(1)
+                .setTempsPartiel(1D);
+        when(employeRepository.findByMatricule("C00001")).thenReturn(e);
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn((1D));
+        Integer newPerf = employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        //When
+        e.setPerformance(newPerf);
+
+        //Then
+        Assertions.assertEquals(3, e.getPerformance().intValue());
+    }
+
+    /**
+     * Si le chiffre d'affaire est supérieur de plus de 20%, il gagne 4 de performance
+     * @throws EmployeException
+     */
+    @Test
+    public void testCalculPerformanceCommercialSuperieur20() throws EmployeException {
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 1300L;
+        Long objectifCa = 1000L;
+        Employe e = new Employe();
+        e.setNom("Doe")
+                .setPrenom("John")
+                .setMatricule(matricule)
+                .setDateEmbauche(LocalDate.now())
+                .setSalaire(Entreprise.SALAIRE_BASE)
+                .setPerformance(1)
+                .setTempsPartiel(1D);
+        when(employeRepository.findByMatricule("C00001")).thenReturn(e);
+        when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn((1D));
+        Integer newPerf = employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        //When
+        e.setPerformance(newPerf);
+
+        //Then
+        Assertions.assertEquals(6, e.getPerformance().intValue());
+    }
+
+    /**
+     * Test calcul de performance commerciale avec Matricule Null
+     * @throws EmployeException
+     */
+    @Test
+    public void testCalculPerformanceCommercialAvecMatriculeNull() throws EmployeException {
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+            employeService.calculPerformanceCommercial(null, 100L, 100L);
+        }).isInstanceOf(EmployeException.class).hasMessage("Le matricule ne peut être null et doit commencer par un C !");
+    }
+
+    /**
+     * Test calcul Performance Commercial Faux Matricule
+     * @throws EmployeException
+     */
+    @Test
+    public void testCalculPerformanceCommercialFauxMatricule() throws EmployeException {
+        String matricule = "C12345";
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+            employeService.calculPerformanceCommercial("C12345", 100L, 100L);
+        }).isInstanceOf(EmployeException.class).hasMessage("Le matricule " + matricule + " n'existe pas !");
+    }
+
+    /**
+     * Test calcul performance Comemrcial Negatif CA Traité
+     */
+    @Test
+    public void testCalculPerformanceCommercialNegatifCaTraite() {
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+            employeService.calculPerformanceCommercial("C12345", -100L, 100L);
+        }).isInstanceOf(EmployeException.class).hasMessage("Le chiffre d'affaire traité ne peut être négatif ou null !");
+    }
+
+    /**
+     * Test calcul Performance Commercial Negatif Objectif CA
+     */
+    @Test
+    public void testCalculPerformanceCommercialNegatifObjectifCa() {
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+            employeService.calculPerformanceCommercial("C12345", 100L, -100L);
+        }).isInstanceOf(EmployeException.class).hasMessage("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+    }
 }
+

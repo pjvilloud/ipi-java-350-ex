@@ -80,6 +80,9 @@ public class Employe {
         int nombreJourDansAnnee = d.isLeapYear() ? 366 : 365;
         int nombreWeekend = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
+            //case THURSDAY:
+               //if(d.isLeapYear()) nombreWeekend =  nombreWeekend + 1;
+               //break;
             case FRIDAY:
                 if(d.isLeapYear()) nombreWeekend =  nombreWeekend + 1;
                 break;
@@ -138,6 +141,15 @@ public class Employe {
         this.salaire+=(this.getSalaire()*(pourcentage/100));
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Employe setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     /**
      * @return the nom
      */
@@ -148,8 +160,9 @@ public class Employe {
     /**
      * @param nom the nom to set
      */
-    public void setNom(String nom) {
+    public Employe setNom(String nom) {
         this.nom = nom;
+        return this;
     }
 
     /**
@@ -162,8 +175,9 @@ public class Employe {
     /**
      * @param prenom the prenom to set
      */
-    public void setPrenom(String prenom) {
+    public Employe setPrenom(String prenom) {
         this.prenom = prenom;
+        return this;
     }
 
     /**
@@ -176,8 +190,9 @@ public class Employe {
     /**
      * @param matricule the matricule to set
      */
-    public void setMatricule(String matricule) {
+    public Employe setMatricule(String matricule) {
         this.matricule = matricule;
+        return this;
     }
 
     /**
@@ -190,8 +205,9 @@ public class Employe {
     /**
      * @param dateEmbauche the dateEmbauche to set
      */
-    public void setDateEmbauche(LocalDate dateEmbauche) {
+    public Employe setDateEmbauche(LocalDate dateEmbauche) {
         this.dateEmbauche = dateEmbauche;
+        return this;
     }
 
     /**
@@ -204,24 +220,27 @@ public class Employe {
     /**
      * @param salaire the salaire to set
      */
-    public void setSalaire(Double salaire) {
+    public Employe setSalaire(Double salaire) {
         this.salaire = salaire;
+        return this;
     }
 
     public Integer getPerformance() {
         return performance;
     }
 
-    public void setPerformance(Integer performance) {
+    public Employe setPerformance(Integer performance) {
         this.performance = performance;
+        return this;
     }
 
     public Double getTempsPartiel() {
         return tempsPartiel;
     }
 
-    public void setTempsPartiel(Double tempsPartiel) {
+    public Employe setTempsPartiel(Double tempsPartiel) {
         this.tempsPartiel = tempsPartiel;
+        return this;
     }
 
     @Override

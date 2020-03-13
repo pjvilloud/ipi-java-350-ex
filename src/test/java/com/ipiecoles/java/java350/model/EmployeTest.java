@@ -197,31 +197,4 @@ public class EmployeTest {
         }
     }
 
-    /**
-     * NbreRttTest2ans
-     * @param dateString
-     */
-    @ParameterizedTest
-    @ValueSource(strings = {"2021-01-01", "2022-01-01", "2032-01-01"})
-    public void NbreRttTest2ans(String dateString) {
-        // GIVEN
-        Employe employe = new Employe();
-        LocalDate localDate = LocalDate.parse(dateString);
-        employe.setDateEmbauche(localDate.minusYears(2L));
-        // WHEN
-        Integer nbreRtt = employe.getNbRtt(localDate);
-        // THEN
-        switch (localDate.toString()) {
-            case "2021-01-01":
-                Assertions.assertEquals(9, nbreRtt);
-                break;
-            case "2022-01-01":
-                Assertions.assertEquals(8, nbreRtt);
-                break;
-            case "2032-01-01":
-                Assertions.assertEquals(10, nbreRtt);
-                break;
-        }
-    }
-
 }
