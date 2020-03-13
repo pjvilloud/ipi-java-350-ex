@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @RestController
@@ -21,9 +20,9 @@ public class EmployeController {
     public Employe getEmploye(@PathVariable("id") long id){
         Optional<Employe> employe = employeRepository.findById(id);
 
-    if (employe != null)
+    if (employe.isPresent())
         {
-            return employeRepository.findById(id).get();
+            return employe.get();
         }
 
             throw new EntityNotFoundException("Employe introuvable");
