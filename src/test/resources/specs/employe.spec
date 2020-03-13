@@ -12,3 +12,9 @@
 * J'embauche une personne appelée "Jane" "Doe" diplômée d'un "master" en tant que "Manager" avec un taux d'activité de "0.5"
 * J'obtiens bien un nouvel employé appelé "Jane" "Doe" portant le matricule "M00124" et touchant un salaire de "1064.85" €
 
+## Calcul performance d'un Commercial
+* Soit un employé appelé "Jane" "Doe" de matricule "C00123" et de performance "1"
+* Soit un employé appelé "John" "Doe" de matricule "C00456" et de performance "5"
+* Je calcule la nouvelle performance du commercial de matricule "C00123". Il possède une performance de "1" avec un CA traité de "8" et un objectif de "8".
+* Le commercial de matricule "C00123" obtient bien une performance de "1".
+
