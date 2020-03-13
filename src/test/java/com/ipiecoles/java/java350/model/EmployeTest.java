@@ -1,16 +1,21 @@
 package com.ipiecoles.java.java350.model;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
+import io.cucumber.java8.En;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.Mock;
 
 import java.io.InvalidObjectException;
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
 
 public class EmployeTest {
+
+    @Mock
+    private Entreprise entreprise;
 
     @Test
     public void getNombreAnneeAncienneteNow(){
@@ -95,10 +100,10 @@ public class EmployeTest {
         employe.setSalaire(Entreprise.SALAIRE_BASE);
 
         //When = Exécution de la méthode à tester
-        employe.augmenterSalaire(10);
+        employe.augmenterSalaire(10.0);
 
         //Then = Vérifications de ce qu'a fait la méthode
-        Assertions.assertEquals(employe.getSalaire(), Entreprise.SALAIRE_BASE * 1.1);
+        Assertions.assertEquals(employe.getSalaire(), (Entreprise.SALAIRE_BASE * 1.1));
     }
 
     @Test
@@ -108,7 +113,7 @@ public class EmployeTest {
         employe.setSalaire(null);
 
         //Then = Vérifications de ce qu'a fait la méthode
-        Assertions.assertThrows(InvalidObjectException.class, () -> {employe.augmenterSalaire(10);});
+        Assertions.assertThrows(NullPointerException.class, () -> {employe.augmenterSalaire(10.0);});
     }
 
     @Test
@@ -118,7 +123,7 @@ public class EmployeTest {
         employe.setSalaire(-10000.0);
 
         //Then = Vérifications de ce qu'a fait la méthode
-        Assertions.assertThrows(InvalidArgumentException.class, () -> {employe.augmenterSalaire(10);});
+        Assertions.assertThrows(InvalidParameterException.class, () -> {employe.augmenterSalaire(10.0);});
     }
 
     @Test
@@ -128,7 +133,26 @@ public class EmployeTest {
         employe.setSalaire(Entreprise.SALAIRE_BASE);
 
         //Then = Vérifications de ce qu'a fait la méthode
-        Assertions.assertThrows(InvalidArgumentException.class, () -> {employe.augmenterSalaire(-10);});
+        Assertions.assertThrows(InvalidParameterException.class, () -> {employe.augmenterSalaire(-10.0);});
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "2019-01-01, 1.0, 8",
+            "2020-01-01, 1.5, 15",
+            "2021-01-01, 0.5, 6",
+    })
+    public void TestGetNbRtt(LocalDate date, Double tempsPartiel, Integer nombre){
+        //Given
+        Employe employe = new Employe();
+        employe.setTempsPartiel(tempsPartiel);
+
+        //When
+        Integer nombreRtt = employe.getNbRtt(date);
+
+        //Then
+        Assertions.assertEquals(nombreRtt, nombre);
+
     }
 
 }

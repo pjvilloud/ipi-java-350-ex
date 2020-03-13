@@ -1,9 +1,12 @@
 package com.ipiecoles.java.java350.model;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.security.InvalidParameterException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -75,12 +78,12 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
+        int i1 = d.isLeapYear() ? 366 : 365;
         int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+            case FRIDAY: if(d.isLeapYear()) var =  var + 1; break;
+            case SATURDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1; break;
+            case SUNDAY: var = var + 1; break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
@@ -121,7 +124,13 @@ public class Employe {
     }
 
     //Augmenter salaire
-    public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(Double pourcentage){
+        if(pourcentage < 0 || salaire < 0) {
+            throw new InvalidParameterException();
+        } else {
+            salaire += ((salaire * pourcentage) / 100);
+        }
+    }
 
     public Long getId() {
         return id;
