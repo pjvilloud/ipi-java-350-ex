@@ -1,10 +1,13 @@
 package com.ipiecoles.java.java350.model;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.io.InvalidObjectException;
+import java.security.InvalidParameterException;
 import java.time.LocalDate;
 
 public class EmployeTest {
@@ -83,6 +86,49 @@ public class EmployeTest {
         //Then
         Assertions.assertEquals(primeAnnuelle, prime);
 
+    }
+
+    @Test
+    public void testAugmenterSalaire(){
+        //Given = Initialisation des données d'entrée
+        Employe employe = new Employe();
+        employe.setSalaire(Entreprise.SALAIRE_BASE);
+
+        //When = Exécution de la méthode à tester
+        employe.augmenterSalaire(10);
+
+        //Then = Vérifications de ce qu'a fait la méthode
+        Assertions.assertEquals(employe.getSalaire(), Entreprise.SALAIRE_BASE * 1.1);
+    }
+
+    @Test
+    public void testAugmenterUnSalaireNull(){
+        //Given = Initialisation des données d'entrée
+        Employe employe = new Employe();
+        employe.setSalaire(null);
+
+        //Then = Vérifications de ce qu'a fait la méthode
+        Assertions.assertThrows(InvalidObjectException.class, () -> {employe.augmenterSalaire(10);});
+    }
+
+    @Test
+    public void testAugmenterSalaireNegatif(){
+        //Given = Initialisation des données d'entrée
+        Employe employe = new Employe();
+        employe.setSalaire(-10000.0);
+
+        //Then = Vérifications de ce qu'a fait la méthode
+        Assertions.assertThrows(InvalidArgumentException.class, () -> {employe.augmenterSalaire(10);});
+    }
+
+    @Test
+    public void testAugmenterSalaireParValeurNegatif(){
+        //Given = Initialisation des données d'entrée
+        Employe employe = new Employe();
+        employe.setSalaire(Entreprise.SALAIRE_BASE);
+
+        //Then = Vérifications de ce qu'a fait la méthode
+        Assertions.assertThrows(InvalidArgumentException.class, () -> {employe.augmenterSalaire(-10);});
     }
 
 }
