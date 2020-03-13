@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.RoundingMode;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -105,9 +106,17 @@ public class Employe {
     }
 
     //Augmenter salaire
-//    public void augmenterSalaire(double pourcentage){
-//
-//    }
+    public void augmenterSalaire(double pourcentage) throws Exception {
+
+        if (pourcentage > 0d){
+            Double salaireAugmenter = salaire * (1 + pourcentage/100);
+            salaireAugmenter = salaireAugmenter * 100;
+            Double salaireAugmenterL = Double.valueOf(Math.round(salaireAugmenter));
+            this.salaire = salaireAugmenterL/100;
+        }else if (pourcentage < 0d){
+            throw new Exception("Diminution du salaire impossible");
+        }else throw new Exception("Augmentation par 0 impossible");
+    }
 
     public Long getId() {
         return id;

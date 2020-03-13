@@ -41,6 +41,53 @@ class EmployeTest {
         Assertions.assertThat(nbAnneeAnciennete).isEqualTo(3);
     }
 
+    @Test
+    public void testAugmenterSalaire() throws Exception {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(Entreprise.SALAIRE_BASE);
+        Double pourcentage = 15d;
+
+        //When
+        employe.augmenterSalaire(pourcentage);
+
+        //Then
+        org.junit.jupiter.api.Assertions.assertEquals(1749.40,employe.getSalaire());
+
+    }
+
+    @Test
+    public void testAugmenterSalairePourcentantNegatif() throws Exception {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(Entreprise.SALAIRE_BASE);
+        Double pourcentage = -15d;
+
+        //When
+//        employe.augmenterSalaire(pourcentage);
+
+        //Then
+        Throwable throwable = Assertions.catchThrowable(() -> employe.augmenterSalaire(pourcentage));
+        org.junit.jupiter.api.Assertions.assertEquals("Diminution du salaire impossible",throwable.getMessage());
+
+    }
+
+    @Test
+    public void testAugmenterSalairePourcentantZero() throws Exception {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(Entreprise.SALAIRE_BASE);
+        Double pourcentage = 0d;
+
+        //When
+//        employe.augmenterSalaire(pourcentage);
+
+        //Then
+        Throwable throwable = Assertions.catchThrowable(() -> employe.augmenterSalaire(pourcentage));
+        org.junit.jupiter.api.Assertions.assertEquals("Augmentation par 0 impossible",throwable.getMessage());
+
+    }
+
     @ParameterizedTest(name = "Employé matricule {0}, {1} années d ancienneté, {2}, {3} gagnera une prime de {4}")
     @CsvSource({"'T12345', 0, 1.0, 1, 1000.0",
             "'T12345', 0, 0.5, 1, 500.0"})
