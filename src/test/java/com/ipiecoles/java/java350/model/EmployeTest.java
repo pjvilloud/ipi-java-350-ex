@@ -133,29 +133,52 @@ public class EmployeTest {
         Assertions.assertThat(exception.getMessage()).isEqualTo("Diminution de salaire impossible");
     }
 
-    @ParameterizedTest(name = "Pour l année {0}, l employé de matricule {1}, {2} aura {3} jours de RTT")
+    @ParameterizedTest(name = "L employé de matricule {0}, travaillant au taux {2} aura  {3} jours de RTT cette année")
     @CsvSource({
-            "2019-01-21, T12345, 1.0, 8",
-            "2020-05-16, T12345, 0.5, 5",
-            "2021-03-11, M19587, 1.0, 10",
-            "2022-07-02, C54879, 0.5, 5"
+            "T12345, 1.0, 10",
+            "T12345, 0.5, 5"
+
     })
-    public void testGetNbrRTTLeapYear(LocalDate date, String matricule, Double tempsPartiel, Integer nbRTT) {
+    public void testGetNbrRTTSansDate(String matricule, Double tempsPartiel, Integer nbRTT) {
 
         //given
-        LocalDate localdate = date;
-
         Employe employe = new Employe();
         employe.setMatricule(matricule);
         employe.setPerformance(Entreprise.PERFORMANCE_BASE);
         employe.setTempsPartiel(tempsPartiel);
 
         //when
-        Integer NombreJourRTT = employe.getNbRtt(localdate);
+        Integer NombreJourRTT = employe.getNbRtt();
 
         //then
         Assertions.assertThat(NombreJourRTT).isEqualTo(nbRTT);
     }
 
+
+    @ParameterizedTest(name = "L employé de matricule {0}, travaillant au taux {2} aura  {3} jours de RTT cette année")
+    @CsvSource({
+            "2019-01-21, T12345, 1.0, 8",
+            "2020-05-16, T12345, 0.5, 5",
+            "2021-03-11, M19587, 1.0, 10",
+            "2022-07-02, C54879, 0.5, 5",
+            "2032-12-02, T19875, 1.0, 11",
+            "2044-10-10, C85166, 0.5, 5"
+    })
+    public void testGetNbrRTTLeapYear(LocalDate date, String matricule, Double tempsPartiel, Integer nbRTT) {
+
+        LocalDate localDate = date;
+
+        //given
+        Employe employe = new Employe();
+            employe.setMatricule(matricule);
+            employe.setPerformance(Entreprise.PERFORMANCE_BASE);
+            employe.setTempsPartiel(tempsPartiel);
+
+        //when
+        Integer NombreJourRTT = employe.getNbRtt(localDate);
+
+        //then
+            Assertions.assertThat(NombreJourRTT).isEqualTo(nbRTT);
+    }
 
 }
