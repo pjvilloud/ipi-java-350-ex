@@ -157,14 +157,14 @@ public class EmployeTest {
         employe.setMatricule("T00001");
         employe.setDateEmbauche(LocalDate.now());
         employe.setTempsPartiel(1d);
-        employe.setSalaire(1000d);
+        employe.setSalaire(1233d);
         employe.setPerformance(Entreprise.PERFORMANCE_BASE);
 
         //When
-        employe.augmenterSalaire(20);
+        employe.augmenterSalaire(13);
 
         //Then
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(1200d);
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1393d);
     }
 
     @Test

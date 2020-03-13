@@ -59,15 +59,32 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
+        int nbJoursDansAnnee = d.isLeapYear() ? 365 : 366;
+        int nbSamediDimancheDansAnnee = 104;
+
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+            case THURSDAY:
+                if(d.isLeapYear()) {
+                    nbSamediDimancheDansAnnee += 1;
+                }
+                break;
+            case FRIDAY:
+                if(d.isLeapYear()) {
+                    nbSamediDimancheDansAnnee += 2;
+                } else {
+                    nbSamediDimancheDansAnnee += 1;
+                }
+                break;
+            case SATURDAY:
+                nbSamediDimancheDansAnnee += 1;
+                break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+
+        int nbJoursFeriesPasWeekEnd = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+
+        int nbRtt = (int) Math.ceil((nbJoursDansAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbSamediDimancheDansAnnee - nbJoursFeriesPasWeekEnd - Entreprise.NB_CONGES_BASE) * tempsPartiel);
+
+        return nbRtt;
     }
 
     /**
@@ -110,7 +127,8 @@ public class Employe {
         Double salaireAugmente;
 
         if (pourcentage >= 0) {
-            salaireAugmente = Double.valueOf(Math.round(salaireBase + (salaireBase*pourcentage/100)));
+            salaireAugmente = salaireBase * (1 + pourcentage/100) * 100;
+            salaireAugmente = Double.valueOf(Math.round(salaireAugmente) / 100);
             this.setSalaire(salaireAugmente);
         } else {
             throw new Exception("Vous ne pouvez pas diminuer le salaire dans ce contexte!");
