@@ -121,7 +121,7 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){}
 
     public Long getId() {
         return id;
@@ -234,5 +234,13 @@ public class Employe {
     @Override
     public int hashCode() {
         return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
+    }
+
+    public Double getAugmenterSalaire() {
+        return salaire;
+    }
+
+    public void setAugmenterSalaire(Double augmenterSalaire) {
+        this.salaire = salaire;
     }
 }
