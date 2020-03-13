@@ -76,11 +76,11 @@ public class Employe {
                 nombreSamediDimancheAnnee += 1;
                 break;
         }
-        int nombreFeriesHorsWeekEnd = (int) Entreprise.joursFeries(date).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        int nombreFeriesHorsWeekEnd = (int) Entreprise.joursFeries(date).stream().filter(localDate ->
+                localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
 
-        int nombreRTT = (int) Math.ceil((nombreJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nombreSamediDimancheAnnee - Entreprise.NB_CONGES_BASE - nombreFeriesHorsWeekEnd) * tempsPartiel);
-
-        return nombreRTT;
+        return (int) Math.ceil((nombreJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nombreSamediDimancheAnnee
+                - Entreprise.NB_CONGES_BASE - nombreFeriesHorsWeekEnd) * tempsPartiel);
     }
 
 
@@ -124,8 +124,8 @@ public class Employe {
         Double salaireAugmente;
 
         if (pourcentage > 0) {
-            salaireAugmente = salaireBase + salaireBase * pourcentage / 100;
-            salaireAugmente =  Double.valueOf(Math.round(salaireAugmente));
+            salaireAugmente = salaireBase *(1 + pourcentage/100) *100;
+            salaireAugmente =  Double.valueOf(Math.round(salaireAugmente)) / 100;
             this.setSalaire(salaireAugmente);
         } else if (pourcentage == 0) {
             salaireAugmente = salaireBase;
