@@ -9,7 +9,9 @@ import com.ipiecoles.java.java350.service.EmployeService;
 import com.thoughtworks.gauge.Step;
 import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmployeAcceptanceTest {
 
     @Autowired
