@@ -1,6 +1,6 @@
 package com.ipiecoles.java.java350.model;
 
-import com.google.protobuf.DoubleValue;
+import io.cucumber.java8.En;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,7 +13,7 @@ class EmployeTest {
     @Test
     public void getNombreAnneeAncienneteNow(){
         //Given
-        com.ipiecoles.java.java350.model.Employe e = new com.ipiecoles.java.java350.model.Employe();
+        Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now());
 
         //When
@@ -26,7 +26,7 @@ class EmployeTest {
     @Test
     public void getNombreAnneeAncienneteMinus2(){
         //Given
-        com.ipiecoles.java.java350.model.Employe e = new com.ipiecoles.java.java350.model.Employe();
+        Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().minusYears(2L));
 
         //When
@@ -39,7 +39,7 @@ class EmployeTest {
     @Test
     public void getNombreAnneeAncienneteNull() {
         //Given
-        com.ipiecoles.java.java350.model.Employe e = new com.ipiecoles.java.java350.model.Employe();
+        Employe e = new Employe();
         e.setDateEmbauche(null);
 
         //When
@@ -52,7 +52,7 @@ class EmployeTest {
     @Test
     public void getNombreAnneeAncienneteNplus2() {
         //Given
-        com.ipiecoles.java.java350.model.Employe e = new com.ipiecoles.java.java350.model.Employe();
+        Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().plusYears(2L));
 
         //When
@@ -76,7 +76,7 @@ class EmployeTest {
     })
     public void getPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle){
         //Given
-        com.ipiecoles.java.java350.model.Employe employe = new com.ipiecoles.java.java350.model.Employe("Doe", "John", matricule, LocalDate.now().minusYears(nbYearsAnciennete), com.ipiecoles.java.java350.model.Entreprise.SALAIRE_BASE, performance, tempsPartiel);
+        Employe employe = new Employe("Doe", "John", matricule, LocalDate.now().minusYears(nbYearsAnciennete), Entreprise.SALAIRE_BASE, performance, tempsPartiel);
 
         //When
         Double prime = employe.getPrimeAnnuelle();
@@ -99,7 +99,7 @@ class EmployeTest {
     })
     public void getTempsPartielA05(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle) {
         //Given
-        com.ipiecoles.java.java350.model.Employe employe = new com.ipiecoles.java.java350.model.Employe("Doe", "John", matricule, LocalDate.now().minusYears(nbYearsAnciennete), com.ipiecoles.java.java350.model.Entreprise.SALAIRE_BASE, performance, tempsPartiel);
+        Employe employe = new Employe("Doe", "John", matricule, LocalDate.now().minusYears(nbYearsAnciennete), Entreprise.SALAIRE_BASE, performance, tempsPartiel);
 
         //When
         employe.setTempsPartiel(0.5d);
@@ -122,7 +122,7 @@ class EmployeTest {
     })
     public void getTempsPartielA1(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle) {
         //Given
-        com.ipiecoles.java.java350.model.Employe employe = new com.ipiecoles.java.java350.model.Employe("Doe", "John", matricule, LocalDate.now().minusYears(nbYearsAnciennete), com.ipiecoles.java.java350.model.Entreprise.SALAIRE_BASE, performance, tempsPartiel);
+        Employe employe = new Employe("Doe", "John", matricule, LocalDate.now().minusYears(nbYearsAnciennete), Entreprise.SALAIRE_BASE, performance, tempsPartiel);
 
         //When
         employe.setTempsPartiel(1d);
@@ -136,7 +136,7 @@ class EmployeTest {
     @Test
     public void getTempsPartiel() {
         //Given
-        com.ipiecoles.java.java350.model.Employe e = new com.ipiecoles.java.java350.model.Employe();
+        Employe e = new Employe();
         e.setTempsPartiel(0d);
 
         //When
@@ -144,5 +144,44 @@ class EmployeTest {
 
         //Then
         Assertions.assertEquals(0, tempsPartiel.doubleValue());
+    }
+
+    @Test
+    public void getAugmenterSalaireIsZero() throws Exception {
+        //Given
+        Employe e = new Employe();
+        e.setSalaire(0d);
+
+        //When
+        e.augmenterSalaire(100d);
+
+        //Then
+        Assertions.assertEquals(0d, e.getSalaire());
+    }
+
+    @Test
+    public void getAugmenterSalaire() throws Exception {
+        //Given
+        Employe e = new Employe();
+        e.setSalaire(Entreprise.SALAIRE_BASE);
+
+        //When
+        e.augmenterSalaire(12d);
+
+        //Then
+        Assertions.assertEquals(1703.77, e.getSalaire());
+    }
+
+    @Test
+    public void getAugmenterSalaireIsTooLow() throws Exception {
+        //Given
+        Employe e = new Employe();
+        e.setSalaire(Entreprise.SALAIRE_BASE);
+        Double pourcentage = 0d;
+
+        //When //Then
+        Throwable throwable = org.assertj.core.api.Assertions.catchThrowable(() -> e.augmenterSalaire(pourcentage));
+
+        Assertions.assertEquals("Diminution de salaire impossible", throwable.getMessage());
     }
 }
