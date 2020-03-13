@@ -184,4 +184,42 @@ class EmployeTest {
 
         Assertions.assertEquals("Diminution de salaire impossible", throwable.getMessage());
     }
+
+
+
+    @ParameterizedTest
+    @CsvSource({
+            "2, 'T12345', 1, 1, '2044-11-15', 8", //Vendredi
+            "2, 'T12345', 1, 0.5, '2044-11-15', 4", //Vendredi
+            "2, 'T12345', 1, 1, '2019-11-15', 8", //Mardi
+            "2, 'T12345', 1, 0.5, '2019-11-15', 4", //Mardi
+            "2, 'T12345', 1, 1, '2021-11-15', 9", //Vendredi
+            "2, 'T12345', 1, 0.5, '2021-11-15', 5", //Vendredi
+            "2, 'T12345', 1, 1, '2022-11-15', 10", //Samedi
+            "2, 'T12345', 1, 0.5, '2022-11-15', 5", //Samedi
+            "2, 'T12345', 1, 1, '2032-11-15', 11", //Jeudi
+            "2, 'T12345', 1, 0.5, '2032-11-15', 6", //Jeudi
+    })
+    public void getNbRtt(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, LocalDate d, Integer nbRttFinal) {
+        // Given
+        Employe e = new Employe("Doe", "John", matricule, LocalDate.now().minusYears(nbYearsAnciennete), Entreprise.SALAIRE_BASE, performance, tempsPartiel);
+
+        // When
+        Integer nbRtt = e.getNbRtt(d);
+
+        // Then
+        Assertions.assertEquals(nbRttFinal, nbRtt);
+    }
+
+    @Test
+    public void getNbWithNoDateTest() {
+        //Given
+        Employe e = new Employe();
+
+        //When
+        Integer nbRtt = e.getNbRtt();
+
+        //Then
+        Assertions.assertEquals(10, nbRtt);
+    }
 }

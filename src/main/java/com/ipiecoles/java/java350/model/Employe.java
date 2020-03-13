@@ -62,15 +62,25 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d) {
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+        int nbJours = d.isLeapYear() ? 366 : 365;
+        int nbWeekEndDays = 104;
+        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
+            case THURSDAY:
+                if(d.isLeapYear()) nbWeekEndDays =  nbWeekEndDays + 1;
+                break;
+            case FRIDAY:
+                if(d.isLeapYear())
+                    nbWeekEndDays =  nbWeekEndDays + 2;
+                else nbWeekEndDays =  nbWeekEndDays + 1;
+            case SATURDAY:
+                nbWeekEndDays = nbWeekEndDays + 1;
+                break;
         }
-        int monInt = (int) com.ipiecoles.java.java350.model.Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - com.ipiecoles.java.java350.model.Entreprise.NB_JOURS_MAX_FORFAIT - var - com.ipiecoles.java.java350.model.Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        int nbJourFerieSem = (int) Entreprise.joursFeries(d)
+                .stream()
+                .filter(localDate
+                        -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        return (int) Math.ceil((nbJours - Entreprise.NB_JOURS_MAX_FORFAIT - nbWeekEndDays - Entreprise.NB_CONGES_BASE - nbJourFerieSem) * tempsPartiel);
     }
 
     /**
@@ -87,21 +97,21 @@ public class Employe {
      */
     public Double getPrimeAnnuelle() {
         //Calcule de la prime d'ancienneté
-        Double primeAnciennete = com.ipiecoles.java.java350.model.Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
+        Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
         Double prime;
         //Prime du manager (matricule commençant par M) : Prime annuelle de base multipliée par l'indice prime manager
         //plus la prime d'anciennté.
         if(matricule != null && matricule.startsWith("M")) {
-            prime = com.ipiecoles.java.java350.model.Entreprise.primeAnnuelleBase() * com.ipiecoles.java.java350.model.Entreprise.INDICE_PRIME_MANAGER + primeAnciennete;
+            prime = Entreprise.primeAnnuelleBase() * Entreprise.INDICE_PRIME_MANAGER + primeAnciennete;
         }
         //Pour les autres employés en performance de base, uniquement la prime annuelle plus la prime d'ancienneté.
-        else if (this.performance == null || com.ipiecoles.java.java350.model.Entreprise.PERFORMANCE_BASE.equals(this.performance)){
-            prime = com.ipiecoles.java.java350.model.Entreprise.primeAnnuelleBase() + primeAnciennete;
+        else if (this.performance == null || Entreprise.PERFORMANCE_BASE.equals(this.performance)){
+            prime = Entreprise.primeAnnuelleBase() + primeAnciennete;
         }
         //Pour les employés plus performance, on bonnifie la prime de base en multipliant par la performance de l'employé
         // et l'indice de prime de base.
         else {
-            prime = com.ipiecoles.java.java350.model.Entreprise.primeAnnuelleBase() * (this.performance + com.ipiecoles.java.java350.model.Entreprise.INDICE_PRIME_BASE) + primeAnciennete;
+            prime = Entreprise.primeAnnuelleBase() * (this.performance + Entreprise.INDICE_PRIME_BASE) + primeAnciennete;
         }
         //Au pro rata du temps partiel.
         return prime * this.tempsPartiel;
