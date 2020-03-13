@@ -60,7 +60,7 @@ public final class Entreprise {
         return PRIME_BASE;
     }
 
-    public static List<LocalDate> joursFeries(LocalDate now) {
+    /*public static List<LocalDate> joursFeries(LocalDate now) {
 
         return Arrays.asList(
                 // 1er janvier	Jour de l’an
@@ -87,5 +87,5 @@ public final class Entreprise {
                 LocalDate.of(now.getYear(), 12, 25)
 
         );
-    }
+    }*/
 }
