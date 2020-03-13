@@ -167,6 +167,22 @@ public class EmployeServiceTest {
     }
 
     @Test
+    public void testCalculPerformanceCommercialObjInferieura0() throws EmployeException {
+
+        //given
+        String matricule = "T12345";
+        Long caTraite = 100000L;
+        Long objCa = -12L;
+
+        //when
+        Throwable exception = Assertions.catchThrowable(() ->
+                employeService.calculPerformanceCommercial(matricule, caTraite, objCa));
+
+        //then
+        Assertions.assertThat(exception).isInstanceOf(EmployeException.class);
+        Assertions.assertThat(exception.getMessage()).isEqualTo("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+
+    @Test
     public void testCalculPerformanceCommercialMatriculeDifferentC() throws EmployeException {
 
         //given
