@@ -1,7 +1,5 @@
 package com.ipiecoles.java.java350.model;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
