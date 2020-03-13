@@ -88,6 +88,28 @@ class EmployeTest {
 
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "2, 'T12345', 1, 1, '2044-11-15', 11", //Vendredi
+            "2, 'T12345', 1, 0.5, '2044-11-15', 6", //Vendredi
+            "2, 'T12345', 1, 1, '2019-11-15', 8", //Mardi
+            "2, 'T12345', 1, 0.5, '2019-11-15', 4", //Mardi
+            "2, 'T12345', 1, 1, '2021-11-15', 10", //Vendredi
+            "2, 'T12345', 1, 0.5, '2021-11-15', 5", //Vendredi
+            "2, 'T12345', 1, 1, '2022-11-15', 10", //Samedi
+            "2, 'T12345', 1, 0.5, '2022-11-15', 5", //Samedi
+            "2, 'T12345', 1, 1, '2032-11-15', 11", //Jeudi
+            "2, 'T12345', 1, 0.5, '2032-11-15', 6", //Jeudi
+    })
+    public void testGetNbRtt(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, LocalDate d, Integer nbRttFinal) {
+        // Given
+        Employe e = new Employe("Doe", "John", matricule, LocalDate.now().minusYears(nbYearsAnciennete), Entreprise.SALAIRE_BASE, performance, tempsPartiel);
+        // When
+        Integer nbRtt = e.getNbRtt(d);
+        // Then
+        org.junit.jupiter.api.Assertions.assertEquals(nbRttFinal, nbRtt);
+    }
+
     @ParameterizedTest(name = "Employé matricule {0}, {1} années d ancienneté, {2}, {3} gagnera une prime de {4}")
     @CsvSource({"'T12345', 0, 1.0, 1, 1000.0",
             "'T12345', 0, 0.5, 1, 500.0"})
