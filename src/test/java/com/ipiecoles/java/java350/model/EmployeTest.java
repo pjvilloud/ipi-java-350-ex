@@ -187,19 +187,39 @@ public class EmployeTest {
             "2020-05-16, M12345, 0.5, 'mi-temps', 5",
             "2021-03-11, M19587, 1, 'temps plein', 10",
             "2022-07-02, T22037, 0.5, 'mi-temps', 5",
-            "2032-12-02, T28974, 1, 'temps plein', 11"
+            "2032-12-02, T28974, 1, 'temps plein', 11",
+            "2044-10-10, C58166, 0.5, 'mi-temps', 5"
     })
-    public void testGetNbRtt(LocalDate date, String matricule, Double tempPartiel, String tempPartielStr, Integer nbRtt) {
+    public void testGetNbRtt(LocalDate date, String matricule, Double tempsPartiel, String tempPartielStr, Integer nbRtt) {
         //Given
         LocalDate localDate = date;
 
         Employe employe = new Employe();
         employe.setMatricule(matricule);
-        employe.setTempsPartiel(tempPartiel);
+        employe.setTempsPartiel(tempsPartiel);
         employe.setPerformance(Entreprise.PERFORMANCE_BASE);
 
         //When
         Integer nbJoursRTT = employe.getNbRtt(localDate);
+
+        //Then
+        Assertions.assertThat(nbJoursRTT).isEqualTo(nbRtt);
+    }
+
+    @ParameterizedTest(name = "Employé de matricule {0}, travaillant à {2} aura {3} jours de RTT cette année")
+    @CsvSource({
+            "T12345, 1.0, 'temps plein', 10",
+            "M12345, 0.5, 'mi-temps', 5",
+    })
+    public void testGetNbRttNoDate(String matricule, Double tempsPartiel, String tempsPartielStr, Integer nbRtt) {
+        //Given
+        Employe employe = new Employe();
+        employe.setMatricule(matricule);
+        employe.setTempsPartiel(tempsPartiel);
+        employe.setPerformance(Entreprise.PERFORMANCE_BASE);
+
+        //When
+        Integer nbJoursRTT = employe.getNbRtt();
 
         //Then
         Assertions.assertThat(nbJoursRTT).isEqualTo(nbRtt);
