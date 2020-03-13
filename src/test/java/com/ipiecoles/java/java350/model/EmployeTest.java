@@ -183,10 +183,6 @@ public class EmployeTest {
 //            2021 : l'année est non bissextile, a débuté un vendredi et il y a 7 jours fériés ne tombant pas le week-end.
 //            2022 : l'année est non bissextile, a débuté un samedi et il y a 7 jours fériés ne tombant pas le week-end.
 //            2032 : l'année est bissextile, a débuté un jeudi et il y a 7 jours fériés ne tombant pas le week-end.
-
-    // le test va prendre une date en valeur, une par année, il ira ensuite créer un employé,
-    // lui attribuera une date d'embauche au premier jour de l'année de la date, puis fera le calcul de RTT
-    // les valeurs attendues changeant selon la date passée
     @ParameterizedTest
     @ValueSource(strings = {"2019-01-01", "2021-01-01", "2022-01-01", "2032-01-01"})
     public void nombreRttTest(String dateString ) {
@@ -246,9 +242,7 @@ public class EmployeTest {
         }
 
     }
-    // le test va prendre une date en valeur, une par année, il ira ensuite créer un employé,
-    // lui attribuera une date d'embauche de 2 ans avant la date, puis fera le calcul de RTT
-    // les valeurs attendues changeant selon la date passée.
+
     @ParameterizedTest
     @ValueSource(strings = {"2021-01-01", "2022-01-01", "2032-01-01"})
     public void nombreRttTest2ans(String dateString ) {
@@ -271,6 +265,7 @@ public class EmployeTest {
                 Assertions.assertEquals(10, nbRtt);
                 break;
         }
-
     }
+
+
 }

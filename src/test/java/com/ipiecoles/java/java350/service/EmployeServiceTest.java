@@ -15,6 +15,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
@@ -25,6 +27,7 @@ import java.util.Arrays;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@SpringBootTest
 public class EmployeServiceTest {
 
     @InjectMocks
@@ -32,6 +35,12 @@ public class EmployeServiceTest {
 
     @Mock
     EmployeRepository employeRepository;
+
+    @Autowired
+    private EmployeRepository employeRepositoryTrue;
+
+    @Autowired
+    private EmployeService employeServiceTrue;
 
     @BeforeEach
     public void setup(){
@@ -137,7 +146,6 @@ public class EmployeServiceTest {
         NiveauEtude niveauEtude = NiveauEtude.MASTER;
         Double tempsPartiel = 0.5;
         when(employeRepository.findLastMatricule()).thenReturn("99999");
-
         //When/Then
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
@@ -146,7 +154,7 @@ public class EmployeServiceTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"C00001","C00002","C00003","C00004", "C00005", "C00006"})
-    public void testCalculPerformanceCommercial(String matricule) throws EmployeException {
+    public void testMockCalculPerformanceCommercial(String matricule) throws EmployeException {
         // given
         // a base median performance of 0.0, which means all will get the "bonus" of +1 in performance
         // when
@@ -189,11 +197,34 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void calculPerformanceNotCommercial(){
+    public void testMockCalculPerformanceNotCommercial(){
         EmployeException employeException = Assertions.assertThrows(EmployeException.class, () ->
                 employeService.calculPerformanceCommercial("M00001", 140L,100L)
         );
         Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !", employeException.getMessage());
+    }
+
+
+    @Test
+    public void testCalculperf() throws EmployeException {
+        // given 2 commerciaux en BDD, chacun avec une perf de 2, donnant une perf moyenne de 2, l'un des deux
+        // va voir sa perf recomptée, et réduite à 1, il ne bénéficiera donc pas du bonus.
+
+        employeRepositoryTrue.save(new Employe("Doe", "John", "C00001", LocalDate.now(), Entreprise.SALAIRE_BASE, 2, 1.0));
+        employeRepositoryTrue.save(new Employe("Doe", "Jane", "C00002", LocalDate.now(), Entreprise.SALAIRE_BASE, 2, 1.0));
+        employeRepositoryTrue.save(new Employe("Doe", "Jim", "C00003", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeServiceTrue.calculPerformanceCommercial("C00003", 100L,1000L);
+        Assertions.assertEquals(1,employeRepositoryTrue.findByMatricule("C00003").getPerformance());
+    }
+
+    @Test
+    public void avgPerformanceWhereMatriculeStartsWith(){
+        // given 2 commerciaux et 1 employe, un avec une perf de 1, et un avec une perf de 5, ce qui donne une moyenne de: (5+1)/ 2 = 3
+        employeRepositoryTrue.save(new Employe("Doe", "John", "C00001", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepositoryTrue.save(new Employe("Doe", "Jane", "C00002", LocalDate.now(), Entreprise.SALAIRE_BASE, 5, 1.0));
+        employeRepositoryTrue.save(new Employe("Doe", "Jerem", "T00002", LocalDate.now(), Entreprise.SALAIRE_BASE, 20, 1.0));
+        // when //
+        Assertions.assertEquals(3.0 ,employeRepositoryTrue.avgPerformanceWhereMatriculeStartsWith("C"));
     }
 
 }
