@@ -134,11 +134,15 @@ public class EmployeTest {
         // un employe basique avec un salaire de 1500
         Employe e = new Employe();
         e.setSalaire(1500.0);
+        e.setMatricule("E00001");
         // when
-        Assertions.assertThrows(EmployeException.class, () ->
+        EmployeException employeException = Assertions.assertThrows(EmployeException.class, () ->
             e.augmenterSalaire(150)
         );
         // then
+        Assertions.assertEquals("Attention, augmentation ou diminution de plus de 100% effectuée le: "
+                + LocalDate.now() + " pour l'employe de matricule E00001", employeException.getMessage());
+
         Assertions.assertEquals(1500.0,e.getSalaire());
     }
 
@@ -155,6 +159,7 @@ public class EmployeTest {
         // then
         Assertions.assertEquals(750.0,e.getSalaire());
     }
+
     // Une "augmentation" de 0% -> retourne un message d'erreur
     @Test
     public void augmenterSalaire0Pourcent() throws EmployeException {
@@ -163,10 +168,11 @@ public class EmployeTest {
         Employe e = new Employe();
         e.setSalaire(1500.0);
         // when
-        Assertions.assertThrows(EmployeException.class, () ->
+        EmployeException employeException = Assertions.assertThrows(EmployeException.class, () ->
                 e.augmenterSalaire(0)
         );
         // then
+        Assertions.assertEquals("Attention, pas de modifications de salaire", employeException.getMessage());
         Assertions.assertEquals(1500.0,e.getSalaire());
     }
 
@@ -209,6 +215,37 @@ public class EmployeTest {
 
     }
 
+    // le test va prendre une date en valeur, une par année, il ira ensuite créer un employé,
+    // lui attribuera une date d'embauche au premier jour de l'année de la date, puis fera le calcul de RTT
+    // les valeurs attendues changeant selon la date passée
+    @ParameterizedTest
+    @ValueSource(strings = {"2019-01-01", "2021-01-01", "2022-01-01", "2032-01-01"})
+    public void nombreRttTestMiTemps(String dateString ) {
+        // given
+        // an employe embauché au jour même du calcul
+        Employe employe = new Employe();
+        employe.setTempsPartiel(0.5);
+        LocalDate localDate = LocalDate.parse(dateString);
+        employe.setDateEmbauche(localDate);
+        // when la date passée en param est la même date
+        Integer nbRtt = employe.getNbRtt(localDate);
+        // then
+        switch (localDate.toString()) {
+            case "2019-01-01":
+                Assertions.assertEquals(4, nbRtt);
+                break;
+            case "2021-01-01":
+                Assertions.assertEquals(6, nbRtt);
+                break;
+            case "2022-01-01":
+                Assertions.assertEquals(5, nbRtt);
+                break;
+            case "2032-01-01":
+                Assertions.assertEquals(6, nbRtt);
+                break;
+        }
+
+    }
     // le test va prendre une date en valeur, une par année, il ira ensuite créer un employé,
     // lui attribuera une date d'embauche de 2 ans avant la date, puis fera le calcul de RTT
     // les valeurs attendues changeant selon la date passée.
