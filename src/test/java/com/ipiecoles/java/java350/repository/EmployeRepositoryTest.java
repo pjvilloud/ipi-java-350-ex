@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootTest
 class EmployeRepositoryTest {
@@ -59,5 +61,31 @@ class EmployeRepositoryTest {
 
         //Then
         Assertions.assertEquals("40325", lastMatricule);
+    }
+
+    @Test
+    public void testFindEmployesGagnantMoinsQue() {
+        //Given
+        Employe e1 = new Employe("Doe", "John", "T12345", LocalDate.now(), 1500d, 1, 1.0);
+        Employe e2 = new Employe("Doe", "Jane", "C45678", LocalDate.now(), 2500d, 2, 0.5);
+        Employe e3 = new Employe("Doe", "Peter", "M34567", LocalDate.now(), 3500d, 1, 0.5);
+        employeRepository.saveAll(Arrays.asList(e1, e2, e3));
+        //When
+        List<Employe> employeList = employeRepository.findEmployeGagnantMoinsQue("M34567");
+        //Then
+        org.assertj.core.api.Assertions.assertThat(employeList).containsOnly(e1, e2);
+    }
+
+    @Test
+    public void testFindEmployesGagnantMoinsQueMatriculeInconnu() {
+        //Given
+        Employe e1 = new Employe("Doe", "John", "T12345", LocalDate.now(), 1500d, 1, 1.0);
+        Employe e2 = new Employe("Doe", "Jane", "C45678", LocalDate.now(), 2500d, 2, 0.5);
+        Employe e3 = new Employe("Doe", "Peter", "M34567", LocalDate.now(), 3500d, 1, 0.5);
+        employeRepository.saveAll(Arrays.asList(e1, e2, e3));
+        //When
+        List<Employe> employeList = employeRepository.findEmployeGagnantMoinsQue("T00001");
+        //Then
+        org.assertj.core.api.Assertions.assertThat(employeList).isEmpty();
     }
 }

@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 @Entity
 public class Employe {
@@ -24,9 +25,9 @@ public class Employe {
 
     private LocalDate dateEmbauche;
 
-    private Double salaire = Entreprise.SALAIRE_BASE;
+    private Double salaire = com.ipiecoles.java.java350.model.Entreprise.SALAIRE_BASE;
 
-    private Integer performance = Entreprise.PERFORMANCE_BASE;
+    private Integer performance = com.ipiecoles.java.java350.model.Entreprise.PERFORMANCE_BASE;
 
     private Double tempsPartiel = 1.0;
 
@@ -51,14 +52,14 @@ public class Employe {
     }
 
     public Integer getNbConges() {
-        return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
+        return com.ipiecoles.java.java350.model.Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
     public Integer getNbRtt(){
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate d){
+    public Integer getNbRtt(LocalDate d) {
         int i1 = d.isLeapYear() ? 365 : 366;
         int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
@@ -66,8 +67,8 @@ public class Employe {
             case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
             case SATURDAY: var = var + 1; break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        int monInt = (int) com.ipiecoles.java.java350.model.Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        return (int) Math.ceil((i1 - com.ipiecoles.java.java350.model.Entreprise.NB_JOURS_MAX_FORFAIT - var - com.ipiecoles.java.java350.model.Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
     }
 
     /**
@@ -84,21 +85,21 @@ public class Employe {
      */
     public Double getPrimeAnnuelle() {
         //Calcule de la prime d'ancienneté
-        Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
+        Double primeAnciennete = com.ipiecoles.java.java350.model.Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
         Double prime;
         //Prime du manager (matricule commençant par M) : Prime annuelle de base multipliée par l'indice prime manager
         //plus la prime d'anciennté.
         if(matricule != null && matricule.startsWith("M")) {
-            prime = Entreprise.primeAnnuelleBase() * Entreprise.INDICE_PRIME_MANAGER + primeAnciennete;
+            prime = com.ipiecoles.java.java350.model.Entreprise.primeAnnuelleBase() * com.ipiecoles.java.java350.model.Entreprise.INDICE_PRIME_MANAGER + primeAnciennete;
         }
         //Pour les autres employés en performance de base, uniquement la prime annuelle plus la prime d'ancienneté.
-        else if (this.performance == null || Entreprise.PERFORMANCE_BASE.equals(this.performance)){
-            prime = Entreprise.primeAnnuelleBase() + primeAnciennete;
+        else if (this.performance == null || com.ipiecoles.java.java350.model.Entreprise.PERFORMANCE_BASE.equals(this.performance)){
+            prime = com.ipiecoles.java.java350.model.Entreprise.primeAnnuelleBase() + primeAnciennete;
         }
         //Pour les employés plus performance, on bonnifie la prime de base en multipliant par la performance de l'employé
         // et l'indice de prime de base.
         else {
-            prime = Entreprise.primeAnnuelleBase() * (this.performance + Entreprise.INDICE_PRIME_BASE) + primeAnciennete;
+            prime = com.ipiecoles.java.java350.model.Entreprise.primeAnnuelleBase() * (this.performance + com.ipiecoles.java.java350.model.Entreprise.INDICE_PRIME_BASE) + primeAnciennete;
         }
         //Au pro rata du temps partiel.
         return prime * this.tempsPartiel;
@@ -213,6 +214,20 @@ public class Employe {
                 Objects.equals(dateEmbauche, employe.dateEmbauche) &&
                 Objects.equals(salaire, employe.salaire) &&
                 Objects.equals(performance, employe.performance);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Employe.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("nom='" + nom + "'")
+                .add("prenom='" + prenom + "'")
+                .add("matricule='" + matricule + "'")
+                .add("dateEmbauche=" + dateEmbauche)
+                .add("salaire=" + salaire)
+                .add("performance=" + performance)
+                .add("tempsPartiel=" + tempsPartiel)
+                .toString();
     }
 
     @Override

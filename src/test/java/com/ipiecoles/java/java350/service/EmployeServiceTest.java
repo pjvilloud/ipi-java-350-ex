@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class EmployeServiceTest {
 
     @InjectMocks
-    private EmployeService employeService;
+    private com.ipiecoles.java.java350.service.EmployeService employeService;
 
     @Mock
     private EmployeRepository employeRepository;
@@ -82,5 +82,31 @@ public class EmployeServiceTest {
         //When/Then
         EmployeException e = org.junit.jupiter.api.Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         org.junit.jupiter.api.Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
+    }
+
+    @Test
+    public void testCalculSalaireMoyenETP() throws Exception {
+        //Given
+        Mockito.when(employeRepository.sumSalaire()).thenReturn(10000d);
+        Mockito.when(employeRepository.count()).thenReturn(10L);
+        Mockito.when(employeRepository.sumTempsPartiel()).thenReturn(1d);
+
+        //When
+        Double salaireMoyen = employeService.calculSalaireMoyenETP();
+
+        //Then
+        Assertions.assertThat(salaireMoyen).isEqualTo(10000d);
+    }
+
+    @Test
+    public void testCalculSalaireMoyenETPBaseVide() {
+        //Given
+        Mockito.when(employeRepository.count()).thenReturn(0L);
+        //When
+        Throwable exception = Assertions.catchThrowable(() ->
+                employeService.calculSalaireMoyenETP());
+        // Then
+        Assertions.assertThat(exception).isInstanceOf(Exception.class);
+        Assertions.assertThat(exception.getMessage()).isEqualTo("Aucun employé, impossible de calculer le salaire moyen !");
     }
 }
