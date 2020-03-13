@@ -59,7 +59,7 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate date){
-        int nombreJoursAnnee = date.isLeapYear() ? 365 : 366;
+        int nombreJoursAnnee = date.isLeapYear() ? 366 : 365;
         int nombreSamediDimancheAnnee = 104;
         switch (LocalDate.of(date.getYear(),1,1).getDayOfWeek()){
             case THURSDAY:

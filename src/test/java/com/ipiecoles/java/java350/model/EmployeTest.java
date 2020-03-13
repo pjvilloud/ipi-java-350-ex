@@ -135,8 +135,10 @@ public class EmployeTest {
 
     @ParameterizedTest(name = "Pour l année {0}, l employé de matricule {1}, {2} aura {3} jours de RTT")
     @CsvSource({
-            "2019-01-21, T12345, 1.0, 9",
-            "2020-05-16, T12345, 0.5, 5"
+            "2019-01-21, T12345, 1.0, 8",
+            "2020-05-16, T12345, 0.5, 5",
+            "2021-03-11, M19587, 1.0, 10",
+            "2022-07-02, C54879, 0.5, 5"
     })
     public void testGetNbrRTTLeapYear(LocalDate date, String matricule, Double tempsPartiel, Integer nbRTT) {
 
