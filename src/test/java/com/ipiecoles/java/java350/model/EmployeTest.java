@@ -161,7 +161,7 @@ public class EmployeTest {
         employe.augmenterSalaire(13);
 
         //Then
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(1393d);
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1393.29);
     }
 
     @Test
