@@ -28,9 +28,9 @@ public class EmployeServiceIntegrationTest {
     @Test
     public void testEmbaucheTechnicienBTSPleinTemps() throws EmployeException {
         //Given
-//        Employe employe1 = new Employe("Doe", "John", "T00146", LocalDate.now(), Entreprise.SALAIRE_BASE, Entreprise.PERFORMANCE_BASE, 1.0);
-//        employeRepository.save(employe1);
-        employeRepository.save(EmployeMaker.technicienAPleinTemps().withPerformance(2).build());
+        Employe employe1 = new Employe("Doe", "John", "T00146", LocalDate.now(), Entreprise.SALAIRE_BASE, Entreprise.PERFORMANCE_BASE, 1.0);
+        employeRepository.save(employe1);
+//        employeRepository.save(EmployeMaker.technicienAPleinTemps().withPerformance(2).build());
         String nom = "Doe";
         String prenom = "John";
         Poste poste = Poste.TECHNICIEN;
