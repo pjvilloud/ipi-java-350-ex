@@ -2,18 +2,10 @@ language: java
 
 addons:
   sonarcloud:
-    organization: "kukuk0-github"
-    apt:
-      update: true
-      sources:
-        - sourceline: "deb https://dl.bintray.com/gauge/gauge-deb stable main"
-          key_url: "http://ha.pool.sks-keyservers.net/pks/lookup?search=0x023EDB0B&op=get&options=mr"
-      packages:
-        - gauge
-
-sudo: true
+    organization: "yanisbml"
+    token:
+      secure: $SONAR_TOKEN # encrypted value of your token
 
 script:
-  # JaCoCo is used to have code coverage, the agent has to be activated
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.projectKey=kukuk0_ipi-java-350-ex
-
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=kukuk0_ipi-java-350-ex
