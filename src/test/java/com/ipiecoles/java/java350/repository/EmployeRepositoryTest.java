@@ -23,10 +23,8 @@ public class EmployeRepositoryTest {
     @Test
     public void testFindLastMatriculeEmpty(){
         //Given
-
         //When
         String lastMatricule = employeRepository.findLastMatricule();
-
         //Then
         Assertions.assertNull(lastMatricule);
     }

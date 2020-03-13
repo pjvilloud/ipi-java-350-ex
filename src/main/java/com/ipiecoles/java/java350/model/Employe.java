@@ -1,16 +1,20 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+import net.bytebuddy.implementation.bytecode.Throw;
+import sun.util.calendar.BaseCalendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
 public class Employe {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -75,15 +79,21 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
+        int nbJourAnnee = d.isLeapYear() ? 366 : 365;
+        int nbSamediDimanche = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+//            case THURSDAY:
+//                if(d.isLeapYear()) nbSamediDimanche =  nbSamediDimanche + 1;
+//                break;
+            case FRIDAY:
+                if(d.isLeapYear()) nbSamediDimanche =  nbSamediDimanche + 1;
+                break;
+            case SATURDAY:
+                nbSamediDimanche = nbSamediDimanche + 1;
+                break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        return (int) Math.ceil((nbJourAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbSamediDimanche - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
     }
 
     /**
@@ -121,7 +131,18 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    /*
+    * Tester de manière unitaire le plus exhaustivement possible la méthode augmenterSalaire d'Employe en essayant de
+    * faire du TDD.
+    * Décommenter la méthode dans Employe et écrire d'abord les tests entièrement (en réflechissant particulièrement
+    * aux cas limites) avant d'écrire la méthode. Pensez-vous que vous auriez écrit la méthode directement comme cela
+    * si vous n'aviez pas écrit les tests en premier ?  ----> oui surement */
+    public void augmenterSalaire(double pourcentage) throws EmployeException {
+        if (pourcentage > 100 ||  pourcentage <= -100 ) throw new EmployeException("Attention, augmentation ou diminution de plus de 100%" +
+                " effectuée le: " + LocalDate.now() + " pour l'employe de matricule " + this.matricule);
+        if (pourcentage == 0) throw new EmployeException(("Attention, pas de modifications de salaire"));
+        this.salaire+=(this.getSalaire()*(pourcentage/100));
+    }
 
     public Long getId() {
         return id;
@@ -239,4 +260,5 @@ public class Employe {
     public int hashCode() {
         return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
     }
+
 }
