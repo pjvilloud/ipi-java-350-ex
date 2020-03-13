@@ -68,6 +68,7 @@ public class EmployeTest {
 
     }
 
+    //Lorsque l'on veut tester quelque chose avec des paramètres prédéfinis sans avoir besoin de spring (BDD temporaire)
     @ParameterizedTest(name = "Employe matricule {0}, {1} année(s) d ancienneté, {2}, {3} gagnera une prime de {4} €.")
     @CsvSource({
             "'T12345',0,1.0,1,1000.0",

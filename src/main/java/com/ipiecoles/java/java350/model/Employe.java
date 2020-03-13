@@ -33,6 +33,20 @@ public class Employe {
     public Employe() {
     }
 
+    @Override
+    public String toString() {
+        return "Employe{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", matricule='" + matricule + '\'' +
+                ", dateEmbauche=" + dateEmbauche +
+                ", salaire=" + salaire +
+                ", performance=" + performance +
+                ", tempsPartiel=" + tempsPartiel +
+                '}';
+    }
+
     public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Integer performance, Double tempsPartiel) {
         this.nom = nom;
         this.prenom = prenom;
