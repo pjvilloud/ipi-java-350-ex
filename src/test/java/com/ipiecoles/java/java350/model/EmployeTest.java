@@ -99,4 +99,27 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(prime).isEqualTo(Entreprise.primeAnnuelleBase());
     }
+
+    ////////////////////////////////
+    // TU PASSAGE A TEMPS PARTIEL //
+    ////////////////////////////////
+
+    @Test
+    void testPassageTempsPartiel() {
+        //Given
+        Employe employe = new Employe();
+        employe.setMatricule("T12345");
+        employe.setDateEmbauche(LocalDate.now());
+        employe.setTempsPartiel(1d);
+        employe.setSalaire(1000d);
+        employe.setPerformance(Entreprise.PERFORMANCE_BASE);
+
+        //When
+//        Employe employe1 = employe.passageTempsPartiel();
+
+        //Then
+//        Assertions.assertThat(employe1.getTempsPartiel()).isLessThan(1d);
+//        Assertions.assertThat(employe1.getSalaire()).isEqualTo(500d);
+
+    }
 }

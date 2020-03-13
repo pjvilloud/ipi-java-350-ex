@@ -1,0 +1,20 @@
+2020-03-12 11:16:31 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: TECHNICIEN, Niveau d'étude: BTS_IUT, Temps partiel: 1.0
+2020-03-12 11:16:31 - INFO  - c.i.java.java350.service.EmployeService - Matricule initial affecté à l'employé
+2020-03-12 11:16:31 - INFO  - c.i.java.java350.service.EmployeService - Employé Employe{id=null, nom='Doe', prenom='John', matricule='T00001', dateEmbauche=2020-03-12, salaire=1825.46, performance=1, tempsPartiel=1.0} ajouté en base de données.
+2020-03-12 11:16:31 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: MANAGER, Niveau d'étude: MASTER, Temps partiel: 1.0
+2020-03-12 11:16:32 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: TECHNICIEN, Niveau d'étude: BTS_IUT, Temps partiel: 1.0
+2020-03-12 11:16:32 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: COMMERCIAL, Niveau d'étude: LICENCE, Temps partiel: 0.5
+2020-03-12 11:16:32 - INFO  - c.i.java.java350.service.EmployeService - Matricule initial affecté à l'employé
+2020-03-12 11:16:32 - INFO  - c.i.java.java350.service.EmployeService - Employé Employe{id=null, nom='Doe', prenom='John', matricule='C00001', dateEmbauche=2020-03-12, salaire=912.73, performance=1, tempsPartiel=0.5} ajouté en base de données.
+2020-03-12 11:16:32 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: TECHNICIEN, Niveau d'étude: BTS_IUT, Temps partiel: 1.0
+2020-03-12 11:16:32 - INFO  - c.i.java.java350.service.EmployeService - Employé Employe{id=null, nom='Doe', prenom='John', matricule='T00346', dateEmbauche=2020-03-12, salaire=1825.46, performance=1, tempsPartiel=1.0} ajouté en base de données.
+2020-03-12 15:14:19 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: TECHNICIEN, Niveau d'étude: BTS_IUT, Temps partiel: 1.0
+2020-03-12 15:14:19 - INFO  - c.i.java.java350.service.EmployeService - Matricule initial affecté à l'employé
+2020-03-12 15:14:19 - INFO  - c.i.java.java350.service.EmployeService - Employé Employe{id=null, nom='Doe', prenom='John', matricule='T00001', dateEmbauche=2020-03-12, salaire=1825.46, performance=1, tempsPartiel=1.0} ajouté en base de données.
+2020-03-12 15:14:19 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: MANAGER, Niveau d'étude: MASTER, Temps partiel: 1.0
+2020-03-12 15:14:19 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: TECHNICIEN, Niveau d'étude: BTS_IUT, Temps partiel: 1.0
+2020-03-12 15:14:19 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: COMMERCIAL, Niveau d'étude: LICENCE, Temps partiel: 0.5
+2020-03-12 15:14:19 - INFO  - c.i.java.java350.service.EmployeService - Matricule initial affecté à l'employé
+2020-03-12 15:14:19 - INFO  - c.i.java.java350.service.EmployeService - Employé Employe{id=null, nom='Doe', prenom='John', matricule='C00001', dateEmbauche=2020-03-12, salaire=912.73, performance=1, tempsPartiel=0.5} ajouté en base de données.
+2020-03-12 15:14:19 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: TECHNICIEN, Niveau d'étude: BTS_IUT, Temps partiel: 1.0
+2020-03-12 15:14:19 - INFO  - c.i.java.java350.service.EmployeService - Employé Employe{id=null, nom='Doe', prenom='John', matricule='T00346', dateEmbauche=2020-03-12, salaire=1825.46, performance=1, tempsPartiel=1.0} ajouté en base de données.

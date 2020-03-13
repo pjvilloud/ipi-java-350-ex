@@ -91,19 +91,19 @@ class EmployeServiceMockTest {
 
 
         // 1ère façon de faire
-            //When
-            // try {
-            //     employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
-            //     Assertions.fail("Une exception aurait dû être levée");
-            // } catch (EmployeException e) {
-            //     //Then
-            //     Assertions.assertThat(e.getMessage()).isEqualTo("Limite des 100000 matricules atteintes!");
-            // }
+        //When
+        // try {
+        //     employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+        //     Assertions.fail("Une exception aurait dû être levée");
+        // } catch (EmployeException e) {
+        //     //Then
+        //     Assertions.assertThat(e.getMessage()).isEqualTo("Limite des 100000 matricules atteintes!");
+        // }
 
         // 2ème façon de faire
         //When
         Throwable exception = Assertions.catchThrowable(() ->
-            employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
+                employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
 
         // When
         Assertions.assertThat(exception).isInstanceOf(EmployeException.class);
@@ -157,4 +157,31 @@ class EmployeServiceMockTest {
         Assertions.assertThat(employe.getSalaire()).isEqualTo(912.73d);
     }
 
+    @Test
+    public void testCalculSalaireMoyenETPBaseVide() {
+        //Given
+        Mockito.when(employeRepository.count()).thenReturn(0L);
+
+        //When
+        Throwable exception = Assertions.catchThrowable(() ->
+                employeService.calculSalaireMoyenETP());
+
+        // Then
+        Assertions.assertThat(exception).isInstanceOf(Exception.class);
+        Assertions.assertThat(exception.getMessage()).isEqualTo("Aucun employé, impossible de calculer le salaire moyen !");
+    }
+
+    @Test
+    public void testCalculSalaireMoyenETP() throws Exception {
+        //Given
+        Mockito.when(employeRepository.sumSalaire()).thenReturn(10000d);
+        Mockito.when(employeRepository.count()).thenReturn(10l);
+        Mockito.when(employeRepository.sumTempsPartiel()).thenReturn(10d);
+
+        //When
+        Double salaireMoyen = employeService.calculSalaireMoyenETP();
+
+        // Then
+        Assertions.assertThat(salaireMoyen).isEqualTo(1000d);
+    }
 }

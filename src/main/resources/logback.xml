@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- CONFIGURATION ERROR LOG -->
+    <appender name="ERRORLOG" class="ch.qos.logback.core.FileAppender">
+        <file>error.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} - %-5level - %logger{40} - %msg%n</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <logger name="com.ipiecoles.java" level="error" additivity="false">
+        <appender-ref ref="ERRORLOG"/>
+    </logger>
+
+    <!-- CONFIGURATION INFO LOG -->
+    <appender name="INFOLOG" class="ch.qos.logback.core.FileAppender">
+        <file>info.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy" >
+                <fileNamePattern>archived/info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <!-- each archived file, size max 10MB -->
+                <maxFileSize>10MB</maxFileSize>
+                <!-- total size of all archive files, if total size > 20GB, it will delete old archived file -->
+                <totalSizeCap>20GB</totalSizeCap>
+                <!-- 60 days to keep -->
+                <maxHistory>60</maxHistory>
+            </rollingPolicy>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} - %-5level - %logger{40} - %msg%n</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <logger name="com.ipiecoles.java" level="info" additivity="false" >
+        <appender-ref ref="INFOLOG"/>
+    </logger>
+</configuration>
