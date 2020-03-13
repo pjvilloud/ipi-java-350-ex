@@ -247,7 +247,7 @@ public class EmployeTest {
     @ValueSource(strings = {"2021-01-01", "2022-01-01", "2032-01-01"})
     public void nombreRttTest2ans(String dateString ) {
         // given
-        // an employe embauché au jour même du calcul
+        // an employe embauché 2 ans avant le jour du calcul
         Employe employe = new Employe();
         LocalDate localDate = LocalDate.parse(dateString);
         employe.setDateEmbauche(localDate.minusYears(2L));
@@ -256,13 +256,13 @@ public class EmployeTest {
         // then
         switch (localDate.toString()) {
             case "2021-01-01":
-                Assertions.assertEquals(9, nbRtt);
+                Assertions.assertEquals(11, nbRtt);
                 break;
             case "2022-01-01":
-                Assertions.assertEquals(8, nbRtt);
+                Assertions.assertEquals(10, nbRtt);
                 break;
             case "2032-01-01":
-                Assertions.assertEquals(10, nbRtt);
+                Assertions.assertEquals(12, nbRtt);
                 break;
         }
     }

@@ -27,7 +27,6 @@ import java.util.Arrays;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
 public class EmployeServiceTest {
 
     @InjectMocks
@@ -36,11 +35,6 @@ public class EmployeServiceTest {
     @Mock
     EmployeRepository employeRepository;
 
-    @Autowired
-    private EmployeRepository employeRepositoryTrue;
-
-    @Autowired
-    private EmployeService employeServiceTrue;
 
     @BeforeEach
     public void setup(){
@@ -205,26 +199,5 @@ public class EmployeServiceTest {
     }
 
 
-    @Test
-    public void testCalculperf() throws EmployeException {
-        // given 2 commerciaux en BDD, chacun avec une perf de 2, donnant une perf moyenne de 2, l'un des deux
-        // va voir sa perf recomptée, et réduite à 1, il ne bénéficiera donc pas du bonus.
-
-        employeRepositoryTrue.save(new Employe("Doe", "John", "C00001", LocalDate.now(), Entreprise.SALAIRE_BASE, 2, 1.0));
-        employeRepositoryTrue.save(new Employe("Doe", "Jane", "C00002", LocalDate.now(), Entreprise.SALAIRE_BASE, 2, 1.0));
-        employeRepositoryTrue.save(new Employe("Doe", "Jim", "C00003", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
-        employeServiceTrue.calculPerformanceCommercial("C00003", 100L,1000L);
-        Assertions.assertEquals(1,employeRepositoryTrue.findByMatricule("C00003").getPerformance());
-    }
-
-    @Test
-    public void avgPerformanceWhereMatriculeStartsWith(){
-        // given 2 commerciaux et 1 employe, un avec une perf de 1, et un avec une perf de 5, ce qui donne une moyenne de: (5+1)/ 2 = 3
-        employeRepositoryTrue.save(new Employe("Doe", "John", "C00001", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
-        employeRepositoryTrue.save(new Employe("Doe", "Jane", "C00002", LocalDate.now(), Entreprise.SALAIRE_BASE, 5, 1.0));
-        employeRepositoryTrue.save(new Employe("Doe", "Jerem", "T00002", LocalDate.now(), Entreprise.SALAIRE_BASE, 20, 1.0));
-        // when //
-        Assertions.assertEquals(3.0 ,employeRepositoryTrue.avgPerformanceWhereMatriculeStartsWith("C"));
-    }
 
 }
