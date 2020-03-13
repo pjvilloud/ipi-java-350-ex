@@ -28,6 +28,11 @@ public class EmployeAcceptanceTest {
         employeRepository.save(new Employe(nom, prenom, matricule, LocalDate.now(), Entreprise.SALAIRE_BASE, Entreprise.PERFORMANCE_BASE, 1.0));
     }
 
+    @Step("Soit un employé appelé <prenom> <nom> de matricule <matricule> avec une perf de <perf>")
+    public void insertEmployewithperf(String prenom, String nom, String matricule, Integer perf) throws EmployeException {
+        employeRepository.save(new Employe(nom, prenom, matricule, LocalDate.now(), Entreprise.SALAIRE_BASE, perf, 1.0));
+    }
+
     @Step("On vire tous les employés s'il y en a")
     public void purgeBdd() throws EmployeException {
         employeRepository.deleteAll();
@@ -47,16 +52,15 @@ public class EmployeAcceptanceTest {
         Assertions.assertEquals(nom, e.getNom());
     }
 
-    @Step("Je calcule la performance du commercial de matricule <matricule>, avec une performance de <performance>, il a traité un ca de <caTraite>. Son objectif était <objectifCa> !")
-    public void checkCalculdePerformanceCommercial(String matricule, Long caTraite, Long objectifCa, Integer performance) throws EmployeException{
-        Employe e = employeRepository.findByMatricule(matricule);
-        e.setPerformance(performance);
+    @Step("Je calcule la performance du commercial de matricule <matricule>, il a traité un ca de <caTraite>. Son objectif était <objectifCa> !")
+    public void checkCalculdePerformanceCommercial(String matricule, Long caTraite, Long objectifCa) throws EmployeException{
         employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
     }
 
-    @Step(("J'obtiens bien la nouvelle performance de mon commercial de matricule <matricule> qui est de <performance>."))
-    public void checkCalculdePerformanceCommercial(String matricule, Integer performance) throws EmployeException{
+    @Step("J'obtiens bien la nouvelle performance de mon commercial de matricule <matricule> qui est de <performance>.")
+    public void checkPerformanceCommercialIsCorrect(String matricule, Integer performance) throws EmployeException{
         Employe e = employeRepository.findByMatricule(matricule);
-        Assertions.assertEquals(e.getPerformance(),1);
+        Assertions.assertEquals(performance,e.getPerformance());
     }
+
 }
