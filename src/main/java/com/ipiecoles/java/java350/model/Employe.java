@@ -120,8 +120,16 @@ public class Employe {
         return Math.round(prime * this.tempsPartiel * 100)/100.0;
     }
 
-    //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    /**
+     * Augmenter Salaire
+     * @param pourcentage
+     * @param salaire
+     * @return
+     */
+    public Double augmenterSalaire(double pourcentage, double salaire){
+        Double salaireAugmenté = salaire * (1 + pourcentage/100);
+        return salaireAugmenté;
+        }
 
     public Long getId() {
         return id;

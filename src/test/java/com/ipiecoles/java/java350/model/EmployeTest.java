@@ -61,6 +61,19 @@ public class EmployeTest {
         Assertions.assertEquals(0, anneeAnciennete.intValue());
     }
 
+    // Test Augmenter Salaire en TDD
+    @Test
+    public void getAugmenterSalaire() {
+        // Given
+        Employe employe = new Employe();
+        employe.setSalaire(1000D);
+        // When
+        Double augmenterSalaire = employe.augmenterSalaire(10D, employe.getSalaire());
+        // Then
+        Assertions.assertEquals(1100D, augmenterSalaire);
+    }
+
+
     @ParameterizedTest
     @CsvSource({
             "1, 'T12345', 0, 1.0, 1000.0",
