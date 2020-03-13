@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -96,6 +98,74 @@ public class EmployeTest {
 
         // Then
         Assertions.assertEquals(0.5, e.getTempsPartiel());
+    }
 
+    // une augmentation de salaire de 1%
+    @Test
+    public void augmenterSalaire1Pourcent() throws EmployeException {
+        // GIVEN
+        // un employe basique avec un salaire de 1500
+        Employe e = new Employe();
+        e.setSalaire(1500.0);
+        // WHEN
+        e.augmenterSalaire(1);
+        // THEN
+        Assertions.assertEquals(1515.0,e.getSalaire());
+    }
+
+    // Une augmentation de 100%
+    @Test
+    public void augmenterSalaire100Pourcent() throws EmployeException {
+        // given
+        // un employe basique avec un salaire de 1500
+        Employe e = new Employe();
+        e.setSalaire(1500.0);
+        // when
+        e.augmenterSalaire(100);
+        // then
+        Assertions.assertEquals(3000.0,e.getSalaire());
+    }
+
+    // Une augmentation de plus de 100% throw une erreur, et le salaire ne bouge pas
+    @Test
+    public void augmenterSalaire150Pourcent() throws EmployeException {
+        // given
+        // un employe basique avec un salaire de 1500
+        Employe e = new Employe();
+        e.setSalaire(1500.0);
+        // when
+        Assertions.assertThrows(EmployeException.class, () ->
+            e.augmenterSalaire(150)
+        );
+        // then
+        Assertions.assertEquals(1500.0,e.getSalaire());
+    }
+
+    // Une "augmentation" d'un pourcentage négatif -> = baisse de salaire, autorisé.
+    @Test
+    public void augmenterSalaireMinus50Pourcent() throws EmployeException {
+
+        // given
+        // un employe basique avec un salaire de 1500
+        Employe e = new Employe();
+        e.setSalaire(1500.0);
+        // when
+                e.augmenterSalaire(-50);
+        // then
+        Assertions.assertEquals(750.0,e.getSalaire());
+    }
+    // Une "augmentation" de 0% -> retourne un message d'erreur
+    @Test
+    public void augmenterSalaire0Pourcent() throws EmployeException {
+        // given
+        // un employe basique avec un salaire de 1500
+        Employe e = new Employe();
+        e.setSalaire(1500.0);
+        // when
+        Assertions.assertThrows(EmployeException.class, () ->
+                e.augmenterSalaire(0)
+        );
+        // then
+        Assertions.assertEquals(1500.0,e.getSalaire());
     }
 }

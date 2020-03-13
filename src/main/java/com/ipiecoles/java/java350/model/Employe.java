@@ -1,16 +1,20 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+import net.bytebuddy.implementation.bytecode.Throw;
+import sun.util.calendar.BaseCalendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
 public class Employe {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -121,7 +125,21 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    /*
+    * Tester de manière unitaire le plus exhaustivement possible la méthode augmenterSalaire d'Employe en essayant de
+    * faire du TDD.
+    * Décommenter la méthode dans Employe et écrire d'abord les tests entièrement (en réflechissant particulièrement
+    * aux cas limites) avant d'écrire la méthode. Pensez-vous que vous auriez écrit la méthode directement comme cela
+    * si vous n'aviez pas écrit les tests en premier ?*/
+    public void augmenterSalaire(double pourcentage) throws EmployeException {
+
+        // TODO remplacer le Sysout par un log
+        if (pourcentage > 100 ||  pourcentage <= -100 ) throw new EmployeException("Attention, augmentation ou diminution de plus de 100%" +
+                " effectuée le: " + LocalDate.now() + " pour l'employe de matricule " + this.matricule);
+
+        if (pourcentage == 0) throw new EmployeException(("Attention, pas de modifications de salaire"));
+        this.salaire+=(this.getSalaire()*(pourcentage/100));
+    }
 
     public Long getId() {
         return id;
