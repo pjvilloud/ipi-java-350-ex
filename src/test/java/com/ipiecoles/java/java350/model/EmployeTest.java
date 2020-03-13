@@ -1,6 +1,6 @@
 package com.ipiecoles.java.java350.model;
 
-
+import static org.junit.Assert.fail;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -113,11 +113,28 @@ public class EmployeTest {
         employe.setSalaire(0d);
 
     //When = Exécution de la méthode à tester
-        employe.augmenterSalaire(10);
+        employe.augmenterSalaire(10d);
 
     //Then = Vérifications de ce qu'a fait la méthode
         Assertions.assertThat(employe.getSalaire()).isEqualTo(0);
         System.out.println(employe.getSalaire());
+    }
+
+    @Test
+    public void testAugmenterSalaireNull(){
+        //Given = Initialisation des données d'entrée
+        Employe employe = new Employe();
+        employe.setSalaire(null);
+
+        //When = Exécution de la méthode à tester
+        try {
+            employe.augmenterSalaire(10d);
+        }
+        catch (Exception e){
+            Assertions.assertThat(e.getMessage()).isEqualTo("jhjh");
+        }
+
+        //Then = Vérifications de ce qu'a fait la méthode
     }
 
 

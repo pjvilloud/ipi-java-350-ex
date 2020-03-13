@@ -119,8 +119,11 @@ public class Employe {
     }
 
     //Augmenter salaire
-    public void augmenterSalaire(double pourcentage){
-        if(pourcentage > 0){
+    public void augmenterSalaire(Double pourcentage){
+        if(salaire == null){
+            throw new NullPointerException("Le salaire ne doit pas être null !");
+        }
+        if(pourcentage != null && pourcentage > 0){
             salaire += salaire * (pourcentage / 100.0);
         }else{
             throw new IllegalArgumentException("Le pourcentage ne doit pas être négatif !");
