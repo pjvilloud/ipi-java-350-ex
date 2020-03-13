@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -102,6 +103,10 @@ public class Employe {
         }
         //Au pro rata du temps partiel.
         return prime * this.tempsPartiel;
+    }
+
+    public void findEmployeGagnantMoinsQue(String matricule){
+
     }
 
     //Augmenter salaire
