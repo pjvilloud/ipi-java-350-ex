@@ -112,6 +112,6 @@ public class EmployeTest {
         Double salaire = e.getSalaire();
 
         //Then
-        Assertions.assertEquals(0, salaire.intValue());
+        Assertions.assertEquals(500, salaire.intValue());
     }
 }
