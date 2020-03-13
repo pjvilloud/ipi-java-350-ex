@@ -58,17 +58,31 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+    public Integer getNbRtt(LocalDate date){
+        int nombreJoursAnnee = date.isLeapYear() ? 365 : 366;
+        int nombreSamediDimancheAnnee = 104;
+        switch (LocalDate.of(date.getYear(),1,1).getDayOfWeek()){
+            case THURSDAY:
+                if(date.isLeapYear())
+                    nombreSamediDimancheAnnee += 1;
+                break;
+            case FRIDAY:
+                if(date.isLeapYear())
+                    nombreSamediDimancheAnnee += 2;
+                else
+                    nombreSamediDimancheAnnee += 1;
+                break;
+            case SATURDAY:
+                nombreSamediDimancheAnnee += 1;
+                break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        int nombreFeriesHorsWeekEnd = (int) Entreprise.joursFeries(date).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+
+        int nombreRTT = (int) Math.ceil((nombreJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nombreSamediDimancheAnnee - Entreprise.NB_CONGES_BASE - nombreFeriesHorsWeekEnd) * tempsPartiel);
+
+        return nombreRTT;
     }
+
 
     /**
      * Calcul de la prime annuelle selon la règle :
