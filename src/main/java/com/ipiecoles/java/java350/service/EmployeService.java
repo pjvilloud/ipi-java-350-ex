@@ -152,6 +152,10 @@ public class EmployeService {
         return employeRepository.findEmployeGagnantMoinsQue(matricule);
     }
 
+    public Double avgPerformanceWhereMatriculeStartsWith(String premierLettre) {
+        return employeRepository.avgPerformanceWhereMatriculeStartsWith(premierLettre);
+    }
+
     /**
      * Cette méthode calcule le salaire moyen de tous les employés ramené
      * à un équivalent temps plein : Ex : Si un personne à mi-temps gagne 800 € son salaire ETP est 1600 €

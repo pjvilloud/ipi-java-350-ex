@@ -1,0 +1,73 @@
+2020-03-12 09:38:24 - INFO  - Starting EmployeServiceIntegrationTest on FR-L3356944 with PID 21620 (started by samuel.ribeyron in C:\Users\samuel.ribeyron\Documents\GitHub\ipi-java-350-ex)
+2020-03-12 09:38:24 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-12 09:38:29 - INFO  - Started EmployeServiceIntegrationTest in 5.956 seconds (JVM running for 8.873)
+2020-03-12 09:38:30 - WARN  - Coucou
+2020-03-12 09:38:30 - ERROR - Coucou
+2020-03-12 09:38:30 - INFO  - Embauche de l'employé John Doe diplômé de BTS_IUT en tant que TECHNICIEN avec un taux d'activité de 1.0 
+2020-03-12 12:43:40 - INFO  - Starting EmployeServiceIntegrationTest on FR-L3356944 with PID 25868 (started by samuel.ribeyron in C:\Users\samuel.ribeyron\Documents\GitHub\ipi-java-350-ex)
+2020-03-12 12:43:40 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-12 12:43:46 - INFO  - Started EmployeServiceIntegrationTest in 6.408 seconds (JVM running for 9.531)
+2020-03-12 12:43:46 - WARN  - Coucou
+2020-03-12 12:43:46 - ERROR - Coucou
+2020-03-12 12:43:46 - INFO  - Embauche de l'employé John Doe diplômé de BTS_IUT en tant que TECHNICIEN avec un taux d'activité de 1.0 
+2020-03-12 12:50:22 - INFO  - Starting EmployeServiceIntegrationTest on FR-L3356944 with PID 4520 (started by samuel.ribeyron in C:\Users\samuel.ribeyron\Documents\GitHub\ipi-java-350-ex)
+2020-03-12 12:50:22 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-12 12:50:28 - INFO  - Started EmployeServiceIntegrationTest in 5.907 seconds (JVM running for 8.329)
+2020-03-12 12:50:28 - WARN  - Coucou
+2020-03-12 12:50:28 - ERROR - Coucou
+2020-03-12 12:50:28 - INFO  - Embauche de l'employé John Doe diplômé de BTS_IUT en tant que TECHNICIEN avec un taux d'activité de 1.0 
+2020-03-12 13:03:29 - INFO  - Starting EmployeServiceIntegrationTest on FR-L3356944 with PID 2736 (started by samuel.ribeyron in C:\Users\samuel.ribeyron\Documents\GitHub\ipi-java-350-ex)
+2020-03-12 13:03:29 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-12 13:03:34 - INFO  - Started EmployeServiceIntegrationTest in 5.785 seconds (JVM running for 8.25)
+2020-03-12 13:05:37 - INFO  - Starting EmployeServiceIntegrationTest on FR-L3356944 with PID 21960 (started by samuel.ribeyron in C:\Users\samuel.ribeyron\Documents\GitHub\ipi-java-350-ex)
+2020-03-12 13:05:37 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-12 13:05:42 - INFO  - Started EmployeServiceIntegrationTest in 5.865 seconds (JVM running for 8.407)
+2020-03-12 14:39:46 - WARN  - Coucou
+2020-03-12 14:39:46 - ERROR - Coucou
+2020-03-12 14:39:46 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-12 14:39:46 - WARN  - Coucou
+2020-03-12 14:39:46 - ERROR - Coucou
+2020-03-12 14:39:46 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-12 14:39:46 - ERROR - Limite des 100000 matricules atteinte !
+2020-03-12 14:39:46 - WARN  - Coucou
+2020-03-12 14:39:46 - ERROR - Coucou
+2020-03-12 14:39:46 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-12 14:39:46 - WARN  - Coucou
+2020-03-12 14:39:46 - ERROR - Coucou
+2020-03-12 14:39:46 - INFO  - Embauche de l'employé John Doe diplômé de BTS_IUT en tant que TECHNICIEN avec un taux d'activité de 1.0 
+2020-03-12 14:39:46 - WARN  - Coucou
+2020-03-12 14:39:46 - ERROR - Coucou
+2020-03-12 14:39:46 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-12 14:39:46 - ERROR - L'employé de matricule M00001 existe déjà en BDD
+2020-03-12 14:40:29 - WARN  - Coucou
+2020-03-12 14:40:29 - ERROR - Coucou
+2020-03-12 14:40:29 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-12 14:40:29 - WARN  - Coucou
+2020-03-12 14:40:29 - ERROR - Coucou
+2020-03-12 14:40:29 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-12 14:40:29 - ERROR - Limite des 100000 matricules atteinte !
+2020-03-12 14:40:29 - WARN  - Coucou
+2020-03-12 14:40:29 - ERROR - Coucou
+2020-03-12 14:40:29 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-12 14:40:29 - WARN  - Coucou
+2020-03-12 14:40:29 - ERROR - Coucou
+2020-03-12 14:40:29 - INFO  - Embauche de l'employé John Doe diplômé de BTS_IUT en tant que TECHNICIEN avec un taux d'activité de 1.0 
+2020-03-12 14:40:29 - WARN  - Coucou
+2020-03-12 14:40:29 - ERROR - Coucou
+2020-03-12 14:40:29 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-12 14:40:29 - ERROR - L'employé de matricule M00001 existe déjà en BDD
+2020-03-12 16:18:19 - INFO  - Starting EmployeControllerTest on FR-L3356944 with PID 9308 (started by samuel.ribeyron in C:\Users\samuel.ribeyron\Documents\GitHub\ipi-java-350-ex)
+2020-03-12 16:18:19 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-12 16:18:22 - INFO  - Started EmployeControllerTest in 4.064 seconds (JVM running for 6.671)
+2020-03-12 16:19:03 - INFO  - Starting EmployeControllerTest on FR-L3356944 with PID 28364 (started by samuel.ribeyron in C:\Users\samuel.ribeyron\Documents\GitHub\ipi-java-350-ex)
+2020-03-12 16:19:03 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-12 16:19:06 - INFO  - Started EmployeControllerTest in 3.754 seconds (JVM running for 6.385)
+2020-03-12 16:20:23 - INFO  - Starting EmployeControllerTest on FR-L3356944 with PID 30352 (started by samuel.ribeyron in C:\Users\samuel.ribeyron\Documents\GitHub\ipi-java-350-ex)
+2020-03-12 16:20:23 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-12 16:20:26 - INFO  - Started EmployeControllerTest in 3.956 seconds (JVM running for 6.648)
+2020-03-12 16:20:57 - INFO  - Starting EmployeControllerTest on FR-L3356944 with PID 28888 (started by samuel.ribeyron in C:\Users\samuel.ribeyron\Documents\GitHub\ipi-java-350-ex)
+2020-03-12 16:20:57 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-12 16:21:02 - INFO  - Started EmployeControllerTest in 4.99 seconds (JVM running for 7.606)
+2020-03-12 16:22:05 - INFO  - Starting EmployeControllerTest on FR-L3356944 with PID 17700 (started by samuel.ribeyron in C:\Users\samuel.ribeyron\Documents\GitHub\ipi-java-350-ex)
+2020-03-12 16:22:05 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-12 16:22:08 - INFO  - Started EmployeControllerTest in 3.751 seconds (JVM running for 6.482)

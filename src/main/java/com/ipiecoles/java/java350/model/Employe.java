@@ -78,23 +78,23 @@ public class Employe {
 
     public Integer getNbRtt(LocalDate d){
         // nbr de jour dans l'année
-        int i1 = d.isLeapYear() ? 366 : 365;
+        int nbrJour = d.isLeapYear() ? 366 : 365;
         // 52 * 2 week-end
-        int var = 104;
+        int nbSamediEtDimanche = 104;
         // switch, ici on ajoute un ou deux jour de WE en fonction du jour ou commence l'année
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1;
+            case THURSDAY: if(d.isLeapYear()) nbSamediEtDimanche =  nbSamediEtDimanche + 1;
                             break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2;
-                         else var =  var + 1;
+            case FRIDAY: if(d.isLeapYear()) nbSamediEtDimanche =  nbSamediEtDimanche + 2;
+                         else nbSamediEtDimanche =  nbSamediEtDimanche + 1;
                          break;
-            case SATURDAY: var = var + 1;
+            case SATURDAY: nbSamediEtDimanche = nbSamediEtDimanche + 1;
                            break;
             default : break;
         }
 
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        int nbrJFerie = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        return (int) Math.ceil((nbrJour - Entreprise.NB_JOURS_MAX_FORFAIT - nbSamediEtDimanche - Entreprise.NB_CONGES_BASE - nbrJFerie) * tempsPartiel);
     }
 
     /**

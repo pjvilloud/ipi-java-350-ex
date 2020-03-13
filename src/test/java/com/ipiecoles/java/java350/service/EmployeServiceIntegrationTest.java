@@ -72,4 +72,26 @@ public class EmployeServiceIntegrationTest {
         Assertions.assertEquals(employe, list.get(0));
     }
 
+    @Test
+    public void calculPerformanceCommercialTestDIntegration() throws EmployeException {
+        employeRepository.save(new Employe("Doe", "John", "C00001", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+
+        employeService.calculPerformanceCommercial("C00001", 9L, 10L);
+
+        Employe e = employeRepository.findByMatricule("C00001");
+        Assertions.assertEquals(e.getPerformance(), 1);
+    }
+
+
+    @Test
+    public void avgPerformanceWhereMatriculeStartsWith() {
+        employeRepository.save(new Employe("Doe", "John", "C00001", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "John", "C00002", LocalDate.now(), Entreprise.SALAIRE_BASE, 4, 1.0));
+        employeRepository.save(new Employe("Doe", "John", "C00003", LocalDate.now(), Entreprise.SALAIRE_BASE, 4, 1.0));
+
+        Double result = employeService.avgPerformanceWhereMatriculeStartsWith("C");
+
+        Assertions.assertEquals(result, 3);
+
+    }
 }
