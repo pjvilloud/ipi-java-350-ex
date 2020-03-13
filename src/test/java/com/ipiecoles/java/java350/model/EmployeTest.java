@@ -1,11 +1,15 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
+
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class EmployeTest {
 
@@ -121,5 +125,62 @@ public class EmployeTest {
 //        Assertions.assertThat(employe1.getTempsPartiel()).isLessThan(1d);
 //        Assertions.assertThat(employe1.getSalaire()).isEqualTo(500d);
 
+    }
+
+    ////////////////
+    // EVALUATION //
+    ////////////////
+    @Test
+    public void testAugmenterSalairePourcentageNegatif() throws EmployeException{
+        //Given
+        Employe employe = new Employe();
+        employe.setMatricule("T00001");
+        employe.setDateEmbauche(LocalDate.now());
+        employe.setTempsPartiel(1d);
+        employe.setSalaire(1000d);
+        employe.setPerformance(Entreprise.PERFORMANCE_BASE);
+
+        //When
+        Throwable exception = Assertions.catchThrowable(() ->
+                employe.augmenterSalaire(-20));
+
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1000d);
+        Assertions.assertThat(exception).isInstanceOf(Exception.class);
+        Assertions.assertThat(exception.getMessage()).isEqualTo("Vous ne pouvez pas diminuer le salaire dans ce contexte!");
+    }
+
+    @Test
+    public void testAugmenterSalairePourcentage20() throws Exception {
+        //Given
+        Employe employe = new Employe();
+        employe.setMatricule("T00001");
+        employe.setDateEmbauche(LocalDate.now());
+        employe.setTempsPartiel(1d);
+        employe.setSalaire(1000d);
+        employe.setPerformance(Entreprise.PERFORMANCE_BASE);
+
+        //When
+        employe.augmenterSalaire(20);
+
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1200d);
+    }
+
+    @Test
+    public void testAugmenterSalairePourcentageNul() throws Exception {
+        //Given
+        Employe employe = new Employe();
+        employe.setMatricule("T00001");
+        employe.setDateEmbauche(LocalDate.now());
+        employe.setTempsPartiel(1d);
+        employe.setSalaire(1000d);
+        employe.setPerformance(Entreprise.PERFORMANCE_BASE);
+
+        //When
+        employe.augmenterSalaire(0);
+
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1000d);
     }
 }

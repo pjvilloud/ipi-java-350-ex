@@ -105,7 +105,17 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) throws Exception {
+        Double salaireBase = this.salaire;
+        Double salaireAugmente;
+
+        if (pourcentage >= 0) {
+            salaireAugmente = Double.valueOf(Math.round(salaireBase + (salaireBase*pourcentage/100)));
+            this.setSalaire(salaireAugmente);
+        } else {
+            throw new Exception("Vous ne pouvez pas diminuer le salaire dans ce contexte!");
+        }
+    }
 
     public Long getId() {
         return id;
