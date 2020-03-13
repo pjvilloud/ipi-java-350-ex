@@ -1,23 +1,13 @@
 package com.ipiecoles.java.java350.controller;
 
 
-import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import javax.validation.constraints.Null;
-import java.time.LocalDate;
-import java.util.Optional;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
 public class EmployeControllerTest {
