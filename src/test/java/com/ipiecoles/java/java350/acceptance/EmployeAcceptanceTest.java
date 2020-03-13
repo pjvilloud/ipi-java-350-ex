@@ -46,4 +46,17 @@ public class EmployeAcceptanceTest {
         Assertions.assertEquals(prenom, e.getPrenom());
         Assertions.assertEquals(nom, e.getNom());
     }
+
+    @Step("Je calcule la performance du commercial de matricule <matricule>, avec une performance de <performance>, il a traité un ca de <caTraite>. Son objectif était <objectifCa> !")
+    public void checkCalculdePerformanceCommercial(String matricule, Long caTraite, Long objectifCa, Integer performance) throws EmployeException{
+        Employe e = employeRepository.findByMatricule(matricule);
+        e.setPerformance(performance);
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+    }
+
+    @Step(("J'obtiens bien la nouvelle performance de mon commercial de matricule <matricule> qui est de <performance>."))
+    public void checkCalculdePerformanceCommercial(String matricule, Integer performance) throws EmployeException{
+        Employe e = employeRepository.findByMatricule(matricule);
+        Assertions.assertEquals(e.getPerformance(),1);
+    }
 }

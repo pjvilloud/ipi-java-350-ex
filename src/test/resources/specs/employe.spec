@@ -12,3 +12,7 @@
 * J'embauche une personne appelée "Jane" "Doe" diplômée d'un "master" en tant que "Manager" avec un taux d'activité de "0.5"
 * J'obtiens bien un nouvel employé appelé "Jane" "Doe" portant le matricule "M00124" et touchant un salaire de "1064.85" €
 
+## Calcul des performances d'un commercial
+* Soit un employé appelé "John" "Doe" de matricule "C00001"
+* Je calcule la performance du commercial de matricule "C00001", avec une performance de "1", il a traité un ca de "15000". Son objectif était "10000" !
+* J'obtiens bien la nouvelle performance de mon commercial de matricule "C00001" qui est de "1".
