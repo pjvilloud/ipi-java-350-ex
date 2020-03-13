@@ -2,14 +2,11 @@ package com.ipiecoles.java.java350.model;
 
 import com.ipiecoles.java.java350.exception.EmployeException;
 import org.assertj.core.api.Assertions;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
-
-import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class EmployeTest {
 
@@ -182,5 +179,29 @@ public class EmployeTest {
 
         //Then
         Assertions.assertThat(employe.getSalaire()).isEqualTo(1000d);
+    }
+
+    @ParameterizedTest(name = "Pour l année {0}, l employé de matricule {1}, travaillant à {3} aura {4} jours de RTT")
+    @CsvSource({
+            "2019-01-21, T12345, 1.0, 'temps plein', 8",
+            "2020-05-16, M12345, 0.5, 'mi-temps', 5",
+            "2021-03-11, M19587, 1, 'temps plein', 10",
+            "2022-07-02, T22037, 0.5, 'mi-temps', 5",
+            "2032-12-02, T28974, 1, 'temps plein', 11"
+    })
+    public void testGetNbRtt(LocalDate date, String matricule, Double tempPartiel, String tempPartielStr, Integer nbRtt) {
+        //Given
+        LocalDate localDate = date;
+
+        Employe employe = new Employe();
+        employe.setMatricule(matricule);
+        employe.setTempsPartiel(tempPartiel);
+        employe.setPerformance(Entreprise.PERFORMANCE_BASE);
+
+        //When
+        Integer nbJoursRTT = employe.getNbRtt(localDate);
+
+        //Then
+        Assertions.assertThat(nbJoursRTT).isEqualTo(nbRtt);
     }
 }

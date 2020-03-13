@@ -59,7 +59,7 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int nbJoursDansAnnee = d.isLeapYear() ? 365 : 366;
+        int nbJoursDansAnnee = d.isLeapYear() ? 366 : 365;
         int nbSamediDimancheDansAnnee = 104;
 
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
@@ -78,13 +78,13 @@ public class Employe {
             case SATURDAY:
                 nbSamediDimancheDansAnnee += 1;
                 break;
+            default:
+                break;
         }
 
         int nbJoursFeriesPasWeekEnd = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
 
-        int nbRtt = (int) Math.ceil((nbJoursDansAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbSamediDimancheDansAnnee - nbJoursFeriesPasWeekEnd - Entreprise.NB_CONGES_BASE) * tempsPartiel);
-
-        return nbRtt;
+        return (int) Math.ceil((nbJoursDansAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbSamediDimancheDansAnnee - nbJoursFeriesPasWeekEnd - Entreprise.NB_CONGES_BASE) * tempsPartiel);
     }
 
     /**
@@ -128,8 +128,8 @@ public class Employe {
 
         if (pourcentage >= 0) {
             salaireAugmente = salaireBase * (1 + pourcentage/100) * 100;
-            salaireAugmente = Double.valueOf(Math.round(salaireAugmente) / 100);
-            this.setSalaire(salaireAugmente);
+            salaireAugmente = Double.valueOf(Math.round(salaireAugmente));
+            this.setSalaire(salaireAugmente / 100);
         } else {
             throw new Exception("Vous ne pouvez pas diminuer le salaire dans ce contexte!");
         }
