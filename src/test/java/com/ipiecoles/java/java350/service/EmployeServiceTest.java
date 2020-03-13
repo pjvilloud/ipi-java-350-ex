@@ -2,7 +2,6 @@ package com.ipiecoles.java.java350.service;
 
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.model.Employe;
-import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
@@ -16,8 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.mockito.Mockito.*;
 
@@ -111,5 +108,19 @@ class EmployeServiceTest {
         //When/Then
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
+    }
+
+    @Test
+    public void testCalculSalaireMoyenTP() throws Exception{
+        //Given
+        Mockito.when(employeRepository.sumSalaire()).thenReturn(10000d);
+        Mockito.when(employeRepository.count()).thenReturn(10l);
+        Mockito.when(employeRepository.sumTempsPartiel()).thenReturn(10d);
+
+        // When
+        Double salaireMoyen = employeService.calculSalaireMoyenETP();
+
+        //Then
+        org.assertj.core.api.Assertions.assertThat(salaireMoyen).isEqualTo(1000d);
     }
 }

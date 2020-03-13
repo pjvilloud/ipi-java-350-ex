@@ -1,0 +1,3 @@
+2020-03-12 14:47:28 - INFO  - c.i.j.j.repository.EmployeRepositoryTest - Started EmployeRepositoryTest in 7.878 seconds (JVM running for 10.561)
+2020-03-12 16:12:46 - INFO  - c.i.j.j.controller.EmployeControllerTest - Starting EmployeControllerTest on FR-L3356897 with PID 17172 (started by aloys.theodore in C:\Users\aloys.theodore\IdeaProjects\ipi-java-350-ex)
+2020-03-12 16:12:46 - INFO  - c.i.j.j.controller.EmployeControllerTest - No active profile set, falling back to default profiles: default

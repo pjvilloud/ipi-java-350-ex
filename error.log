@@ -1,0 +1,2 @@
+2020-03-12 11:26:11 - ERROR - c.i.java.java350.service.EmployeService - Limite des 100000 matricules atteinte !
+2020-03-12 11:26:11 - ERROR - c.i.java.java350.service.EmployeService - Aucun employé trouvé pour le matricule: M00001

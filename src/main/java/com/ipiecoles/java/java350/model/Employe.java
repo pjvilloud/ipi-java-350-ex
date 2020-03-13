@@ -1,12 +1,12 @@
 package com.ipiecoles.java.java350.model;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 public class Employe {
@@ -62,9 +62,21 @@ public class Employe {
         int i1 = d.isLeapYear() ? 365 : 366;
         int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+            case THURSDAY:
+                if(d.isLeapYear()) {
+                    var =  var + 1;
+                }
+                break;
+            case FRIDAY:
+                if(d.isLeapYear()){
+                    var =  var + 2;
+                } else {
+                    var =  var + 1;
+                }
+                break;
+            case SATURDAY:
+                var = var + 1;
+                break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
@@ -105,7 +117,6 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
 
     public Long getId() {
         return id;
@@ -191,6 +202,20 @@ public class Employe {
 
     public void setPerformance(Integer performance) {
         this.performance = performance;
+    }
+
+    @Override
+    public String toString() {
+        return "Employe{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", matricule='" + matricule + '\'' +
+                ", dateEmbauche=" + dateEmbauche +
+                ", salaire=" + salaire +
+                ", performance=" + performance +
+                ", tempsPartiel=" + tempsPartiel +
+                '}';
     }
 
     public Double getTempsPartiel() {

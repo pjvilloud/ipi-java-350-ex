@@ -6,6 +6,8 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ public class EmployeService {
 
     @Autowired
     private EmployeRepository employeRepository;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Méthode enregistrant un nouvel employé dans l'entreprise
@@ -32,6 +36,8 @@ public class EmployeService {
      */
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
 
+        logger.info("Nom: {}, Prénom: {}, Poste: {}, Niveau d'étude: {}, Temps partiel: {}", nom, prenom, poste,
+                niveauEtude, tempsPartiel);
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
 
@@ -43,7 +49,10 @@ public class EmployeService {
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
         if(numeroMatricule >= 100000){
+            logger.error("Limite des 100000 matricules atteinte !");
             throw new EmployeException("Limite des 100000 matricules atteinte !");
+        }else if (numeroMatricule >= 80000){
+            logger.warn("Seuil des 80000/100000 matricules atteint !");
         }
         //On complète le numéro avec des 0 à gauche
         String matricule = "00000" + numeroMatricule;
@@ -51,6 +60,7 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
+            logger.error("Aucun employé trouvé pour le matricule: " + matricule);
             throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
@@ -58,14 +68,40 @@ public class EmployeService {
         Double salaire = Entreprise.COEFF_SALAIRE_ETUDES.get(niveauEtude) * Entreprise.SALAIRE_BASE;
         if(tempsPartiel != null){
             salaire = salaire * tempsPartiel;
+        }else{
+            logger.warn("Temps partiel non présent pour l'employé {}", matricule);
         }
         salaire = Math.round(salaire*100d)/100d;
 
         //Création et sauvegarde en BDD de l'employé.
         Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
 
+        logger.debug("Employé avant sauvegarde: {}", employe.toString());
         employeRepository.save(employe);
+        logger.info("L'employe : {} a été enregistré", employe.toString());
+    }
 
+    /**
+     * Cette méthode calcule le salaire moyen de tous les employés ramené
+     * à un équivalent temps plein : Ex : Si un personne à mi-temps gagne 800 € son salaire ETP est 1600 €
+     */
+    public Double calculSalaireMoyenETP() throws Exception {
+        //On compte le nombre de salariés
+        Long nbEmployes = employeRepository.count();
+        if(nbEmployes == 0){
+            throw new Exception("Aucun employé, impossible de calculer le salaire moyen !");
+        }
+        //On récupère la somme des taux d'activité
+        Double smTxActivite = employeRepository.sumTempsPartiel();
+        if(smTxActivite > nbEmployes){
+            throw new Exception("Taux d'activité des employés incohérent !");
+        }
+
+        //On récupère la somme des salaires
+        Double smSalaire = employeRepository.sumSalaire();
+
+        //On calcul le salaire moyen par ETP
+        return Math.round(smSalaire * 100 / smTxActivite) / 100d;
     }
 
 

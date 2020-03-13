@@ -1,0 +1,10 @@
+2020-03-12 11:26:11 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: MANAGER, Niveau d'étude: MASTER, Temps partiel: 0.5
+2020-03-12 11:26:11 - INFO  - c.i.java.java350.service.EmployeService - L'employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00346', dateEmbauche=2020-03-12, salaire=1064.85, performance=1, tempsPartiel=0.5} a été enregistré
+2020-03-12 11:26:11 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: MANAGER, Niveau d'étude: MASTER, Temps partiel: 0.5
+2020-03-12 11:26:11 - ERROR - c.i.java.java350.service.EmployeService - Limite des 100000 matricules atteinte !
+2020-03-12 11:26:11 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: MANAGER, Niveau d'étude: MASTER, Temps partiel: 0.5
+2020-03-12 11:26:11 - INFO  - c.i.java.java350.service.EmployeService - L'employe : Employe{id=null, nom='Doe', prenom='John', matricule='M00001', dateEmbauche=2020-03-12, salaire=1064.85, performance=1, tempsPartiel=0.5} a été enregistré
+2020-03-12 11:26:11 - INFO  - c.i.java.java350.service.EmployeService - Nom: Doe, Prénom: John, Poste: MANAGER, Niveau d'étude: MASTER, Temps partiel: 0.5
+2020-03-12 11:26:11 - ERROR - c.i.java.java350.service.EmployeService - Aucun employé trouvé pour le matricule: M00001
+2020-03-12 14:47:21 - INFO  - c.i.j.j.repository.EmployeRepositoryTest - Starting EmployeRepositoryTest on FR-L3356897 with PID 3400 (started by aloys.theodore in C:\Users\aloys.theodore\IdeaProjects\ipi-java-350-ex)
+2020-03-12 14:47:21 - INFO  - c.i.j.j.repository.EmployeRepositoryTest - No active profile set, falling back to default profiles: default

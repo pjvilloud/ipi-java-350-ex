@@ -50,8 +50,7 @@ class EmployeTest {
 
 
     @ParameterizedTest(name = "Employé matricule {0}, {1} années d ancienneté, {2}, {3} gagnera une prime de {4}")
-    @CsvSource({"'T12345', 0, 1.0, 1, 1000.0",
-    "'T12345', 0, 0.5, 1, 500.0"})
+    @CsvSource({"'T12345', 0, 1.0, 1, 1000.0", "'T12345', 0, 0.5, 1, 500.0"})
     public void testGetPrimeAnnuelle(String matricule, Integer nbAnneeAnciennete, Double tempsPartiel,
                                      Integer performance, Double primeFinale){
         //Given
@@ -67,4 +66,26 @@ class EmployeTest {
         //Then
         Assertions.assertThat(prime).isEqualTo(primeFinale);
     }
+
+    @ParameterizedTest(name = "Employé de matricule {0}, s'appelant {1} {2}, change de taux d'activité de {3} à et gagnera {4} ")
+    @CsvSource({"'C01234', John, Doe, 1, 1064.22"})
+    public void testModificationEmploye(String matricule, String prenom, String nom, Double tempsPartiel,
+                                        Double salaire){
+
+        Employe employe = new Employe();
+        employe.setMatricule(matricule);
+        employe.setPrenom(prenom);
+        employe.setNom(nom);
+        employe.setSalaire(salaire);
+        employe.setTempsPartiel(tempsPartiel);
+
+        //When
+        employe.setTempsPartiel(0.5);
+
+        //Then
+
+        Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(0.5);
+    }
+
+
 }
