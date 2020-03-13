@@ -85,22 +85,33 @@ public class EmployeTest {
 
     }
     @Test
-    public void testAugmenterSalairePos(){
+    public void getAugmenterSalaire(){
         //Given
         Employe e = new Employe();
         e.setSalaire(1000.00);
         try {
-            e.augmenterSalaire(15);
+            e.augmenterSalaire(45);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        Double salaireFinal = 1150.00;
+        Double augmenterSalaire = 1450.00;
 
         //When
         Double salaire = e.getSalaire();
 
         //Then
-        Assertions.assertEquals(salaire, salaireFinal);
+        Assertions.assertEquals(salaire, augmenterSalaire);
     }
+    @Test
+    public void getAugmenterSalaireB() {
+        //Given
+        Employe e = new Employe();
+        e.setSalaire(1500.00);
 
+        //When
+        Double salaire = e.getSalaire();
+
+        //Then
+        Assertions.assertEquals(0, salaire.intValue());
+    }
 }
