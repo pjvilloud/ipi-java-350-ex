@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- tuto lien = https://dzone.com/articles/configuring-logback-with-spring-boot https://stackify.com/logging-logback/ -->
+    <appender name="ERROR_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>error.log</file>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                <!-- Date - level - logger(40 caract) - le message -->
+                %d{dd-MM-yyyy HH:mm:ss.SSS} - %-5level - %logger{40} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <logger name="com.ipiecoles.java" level="error" addictivity="false">
+        <appender-ref ref="ERROR_LOG"/>
+    </logger>
+
+    <logger name="com.ipiecoles.java" level="info" addictivity="false">
+        <appender-ref ref="ERROR_LOG"/>
+    </logger>
+
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <level>INFO</level>
+        <onMatch>ACCEPT</onMatch>
+        <onMisMatch>DENY</onMisMatch>
+    </filter>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedFileNamingAndTriggeringPolicy">
+        <fileNamePattern>
+            archived/info.%d{dd-MM-yyyy}.%i.log
+        </fileNamePattern>
+        <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>10MB</maxFileSize>
+        </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+</configuration>
