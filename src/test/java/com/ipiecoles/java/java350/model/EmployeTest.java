@@ -106,9 +106,10 @@ public class EmployeTest {
 	}
 	
 	/*
-	 * Tests sur méthode augmenterSalaire
+	 * Tests sur la méthode augmenterSalaire
 	 */
 	
+	// Test pour une augmentation de salaire nulle 
 	
 	@Test
     public void testAugmentationNulle() {
@@ -124,6 +125,8 @@ public class EmployeTest {
         Assertions.assertThat(salaireAug).isEqualTo(3000.0);
     }
 	
+	// Test pour une diminution de salaire de 50%  
+	
 	@Test
     public void testAugmentationNegative() {
         // Given
@@ -135,46 +138,86 @@ public class EmployeTest {
         Double salaireAug = employe.getSalaire();
 
         // Then
-        Assertions.assertThat(salaireAug).isEqualTo(3000.0);
+        Assertions.assertThat(salaireAug).isEqualTo(1500.0);
     }
 	
-	 @Test
-	    public void testAugmentationPositive() {
-	        // Given
-	        Employe employe = new Employe();
-	        employe.setSalaire(3000.0);
+	// Test pour une augmentation de salaire de 20% 
+	
+	@Test
+    public void testAugmentationPositive() {
+        // Given
+        Employe employe = new Employe();
+        employe.setSalaire(3000.0);
 
-	        // When
-	        employe.augmenterSalaire(0.1);
-	        Double salaireAug = employe.getSalaire();
+        // When
+        employe.augmenterSalaire(0.2);
+        Double salaireAug = employe.getSalaire();
 
-	        // Then
-	        Assertions.assertThat(salaireAug).isEqualTo(3300.0);
+        // Then
+        Assertions.assertThat(salaireAug).isEqualTo(3600.0);
 
-	    }
+    }
+	
+	// Test pour une diminution de salaire de 100% 
 	 
-	 /*
-	 @ParameterizedTest
-	    @CsvSource({
-	            "3000 ,-0.5, 3000",
-	            "3000, 0, 3000",
-	            "3000 , 0.1, 3300",
-	    })
-	    public void testAugmenterSalaire(
-	            Double salaire,
-	            double pourcentage,
-	            Double salaireAug
-	    ) {
-	        // given
-	        Employe emp = new Employe();
-	        emp.setSalaire(salaire);
+    @Test
+    public void testAugmentationMoinsCentPourcents(){
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(3000.0);
 
-	        // when
-	        emp.augmenterSalaire(pourcentage);
-	        Double newSalaire = emp.getSalaire();
-	        // then
-	        Assertions.assertThat(newSalaire).isEqualTo(salaireAug);
+        //When
+        employe.augmenterSalaire(-1.0);
+        Double salaireAug = employe.getSalaire();
+
+        //Then
+        Assertions.assertThat(salaireAug).isEqualTo(0.0);
+    }
+    
+    // Test pour une augmentation sur un salaire nul 
+	 
+    @Test
+    public void testAugmentationSalaireNul(){
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(0.0);
+
+        //When
+        employe.augmenterSalaire(1.0);
+        Double salaireAug = employe.getSalaire();
+
+        //Then
+        Assertions.assertThat(salaireAug).isEqualTo(0.0);
+    }
+	
+	 
+	/*
+	 *  Test paramétré de la fonction getNbRtt, en faisant varier le taux d'activité et l'année considérée (bissextile ou non)
+	 */
+	 
+	    @ParameterizedTest
+	    @CsvSource({
+	        "2019, 1.0, 8",
+	        "2019, 0.5, 4",
+	        "2021, 1.0, 11",
+	        "2021, 0.5, 5",
+	        "2022, 1.0, 10",
+	        "2022, 0.5, 5",
+	        "2032, 1.0, 12",	
+	        "2032, 0.5, 6"	        
+	    })
+	    public void getNbRtt(Integer annee, Double tempsPartiel, Integer nbRttAttendu){
+	        //Given
+	        Employe employe = new Employe();
+	        employe.setTempsPartiel(tempsPartiel);
+	        LocalDate date = LocalDate.of(annee, 1, 1);
+
+	        //When
+	        Integer nbRttCalcule = employe.getNbRtt(date);
+
+	        //Then
+	        Assertions.assertThat(nbRttCalcule).isEqualTo(nbRttAttendu);
+
 	    }
-	*/
 	 
 }

@@ -60,15 +60,54 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
+    	
+    	// Si l'année est bissextile alors elle se compose de 366 jours, sinon 365
+        int nbJoursAnnee = d.isLeapYear() ? 366 : 365;
+        
+        /* Calcul du nombre de jours de weekend dans une année selon qu'il s'agit d'une année bissextile ou non
+        et selon le jour de la semaine par lequel elle commence */
+        
+        // Variable représentant le nombre de jours de weekend pour une année "classique"
+        // (c'est à dire non bissextile et démarrant un jour autre que samedi ou dimanche)
+        int nbJoursWeekend = 104;
+        
+        // On examine les cas particuliers : les années commençant par un vendredi ou un jour de weekend
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1; break;
-            case SATURDAY: var = var + 1; break;
-        }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        	
+	        // Si l'année commence par un vendredi et est bissextile alors elle finira un samedi au lieu d'un vendredi,
+	        // ce qui ajoute 1 jour de weekend par rapport aux 104 habituels
+            case FRIDAY:
+            	if (d.isLeapYear()) {
+            	nbJoursWeekend =  nbJoursWeekend + 1; 
+            	}
+            	break;
+            	
+        	// Si l'année commence par un samedi et est bissextile alors elle finira un dimanche au lieu d'un samedi,
+        	// ce qui ajoute 2 jours de weekend par rapport aux 104 habituels. Si l'année n'est pas bissextile et démarre
+            // un samedi, alors il y aura un total de 105 jours de weekend
+            case SATURDAY:
+            	if (d.isLeapYear()) {
+            		nbJoursWeekend = nbJoursWeekend + 2;
+            	} else {
+            		nbJoursWeekend = nbJoursWeekend + 1;
+            	}
+            	break;
+            	
+        	// Si l'année commence par un dimanche, qu'elle soit bissextile ou non (qu'elle finisse un dimanche ou
+            // un lundi) elle comptera 105 jours de weekend
+            case SUNDAY:
+            	nbJoursWeekend =  nbJoursWeekend + 1; 
+            	break;
+			default:
+				nbJoursWeekend = 104;
+	        }
+        
+        int nbJoursFeries = (int) Entreprise.joursFeries(d).stream().filter(
+        		localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()
+        		).count();
+        int nbRtt = (int) Math.floor((nbJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbJoursWeekend - Entreprise.NB_CONGES_BASE - nbJoursFeries) * tempsPartiel);
+        
+        return nbRtt;
     }
 
     /**
@@ -105,15 +144,18 @@ public class Employe {
         return prime * this.tempsPartiel;
     }
 
-    //Augmenter salaire
+    // Augmenter salaire
     
     public void augmenterSalaire(double pourcentage) {
-        if (pourcentage < 0) {
-            pourcentage = 0;
-        } 
-        Double newSalaire = this.salaire + this.salaire * pourcentage;
-        this.salaire = newSalaire;
+    	   	
+    	if (pourcentage <= -1.0 || salaire <= 0.0) {
+    		salaire = 0.0;
+        } else {
+        	Double newSalaire = salaire * (1 + pourcentage);
+        	salaire = newSalaire;
+        }
     }
+  
 
     public Long getId() {
         return id;
