@@ -42,7 +42,7 @@ public class employeRepositoryTest {
     public void testFindLatMatricule() {
     	//Given
     	Employe e1 = employeRepository.save(new Employe("doe","john","M99999", LocalDate.now(), 1500d, 1, 1.0));
-    	Employe e2 = employeRepository.save(new Employe("doe","john","T11111", LocalDate.now(), 1600d, 1, 1.1));
+    	Employe e2 = employeRepository.save(new Employe("smith","johnny","T11111", LocalDate.now(), 1600d, 1, 1.1));
     	
     	//When
     	String lastMatricule = employeRepository.findLastMatricule();
