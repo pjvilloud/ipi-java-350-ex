@@ -2,8 +2,6 @@ package com.ipiecoles.java.java350.service;
 
 import java.time.LocalDate;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
