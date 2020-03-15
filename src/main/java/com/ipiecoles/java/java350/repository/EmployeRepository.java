@@ -1,9 +1,10 @@
 package com.ipiecoles.java.java350.repository;
 
-import com.ipiecoles.java.java350.model.Employe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import com.ipiecoles.java.java350.model.Employe;
 
 @Repository
 public interface EmployeRepository extends JpaRepository<Employe, Long> {
@@ -12,6 +13,6 @@ public interface EmployeRepository extends JpaRepository<Employe, Long> {
 
     Employe findByMatricule(String matricule);
 
-    @Query("select avg(performance) from Employe where SUBSTRING(matricule,0,1) = ?1 ")
+    @Query("select avg(performance) from Employe where SUBSTRING(matricule,0,1) = ?1 ") // ?1 = :premiereLettreMatricule
     Double avgPerformanceWhereMatriculeStartsWith(String premiereLettreMatricule);
 }
