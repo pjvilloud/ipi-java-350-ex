@@ -9,6 +9,12 @@ import java.time.LocalDate;
 
 public class EmployeTest {
 
+	
+	@Test
+	public void testAugmenterSalaire() {
+		
+	}
+	
     //Employé dateEmbauche avec date 2 ans avant aujourd'hui =>
     //2 années d'ancienneté
     @Test
