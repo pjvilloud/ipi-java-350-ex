@@ -105,9 +105,8 @@ public class Employe {
         int nbJoursFeries = (int) Entreprise.joursFeries(d).stream().filter(
         		localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()
         		).count();
-        int nbRtt = (int) Math.floor((nbJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbJoursWeekend - Entreprise.NB_CONGES_BASE - nbJoursFeries) * tempsPartiel);
+        return (int) Math.floor((nbJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbJoursWeekend - Entreprise.NB_CONGES_BASE - nbJoursFeries) * tempsPartiel);
         
-        return nbRtt;
     }
 
     /**
