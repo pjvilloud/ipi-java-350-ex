@@ -253,7 +253,7 @@ public class EmployeServiceTest {
 							
 	}
 	
-	@Test
+	/*@Test
 	public void testCalculPerformanceCommercialMoins5() throws EmployeException {
 		//Given
 		Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 3000d, 4, 1.0);
@@ -275,7 +275,7 @@ public class EmployeServiceTest {
 		Assertions.assertThat(employeArgumentCaptor.getValue().getMatricule()).isEqualTo("C00001");
 		Assertions.assertThat(employeArgumentCaptor.getValue().getPerformance()).isEqualTo(1);
 							
-	}
+	}*/
 	
 	@Test
 	public void testCalculPerformanceCommercialPlus5() throws EmployeException {
