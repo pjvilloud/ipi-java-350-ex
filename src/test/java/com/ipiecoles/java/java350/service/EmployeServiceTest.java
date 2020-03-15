@@ -78,8 +78,8 @@ public class EmployeServiceTest {
 		
 		//example with lambda notation (does the same thing)
 		//when/then Assertj
-		Assertions.assertThatThrownBy(() ->	{employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);})
-		.isInstanceOf(EmployeException.class).hasMessage("Limite des 100000 matricules atteinte !");
+//		Assertions.assertThatThrownBy(() ->	{employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);})
+//		.isInstanceOf(EmployeException.class).hasMessage("Limite des 100000 matricules atteinte !");
 		
 		
 		//When
@@ -91,5 +91,192 @@ public class EmployeServiceTest {
 			Assertions.assertThat(e).isInstanceOf(EmployeException.class);
 			Assertions.assertThat(e.getMessage()).isEqualTo("Limite des 100000 matricules atteinte !");
 		}
+	}
+	
+/* ------------------------  	Tester sans dépendance à la BDD la méthode calculPerformanceCommercial d'EmployeService ------------------------ */	
+	
+	@Test
+	public void testCalculPerformanceCommercialAvgPerf() throws EmployeException {
+		
+//		Si la performance calculée est supérieure à la moyenne des performances des commerciaux, le commercial reçoit + 1 de performance.
+		
+		//Given
+		String matricule = "C01234";
+		Long caTraite = 100l;
+		Long objectifCa = 100l;
+		Integer performance = 3;
+		
+		Employe myEmploye = new Employe();
+		myEmploye.setMatricule(matricule);
+		myEmploye.setPerformance(performance);
+		
+		Mockito.when(employeRepository.findByMatricule("C01234")).thenReturn(myEmploye);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(1d);
+		
+		
+		//When
+		employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+		
+		//then
+		ArgumentCaptor<Employe> myEmployeCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository, Mockito.times(1)).save(myEmployeCaptor.capture());
+        Employe employe = myEmployeCaptor.getValue();
+//		Performance initial 3, performance moyenne 1 donc le commercial reçoit +1 => 4  
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(4); 	
+	}
+	
+	
+	@Test
+	public void testCalculPerformanceCommercialInf20p() throws EmployeException {
+		
+//		1 : Si le chiffre d'affaire est inférieur de plus de 20% à l'objectif fixé, le commercial retombe à la performance de base => 1
+		
+		//Given
+		String matricule = "C01234";
+		Long caTraite = 15l;
+		Long objectifCa = 100l;
+		Integer performance = 3;
+		
+		Employe myEmploye = new Employe();
+		myEmploye.setMatricule(matricule);
+		myEmploye.setPerformance(performance);
+		
+		Mockito.when(employeRepository.findByMatricule("C01234")).thenReturn(myEmploye);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(5d);
+		
+		
+		//When
+		employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+		
+		//then
+		ArgumentCaptor<Employe> myEmployeCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository, Mockito.times(1)).save(myEmployeCaptor.capture());
+        Employe employe = myEmployeCaptor.getValue();
+//		Performance initial 3 mais le commercial retombe à la performance de base => 1  
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(1); 	
+	}
+	
+	
+	@Test
+	public void testCalculPerformanceCommercialInf20a5p() throws EmployeException {
+		
+//		2 : Si le chiffre d'affaire est inférieur entre 20% et 5% par rapport à l'ojectif fixé, il perd 2 de performance (dans la limite de la performance de base)
+		
+		//Given
+		String matricule = "C01234";
+		Long caTraite = 85l;
+		Long objectifCa = 100l;
+		Integer performance = 5;
+		
+		Employe myEmploye = new Employe();
+		myEmploye.setMatricule(matricule);
+		myEmploye.setPerformance(performance);
+		
+		Mockito.when(employeRepository.findByMatricule("C01234")).thenReturn(myEmploye);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(6d);
+		
+		
+		//When
+		employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+		
+		//then
+		ArgumentCaptor<Employe> myEmployeCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository, Mockito.times(1)).save(myEmployeCaptor.capture());
+        Employe employe = myEmployeCaptor.getValue();
+//		Performance initial 5 mais le commercial perd 2 de performance => 3  
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(3); 	
+	}
+	
+	
+	@Test
+	public void testCalculPerformanceCommercial() throws EmployeException {
+		
+//		3 : Si le chiffre d'affaire est entre -5% et +5% de l'objectif fixé, la performance reste la même.
+		
+		//Given
+		String matricule = "C01234";
+		Long caTraite = 100l;
+		Long objectifCa = 100l;
+		Integer performance = 1;
+		
+		Employe myEmploye = new Employe();
+		myEmploye.setMatricule(matricule);
+		myEmploye.setPerformance(performance);
+		
+		Mockito.when(employeRepository.findByMatricule("C01234")).thenReturn(myEmploye);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(5d);
+		
+		
+		//When
+		employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+		
+		//then
+		ArgumentCaptor<Employe> myEmployeCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository, Mockito.times(1)).save(myEmployeCaptor.capture());
+        Employe employe = myEmployeCaptor.getValue();
+//		Performance initial 1 mais la performance reste la même => 1  
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(1); 	
+	}
+	
+	
+	@Test
+	public void testCalculPerformanceCommercialSup5a20p() throws EmployeException {
+		
+//		4 : Si le chiffre d'affaire est supérieur entre 5 et 20%, il gagne 1 de performance
+		
+		//Given
+		String matricule = "C01234";
+		Long caTraite = 110l;
+		Long objectifCa = 100l;
+		Integer performance = 1;
+		
+		Employe myEmploye = new Employe();
+		myEmploye.setMatricule(matricule);
+		myEmploye.setPerformance(performance);
+		
+		Mockito.when(employeRepository.findByMatricule("C01234")).thenReturn(myEmploye);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(5d);
+		
+		
+		//When
+		employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+		
+		//then
+		ArgumentCaptor<Employe> myEmployeCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository, Mockito.times(1)).save(myEmployeCaptor.capture());
+        Employe employe = myEmployeCaptor.getValue();
+//		Performance initial 1 mais il gagne 1 de performance => 2  
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(2); 	
+	}
+	
+	
+	@Test
+	public void testCalculPerformanceCommercialSup20p() throws EmployeException {
+		
+//		5 : Si le chiffre d'affaire est supérieur de plus de 20%, il gagne 4 de performance
+		
+		//Given
+		String matricule = "C01234";
+		Long caTraite = 140l;
+		Long objectifCa = 100l;
+		Integer performance = 1;
+		
+		Employe myEmploye = new Employe();
+		myEmploye.setMatricule(matricule);
+		myEmploye.setPerformance(performance);
+		
+		Mockito.when(employeRepository.findByMatricule("C01234")).thenReturn(myEmploye);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(5d);
+		
+		
+		//When
+		employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+		
+		//then
+		ArgumentCaptor<Employe> myEmployeCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository, Mockito.times(1)).save(myEmployeCaptor.capture());
+        Employe employe = myEmployeCaptor.getValue();
+//		Performance initial 1 mais il gagne 4 de performance => 5  
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(5); 	
 	}
 }
