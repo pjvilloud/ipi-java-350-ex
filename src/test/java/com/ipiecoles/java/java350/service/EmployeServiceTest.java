@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.EntityNotFoundException;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +14,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.model.Employe;
@@ -20,14 +25,34 @@ import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 
+//For mock test
 @ExtendWith(MockitoExtension.class)
-public class EmployeServiceTest {
 
+// For integrated test
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+public class EmployeServiceTest {
+	
+	// For integrated test
+	@Autowired
+	private EmployeRepository empRepo;
+	
+	@Autowired
+	private EmployeService empService;
+	
+	@BeforeEach
+    @AfterEach
+    public void setup() {
+    	empRepo.deleteAll();
+    }
+	
+	// For mock test
 	@InjectMocks
 	private EmployeService employeService;
 	
 	@Mock
 	private EmployeRepository employeRepository;
+	
 	
 	@Test
 	public void testEmbaucheEmploye() throws EmployeException {
@@ -279,4 +304,28 @@ public class EmployeServiceTest {
 //		Performance initial 1 mais il gagne 4 de performance => 5  
         Assertions.assertThat(employe.getPerformance()).isEqualTo(5); 	
 	}
+	
+
+/* ------------------------  	Tester de manière intégrée une cas nominal de la méthode calculPerformanceCommercial d'EmployeService ------------------------ */
+	
+	@Test
+    public void testCalculCommercialPerformance() throws EmployeException {
+    	//Given
+		
+		String matricule = "C01234";
+		Long caTraite = 140l;
+		Long objectifCa = 100l;
+		Integer performance = 3;
+		
+		Employe myEmploye = empRepo.save(new Employe("doe","john", matricule, LocalDate.now(), 1500d, performance, 1.0));
+		Employe e1 = empRepo.save(new Employe("Smith","john","C01111", LocalDate.now(), 1600d, 1, 1.1));
+		Employe e2 = empRepo.save(new Employe("Park","john","C11112", LocalDate.now(), 1600d, 2, 1.1));
+		//When
+		empService.calculPerformanceCommercial(matricule, caTraite, objectifCa);    	
+		
+        //Then
+		Employe emp = empRepo.findByMatricule(matricule);
+//		Performance initial 3. Chiffre d'affaire est supérieur de plus de 20%, donc + 4 de performance. Enfin la moyenne de perf est de (3+1+2)/3 = 2 donc +1. Nouvelle performance => 8 
+		Assertions.assertThat(emp.getPerformance()).isEqualTo(8);
+    }
 }
