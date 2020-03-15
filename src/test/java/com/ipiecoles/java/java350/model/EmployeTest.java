@@ -1,8 +1,10 @@
 package com.ipiecoles.java.java350.model;
 
 import java.time.LocalDate;
+import static org.junit.jupiter.api.Assertions.assertThrows;  //jUnit 5
 
-import org.assertj.core.api.Assertions;
+import org.apache.commons.lang.ObjectUtils.Null;
+import org.assertj.core.api.Assertions; //AsserJ
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -103,14 +105,15 @@ public class EmployeTest {
 		@ParameterizedTest
 		@CsvSource({
 			// Au moins 9 cas, scénarios à gérer, à tester
-			//Matricule, performance, dateEmbauche, tempsPartiel, prime
+			
+			//Performance, Matricule, dateEmbauche, tempPartiel, prime
 			"1, 'T12345', 0, 1.0, 1000.0",
 			"1, 'T12345', 0, 0.5, 500.0",
 		    "1, 'M12345', 0, 1.0, 1700.0",
 		    "2, 'T12345', 0, 1.0, 2300.0",
 		    
+		    //Matricule, performance, dateEmbauche, tempsPartiel, prime
 		    //"'M12345', 2, 0, 0.5, 0",
-		    
 		    //"'M12345', 2, 2, 1.0, ",
 		    //"'M12345', 2, 2, 0.5, ",
 		    
@@ -119,19 +122,22 @@ public class EmployeTest {
 		        
 		})
 		public void testPrimeAnnuelle(Integer performance, String Matricule, Integer NombreAnneeAnciennete, Double tempsPartiel, Double prime) {
-		    //Given, When, Then
+		    //3 parties pour faire les Tests : Given, When, Then
 			
 			//Given, 
-			Employe employe = new Employe();
+			Employe employe = new Employe();    //Copie de la classe vide : objet vide
+			
+			//Propriété de l'objet Employé
+			//setter pour mettre à jour les != propriétés de l'objet
 			employe.setMatricule(Matricule);
 			employe.setDateEmbauche(LocalDate.now().minusYears(NombreAnneeAnciennete));
 			employe.setPerformance(performance);
 			employe.setTempsPartiel(tempsPartiel);
 			
-			//When, 
+			//When, Ce que je compare dans le test
 			Double primeCalculee = employe.getPrimeAnnuelle();
 			
-			//Then
+			//Then, Faire la comparaison 
 			Assertions.assertThat(primeCalculee).isEqualTo(prime);
 			
 			
@@ -164,6 +170,55 @@ public class EmployeTest {
         //}
         //Au pro rata du temps partiel.
         //return prime * this.tempsPartiel;
+		
+		
+		
+		
+		
+		
+
+		// le pour ne doit pas etre null
+		// por doit etre +
+		// tout est ok
+		
+		
+		@Test
+		public void le_pourcentage_ne_doit_pas_etre_nul() {
+
+			Employe employe = new Employe();
+			employe.setSalaire(2000.0);
+			
+			assertThrows(NullPointerException.class, () -> employe.augmenteSalaire(null));
+
+		}
+		
+		
+		
+		@Test
+		public void le_pourcentage_ne_doit_pas_etre_negative() {
+
+			Employe employe = new Employe();
+			employe.setSalaire(2000.0);
+			
+			assertThrows(IllegalArgumentException.class, () -> employe.augmenteSalaire(-5.0));
+
+		}
+		
+		
+		@Test
+		public void le_pourcentage_positif_et_non_null() {
+
+			Employe employe = new Employe();
+			employe.setSalaire(2000.0);
+			
+			employe.augmenteSalaire(10.0);
+			
+			Assertions.assertThat(employe.getSalaire()).isEqualTo(2200);
+
+		}
+		
+		/*La f° augmenteSalaire est mieux délimitée avec les tests TDD car on évite ainsi d'oublier des cas extrêmes possibles 
+		en écrivant ces tests et en adaptant la fonction augmenteSalaire à chacun des tests. */
 		
 		
 	

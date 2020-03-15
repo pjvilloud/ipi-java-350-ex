@@ -62,7 +62,8 @@ public class Employe {
     public Integer getNbRtt(LocalDate d){
         int i1 = d.isLeapYear() ? 365 : 366;
         int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
+        //switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
+        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
             case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
             case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
             case SATURDAY: var = var + 1; break;
@@ -220,4 +221,15 @@ public class Employe {
     public int hashCode() {
         return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
     }
+
+	public void augmenteSalaire(Double pourcentage) {
+		
+	if(pourcentage == null) throw new NullPointerException();
+	
+	if(pourcentage < 0 )  throw new IllegalArgumentException();
+	
+	salaire = salaire + (salaire * (pourcentage / 100));
+
+		
+	}
 }
