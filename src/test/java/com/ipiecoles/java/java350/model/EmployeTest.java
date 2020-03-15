@@ -97,13 +97,52 @@ public class EmployeTest {
 	public void testAugmenterSalaire() {
 		//Given
 		Employe employe = new Employe();
-		employe.setSalaire(0.0);
+		employe.setSalaire(Entreprise.SALAIRE_BASE);
 		
 		//When
-		employe.augmenterSalaire(2.0);
+		employe.augmenterSalaire(0.5);
 		
 		//Then
-		Assertions.assertThat(employe.getSalaire()).isEqualTo(1.0);
+		Assertions.assertThat(employe.getSalaire()).isEqualTo(2281.83);
+	}
+	
+	@Test
+	public void testAugmenterSalaireNull() {
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(null);
+		
+		//When
+		employe.augmenterSalaire(1.0);
+		
+		//Then
+		Assertions.assertThat(employe.getSalaire()).isEqualTo(null);
+	}
+	
+	@Test
+	public void testAugmenterSalairePoucentagePositif() {
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(Entreprise.SALAIRE_BASE);
+		
+		//When
+		employe.augmenterSalaire(1.0);
+		
+		//Then
+		Assertions.assertThat(employe.getSalaire()).isEqualTo(3042.44);
+	}
+	
+	@Test
+	public void testAugmenterSalairePourcentageNull() {
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(Entreprise.SALAIRE_BASE);
+		
+		//When
+		employe.augmenterSalaire(0.0);
+		
+		//Then
+		Assertions.assertThat(employe.getSalaire()).isEqualTo(1521.22);
 	}
 	
 }

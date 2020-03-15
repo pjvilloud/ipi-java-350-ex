@@ -154,7 +154,7 @@ public class EmployeServiceTest {
 	@Test
 	public void testCalculPerformanceCommercial() throws EmployeException {
 		//Given
-		Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 3000d, 1, 1.0);
+		Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 3000d, 4, 1.0);
 		
 		String matricule = "C00001";
 		Long caTraite = 30000l;
@@ -217,7 +217,7 @@ public class EmployeServiceTest {
 	@Test
 	public void testCalculPerformanceCommercialMatriculeNull() throws EmployeException {
 		//Given
-		Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 3000d, 1, 1.0);
+		Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 3000d, 4, 1.0);
 		String matricule = "C00001";
 		Long caTraite = 30000l;
 		Long objectigCa = 40000l;
@@ -256,7 +256,7 @@ public class EmployeServiceTest {
 	@Test
 	public void testCalculPerformanceCommercialMoins5() throws EmployeException {
 		//Given
-		Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 3000d, 3, 1.0);
+		Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 3000d, 4, 1.0);
 		
 		String matricule = "C00001";
 		Long caTraite = 39000l;
@@ -273,14 +273,14 @@ public class EmployeServiceTest {
 		
 		Mockito.verify(employeRepository, Mockito.times(1)).save(employeArgumentCaptor.capture());
 		Assertions.assertThat(employeArgumentCaptor.getValue().getMatricule()).isEqualTo("C00001");
-		Assertions.assertThat(employeArgumentCaptor.getValue().getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
+		Assertions.assertThat(employeArgumentCaptor.getValue().getPerformance()).isEqualTo(1);
 							
 	}
 	
 	@Test
 	public void testCalculPerformanceCommercialPlus5() throws EmployeException {
 		//Given
-		Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 3000d, 3, 1.0);
+		Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 3000d, 4, 1.0);
 		
 		String matricule = "C00001";
 		Long caTraite = 44000l;
@@ -297,14 +297,14 @@ public class EmployeServiceTest {
 		
 		Mockito.verify(employeRepository, Mockito.times(1)).save(employeArgumentCaptor.capture());
 		Assertions.assertThat(employeArgumentCaptor.getValue().getMatricule()).isEqualTo("C00001");
-		Assertions.assertThat(employeArgumentCaptor.getValue().getPerformance()).isEqualTo(5);
+		Assertions.assertThat(employeArgumentCaptor.getValue().getPerformance()).isEqualTo(6);
 							
 	}
 	
 	@Test
 	public void testCalculPerformanceCommercialPlus20() throws EmployeException {
 		//Given
-		Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 3000d, 3, 1.0);
+		Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 3000d, 4, 1.0);
 		
 		String matricule = "C00001";
 		Long caTraite = 60000l;
@@ -321,7 +321,7 @@ public class EmployeServiceTest {
 		
 		Mockito.verify(employeRepository, Mockito.times(1)).save(employeArgumentCaptor.capture());
 		Assertions.assertThat(employeArgumentCaptor.getValue().getMatricule()).isEqualTo("C00001");
-		Assertions.assertThat(employeArgumentCaptor.getValue().getPerformance()).isEqualTo(8);
+		Assertions.assertThat(employeArgumentCaptor.getValue().getPerformance()).isEqualTo(9);
 							
 	}
 
