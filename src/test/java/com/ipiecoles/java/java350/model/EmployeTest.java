@@ -9,11 +9,51 @@ import java.time.LocalDate;
 
 public class EmployeTest {
 
-	
+	//Salaire 1000, augmentation 10% => 1100:
 	@Test
 	public void testAugmenterSalaire() {
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(1000d);
+		employe.augmenterSalaire(10d);
 		
+		//When
+		Double salaire = employe.getSalaire();
+		
+		//Then
+		Assertions.assertThat(salaire).isEqualTo(1100d);
 	}
+	
+	//Salaire indéfini => null
+	@Test
+	public void testAugmenterSalaireNull() {
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(null);
+		employe.augmenterSalaire(10d);
+		
+		//When
+		Double salaire = employe.getSalaire();
+		
+		//Then
+		Assertions.assertThat(salaire).isEqualTo(null);
+	}
+	
+	//Augmenter salaire % negatif => salaire reste le même	
+	@Test
+	public void testAugmenterSalairePourcentageNegatif() {
+		//Given
+		Employe employe = new Employe();
+		employe.setSalaire(1000d);
+		employe.augmenterSalaire(-10d);
+		
+		//When
+		Double salaire = employe.getSalaire();
+		
+		//Then
+		Assertions.assertThat(salaire).isEqualTo(1000d);
+	}
+	
 	
     //Employé dateEmbauche avec date 2 ans avant aujourd'hui =>
     //2 années d'ancienneté
