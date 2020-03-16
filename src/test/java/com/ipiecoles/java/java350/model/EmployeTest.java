@@ -10,10 +10,6 @@ import java.time.LocalDate;
 
 public class EmployeTest {
 
-    //Tests unitaires classiques -----> ANNEE ANCIENNETE
-
-    //Employé dateEmbauche avec date 2 ans avant aujourd'hui =>
-    //2 années d'ancienneté
     @Test
     @DisplayName("Test getNombreAnneeAnciennete a N-2")
     public void testAncienneteDateEmbaucheNmoins2() {
@@ -128,11 +124,9 @@ public class EmployeTest {
         employe.setSalaire(1000.0);
 
         //When
-        //Integer nbAnnees = employe.getNombreAnneeAnciennete();
         Double nouveauSalaire = employe.augmenterSalaire(3.0);
-        //Double pourcentage=-0.5;
         //Then
-        //Assertions.assertThat(nbAnnees).isEqualTo(2);
+
         Assertions.assertThat(nouveauSalaire).isEqualTo(4000.0);
     }
 
