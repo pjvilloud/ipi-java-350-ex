@@ -43,6 +43,7 @@ public class Employe {
         this.tempsPartiel = tempsPartiel;
     }
 
+
     /**
      * Retourne le nombre d'année d'ancienneté de l'employé par rapport à sa date d'embauche (on ne prend pas en compte
      * les mois et les jours. Il faut en revanche que la d'embauche soit non nulle et l'année antérieure à l'année courante
@@ -50,8 +51,13 @@ public class Employe {
      *
      * @return le nombre d'année d'ancienneté
      */
-    public final Integer getNombreAnneeAnciennete() {
-        return dateEmbauche != null && LocalDate.now().getYear() >= dateEmbauche.getYear() ? LocalDate.now().getYear() - dateEmbauche.getYear() : 0;
+
+    public Integer getNombreAnneeAnciennete() {
+        if(dateEmbauche != null && dateEmbauche.isBefore(LocalDate.now())){
+            return LocalDate.now().getYear() - dateEmbauche.getYear();
+        }
+        return 0;
+
     }
 
     public Integer getNbConges() {
@@ -98,6 +104,7 @@ public class Employe {
      *
      * @return la prime annuelle de l'employé en Euros et cents
      */
+    //Matricule, performance, date d'embauche, temps partiel, prime
     public Double getPrimeAnnuelle(){
         //Calcule de la prime d'ancienneté
         Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
