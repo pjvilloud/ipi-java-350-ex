@@ -72,6 +72,7 @@ public class Employe {
 				var = var + 2;
 			else
 				var = var + 1;
+			break;
 		case SATURDAY:
 			var = var + 1;
 			break;
@@ -122,7 +123,12 @@ public class Employe {
 		return prime * this.tempsPartiel;
 	}
 
-	// public void augmenterSalaire(double pourcentage){}
+	// Augmenter salaire
+	public void augmenterSalaire(double pourcentage) {
+		if (pourcentage >= 0 && pourcentage <= 1) {
+			this.salaire = this.getSalaire() + this.getSalaire() * pourcentage;
+		}
+	}
 
 	public Long getId() {
 		return id;
@@ -235,4 +241,5 @@ public class Employe {
 	public int hashCode() {
 		return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
 	}
+
 }
