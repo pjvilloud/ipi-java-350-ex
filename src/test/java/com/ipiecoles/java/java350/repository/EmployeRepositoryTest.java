@@ -124,4 +124,18 @@ public class EmployeRepositoryTest {
 		Assertions.assertThat(empPerformanceAfterCalcule).isEqualTo(4);
 
 	}
+
+	@Test
+	public void testEqualObjet() {
+		// Given
+		Employe empsaved = employeRepository
+				.save(new Employe("emp6", "Commerçant", "C88888", LocalDate.now().minusMonths(8), 2500.00, 3, 1.00));
+
+		// When
+		Employe emp = employeRepository.findByMatricule("C88888");
+		boolean result = empsaved.equals(emp);
+
+		// Thentrue
+		Assertions.assertThat(result).isEqualTo(true);
+	}
 }
