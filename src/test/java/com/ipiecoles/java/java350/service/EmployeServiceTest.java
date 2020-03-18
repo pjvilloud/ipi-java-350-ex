@@ -83,19 +83,6 @@ public class EmployeServiceTest {
 		// findLastMatrcule => 00345 /null
 		Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
 
-		// When
-		try {
-			employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
-			Assertions.fail("Aurait du planter");// if the exception is not execute this message tell as that the test
-													// is not executed alors que ca dervait être executé
-		} catch (Exception ex) {
-			// Then verification du lancement de l'exeption
-			Assertions.assertThat(ex).isInstanceOf(EmployeException.class); // verify que la classe d'exption est bien
-																			// celle donnée
-			Assertions.assertThat(ex.getMessage()).isEqualTo("Limite des 100000 matricules atteinte !");
-		}
-
-		// la version simplifiée de try catch exception
 		Assertions.assertThatThrownBy(() -> {
 			employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
 		}).isInstanceOf(EmployeException.class).hasMessage("Limite des 100000 matricules atteinte !");

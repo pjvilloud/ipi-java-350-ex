@@ -138,7 +138,7 @@ public class EmployeTest {
 	}
 
 	@ParameterizedTest(name = "Rtt année{0}")
-	@CsvSource({ "2019,11", "2020,10", "2021,11", "2022,10", "2032,12" })
+	@CsvSource({ "2019,11", "2020,10", "2021,11", "2022,10", "2023,8", "2028,8", "2032,12", "2044,11" })
 	public void testgetNbRtt(Integer annee, Integer nbRtt) throws EmployeException {
 		// Given
 		Employe employe = new Employe();

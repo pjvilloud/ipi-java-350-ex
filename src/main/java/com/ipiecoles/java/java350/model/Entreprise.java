@@ -1,7 +1,11 @@
 package com.ipiecoles.java.java350.model;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class Entreprise {
 	public static final Double SALAIRE_BASE = 1521.22;
@@ -51,6 +55,7 @@ public final class Entreprise {
 		datePaque.put(2038, LocalDate.of(2038, 4, 25));
 		datePaque.put(2039, LocalDate.of(2039, 4, 10));
 		datePaque.put(2040, LocalDate.of(2040, 4, 1));
+		datePaque.put(2044, LocalDate.of(2040, 4, 17));
 	}
 
 	public static final String MATRICULE_INITIAL = "00000";
