@@ -8,7 +8,6 @@ import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
@@ -30,8 +29,7 @@ public class EmployeService {
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
-
-
+        
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0, 1);
 
