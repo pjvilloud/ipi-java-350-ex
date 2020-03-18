@@ -221,8 +221,116 @@ public class EmployeTest {
 		en écrivant ces tests et en adaptant la fonction augmenteSalaire à chacun des tests. */
 		
 		
+		
+		//2021 : l'année est non bissextile, a débuté un vendredi et il y a 7 jours fériés ne tombant pas le week-end.
+		//2022 : l'année est non bissextile, a débuté un samedi et il y a 7 jours fériés ne tombant pas le week-end.
+		//2032 : l'année est bissextile, a débuté un jeudi et il y a 7 jours fériés ne tombant pas le week-end.
+		
+		
+		//2019 : l'année est non bissextile, a débuté un mardi et il y a 10 jours fériés ne tombant pas le week-end.
+		@Test
+		public void nombre_jour_ferries_sans_week_end_est_non_bissextile_débutant_un_mardi() {
+
+			Employe employe = new Employe();
+			
+			
+			int nombreJourFeriesSansWeekEnd =  employe.getNombreJourFerierSansWeekend(LocalDate.of(2019, 1, 1));
+			
+			Assertions.assertThat(nombreJourFeriesSansWeekEnd).isEqualTo(10);
+
+		}
+		
+		//2021 : l'année est non bissextile, a débuté un vendredi et il y a 7 jours fériés ne tombant pas le week-end.
+		@Test
+		public void nombre_jour_ferries_sans_week_end_est_non_bissextile_débutant_un_vendredi() {
+
+			Employe employe = new Employe();
+			
+			int nombreJourFeriesSansWeekEnd =  employe.getNombreJourFerierSansWeekend(LocalDate.of(2021, 1, 1));
+			
+			Assertions.assertThat(nombreJourFeriesSansWeekEnd).isEqualTo(7);
+
+		}
+		
+		
+		//2022 : l'année est non bissextile, a débuté un samedi et il y a 7 jours fériés ne tombant pas le week-end.
+		@Test
+		public void nombre_jour_ferries_sans_week_end_est_non_bissextile_débutant_un_samedi() {
+
+			Employe employe = new Employe();
+			
+			int nombreJourFeriesSansWeekEnd =  employe.getNombreJourFerierSansWeekend(LocalDate.of(2022, 1, 1));
+			
+			Assertions.assertThat(nombreJourFeriesSansWeekEnd).isEqualTo(7);
+
+		}
+		
+		
+		//2032 : l'année est bissextile, a débuté un jeudi et il y a 7 jours fériés ne tombant pas le week-end.
+		@Test
+		public void nombre_jour_ferries_sans_week_end_est_bissextile_débutant_un_jeudi() {
+
+			Employe employe = new Employe();
+			
+			int nombreJourFeriesSansWeekEnd =  employe.getNombreJourFerierSansWeekend(LocalDate.of(2032, 1, 1));
+			
+			Assertions.assertThat(nombreJourFeriesSansWeekEnd).isEqualTo(7);
+
+		}
+		
+		//2020 : tester le nombre samedi dimanche
+		
+		@Test
+		public void le_nombre_samedi_dimanche_2020() {
+
+			Employe employe = new Employe();
+			
+			int nombreJourSamediDimanche =  employe.getNombreSamediDimanche(LocalDate.of(2020, 1, 1));
+			
+			Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
+
+		}
+		
+		
+	//2021 : tester le nombre samedi dimanche
+		
+		@Test
+		public void le_nombre_samedi_dimanche_2021() {
+
+			Employe employe = new Employe();
+			
+			int nombreJourSamediDimanche =  employe.getNombreSamediDimanche(LocalDate.of(2021, 1, 1));
+			
+			Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
+
+		}
 	
-	
+		
+	//2019 : tester le nombre samedi dimanche
+		
+		@Test
+		public void le_nombre_samedi_dimanche_2019() {
+
+			Employe employe = new Employe();
+			
+			int nombreJourSamediDimanche =  employe.getNombreSamediDimanche(LocalDate.of(2019, 1, 1));
+			
+			Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
+
+		}
+		
+		
+		//2018 : tester le nombre samedi dimanche
+		@Test
+		public void le_nombre_samedi_dimanche_2018() {
+
+			Employe employe = new Employe();
+			
+			int nombreJourSamediDimanche =  employe.getNombreSamediDimanche(LocalDate.of(2018, 1, 1));
+			
+			Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(104);
+
+		}
 }
 
 

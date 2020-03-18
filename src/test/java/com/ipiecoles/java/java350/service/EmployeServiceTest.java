@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.time.LocalDate;
 
 import org.assertj.core.api.Assertions;
@@ -143,8 +145,205 @@ public class EmployeServiceTest {
 		}
 
 	}
+	
+	
+	//tester que CaTraite nest pas null et n'est negative
+	
+	@Test
+	public void testCaTraiteNonNullEtPositif() throws EmployeException {
 
+		
+	
+		assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("abcd", null, 100l));
 
+	}
+	
+	@Test
+	public void testCaTraitePositif() throws EmployeException {
+		
+	
+		assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("abcd", -100l, 100l));
+
+	}
+	
+
+	//tester que CaObjectif nest pas null et n'est negative
+
+	@Test
+	public void testCaObjectifNonNullEtPositif() throws EmployeException {
+
+		
+	
+		assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("abcd", 300l, null));
+
+	}
+	
+	@Test
+	public void testCaObjectifPositif() throws EmployeException {
+		
+	
+		assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("abcd", 100l, -100l));
+
+	}
+	
+
+	//tester que matricule soit non null et première lettre matricule soit C
+	@Test
+	public void test_matricule_doit_commencer_par_C() throws EmployeException {
+		
+	
+		assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("M1200", 100l, 100l));
+
+	}
+	
+	@Test
+	public void test_matricule_doit_etre_non_null() throws EmployeException {
+		
+	
+		assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(null, 100l, 100l));
+
+	}
+	
+	
+	
+	@Test
+	public void test_employer_existe() throws EmployeException {
+		
+		Mockito.when(employeRepository.findByMatricule("C00346")).thenReturn(null);
+
+		assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("C00346", 100l, 100l));
+
+	}
+	
+	
+	/*
+    * 1 : Si le chiffre d'affaire est inférieur de plus de 20% à l'objectif fixé, le commercial retombe à la performance de base
+    * 2 : Si le chiffre d'affaire est inférieur entre 20% et 5% par rapport à l'ojectif fixé, il perd 2 de performance (dans la limite de la performance de base)
+    * 3 : Si le chiffre d'affaire est entre -5% et +5% de l'objectif fixé, la performance reste la même.
+    * 4 : Si le chiffre d'affaire est supérieur entre 5 et 20%, il gagne 1 de performance
+    * 5 : Si le chiffre d'affaire est supérieur de plus de 20%, il gagne 4 de performance
+    *
+    * 6 : Si la performance ainsi calculée est supérieure à la moyenne des performances des commerciaux, il reçoit + 1 de performance.
+	*/
+	
+	
+	
+
+	// * 1 : Si le chiffre d'affaire est inférieur de plus de 20% à l'objectif fixé, le commercial retombe à la performance de base
+	@Test
+	public void test_Performance_cas_1() throws EmployeException {
+		
+		Employe employe = new Employe();
+		employe.setMatricule("C00346");
+		employe.setPerformance(2);
+
+		Mockito.when(employeRepository.findByMatricule("C00346")).thenReturn(employe);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(3d);
+		
+		employeService.calculPerformanceCommercial("C00346", 15l, 100l);
+		
+		Assertions.assertThat(employe.getPerformance()).isEqualTo(1);
+		
+	}
+	
+	// * 2 : Si le chiffre d'affaire est inférieur entre 20% et 5% par rapport à l'ojectif fixé, il perd 2 de performance (dans la limite de la performance de base)
+	@Test
+	public void test_Performance_cas_2() throws EmployeException {
+		
+		Employe employe = new Employe();
+		employe.setMatricule("C00346");
+		employe.setPerformance(2);
+
+		Mockito.when(employeRepository.findByMatricule("C00346")).thenReturn(employe);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(3d);
+		
+		employeService.calculPerformanceCommercial("C00346", 15l, 100l);
+		
+		Assertions.assertThat(employe.getPerformance()).isEqualTo(1);
+		
+	}
+	
+	
+	
+	// ca objetc 100
+	
+	// -5 % 100 =>95
+	
+	// +5% de 100% ==> 105
+	//  * 3 : Si le chiffre d'affaire est entre -5% et +5% de l'objectif fixé, la performance reste la même.
+	@Test
+	public void test_Performance_cas_3() throws EmployeException {
+		
+		Employe employe = new Employe();
+		employe.setMatricule("C00346");
+		employe.setPerformance(2);
+
+		Mockito.when(employeRepository.findByMatricule("C00346")).thenReturn(employe);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(3d);
+		
+		employeService.calculPerformanceCommercial("C00346", 98l, 100l);
+		
+		Assertions.assertThat(employe.getPerformance()).isEqualTo(2);
+		
+	}
+	
+	// ca 100
+	// +5 ==> 105
+	// +20 ==> 120
+	
+	// * 4 : Si le chiffre d'affaire est supérieur entre 5 et 20%, il gagne 1 de performance
+	@Test
+	public void test_Performance_cas_4() throws EmployeException {
+		
+		Employe employe = new Employe();
+		employe.setMatricule("C00346");
+		employe.setPerformance(2);
+
+		Mockito.when(employeRepository.findByMatricule("C00346")).thenReturn(employe);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(3d);
+		
+		employeService.calculPerformanceCommercial("C00346", 115l, 100l);
+		
+		Assertions.assertThat(employe.getPerformance()).isEqualTo(3);
+		
+	}
+	
+	
+	 // * 5 : Si le chiffre d'affaire est supérieur de plus de 20%, il gagne 4 de performance
+	@Test
+	public void test_Performance_cas_5() throws EmployeException {
+		
+		Employe employe = new Employe();
+		employe.setMatricule("C00346");
+		employe.setPerformance(2);
+
+		Mockito.when(employeRepository.findByMatricule("C00346")).thenReturn(employe);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(7d);
+		
+		employeService.calculPerformanceCommercial("C00346", 128l, 100l);
+		
+		Assertions.assertThat(employe.getPerformance()).isEqualTo(6);
+		
+	}
+	
+	//* 6 : Si la performance ainsi calculée est supérieure à la moyenne des performances des commerciaux, il reçoit + 1 de performance.
+	@Test
+	public void test_Performance_cas_6() throws EmployeException {
+		
+		Employe employe = new Employe();
+		employe.setMatricule("C00346");
+		employe.setPerformance(2);
+
+		Mockito.when(employeRepository.findByMatricule("C00346")).thenReturn(employe);
+		Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(2d);
+		
+		employeService.calculPerformanceCommercial("C00346", 128l, 100l);
+		
+		Assertions.assertThat(employe.getPerformance()).isEqualTo(7);
+		
+	}
+
+	
 }
 
 //      Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
