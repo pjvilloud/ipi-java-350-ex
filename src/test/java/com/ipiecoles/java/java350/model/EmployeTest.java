@@ -159,4 +159,15 @@ public class EmployeTest {
 		Assertions.assertThat(nbrtt).isEqualTo(nbRtt);
 	}
 
+	/*
+	 * Si la date est null, il faut que la méthode getNbRtt(date) lance une
+	 * exception
+	 */
+	@Test
+	public void calculeRttNullTest() {
+		Employe employe = new Employe();
+		Assertions.assertThatThrownBy(() -> {
+			employe.getNbRtt(null);
+		}).isInstanceOf(EmployeException.class).hasMessage("La Date ne peut pas être null");
+	}
 }

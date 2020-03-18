@@ -134,7 +134,8 @@ public class EmployeServiceTest {
 	}
 
 	/*
-	 * Si le catraitement est null, il faut que notre code lance une exception
+	 * Si le catraitement est null, il faut que la méthode
+	 * calculPerformanceCommercial, lance une exception
 	 */
 	@Test
 	public void calculePerformanceCtraitNullTest() {
@@ -145,8 +146,8 @@ public class EmployeServiceTest {
 	}
 
 	/*
-	 * Si le catraitement est inférieur à zero, il faut que notre code lance une
-	 * exception
+	 * Si le catraitement est inférieur à zero, il faut que la méthode
+	 * calculPerformanceCommercial, lance une exception
 	 */
 	@Test
 	public void calculePerformanceCtraitNegatifTest() {
@@ -157,7 +158,8 @@ public class EmployeServiceTest {
 	}
 
 	/*
-	 * Si l'objectif est null, il faut que notre code lance une exception
+	 * Si l'objectif est null, il faut que la méthode calculPerformanceCommercial,
+	 * lance une exception
 	 */
 	@Test
 	public void calculePerformanceObjectifNullTest() {

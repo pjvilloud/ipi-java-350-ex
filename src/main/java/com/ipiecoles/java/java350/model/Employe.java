@@ -78,7 +78,7 @@ public class Employe {
 	public Integer getNbRtt(LocalDate date) throws EmployeException {
 
 		if (date == null) {
-			throw new EmployeException("La Date ne peut pas être null ");
+			throw new EmployeException("La Date ne peut pas être null");
 		}
 		// nombre de joures dans l'année, si c'est une Année bissextile lil est égale à
 		// 366 sinon 365;
