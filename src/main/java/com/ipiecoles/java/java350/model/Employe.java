@@ -81,7 +81,7 @@ public class Employe {
 			throw new EmployeException("La Date ne peut pas être null");
 		}
 		// nombre de joures dans l'année, si c'est une Année bissextile lil est égale à
-		// 366 sinon 365;
+		// 366 sinon 365
 		int nbjoursAnnee = date.isLeapYear() ? 366 : 365;
 
 		// Nombre de Samedi et dimance dans l'année
