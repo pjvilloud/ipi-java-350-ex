@@ -71,6 +71,10 @@ public class EmployeTest {
 		Assertions.assertThat(nbAnnee).isEqualTo(0);
 	}
 
+	/*********************************************
+	 * EXERCICE
+	 *********************************************/
+
 	// test paramétré
 	@ParameterizedTest(name = "immat {0} est valide : {4}")
 	@CsvSource({ "'M65222',,2,1,1900", "'T52200',1,3,1,1300 ", "'C12335',4,10,1,5300", "'M54871',,5,1,2200 ",
@@ -132,4 +136,24 @@ public class EmployeTest {
 		// Then
 		Assertions.assertThat(salaireAfterAugmentation).isEqualTo(salaireFinale);
 	}
+
+	@ParameterizedTest(name = "Rtt année{0}")
+	@CsvSource({ "2019,11", "2020,10", "2021,11", "2022,10", "2032,12" })
+	public void testgetNbRtt(Integer annee, Integer nbRtt) throws EmployeException {
+		// Given
+		Employe employe = new Employe();
+		// la differance entre les années de deux dates
+		Integer nbannee = annee - LocalDate.now().getYear();
+		// si la différane est négative alors minusYear sinon PlusYears pour initialiser
+		// la nouvelle date
+		LocalDate nouvelledate = (nbannee < 0) ? LocalDate.now().minusYears(nbannee)
+				: LocalDate.now().plusYears(nbannee);
+
+		// when
+		Integer nbrtt = employe.getNbRtt(nouvelledate);
+
+		// Then
+		Assertions.assertThat(nbrtt).isEqualTo(nbRtt);
+	}
+
 }

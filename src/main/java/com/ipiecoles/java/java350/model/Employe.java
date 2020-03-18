@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 @Entity
 public class Employe {
 
@@ -55,32 +57,72 @@ public class Employe {
 		return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
 	}
 
-	public Integer getNbRtt() {
+	public Integer getNbRtt() throws EmployeException {
 		return getNbRtt(LocalDate.now());
 	}
 
-	public Integer getNbRtt(LocalDate d) {
-		int i1 = d.isLeapYear() ? 365 : 366;
-		int var = 104;
-		switch (LocalDate.of(d.getYear(), 1, 1).getDayOfWeek()) {
-		case THURSDAY:
-			if (d.isLeapYear())
-				var = var + 1;
-			break;
-		case FRIDAY:
-			if (d.isLeapYear())
-				var = var + 2;
-			else
-				var = var + 1;
-			break;
-		case SATURDAY:
-			var = var + 1;
-			break;
+	/**
+	 * calcul le nombre de jours de RTT. cette méthode prendre en paramètre une
+	 * date, en suite elle comptes le nombre des jours dans l'année puis le nombre
+	 * de jours feriés.
+	 * 
+	 * le calcule comme la suite Nombre de jour dans l'année - nombre de jour du
+	 * travaill (218) - nombre des jours feriés - nombre de jours des congés payées
+	 * (25)
+	 * 
+	 * @param date pour l'année de laqulle on souahite calculer le RTT
+	 * @return le nombre de jours Rtt
+	 * @throws EmployeException
+	 *
+	 */
+	public Integer getNbRtt(LocalDate date) throws EmployeException {
+
+		if (date == null) {
+			throw new EmployeException("La Date ne peut pas être null ");
 		}
-		int monInt = (int) Entreprise.joursFeries(d).stream()
+		// nombre de joures dans l'année, si c'est une Année bissextile lil est égale à
+		// 366 sinon 365;
+		int nbjoursAnnee = date.isLeapYear() ? 366 : 365;
+
+		// Nombre de Samedi et dimance dans l'année
+		int weekends = 104;
+
+		switch (LocalDate.of(date.getYear(), 1, 1).getDayOfWeek()) {
+		// si l'année commence le vendredi et que l'annéé est bissextile donc un jour de
+		// plus est ça tombe à samedi. du coup weekends+1
+		case FRIDAY:
+			if (date.isLeapYear()) {
+				weekends = weekends + 1;
+			}
+			break;
+		// si l'année commence le samedi un jour de plus parce que ça termine un samdedi
+		// et l'annéé est bissextile donc est ça tombe à un dimanche. du coup weekends+2
+		case SATURDAY:
+			if (date.isLeapYear()) {
+				weekends = weekends + 2;
+			} else {
+				weekends = weekends + 1;
+			}
+			break;
+		// si l'année commence le dimanche, un jour de plus parce que ça termine un
+		// dimanche.
+		case SUNDAY:
+			weekends = weekends + 1;
+			break;
+		default:
+			// do nothings. we don't need modify weekends variable
+		}
+		/*
+		 * ce variable contient le nombre de jours fériés calculé par la méthode
+		 * joursFeries(d) qui prend en paramètre une date. puis avec le streem on trouve
+		 * juste les jours fériés qui ne tombent pas à un weekend
+		 */
+		int monInt = (int) Entreprise.joursFeries(date).stream()
 				.filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+
 		return (int) Math
-				.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+				.ceil((nbjoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - weekends - Entreprise.NB_CONGES_BASE - monInt)
+						* tempsPartiel);
 	}
 
 	/**
