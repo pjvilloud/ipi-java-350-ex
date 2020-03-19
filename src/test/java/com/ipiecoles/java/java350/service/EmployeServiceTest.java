@@ -87,11 +87,11 @@ public class EmployeServiceTest {
         Employe employeCaptorValue = employeCaptor.getValue();
         Assertions.assertEquals(employeCaptorValue.getNom(), nom);
         Assertions.assertEquals(employeCaptorValue.getPrenom(), prenom);
-        Assertions.assertEquals(employeCaptorValue.getMatricule(), "C00346");
+        Assertions.assertEquals("C00346",employeCaptorValue.getMatricule() );
         Assertions.assertEquals(employeCaptorValue.getDateEmbauche(), LocalDate.now());
         Assertions.assertEquals(employeCaptorValue.getTempsPartiel(), tempsPartiel);
-        Assertions.assertEquals(employeCaptorValue.getPerformance(), 1);
-        Assertions.assertEquals(employeCaptorValue.getSalaire(), 1825.46);
+        Assertions.assertEquals(1,employeCaptorValue.getPerformance() );
+        Assertions.assertEquals(1825.46, employeCaptorValue.getSalaire());
     }
     @Test
     public void testEmbaucheEmployeCommercialMiTempsMaster() throws EmployeException {
@@ -129,8 +129,6 @@ public class EmployeServiceTest {
         Poste poste = Poste.COMMERCIAL;
         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;
-
-        // je simule que la base arrive à terme
         Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
 
         // When
@@ -149,7 +147,7 @@ public class EmployeServiceTest {
         Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
         Mockito.when(employeRepository.findByMatricule("C00001")).thenReturn(new Employe());
 
-        //When/Then
+        //When
         EntityExistsException e = Assertions.assertThrows(EntityExistsException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         Assertions.assertEquals("L'employé de matricule C00001 existe déjà en BDD", e.getMessage());
     }
