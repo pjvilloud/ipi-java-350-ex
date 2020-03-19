@@ -102,7 +102,7 @@ public class EmployeServiceTest {
 	}
 	
 	
-	
+	//Tests ajoutés afin de tester la méthode calculPerformanceCommerciale(). Le premier test vérifie les exceptions de la méthodes
 	@ParameterizedTest
 	@CsvSource({
 		"'C12345' , , 50000 , Le chiffre d'affaire traité ne peut être négatif ou null !",
@@ -132,7 +132,7 @@ public class EmployeServiceTest {
 		
 	}
 	
-	
+	//Le second test test le bon fonctionnement de la méthode.
 	@ParameterizedTest
 	@CsvSource({
 		"'C12345' , 900 , 1000 , 2",
