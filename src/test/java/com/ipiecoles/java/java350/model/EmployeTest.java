@@ -1,19 +1,15 @@
 package com.ipiecoles.java.java350.model;
 
-
 import com.ipiecoles.java.java350.exception.EmployeException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
 import java.time.LocalDate;
 
 public class EmployeTest {
 
-    //Employé dateEmbauche avec date 2 ans avant aujourd'hui =>
-    //2 années d'ancienneté
     @Test
     @DisplayName("Test getNombreAnneeAnciennete a N-2")
     public void testAncienneteDateEmbaucheNmoins2() {
@@ -73,7 +69,7 @@ public class EmployeTest {
         Assertions.assertThat(nbAnnees).isEqualTo(0);
 
     }
-
+    // Tests paramétrés ---------> PRIME ANNUELLE
     @ParameterizedTest
     @CsvSource({
             "1, 'T12345', 0, 1.0, 1000.0",
@@ -167,5 +163,6 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(result).isEqualTo(11000);
     }
+
 }
 

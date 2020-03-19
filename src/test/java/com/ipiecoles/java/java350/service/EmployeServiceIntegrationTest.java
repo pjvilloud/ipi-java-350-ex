@@ -2,10 +2,15 @@ package com.ipiecoles.java.java350.service;
 
 
 import com.ipiecoles.java.java350.exception.EmployeException;
-import com.ipiecoles.java.java350.model.*;
+import com.ipiecoles.java.java350.model.Employe;
+import com.ipiecoles.java.java350.model.Entreprise;
+import com.ipiecoles.java.java350.model.NiveauEtude;
+import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+//import org.assertj.core.api.Assertions;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +24,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -33,10 +37,66 @@ public class EmployeServiceIntegrationTest {
 
     @BeforeEach
     @AfterEach
-    public void setup(){
+    public void setup() {
         employeRepository.deleteAll();
     }
 
+
+
+    @Test
+    public void integrationCalculPerformanceCommercial() throws EmployeException {
+        //Given
+        employeRepository.save(new Employe("Doe", "John",
+                "C12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1,
+                1.0));
+        String nom = "Doe";
+        String prenom = "John";
+        String matricule = "C12345";
+        Long caTraite = 70L ;
+        Long objectifCa = 100L;
+        Poste poste = Poste.COMMERCIAL;
+        NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+        Double tempsPartiel = 1.0;
+         Integer performance = 1;
+        //When
+        employeService.calculPerformanceCommercial( matricule,  caTraite,  objectifCa);
+
+        //Then
+        Employe employe = employeRepository.findByMatricule("C12345");
+        Assertions.assertNotNull(employe);
+        Assertions.assertEquals(nom, employe.getNom());
+        Assertions.assertEquals(prenom, employe.getPrenom());
+        Assertions.assertEquals(performance,employe.getPerformance());
+               // Entreprise.PERFORMANCE_BASE);
+
+
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialMoyenneInte() throws EmployeException {
+
+        // given
+        Employe employe = new Employe();
+        employe.setNom("Doe");
+        employe.setPrenom("John");
+        employe.setMatricule("C12345");
+        employe.setDateEmbauche(LocalDate.now());
+        employe.setSalaire(1000D);
+        employe.setPerformance(1);
+        employe.setTempsPartiel(1.0);
+        Long caTraite = 1000L;
+        Long objectifCa = 1000L;
+        employeRepository.save(employe);
+
+        // when
+        employeService.calculPerformanceCommercial(employe.getMatricule(), caTraite, objectifCa);
+        Double moyenneSalaireCommercial = employeRepository.avgPerformanceWhereMatriculeStartsWith(
+                "C");
+
+        // then
+        Assertions.assertEquals(employe.getPerformance().doubleValue(),(moyenneSalaireCommercial));
+
+    }
 
 
     @Test

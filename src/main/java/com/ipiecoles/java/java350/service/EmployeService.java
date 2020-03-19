@@ -8,7 +8,6 @@ import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
@@ -42,6 +41,7 @@ public class EmployeService {
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
         if (numeroMatricule >= 100000) {
+
             throw new EmployeException("Limite des 100000 matricules atteinte !");
         }
         //On complète le numéro avec des 0 à gauche
@@ -50,6 +50,7 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if (employeRepository.findByMatricule(matricule) != null) {
+
             throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
