@@ -27,15 +27,18 @@ class EmployeRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test findNoMatricule")
-    public void testFindNoMatricule() {
+    @DisplayName("Test findNullMatricule")
+    public void testFindNullMatricule() {
+
         String lastMatricule = employeRepository.findLastMatricule();
         Assertions.assertThat(lastMatricule).isNull();
+
     }
 
     @Test
     @DisplayName("Test findByMatricule")
     public void testFindByMatricule() {
+
         // given
         Employe employe = new Employe();
         employe.setMatricule("M12345");
@@ -43,26 +46,14 @@ class EmployeRepositoryTest {
 
         // when
         Employe result = employeRepository.findByMatricule("M12345");
+
         // then
         Assertions.assertThat(result).isEqualTo(employe);
+
     }
 
     @Test
-    @DisplayName("Test findLastMatricule")
-    public void testFindLast1Matricule() {
-        // given
-        Employe employe = new Employe();
-        employe.setMatricule("M22222");
-        employeRepository.save(employe);
-        // when
-        String result = employeRepository.findLastMatricule();
-        // then
-        String lastMatricule = employe.getMatricule().substring(1);
-        Assertions.assertThat(result).isEqualTo(lastMatricule);
-    }
-
-    @Test
-    @DisplayName("Test findLastMatricule le plus grand nombre des matricules")
+    @DisplayName("Test findLastMatricule le plus grand  matricule")
     public void testFindLastMatricule2Employes() { //le plus grand nombre des matricules
         // given
         Employe emp1 = employeRepository.save(new Employe("Doe", "John", "M56789",

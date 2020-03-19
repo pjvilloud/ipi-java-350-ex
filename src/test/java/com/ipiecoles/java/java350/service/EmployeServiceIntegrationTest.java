@@ -14,6 +14,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -121,4 +125,35 @@ public class EmployeServiceIntegrationTest {
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
     }
 
+
+
+    @ParameterizedTest
+    @CsvSource({
+            " 70, 100,  1",
+            "90, 100,  8",
+            " 99, 100,  10",
+            " 110, 100, 12",
+            " 1500, 100, 15"
+    })
+    public void integrationCalculPerformanceCommercial( Long caTraite,
+                                                       Long objectifCa,
+                                                       Integer expectedPerformance) throws EmployeException {
+        //Given
+        Integer performance = 10;
+        employeRepository.save(new Employe("Doe", "John", "C12345", LocalDate.now(),
+                Entreprise.SALAIRE_BASE, performance, 1.0));
+
+        //When
+        Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        System.out.println(performanceMoyenne);
+        employeService.calculPerformanceCommercial("C12345", caTraite, objectifCa);
+
+        //Then
+        Employe employe = employeRepository.findByMatricule("C12345");
+        Assertions.assertEquals(expectedPerformance, employe.getPerformance());
+    }
+
+
 }
+
+

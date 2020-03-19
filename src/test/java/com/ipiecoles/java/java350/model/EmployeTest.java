@@ -98,6 +98,7 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(result).isEqualTo(prime);
     }
+
     @Test
     @DisplayName("Test AugmenterSalaire avec pourcentage négatif => salaire identique")
     public void testAugmenterSalairePourcentageNegatif() throws Exception {
@@ -140,6 +141,7 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(result).isEqualTo(1521.22);
     }
+
     @Test
     public void testAugmenterSalaireNormal() throws EmployeException {
         //Given
@@ -150,6 +152,7 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(result).isEqualTo(1500);
     }
+
     @Test
     public void testAugmenterSalaireAugmentationTropElevee() throws EmployeException {
         //Given
