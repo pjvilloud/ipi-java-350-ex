@@ -88,7 +88,56 @@ public class EmployeTest {
 		Assertions.assertThat(primeCalculee).isEqualTo(prime);
 	}
 	*/
+	@Test
+	public void testAncienneDateEmbaucheAujourdhui() {
+		//given 
+		Employe employe = new Employe();
+		employe.setDateEmbauche(LocalDate.now());
+		//When
+		Integer nbAnnees =employe.getNombreAnneeAnciennete();
+		//Then 
+		Assertions.assertThat(nbAnnees).isEqualTo(0);
+	}
 	
+	
+	@Test
+	public void testAncienneDateEmbaucheNull() {
+		//given 
+		Employe employe = new Employe();
+		employe.setDateEmbauche(null);
+		//When
+		Integer nbAnnees =employe.getNombreAnneeAnciennete();
+		//Then 
+		Assertions.assertThat(nbAnnees).isEqualTo(0);
+	}
+	
+	
+	@ParameterizedTest
+	@CsvSource({
+		"1,'T12345', 0, 1.0, 1000.0"
+//		"1,'T12345', 0, 0.5, 500.0",
+//		"1,'M12345', 0, 1.0, 1700.0",
+//		"2,'T12345', 0, 1.0, 2300.0",
+
+	})
+	public void testGetPrimeAnnuelle(Integer performance, String matricule, Integer nbAnneesAnciennete, Double tempsPartiel, Double prime) {
+		
+		//given 
+		Employe employe = new Employe();
+		employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneesAnciennete));
+		employe.setMatricule(matricule);
+		employe.setPerformance(performance);
+		employe.setTempsPartiel(tempsPartiel);
+		
+		//When
+		Double primeCalculee = employe.getPrimeAnnuelle();
+		
+		//Then 
+		Assertions.assertThat(primeCalculee).isEqualTo(prime);
+	}
+	
+	
+	//c'est ici que mon travail commence
 	@Test
 	public void testAugmenterSalaireDe10Pourcent() throws EmployeException 
 	{
