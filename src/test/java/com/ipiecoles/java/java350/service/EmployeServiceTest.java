@@ -31,7 +31,7 @@ public class EmployeServiceTest {
 	@Mock
 	private EmployeRepository employeRep;
 	
-	/*
+	
 	@Test
 	public void testEmbaucheEmployeCommercialPleinTempsBTS() throws EmployeException {
 		
@@ -100,7 +100,7 @@ public class EmployeServiceTest {
 		}
 			
 	}
-	*/
+	
 	
 	
 	@ParameterizedTest
