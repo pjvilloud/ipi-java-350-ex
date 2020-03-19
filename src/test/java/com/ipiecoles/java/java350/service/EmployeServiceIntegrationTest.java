@@ -32,6 +32,29 @@ public class EmployeServiceIntegrationTest {
     public void setup(){
         employeRepository.deleteAll();
     }
+    @Test
+    public void testCalculPerformanceCommercialInte() throws EmployeException {
+
+        // given
+        Employe employe = new Employe();
+        employe.setNom("Doe");
+        employe.setPrenom("John");
+        employe.setMatricule("C12345");
+        employe.setDateEmbauche(LocalDate.now());
+        employe.setSalaire(1000D);
+        employe.setPerformance(1);
+        employe.setTempsPartiel(1.0);
+        Long caTraite = 1000L;
+        Long objectifCa = 1000L;
+        employeRepository.save(employe);
+
+        // when
+        employeService.calculPerformanceCommercial(employe.getMatricule(), caTraite, objectifCa);
+
+        // then
+        Assertions.assertEquals(employe.getPerformance(), (Entreprise.PERFORMANCE_BASE));
+
+    }
 
     @Test
     public void integrationEmbaucheEmploye() throws EmployeException {
