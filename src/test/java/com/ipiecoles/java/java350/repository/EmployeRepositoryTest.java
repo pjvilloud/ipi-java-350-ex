@@ -20,15 +20,16 @@ import org.junit.jupiter.api.BeforeEach;
 	}
 	*/
 
+
+
+
+
+
+
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import com.ipiecoles.java.java350.model.Employe;
 
@@ -70,5 +71,44 @@ public class EmployeRepositoryTest {
         Assertions.assertThat(lastMatricule).isEqualTo("12345");
         
     }
+    
+    /*
+    M1  	5	 
+    M2   	7
+    S1 		3
+    S4		8
+    SE		10
+    L5		10
+
+    avgPerformanceWhereMatriculeStartsWith(M)= 6
+    avgPerformanceWhereMatriculeStartsWith(S)= 7
+    avgPerformanceWhereMatriculeStartsWith(L)=  10
+
+
+    */
+
+    @Test
+    public void testAvgPerformanceWhereMatriculeStartsWith(){
+        //Given
+        Employe employe1 = employeRepository.save(new Employe ("Doe", "John", "M12345", LocalDate.now(), 1500d, 1, 1.0));
+        Employe employe2 = employeRepository.save(new Employe ("Doe", "Jane", "T01234", LocalDate.now(), 1500d, 1, 1.0));
+        Employe employe3 = employeRepository.save(new Employe ("Dark", "Blaise", "C01234", LocalDate.now(), 1500d, 6, 1.0));
+        Employe employe4 = employeRepository.save(new Employe ("Marcy", "Laura", "M01234", LocalDate.now(), 1500d, 7, 1.0));
+        Employe employe5 = employeRepository.save(new Employe ("TOUR", "Lise", "M0234", LocalDate.now(), 1500d, 10, 1.0));
+        
+        //When
+        Double moyenneM = employeRepository.avgPerformanceWhereMatriculeStartsWith("M");
+        Double moyenneT = employeRepository.avgPerformanceWhereMatriculeStartsWith("T");
+        Double moyenneC = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        Double moyenneX = employeRepository.avgPerformanceWhereMatriculeStartsWith("X");
+        
+        //Then
+        Assertions.assertThat(moyenneM).isEqualTo(6);
+        Assertions.assertThat(moyenneC).isEqualTo(6);
+        Assertions.assertThat(moyenneT).isEqualTo(1);
+        Assertions.assertThat(moyenneX).isEqualTo(null);
+        
+    }
+    
     
 }
