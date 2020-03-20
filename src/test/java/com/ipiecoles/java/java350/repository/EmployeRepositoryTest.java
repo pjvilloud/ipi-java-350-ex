@@ -1,7 +1,6 @@
 package com.ipiecoles.java.java350.repository;
 
 import com.ipiecoles.java.java350.model.Employe;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -53,7 +52,7 @@ class EmployeRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test findLastMatricule le plus grand  matricule")
+    @DisplayName("Le plus grand matricule parmis plusieurs")
     public void testFindLastMatricule2Employes() { //le plus grand nombre des matricules
         // given
         Employe emp1 = employeRepository.save(new Employe("Doe", "John", "M56789",

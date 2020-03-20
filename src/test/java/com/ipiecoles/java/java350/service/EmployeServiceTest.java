@@ -6,6 +6,7 @@ import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -33,7 +34,7 @@ public class EmployeServiceTest {
     EmployeService employeService;
 
     @ParameterizedTest() //  caTraite , objectifCa,  expectedPerformance
-
+    @DisplayName("Test calculPerf paramétré suivant les 5 cas")
     @CsvSource({
             " 70, 100,  1",
             " 90, 100,  8",
@@ -67,6 +68,7 @@ public class EmployeServiceTest {
     }
 
     @Test
+    @DisplayName("Test embaucheEmployeCommercialPleinTempsBTS")
     public void testEmbaucheEmployeCommercialPleinTempsBTS() throws EmployeException {
 
         // Given
@@ -87,13 +89,15 @@ public class EmployeServiceTest {
         Employe employeCaptorValue = employeCaptor.getValue();
         Assertions.assertEquals(employeCaptorValue.getNom(), nom);
         Assertions.assertEquals(employeCaptorValue.getPrenom(), prenom);
-        Assertions.assertEquals("C00346",employeCaptorValue.getMatricule() );
+        Assertions.assertEquals("C00346", employeCaptorValue.getMatricule());
         Assertions.assertEquals(employeCaptorValue.getDateEmbauche(), LocalDate.now());
         Assertions.assertEquals(employeCaptorValue.getTempsPartiel(), tempsPartiel);
-        Assertions.assertEquals(1,employeCaptorValue.getPerformance() );
+        Assertions.assertEquals(1, employeCaptorValue.getPerformance());
         Assertions.assertEquals(1825.46, employeCaptorValue.getSalaire());
     }
+
     @Test
+    @DisplayName("Test embaucheEmployeCommercialMiTempsMaster")
     public void testEmbaucheEmployeCommercialMiTempsMaster() throws EmployeException {
         //Given
         String nom = "Doe";
@@ -121,7 +125,8 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeLimiteMatricule() throws EmployeException{
+    @DisplayName("Test embauche limite des matricules")
+    public void testEmbaucheEmployeLimiteMatricule() throws EmployeException {
 
         // Given
         String nom = "Doe";
@@ -137,7 +142,8 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeCommercialMiTempsMasterExistingEmploye(){
+    @DisplayName("Test embaucheEmploye  déjà existant")
+    public void testEmbaucheEmployeCommercialMiTempsMasterExistingEmploye() {
         //Given
         String nom = "Doe";
         String prenom = "John";

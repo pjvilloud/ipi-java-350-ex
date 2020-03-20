@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
 import java.time.LocalDate;
 
 public class EmployeTest {
@@ -69,6 +70,7 @@ public class EmployeTest {
         Assertions.assertThat(nbAnnees).isEqualTo(0);
 
     }
+
     // Tests paramétrés ---------> PRIME ANNUELLE
     @ParameterizedTest
     @CsvSource({
@@ -99,6 +101,8 @@ public class EmployeTest {
         Assertions.assertThat(result).isEqualTo(prime);
     }
 
+    // ON fait le choix de ne pas pouvoir diminuer le salaire et de limiter le salaire au dessus
+    // de 1000%
     @Test
     @DisplayName("Test AugmenterSalaire avec pourcentage négatif => salaire identique")
     public void testAugmenterSalairePourcentageNegatif() throws Exception {
@@ -117,7 +121,7 @@ public class EmployeTest {
     }
 
     @Test
-    @DisplayName("Test AugmenterSalaire avec salaire multiplié par 4 soit pourcentage de 300%")
+    @DisplayName("Test AugmenterSalaire avec salaire multiplié par 4 ")
     public void testAugmenterSalaireFois4() throws Exception {
 
         //Given
@@ -132,6 +136,7 @@ public class EmployeTest {
     }
 
     @Test
+    @DisplayName("Test AugmenterSalaire avec poucentage à 0")
     public void testAugmenterSalaireSiPourcentageA0() throws EmployeException {
         //Given
         Employe employe = new Employe();
@@ -143,6 +148,7 @@ public class EmployeTest {
     }
 
     @Test
+    @DisplayName("Test AugmenterSalaire de 50%")
     public void testAugmenterSalaireNormal() throws EmployeException {
         //Given
         Employe employe = new Employe();
@@ -154,12 +160,15 @@ public class EmployeTest {
     }
 
     @Test
+    @DisplayName("Test AugmenterSalaire avec limite a partir de 1000%")
     public void testAugmenterSalaireAugmentationTropElevee() throws EmployeException {
         //Given
         Employe employe = new Employe();
         employe.setSalaire(1000.0);
-        //When
-        double result = employe.augmenterSalaire(10);
+
+        //When pourcentage >10 alors pourcentage = 10
+        double result = employe.augmenterSalaire(11);
+
         //Then
         Assertions.assertThat(result).isEqualTo(11000);
     }

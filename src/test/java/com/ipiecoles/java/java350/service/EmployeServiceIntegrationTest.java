@@ -7,12 +7,7 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-//import org.assertj.core.api.Assertions;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -22,6 +17,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+//import org.assertj.core.api.Assertions;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -40,9 +37,11 @@ public class EmployeServiceIntegrationTest {
     }
 
 
-
     @Test
+    @DisplayName("Integration Test Calcul Performance")
+
     public void integrationCalculPerformanceCommercial() throws EmployeException {
+
         //Given
         employeRepository.save(new Employe("Doe", "John",
                 "C12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1,
@@ -50,27 +49,27 @@ public class EmployeServiceIntegrationTest {
         String nom = "Doe";
         String prenom = "John";
         String matricule = "C12345";
-        Long caTraite = 70L ;
+        Long caTraite = 70L;
         Long objectifCa = 100L;
         Poste poste = Poste.COMMERCIAL;
         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;
-         Integer performance = 1;
+        Integer performance = 1;
+
         //When
-        employeService.calculPerformanceCommercial( matricule,  caTraite,  objectifCa);
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
 
         //Then
         Employe employe = employeRepository.findByMatricule("C12345");
         Assertions.assertNotNull(employe);
         Assertions.assertEquals(nom, employe.getNom());
         Assertions.assertEquals(prenom, employe.getPrenom());
-        Assertions.assertEquals(performance,employe.getPerformance());
-               // Entreprise.PERFORMANCE_BASE);
-
+        Assertions.assertEquals(performance, employe.getPerformance());
 
     }
 
     @Test
+    @DisplayName("Integration Test Calcul Performance & Moyenne")
     public void testCalculPerformanceCommercialMoyenneInte() throws EmployeException {
 
         // given
@@ -92,12 +91,13 @@ public class EmployeServiceIntegrationTest {
                 "C");
 
         // then
-        Assertions.assertEquals(employe.getPerformance().doubleValue(),(moyenneSalaireCommercial));
+        Assertions.assertEquals(employe.getPerformance().doubleValue(), (moyenneSalaireCommercial));
 
     }
 
 
     @Test
+    @DisplayName("Integration Test embaucheEmploye")
     public void integrationEmbaucheEmploye() throws EmployeException {
         //Given
         employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
@@ -124,8 +124,8 @@ public class EmployeServiceIntegrationTest {
     }
 
 
-
     @ParameterizedTest
+    @DisplayName("Integration Test Paramétré calcul Perf")
     @CsvSource({
             " 70, 100,  1",
             "90, 100,  8",
@@ -133,7 +133,7 @@ public class EmployeServiceIntegrationTest {
             " 110, 100, 12",
             " 1500, 100, 15"
     })
-    public void integrationCalculPerformanceCommercial( Long caTraite,
+    public void integrationCalculPerformanceCommercial(Long caTraite,
                                                        Long objectifCa,
                                                        Integer expectedPerformance) throws EmployeException {
         //Given
