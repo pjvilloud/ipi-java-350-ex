@@ -78,7 +78,6 @@ public class Employe {
 
 	public int getNombreSamediDimanche(LocalDate d) {
 		int nombreSamediEtDimanche = 104;
-		// switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
 		switch (LocalDate.of(d.getYear(), 1, 1).getDayOfWeek()) {
 		case TUESDAY:
 			if (!d.isLeapYear())
