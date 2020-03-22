@@ -68,6 +68,27 @@ public class EmployeTest {
 			Assertions.assertThat(nbAnnees).isEqualTo(0);
 			//AserJ pour faire des assertions bcp plus lisible que Junit
 	}
+
+
+    @Test
+    public void testgetNbrRtt() {
+
+        //Employé dateEmbauche avec date 2ans après aujourd'hui =>
+        //0 années d'ancienneté
+
+        //Given = Initialisation des données d'entrée
+        Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now().plusYears(2));
+
+        //When = Exécution de la méthode à tester
+        Integer nbRtt = employe.getNbRtt();
+        Integer nbRttActuel = employe.getNbRtt(LocalDate.now());
+
+
+        //Then = Vérifications de ce qu'a fait la méthode
+        Assertions.assertThat(nbRtt).isEqualTo(nbRttActuel);
+        //AserJ pour faire des assertions bcp plus lisible que Junit
+    }
 	
 	//Date aujourd'hui => 0
 	@Test
@@ -260,6 +281,21 @@ public class EmployeTest {
 			Assertions.assertThat(nombreJourFeriesSansWeekEnd).isEqualTo(10);
 
 		}
+
+
+
+	//1980 : l'année est bissextile, a débuté un mardi et il y a 10 jours fériés ne tombant pas le week-end.
+	@Test
+	public void nombre_jour_ferries_sans_week_end_est_bissextile_débutant_un_mardi() {
+
+		Employe employe = new Employe();
+
+
+		int nombreJourFeriesSansWeekEnd =  employe.getNombreJourFerierSansWeekend(LocalDate.of(2036, 1, 1));
+
+		Assertions.assertThat(nombreJourFeriesSansWeekEnd).isEqualTo(10);
+
+	}
 		
 		//2021 : l'année est non bissextile, a débuté un vendredi et il y a 7 jours fériés ne tombant pas le week-end.
 		@Test
@@ -311,6 +347,30 @@ public class EmployeTest {
 			Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
 
 		}
+
+	//2036 : tester le nombre samedi dimanche
+
+	@Test
+	public void le_nombre_samedi_dimanche_2036() {
+
+		Employe employe = new Employe();
+
+		int nombreJourSamediDimanche =  employe.getNombreSamediDimanche(LocalDate.of(2036, 1, 1));
+
+		Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
+
+	}
+
+	@Test
+	public void le_nombre_samedi_dimanche_2030() {
+
+		Employe employe = new Employe();
+
+		int nombreJourSamediDimanche =  employe.getNombreSamediDimanche(LocalDate.of(2030, 1, 1));
+
+		Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(104);
+
+	}
 		
 		
 	//2021 : tester le nombre samedi dimanche
@@ -352,6 +412,8 @@ public class EmployeTest {
 			Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(104);
 
 		}
+
+
 }
 
 
