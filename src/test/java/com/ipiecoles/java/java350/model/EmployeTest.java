@@ -294,7 +294,9 @@ public class EmployeTest {
 	public void nombre_jour_ferries_sans_week_end_est_bissextile_débutant_un_mardi() {
 
 		Employe employe = new Employe();
-
+		employe.setId(500l);
+		employe.setNom("Dao");
+		employe.setPrenom("gab");
 
 		int nombreJourFeriesSansWeekEnd =  employe.getNombreJourFerierSansWeekend(LocalDate.of(2036, 1, 1));
 
