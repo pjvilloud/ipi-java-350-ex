@@ -414,6 +414,45 @@ public class EmployeTest {
 		}
 
 
+	//2025 : tester le nombre samedi dimanche
+	@Test
+	public void le_nombre_samedi_dimanche_2025() {
+
+		Employe employe = new Employe();
+
+		int nombreJourSamediDimanche =  employe.getNombreSamediDimanche(LocalDate.of(2025, 1, 1));
+
+		Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(104);
+
+	}
+
+
+	//2044 : tester le nombre samedi dimanche
+	@Test
+	public void le_nombre_samedi_dimanche_2044() {
+
+		Employe employe = new Employe();
+
+		int nombreJourSamediDimanche =  employe.getNombreSamediDimanche(LocalDate.of(2044, 1, 1));
+
+		Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(106);
+
+	}
+
+
+	//2022 : tester le nombre samedi dimanche
+	@Test
+	public void le_nombre_samedi_dimanche_2022() {
+
+		Employe employe = new Employe();
+
+		int nombreJourSamediDimanche =  employe.getNombreSamediDimanche(LocalDate.of(2022, 1, 1));
+
+		Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
+
+	}
+
+
 }
 
 
