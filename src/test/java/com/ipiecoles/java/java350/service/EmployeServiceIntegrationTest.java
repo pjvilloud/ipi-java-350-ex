@@ -143,7 +143,6 @@ public class EmployeServiceIntegrationTest {
 
         //When
         Double performanceMoyenne = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
-        System.out.println(performanceMoyenne);
         employeService.calculPerformanceCommercial("C12345", caTraite, objectifCa);
 
         //Then

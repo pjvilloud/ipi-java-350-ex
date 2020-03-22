@@ -74,7 +74,7 @@ public class Employe {
      *
      * @return le nombre de jours de RTT
      */
-    public Integer getNbRtt() {
+/*    public Integer getNbRtt() {
         return getNbRtt(LocalDate.now());
     }
 
@@ -95,7 +95,7 @@ public class Employe {
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
-    }
+    }*/
 
     /**
      * Calcul de la prime annuelle selon la règle :
