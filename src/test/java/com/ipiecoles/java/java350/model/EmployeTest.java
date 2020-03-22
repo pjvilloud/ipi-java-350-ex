@@ -357,7 +357,7 @@ public class EmployeTest {
 
 		int nombreJourSamediDimanche =  employe.getNombreSamediDimanche(LocalDate.of(2036, 1, 1));
 
-		Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
+		Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(104);
 
 	}
 
@@ -368,7 +368,7 @@ public class EmployeTest {
 
 		int nombreJourSamediDimanche =  employe.getNombreSamediDimanche(LocalDate.of(2030, 1, 1));
 
-		Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(104);
+		Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
 
 	}
 		
