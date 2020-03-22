@@ -29,6 +29,27 @@ public class EmployeTest {
 			Assertions.assertThat(nbAnnees).isEqualTo(2);
 			//AserJ pour faire des assertions bcp plus lisible que Junit
 	}
+
+
+
+	@Test
+	public void testNbConges() {
+
+		//Given = Initialisation des données d'entrée
+		Employe employe = new Employe();
+		employe.setDateEmbauche(LocalDate.now().minusYears(2));
+
+		//When = Exécution de la méthode à tester
+		Integer nbConges = employe.getNbConges();
+
+		//Then = Vérifications de ce qu'a fait la méthode
+		Assertions.assertThat(nbConges).isEqualTo(27);
+		//AserJ pour faire des assertions bcp plus lisible que Junit
+	}
+
+
+
+
 	
 	@Test
 	public void testAncienneteDateEmbaucheNplus2() {
