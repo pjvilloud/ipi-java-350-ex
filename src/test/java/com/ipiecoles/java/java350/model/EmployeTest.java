@@ -458,6 +458,23 @@ public class EmployeTest {
 	}
 
 
+	@Test
+	public void test_equals_and_hash() {
+
+		Employe employe1 = 	new Employe ("Doe", "John", "M12345", LocalDate.now(), 1500d, 1, 1.0);
+		Employe employe2 = 	new Employe ("Doe", "John", "M12345", LocalDate.now(), 1500d, 1, 1.0);
+
+
+
+		Assertions.assertThat(employe1.equals(employe2)).isEqualTo(true);
+		Assertions.assertThat(employe1.equals(employe1)).isEqualTo(true);
+		Assertions.assertThat(employe1.equals(new Object())).isEqualTo(false);
+
+		Assertions.assertThat(employe1.hashCode()).isEqualTo(employe2.hashCode());
+	}
+
+
+
 }
 
 
