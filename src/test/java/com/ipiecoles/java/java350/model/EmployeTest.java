@@ -83,11 +83,16 @@ public class EmployeTest {
         //When = Exécution de la méthode à tester
         Integer nbRtt = employe.getNbRtt();
         Integer nbRttActuel = employe.getNbRtt(LocalDate.now());
+		Integer nbRttBixectile = employe.getNbRtt(LocalDate.of(2020, 1, 1));
+		Integer nbRttNonBixectile = employe.getNbRtt(LocalDate.of(2019, 1, 1));
 
 
         //Then = Vérifications de ce qu'a fait la méthode
         Assertions.assertThat(nbRtt).isEqualTo(nbRttActuel);
-        //AserJ pour faire des assertions bcp plus lisible que Junit
+		Assertions.assertThat(nbRttBixectile).isEqualTo(8);
+		Assertions.assertThat(nbRttNonBixectile).isEqualTo(8);
+
+		//AserJ pour faire des assertions bcp plus lisible que Junit
     }
 	
 	//Date aujourd'hui => 0
