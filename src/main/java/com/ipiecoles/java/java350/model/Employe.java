@@ -43,12 +43,16 @@ public class Employe {
         this.tempsPartiel = tempsPartiel;
     }
 
+
     /**
-     * Méthode calculant le nombre d'années d'ancienneté à partir de la date d'embauche
-     * @return
+     * Retourne le nombre d'année d'ancienneté de l'employé par rapport à sa date d'embauche (on ne prend pas en compte
+     * les mois et les jours. Il faut en revanche que la d'embauche soit non nulle et l'année antérieure à l'année courante
+     * sinon on renvoie une ancienneté de 0
+     *
+     * @return le nombre d'année d'ancienneté
      */
-    public Integer getNombreAnneeAnciennete() {
-        return LocalDate.now().getYear() - dateEmbauche.getYear();
+    public final Integer getNombreAnneeAnciennete() {
+        return dateEmbauche != null && LocalDate.now().getYear() >= dateEmbauche.getYear() ? LocalDate.now().getYear() - dateEmbauche.getYear() : 0;
     }
 
     public Integer getNbConges() {
