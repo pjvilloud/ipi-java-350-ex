@@ -84,8 +84,8 @@ public class EmployeService {
         
         employeRepository.save(employe);
         
-        logger.info("Aprés sauvagarde : {}");
-        //employe.toString()
+        logger.info(employe.toString(), "Aprés sauvagarde : {}");
+        
 
     }
 
