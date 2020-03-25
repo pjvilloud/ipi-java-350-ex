@@ -1,1 +1,6 @@
 language: java
+addons:
+    sonarcloud:
+      organization: "iwasakii"
+
+script:
