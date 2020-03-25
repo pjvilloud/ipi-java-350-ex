@@ -6,13 +6,17 @@ import java.time.LocalDate;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 
-@DataJpaTest
+
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class EmployeRepositoryTest {
 
 	@Autowired

@@ -82,7 +82,12 @@ public class EmployeServiceTest {
 		@ParameterizedTest(name = "perf {0} est valide : {1}")
 		@CsvSource({
 		        
-		        "'C00002', 1, 'C00003', 1, 'C00004', 1, 1, 25000, 100000, 1 "        
+		        "'C00002', 1, 'C00003', 1, 'C00004', 1, 1, 25000, 100000, 1 " ,
+				"'C00005', 2, 'C00006', 2, 'C00007', 2, 2, 93000, 100000, 1 " ,
+				"'C00008', 3, 'C00009', 3, 'C00010', 3, 3, 102000, 100000, 3 ",
+				"'C00011', 3, 'C00012', 3, 'C00013', 3, 3, 110000, 100000, 5 ",
+				"'C00014', 1, 'C00015', 1, 'C00016',1, 1, 121000, 100000, 6 ",
+				"'C00017', 1, 'C00018', 1, 'C00019', 1, 1, 80000, 100000, 1 "
 			
 		})
 	public void testcalculPerformanceCommercial(String matriculEmp1, Integer performanceEmp1,
@@ -95,11 +100,11 @@ public class EmployeServiceTest {
 		emp1.setMatricule(matriculEmp1);
 		emp1.setPerformance(performanceEmp1);
 		Employe emp2 = new Employe();
-		emp1.setMatricule(matriculEmp2);
-		emp1.setPerformance(performanceEmp2);
+		emp2.setMatricule(matriculEmp2);
+		emp2.setPerformance(performanceEmp2);
 		Employe emp3 = new Employe();
-		emp1.setMatricule(matriculEmp3);
-		emp1.setPerformance(performanceEmp3);
+		emp3.setMatricule(matriculEmp3);
+		emp3.setPerformance(performanceEmp3);
 		
 		//findLastMatricule => "00345"
 		Mockito.when(employeRep.findByMatricule(matriculEmp1)).thenReturn(emp1);
@@ -118,5 +123,37 @@ public class EmployeServiceTest {
 		
 		
 	}
+	
+		@Test
+	    public void testCalculePerformanceCtraitNull() {
+	        Assertions.assertThatThrownBy(() -> {
+	            employeService.calculPerformanceCommercial("C21235", null, 150000L);
+	        }).isInstanceOf(EmployeException.class)
+	                .hasMessage("Le chiffre d'affaire traité ne peut être négatif ou null !");
+	    }	
+		
+		@Test
+	    public void testCalculePerformanceMoinsZero() {
+			Assertions.assertThatThrownBy(() -> {
+	            employeService.calculPerformanceCommercial("C21235", -1L, 150000L);
+	        }).isInstanceOf(EmployeException.class)
+	                .hasMessage("Le chiffre d'affaire traité ne peut être négatif ou null !");
+	    }	
+		
+		@Test
+	    public void testCalculePerformanceObjectifCaNull() {
+	        Assertions.assertThatThrownBy(() -> {
+	            employeService.calculPerformanceCommercial("C21235", 25000L, null);
+	        }).isInstanceOf(EmployeException.class)
+	                .hasMessage("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+	    }
+		
+		@Test
+	    public void testCalculePerformanceObjectifCMoinsZero() {
+	        Assertions.assertThatThrownBy(() -> {
+	            employeService.calculPerformanceCommercial("C21235", 25000L, -1L);
+	        }).isInstanceOf(EmployeException.class)
+	                .hasMessage("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+	    }
 
 }

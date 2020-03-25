@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -29,6 +33,8 @@ public class Employe {
     private Integer performance = Entreprise.PERFORMANCE_BASE;
 
     private Double tempsPartiel = 1.0;
+    
+   // private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public Employe() {
     }
@@ -63,7 +69,7 @@ public class Employe {
         int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
+            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1; break;
             case SATURDAY: var = var + 1; break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
@@ -108,7 +114,6 @@ public class Employe {
     public void augmenterSalaire(double pourcentage){
     	if(salaire != null && pourcentage >= 0) {
     		Double salAug =  this.getSalaire() *pourcentage;
-    		System.out.println(salAug);
     		this.setSalaire(this.getSalaire()+ salAug);    		
         	}
     } 
@@ -225,4 +230,13 @@ public class Employe {
     public int hashCode() {
         return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
     }
+
+	@Override
+	public String toString() {
+		return "Employe [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", matricule=" + matricule
+				+ ", dateEmbauche=" + dateEmbauche + ", salaire=" + salaire + ", performance=" + performance
+				+ ", tempsPartiel=" + tempsPartiel + "]";
+	}
+    
+    
 }

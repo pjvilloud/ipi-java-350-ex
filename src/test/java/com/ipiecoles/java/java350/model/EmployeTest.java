@@ -2,12 +2,16 @@ package com.ipiecoles.java.java350.model;
 
 import java.time.LocalDate;
 
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EmployeTest {
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//Employé dateEmbauche avec date 2 ans avant aujourd'hui =>
 	//2 années d'ancienneté
