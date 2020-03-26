@@ -1,5 +1,8 @@
 package com.ipiecoles.java.java350.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +14,7 @@ import java.util.Objects;
 @Entity
 public class Employe {
 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -110,7 +114,16 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+
+        logger.debug("Salaire avant : "+this.getSalaire());
+
+        double result = this.getSalaire() * (1 + (pourcentage/100));
+
+        this.setSalaire(result);
+
+        logger.debug("Salaire apres : "+this.getSalaire());
+    }
 
     public Long getId() {
         return id;

@@ -20,4 +20,17 @@ public class EmployeTest {
         //Then
         Assertions.assertEquals(0, anneeAnciennete.intValue());
     }
+
+    @Test
+    public void augmenterSalaireTest(){
+        //Given
+        Employe e = new Employe();
+        e.setSalaire(2000d);
+
+        //When
+        e.augmenterSalaire(10);
+
+        //Then
+        Assertions.assertEquals(2200d, e.getSalaire());
+    }
 }
