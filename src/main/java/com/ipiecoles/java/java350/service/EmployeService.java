@@ -6,8 +6,11 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.testng.annotations.Test;
 
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
@@ -17,7 +20,17 @@ public class EmployeService {
 
     @Autowired
     private EmployeRepository employeRepository;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Test
+    /**Méthode enregistrement d'un nouvel employé dans l'entreprise*/
+    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException{
+        logger.debug("sdfsdf");
+        logger.info("sdfsdf");
+        logger.warn("sdfsdf");
+        logger.error("sdfsdf");
+        logger.info("Tentative d'embauche d'un employé avec les paramètres : {},{},{},{},{}", nom, prenom, poste, niveauEtude, tempsPartiel);
+    }
     /**
      * Méthode enregistrant un nouvel employé dans l'entreprise
      *

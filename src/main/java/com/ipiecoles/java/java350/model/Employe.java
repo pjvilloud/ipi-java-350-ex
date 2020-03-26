@@ -43,7 +43,6 @@ public class Employe {
         this.tempsPartiel = tempsPartiel;
     }
 
-
     /**
      * Retourne le nombre d'année d'ancienneté de l'employé par rapport à sa date d'embauche (on ne prend pas en compte
      * les mois et les jours. Il faut en revanche que la d'embauche soit non nulle et l'année antérieure à l'année courante
