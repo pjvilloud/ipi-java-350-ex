@@ -9,8 +9,7 @@ import java.time.LocalDate;
 
 public class EmployeTest {
 
-    // J'annote ma fonction avec jupiter API
-    @Test // clic droit sur le test en bas et run pour lancer un test
+    @Test
     public void getNombreAnneeAncienneteNow(){
         //Given
         Employe e = new Employe();
