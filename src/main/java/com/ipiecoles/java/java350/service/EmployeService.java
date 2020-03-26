@@ -6,6 +6,9 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,9 @@ public class EmployeService {
 
     @Autowired
     private EmployeRepository employeRepository;
+    
+    //slf4j
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Méthode enregistrant un nouvel employé dans l'entreprise
@@ -31,7 +37,14 @@ public class EmployeService {
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
-
+    	logger.info("Tentative d'embauche d'un employé avec les paramètres: {}, {}, {}, {}, {}", nom, prenom, poste, niveauEtude, tempsPartiel);
+    	
+    	
+    	logger.debug("sdfsdf");
+    	logger.info("sdfsdf");
+    	logger.warn("sdfsdf");
+    	logger.error("sdfsdf");
+    	
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
 
@@ -59,6 +72,8 @@ public class EmployeService {
         if(tempsPartiel != null){
             salaire = salaire * tempsPartiel;
         }
+        //ligne à rajouter pour calcule salaire pour test mocke
+        //salaire = Math.round(salaire*100d)/100d ;
 
         //Création et sauvegarde en BDD de l'employé.
         Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
