@@ -2,7 +2,7 @@
 
 Exercices de Java, module 350 pour l'IPI. Il est nécessaire de forker ce repository pour pouvoir faire tout le TP !! Après chaque question, pusher vos modifications sur votre repository.
 
-## Pré-requis
+## Pré-requis 2
 
 - Installer IntelliJ Ultimate en utilisant votre adresse IPI sur Jetbrains Student https://www.jetbrains.com/student/
 ou un autre IDE si vous avez l'habitude (Eclipse)
