@@ -2,6 +2,7 @@ package com.ipiecoles.java.java350.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+
 import java.time.LocalDate;
 
 import org.assertj.core.api.Assertions;
@@ -21,6 +22,7 @@ import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import com.ipiecoles.java.java350.service.EmployeService;
 
+
 /*
  * Méthode dans laquelle on simule l'utilisation de dépendances extérieures via des mocks (ici dépendance = repo).
  * Permet de rester dans un test unitaire (si échec, c'est forcément dû au contenu de la méthode)
@@ -28,6 +30,7 @@ import com.ipiecoles.java.java350.service.EmployeService;
  * Il faudra ensuite un test d'intégration (sur l'assemblage des modules, ici le repoet le service)
  * Pas vesoin de @Autowired dans le cas d'un mock : on utilise plutôt @InjectMocks + @Mock pour chaque dépendance
  */
+
 
 //Test plus rapide, pertinent, indépendant => principe du Mock
 @ExtendWith(MockitoExtension.class)
@@ -72,7 +75,6 @@ public class EmployeServiceTest {
         Double tempsPartiel = 1.0;
         // On simule une base contenant déjà des employés
         Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
-
         try {
             employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
             Assertions.fail("Aurait du planter !");
@@ -97,6 +99,7 @@ public class EmployeServiceTest {
     public void testCaObjectifNonNullEtPositif() throws EmployeException {
         assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("abcd", 300l, null));
     }
+
 
     @Test
     public void testCaObjectifPositif() throws EmployeException {
