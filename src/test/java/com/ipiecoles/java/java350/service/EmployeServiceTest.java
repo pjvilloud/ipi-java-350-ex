@@ -148,7 +148,7 @@ public class EmployeServiceTest
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
     }
-    /*
+    
     @ParameterizedTest
 	@CsvSource(
 			{
@@ -169,8 +169,22 @@ public class EmployeServiceTest
     	employe.setTempsPartiel(TempsPartiel);
     	employe.setSalaire(salaire);
     	
-    	//When
-        
+    	/*
+    	 String nom = "Doe";
+         String prenom = "John";
+         Poste poste = Poste.COMMERCIAL;
+         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+         Double tempsPartiel = 1.0;
+         
+         when(employeRepository.findLastMatricule()).thenReturn("00345");
+         when(employeRepository.findByMatricule("M00346")).thenReturn(null);
+
+         //When
+         employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+         
+         String matricule = employeRepository.findLastMatricule();
+         Employe employe = employeRepository.findByMatricule(matricule);
+    	*/
         //Cas 2
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95)
         {
@@ -209,7 +223,7 @@ public class EmployeServiceTest
         //Then
         Assertions.assertEquals(performance, employe.getPerformance());
     
-    }*/
+    }
     
     @ParameterizedTest
 	@CsvSource(
