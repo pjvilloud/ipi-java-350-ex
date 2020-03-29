@@ -9,7 +9,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-public class Employe {
+public class Employe 
+{
 
 
     @Id
@@ -30,7 +31,9 @@ public class Employe {
 
     private Double tempsPartiel = 1.0;
 
-    public Employe() {
+    public Employe()
+    {
+    	
     }
 
     public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Integer performance, Double tempsPartiel) {
@@ -43,19 +46,23 @@ public class Employe {
         this.tempsPartiel = tempsPartiel;
     }
 
-    public Integer getNombreAnneeAnciennete() {
+    public Integer getNombreAnneeAnciennete() 
+    {
         return LocalDate.now().getYear() - dateEmbauche.getYear();
     }
 
-    public Integer getNbConges() {
+    public Integer getNbConges()
+    {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
-    public Integer getNbRtt(){
+    public Integer getNbRtt()
+    {
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate d){
+    public Integer getNbRtt(LocalDate d)
+    {
         int i1 = d.isLeapYear() ? 365 : 366;
         int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
@@ -79,22 +86,26 @@ public class Employe {
      *
      * @return la prime annuelle de l'employé en Euros et cents
      */
-    public Double getPrimeAnnuelle(){
+    public Double getPrimeAnnuelle()
+    {
         //Calcule de la prime d'ancienneté
         Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
         Double prime;
         //Prime du manager (matricule commençant par M) : Prime annuelle de base multipliée par l'indice prime manager
         //plus la prime d'anciennté.
-        if(matricule != null && matricule.startsWith("M")) {
+        if(matricule != null && matricule.startsWith("M")) 
+        {
             prime = Entreprise.primeAnnuelleBase() * Entreprise.INDICE_PRIME_MANAGER + primeAnciennete;
         }
         //Pour les autres employés en performance de base, uniquement la prime annuelle plus la prime d'ancienneté.
-        else if (this.performance == null || Entreprise.PERFORMANCE_BASE.equals(this.performance)){
+        else if (this.performance == null || Entreprise.PERFORMANCE_BASE.equals(this.performance))
+        {
             prime = Entreprise.primeAnnuelleBase() + primeAnciennete;
         }
         //Pour les employés plus performance, on bonnifie la prime de base en multipliant par la performance de l'employé
         // et l'indice de prime de base.
-        else {
+        else 
+        {
             prime = Entreprise.primeAnnuelleBase() * (this.performance + Entreprise.INDICE_PRIME_BASE) + primeAnciennete;
         }
         //Au pro rata du temps partiel.
@@ -102,83 +113,98 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage)
+    {
+    	this.setSalaire(salaire+salaire*pourcentage/100);
+    }
 
-    public Long getId() {
+    public Long getId() 
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id) 
+    {
         this.id = id;
     }
 
     /**
      * @return the nom
      */
-    public String getNom() {
+    public String getNom() 
+    {
         return nom;
     }
 
     /**
      * @param nom the nom to set
      */
-    public void setNom(String nom) {
+    public void setNom(String nom) 
+    {
         this.nom = nom;
     }
 
     /**
      * @return the prenom
      */
-    public String getPrenom() {
+    public String getPrenom() 
+    {
         return prenom;
     }
 
     /**
      * @param prenom the prenom to set
      */
-    public void setPrenom(String prenom) {
+    public void setPrenom(String prenom) 
+    {
         this.prenom = prenom;
     }
 
     /**
      * @return the matricule
      */
-    public String getMatricule() {
+    public String getMatricule() 
+    {
         return matricule;
     }
 
     /**
      * @param matricule the matricule to set
      */
-    public void setMatricule(String matricule) {
+    public void setMatricule(String matricule)
+    {
         this.matricule = matricule;
     }
 
     /**
      * @return the dateEmbauche
      */
-    public LocalDate getDateEmbauche() {
+    public LocalDate getDateEmbauche() 
+    {
         return dateEmbauche;
     }
 
     /**
      * @param dateEmbauche the dateEmbauche to set
      */
-    public void setDateEmbauche(LocalDate dateEmbauche) {
+    public void setDateEmbauche(LocalDate dateEmbauche) 
+    {
         this.dateEmbauche = dateEmbauche;
     }
 
     /**
      * @return the salaire
      */
-    public Double getSalaire() {
+    public Double getSalaire() 
+    {
         return salaire;
     }
 
     /**
      * @param salaire the salaire to set
      */
-    public void setSalaire(Double salaire) {
+    public void setSalaire(Double salaire)
+    {
         this.salaire = salaire;
     }
 
@@ -186,20 +212,24 @@ public class Employe {
         return performance;
     }
 
-    public void setPerformance(Integer performance) {
+    public void setPerformance(Integer performance)
+    {
         this.performance = performance;
     }
 
-    public Double getTempsPartiel() {
+    public Double getTempsPartiel()
+    {
         return tempsPartiel;
     }
 
-    public void setTempsPartiel(Double tempsPartiel) {
+    public void setTempsPartiel(Double tempsPartiel) 
+    {
         this.tempsPartiel = tempsPartiel;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o) 
+    {
         if (this == o) return true;
         if (!(o instanceof Employe)) return false;
         Employe employe = (Employe) o;
@@ -213,7 +243,8 @@ public class Employe {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode() 
+    {
         return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
     }
 }
