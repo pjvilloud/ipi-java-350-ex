@@ -225,10 +225,7 @@ public class EmployeServiceTest
         Poste poste = Poste.COMMERCIAL;
         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;
-        //when(employeRepository.findLastMatricule()).thenReturn("00345");
-        ///when(employeRepository.findByMatricule("T00346")).thenReturn(null);
-        
-        Integer performance = 0;
+        Integer performance = Entreprise.PERFORMANCE_BASE;
 
         //When
         employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
