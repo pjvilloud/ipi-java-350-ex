@@ -152,11 +152,11 @@ public class EmployeServiceTest
     @ParameterizedTest
 	@CsvSource(
 			{
-				"1, 'C00001', 0, 1.0, 1000.0, 1000, 10, 75, 100",
-	            "1, 'C00002', 2, 0.5, 600.0, 1000, 10, 90, 100",
-	            "1, 'C00003', 2, 1.0, 1200.0, 1000, 10, 98, 100",
-	            "2, 'C00004', 0, 1.0, 2300.0, 1000, 10, 107, 100",
-	            "2, 'C00005', 1, 1.0, 2400.0, 1000, 10, 130, 100"
+				"1, 'C12345', 0, 1.0, 1000.0, 1000, 10, 75, 100",
+	            "1, 'C12345', 2, 0.5, 600.0, 1000, 10, 90, 100",
+	            "1, 'C12345', 2, 1.0, 1200.0, 1000, 10, 98, 100",
+	            "2, 'C12345', 0, 1.0, 2300.0, 1000, 10, 107, 100",
+	            "2, 'C12345', 1, 1.0, 2400.0, 1000, 10, 130, 100"
 			})
     public void testCalculPerformanceCommercial(Integer performance, String matricule, Integer nbAnneesAnciennete, Double TempsPartiel, Double primeAnnuelle, Double salaire, Double pourcentage, Long caTraite, Long objectifCa) throws EmployeException
     {
@@ -168,23 +168,21 @@ public class EmployeServiceTest
     	employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneesAnciennete));
     	employe.setTempsPartiel(TempsPartiel);
     	employe.setSalaire(salaire);
+    	employe.setNom("Doe");
+    	employe.setPrenom("John");
     	
-    	/*
-    	 String nom = "Doe";
-         String prenom = "John";
-         Poste poste = Poste.COMMERCIAL;
-         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
-         Double tempsPartiel = 1.0;
+    	//String nom = "Doe";
+        //String prenom = "John";
+        //Poste poste = Poste.COMMERCIAL;
+        //NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+        //Double tempsPartiel = 1.0;
          
-         when(employeRepository.findLastMatricule()).thenReturn("00345");
-         when(employeRepository.findByMatricule("M00346")).thenReturn(null);
+        //when(employeRepository.findLastMatricule()).thenReturn("00345");
+        when(employeRepository.findByMatricule("C12345")).thenReturn(employe);
 
          //When
-         employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
-         
-         String matricule = employeRepository.findLastMatricule();
-         Employe employe = employeRepository.findByMatricule(matricule);
-    	*/
+         //employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+    	
         //Cas 2
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95)
         {
