@@ -69,8 +69,8 @@ public class EmployeTest {
         Integer nbRttNonBixectile = employe.getNbRtt(LocalDate.of(2019, 1, 1));
         //Then = Verifications de ce qu'a fait la methode
         Assertions.assertThat(nbRtt).isEqualTo(nbRttActuel);
-        Assertions.assertThat(nbRttBixectile).isEqualTo(9);
-        Assertions.assertThat(nbRttNonBixectile).isEqualTo(7);
+        Assertions.assertThat(nbRttBixectile).isEqualTo(10);
+        Assertions.assertThat(nbRttNonBixectile).isEqualTo(8);
         //AserJ pour faire des assertions bcp plus lisible que Junit
     }
 
@@ -207,7 +207,7 @@ public class EmployeTest {
     public void leNombreSamediEtDimancheEn2020() {
         Employe employe = new Employe();
         int nombreJourSamediDimanche = employe.getNombreSamediDimanche(LocalDate.of(2020, 1, 1));
-        Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
+        Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(104 );
     }
     //2036 : tester le nombre samedi dimanche
 
@@ -222,7 +222,7 @@ public class EmployeTest {
     public void leNombreDeSamediEtDimancheEn2030() {
         Employe employe = new Employe();
         int nombreJourSamediDimanche = employe.getNombreSamediDimanche(LocalDate.of(2030, 1, 1));
-        Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
+        Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(104);
     }
     //2021 : tester le nombre samedi dimanche
 
@@ -230,7 +230,7 @@ public class EmployeTest {
     public void leNombreDeSamediEtDimancheEn2021() {
         Employe employe = new Employe();
         int nombreJourSamediDimanche = employe.getNombreSamediDimanche(LocalDate.of(2021, 1, 1));
-        Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
+        Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(104);
     }
     //2019 : tester le nombre samedi dimanche
 
@@ -238,7 +238,7 @@ public class EmployeTest {
     public void leNombreDeSamediEtDimancheEn2019() {
         Employe employe = new Employe();
         int nombreJourSamediDimanche = employe.getNombreSamediDimanche(LocalDate.of(2019, 1, 1));
-        Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
+        Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(104);
     }
 
 
@@ -265,7 +265,7 @@ public class EmployeTest {
     public void leNombreDeSamediEtDimancheEn2044() {
         Employe employe = new Employe();
         int nombreJourSamediDimanche = employe.getNombreSamediDimanche(LocalDate.of(2044, 1, 1));
-        Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(106);
+        Assertions.assertThat(nombreJourSamediDimanche).isEqualTo(105);
     }
 
 

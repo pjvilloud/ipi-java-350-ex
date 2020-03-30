@@ -8,6 +8,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static java.time.DayOfWeek.SATURDAY;
+
 @Entity
 public class Employe {
 
@@ -75,30 +77,49 @@ public class Employe {
                 - Entreprise.NB_CONGES_BASE - nombreJourFeriesSansWeekEnd) * tempsPartiel);
     }
 
-    public int getNombreSamediDimanche(LocalDate d) {
-        int nombreSamediEtDimanche = 104;
-        switch (LocalDate.of(d.getYear(), 1, 1).getDayOfWeek()) {
-            case TUESDAY:
-                if (!d.isLeapYear())
-                    nombreSamediEtDimanche = nombreSamediEtDimanche + 1;
-                break;
-            case THURSDAY:
-            case WEDNESDAY:
-                if (d.isLeapYear())
-                    nombreSamediEtDimanche = nombreSamediEtDimanche + 1;
-                break;
-            case FRIDAY:
-                if (d.isLeapYear())
-                    nombreSamediEtDimanche = nombreSamediEtDimanche + 2;
-                else
-                    nombreSamediEtDimanche = nombreSamediEtDimanche + 1;
-                break;
-            case SATURDAY:
-                nombreSamediEtDimanche = nombreSamediEtDimanche + 1;
-                break;
-        }
-        return nombreSamediEtDimanche;
-    }
+
+	/*
+
+
+  Il y a 52 semaines, donc 104 samedis et dimanches par an au minimum.
+
+ l'année non bissextile commence et finit toujours par le même jour. Par exemple si le 01/01 est un mardi, le 31/12 est un mardi aussi.
+Ce qui implique que si l'année commence un samedi, elle finit aussi un samedi. On a donc cette année-là un jour de week-end en plus. Idem si l'année commence un dimanche.
+
+Enfin, si l'année est bissextile, on aura un décalage d'un jour entre le premier jour dans l"année et le dernier jour de l'année. Ce qui implique que :
+
+si l'année commence un Vendredi, elle finit un Samedi. Donc +1.
+si l'année commence un Samedi, elle finit un Dimanche. Donc +2.
+si l'année commence un Dimanche, elle finit un Lundi. Donc +1.
+
+     */
+	public int getNombreSamediDimanche(LocalDate d) {
+		int nombreSamediEtDimanche = 104;
+
+		DayOfWeek premierJourDannee = LocalDate.of(d.getYear(), 1, 1).getDayOfWeek();
+		if (!d.isLeapYear()){
+
+			if(premierJourDannee == SATURDAY ||  premierJourDannee == SATURDAY  ){
+				nombreSamediEtDimanche++;
+			}
+
+		}else{
+			DayOfWeek dernierJourDannee = LocalDate.of(d.getYear(), 12, 31).getDayOfWeek();
+
+
+			if(premierJourDannee == SATURDAY ||  premierJourDannee == SATURDAY  ){
+				nombreSamediEtDimanche++;
+			}
+			if(dernierJourDannee == SATURDAY ||  dernierJourDannee == SATURDAY  ){
+				nombreSamediEtDimanche++;
+			}
+
+		}
+
+
+
+		return nombreSamediEtDimanche;
+	}
 
     public int getNombreJourFerierSansWeekend(LocalDate d) {
         return (int) Entreprise.joursFeries(d).stream()
