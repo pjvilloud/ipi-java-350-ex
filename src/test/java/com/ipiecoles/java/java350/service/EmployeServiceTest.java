@@ -170,18 +170,10 @@ public class EmployeServiceTest
     	employe.setSalaire(salaire);
     	employe.setNom("Doe");
     	employe.setPrenom("John");
-    	
-    	//String nom = "Doe";
-        //String prenom = "John";
-        //Poste poste = Poste.COMMERCIAL;
-        //NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
-        //Double tempsPartiel = 1.0;
          
         //when(employeRepository.findLastMatricule()).thenReturn("00345");
         when(employeRepository.findByMatricule("C12345")).thenReturn(employe);
 
-         //When
-         //employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
     	
         //Cas 2
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95)
