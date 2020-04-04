@@ -36,7 +36,7 @@ public class EmployeService {
      * @throws EmployeException Si on arrive au bout des matricules possibles
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
-    private void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
         logger.debug("Coucou");
         logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(), poste.name(), tempsPartiel);
 
@@ -49,7 +49,7 @@ public class EmployeService {
             lastMatricule = Entreprise.MATRICULE_INITIAL;
         }
         //... et incrémentation
-        int numeroMatricule = Integer.parseInt(lastMatricule) + 1;
+        Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
         if(numeroMatricule >= 100000){
             logger.error("Limite des 100000 matricules atteinte !");
             throw new EmployeException("Limite des 100000 matricules atteinte !");
@@ -97,7 +97,7 @@ public class EmployeService {
      *
      * @throws EmployeException Si le matricule est null ou ne commence pas par un C
      */
-    private void calculPerformanceCommercial(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
+    public void calculPerformanceCommercial(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
         //Vérification des paramètres d'entrée
         if(caTraite == null || caTraite < 0){
             throw new EmployeException("Le chiffre d'affaire traité ne peut être négatif ou null !");
