@@ -31,7 +31,7 @@ public class EmployeIntegrationServiceTest {
     @Autowired
     EmployeService employeService;
 
-    String lastMatricule = employeRepository.findLastMatricule();
+    //String lastMatricule = employeRepository.findLastMatricule();
 
     @Test
     public void integrationEmbaucheEmploye() throws EmployeException {
@@ -58,4 +58,5 @@ public class EmployeIntegrationServiceTest {
         //1521.22 * 1.2 * 1.0
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
     }
+
 }
