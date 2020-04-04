@@ -9,6 +9,20 @@ import java.time.LocalDate;
 
 public class EmployeTest {
     private EmployeService employeService;
+
+    @Test
+    public void getNombreAnneeAnciennete(){
+        //Given
+        Employe employe = new Employe();
+        employe.setDateEmbauche(employe.getDateEmbauche());
+
+        //when
+        Integer nbAnneeEmploye = employe.getNombreAnneeAnciennete();
+
+        //then
+        Assertions.assertThat(nbAnneeEmploye).isEqualTo(0);
+    }
+
     @Test
     public void testAnneeAncinneteNow(){
         //Given Envoie de la class Employe
