@@ -1,5 +1,6 @@
 package com.ipiecoles.java.java350.model;
 import com.ipiecoles.java.java350.service.EmployeService;
+import io.cucumber.java8.En;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,6 +10,16 @@ import java.time.LocalDate;
 
 public class EmployeTest {
     private EmployeService employeService;
+
+    @Test
+    public void getNbConges(){
+        //Given
+        Employe employe = new Employe();
+        //When
+        Integer nbConges = employe.getNbConges();
+        //Then
+        Assertions.assertThat(nbConges).isEqualTo(25);
+    }
 
     @Test
     public void getNombreAnneeAnciennete(){
@@ -22,6 +33,7 @@ public class EmployeTest {
         //then
         Assertions.assertThat(nbAnneeEmploye).isEqualTo(0);
     }
+
 
     @Test
     public void testAnneeAncinneteNow(){
