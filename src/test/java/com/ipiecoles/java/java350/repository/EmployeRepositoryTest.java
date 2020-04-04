@@ -1,5 +1,6 @@
-package com.ipiecoles.java.java350.model;
+package com.ipiecoles.java.java350.repository;
 
+import com.ipiecoles.java.java350.Employe;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

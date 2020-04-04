@@ -1,5 +1,5 @@
 package com.ipiecoles.java.java350.model;
-import com.ipiecoles.java.java350.model.Employe;
+import com.ipiecoles.java.java350.Employe;
 import com.ipiecoles.java.java350.service.EmployeService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

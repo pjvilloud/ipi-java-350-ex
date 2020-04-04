@@ -1,5 +1,9 @@
-package com.ipiecoles.java.java350.model;
+package com.ipiecoles.java.java350.service;
 
+import com.ipiecoles.java.java350.Employe;
+import com.ipiecoles.java.java350.Entreprise;
+import com.ipiecoles.java.java350.NiveauEtude;
+import com.ipiecoles.java.java350.Poste;
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import com.ipiecoles.java.java350.service.EmployeService;
@@ -7,8 +11,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
