@@ -1,5 +1,4 @@
 package com.ipiecoles.java.java350.model;
-import com.ipiecoles.java.java350.Employe;
 import com.ipiecoles.java.java350.service.EmployeService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -88,4 +87,15 @@ public class EmployeTest {
         Assertions.assertThat(prime).isEqualTo(primeCalculee);
 
     }
+
+    /**
+     * Partie Evaluation
+     */
+
+    /** Test unitaire sur la méthode augmenter salaire **/
+    @Test
+    public void getAugmenterSalaire(){
+
+    }
+
 }
