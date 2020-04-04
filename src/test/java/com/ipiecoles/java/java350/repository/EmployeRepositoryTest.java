@@ -56,29 +56,7 @@ public class EmployeRepositoryTest {
 		
 	}
 	
-	/*@Test
-	@ParameterizedTest
-	@CsvSource({"M0001,1","M0002,2","M0003,3","M0004,2","M0005,2","T0001,1","T0002,2","T0003,3","T0004,2","T0005,2"})
-	public void avgDumb(String matricule, Integer performance) {
-		Employe e1 = new Employe();
-		e1.setMatricule(matricule);
-		e1.setPerformance(performance);
-		employeRepository.save(e1);
-		
-	}*/
-	
-	/*@Test
-	@ParameterizedTest
-	@CsvSource({"M","T"})
-	public void avgPerformanceWhereMatriculeStartsWithTest(String start) {
-		//Given
-		
-		//When
-		Double result = employeRepository.avgPerformanceWhereMatriculeStartsWith(start);
-				
-		//Then
-		Assertions.assertThat(result).isEqualTo(2d);
-	}*/
+
 	
 }
 

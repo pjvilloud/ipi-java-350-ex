@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.model.Employe;
+import com.ipiecoles.java.java350.model.Entreprise;
 
 public class EmployeTest {
 
@@ -82,5 +84,35 @@ public class EmployeTest {
 		// Then
 		Assertions.assertThat(primeCalculer).isEqualTo(prime);
 	}
+	
+	@ParameterizedTest
+	@CsvSource({",'10','-10'" })
+	void augmenterSalaireTestLimite( Double pourcentage) {
+		// Given
+		Employe employe = new Employe();
+		employe.setSalaire(Entreprise.SALAIRE_BASE);
+
+		// When
+    		Assertions.assertThatThrownBy(() -> {employe.augmenterSalaire(pourcentage);})
+    		.isInstanceOf(EmployeException.class).hasMessage("valeur non comprise entre 0 et 1 !!");  
+    		
+		// Then
+	}
+	
+	@ParameterizedTest
+	@CsvSource({"'0.2','0.5','0.75'" })
+	void augmenterSalaireTestNominal( Double pourcentage) throws EmployeException {
+		// Given
+		Employe employe = new Employe();
+		employe.setSalaire(Entreprise.SALAIRE_BASE);
+		Double reference = Entreprise.SALAIRE_BASE+Entreprise.SALAIRE_BASE*pourcentage;
+
+		// When
+    	employe.augmenterSalaire(pourcentage);
+    		
+		// Then
+    	Assertions.assertThat(reference).isEqualTo(employe.getSalaire());
+	}
+	
 
 }

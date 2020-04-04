@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -108,7 +111,12 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(Double pourcentage) throws EmployeException{
+    	if(pourcentage == null ||pourcentage<0 || pourcentage>1) {
+    		throw new EmployeException("valeur non comprise entre 0 et 1 !!");  
+    		}
+    	this.salaire=this.salaire*(1+pourcentage);
+    }
 
     public Long getId() {
         return id;

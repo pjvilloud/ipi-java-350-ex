@@ -36,7 +36,7 @@ public class EmployeService {
      * @throws EmployeException Si on arrive au bout des matricules possibles
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
-    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException {
 
     	logger.debug("A DEBUG MESSAGE");
     	logger.info("A INFO MESSAGE");
@@ -63,8 +63,8 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
-        	logger.error("L'employé de matricule " + matricule + " existe déjà en BDD");
-            throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
+        	logger.error("Matricule deja existant dans la BDD");
+            throw new EntityExistsException(String.format("L'employé de matricule %s existe déjà en BDD",matricule));
         }
 
         //Calcul du salaire
