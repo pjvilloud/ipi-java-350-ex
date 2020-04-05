@@ -11,6 +11,7 @@ public class EmployeTest {
     private EmployeService employeService;
 
     //Test paramètré sur la méthode getNbRTT
+ /*
     @Test
     public void testgetNbRtt(LocalDate d){
         //Given
@@ -21,7 +22,7 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(nbRTT).isEqualTo(104);
     }
-
+*/
     //Coverage sur le methode des RTT
     @Test
     public void getNbRtt(){
