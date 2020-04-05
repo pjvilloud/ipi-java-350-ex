@@ -18,7 +18,6 @@ public class EmployeTest {
         Integer nbRTT = employe.getNbRtt();
         //Then
         Assertions.assertThat(nbRTT).isEqualTo(9);
-        Assertions.assertThat(nbRTT).isEqualTo(26);
     }
 
     @Test
