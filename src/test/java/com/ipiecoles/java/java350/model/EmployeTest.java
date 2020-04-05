@@ -10,6 +10,7 @@ import java.time.LocalDate;
 public class EmployeTest {
     private EmployeService employeService;
 
+    //Coverage sur le methode des RTT
     @Test
     public void getNbRtt(){
         //Given
@@ -20,6 +21,7 @@ public class EmployeTest {
         Assertions.assertThat(nbRTT).isEqualTo(9);
     }
 
+    //Coverage sur la méthode des congés
     @Test
     public void getNbConges(){
         //Given
@@ -121,6 +123,32 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(prime).isEqualTo(primeCalculee);
 
+    }
+
+    @Test
+    public void testNbAnneeAncienneteNowPlus3(){
+        //Given
+        Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now().plusYears(3));
+
+        //When
+        Integer nbAnnees = employe.getNombreAnneeAnciennete();
+
+        //Then
+        Assertions.assertThat(nbAnnees).isEqualTo(0);
+    }
+
+    @Test
+    public void testNbAnneeAncienneteNull(){
+        //Given
+        Employe employe = new Employe();
+        employe.setDateEmbauche(null);
+
+        //When
+        Integer nbAnnees = employe.getNombreAnneeAnciennete();
+
+        //Then
+        Assertions.assertThat(nbAnnees).isEqualTo(0);
     }
 
     /**
