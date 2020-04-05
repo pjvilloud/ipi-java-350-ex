@@ -14,6 +14,15 @@ public class EmployeTest {
     private EmployeService employeService;
 
     @Test
+    public void getNbRtt(LocalDate d){
+        //Given
+        Employe employe = new Employe();
+        //When
+
+        //Then
+    }
+
+    @Test
     public void getNbRtt(){
         //Given
         Employe employe = new Employe();
@@ -21,6 +30,7 @@ public class EmployeTest {
         Integer nbRTT = employe.getNbRtt();
         //Then
         Assertions.assertThat(nbRTT).isEqualTo(9);
+        Assertions.assertThat(nbRTT).isEqualTo(26);
     }
 
     @Test
