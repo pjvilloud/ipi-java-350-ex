@@ -1,12 +1,9 @@
 package com.ipiecoles.java.java350.model;
 import com.ipiecoles.java.java350.service.EmployeService;
-import io.cucumber.java8.En;
 import org.assertj.core.api.Assertions;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.testng.asserts.Assertion;
 
 import java.time.LocalDate;
 
