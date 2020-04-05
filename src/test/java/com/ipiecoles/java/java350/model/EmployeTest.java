@@ -1,63 +1,16 @@
 package com.ipiecoles.java.java350.model;
+import com.beust.jcommander.Parameter;
 import com.ipiecoles.java.java350.service.EmployeService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.runner.RunWith;
 
 import java.time.LocalDate;
 
 public class EmployeTest {
     private EmployeService employeService;
-
-    //Test paramètré sur la méthode getNbRTT
- /*
-    @Test
-    public void testgetNbRtt(LocalDate d){
-        //Given
-        Employe employe = new Employe();
-        //When
-        Integer nbRTT = employe.getNbRtt();
-        LocalDate.of(d.getYear(),1,1);
-        //Then
-        Assertions.assertThat(nbRTT).isEqualTo(104);
-    }
-*/
-    //Coverage sur le methode des RTT
-    @Test
-    public void getNbRtt(){
-        //Given
-        Employe employe = new Employe();
-        //When
-        Integer nbRTT = employe.getNbRtt();
-        //Then
-        Assertions.assertThat(nbRTT).isEqualTo(9);
-    }
-
-    //Coverage sur la méthode des congés
-    @Test
-    public void getNbConges(){
-        //Given
-        Employe employe = new Employe();
-        //When
-        Integer nbConges = employe.getNbConges();
-        //Then
-        Assertions.assertThat(nbConges).isEqualTo(25);
-    }
-
-    @Test
-    public void getNombreAnneeAnciennete(){
-        //Given
-        Employe employe = new Employe();
-        employe.setDateEmbauche(employe.getDateEmbauche());
-
-        //when
-        Integer nbAnneeEmploye = employe.getNombreAnneeAnciennete();
-
-        //then
-        Assertions.assertThat(nbAnneeEmploye).isEqualTo(0);
-    }
-
 
     @Test
     public void testAnneeAncinneteNow(){
@@ -172,6 +125,57 @@ public class EmployeTest {
     @Test
     public void getAugmenterSalaire(){
 
+    }
+
+    //Test paramètré sur la méthode getNbRTT
+/*
+    @Test
+    @ParameterizedTest(name = "LocalDate")
+    @CsvSource({
+            "365","366"
+    })
+    public void getNbRtt2(LocalDate d){
+        //Given
+        Employe employe = new Employe();
+        //When
+        d.isLeapYear();
+        //Then
+        Assertions.assertThat(d).isEqualTo(365);
+    }
+*/
+    //Coverage sur le methode des RTT
+    @Test
+    public void getNbRtt(){
+        //Given
+        Employe employe = new Employe();
+        //When
+        Integer nbRTT = employe.getNbRtt();
+        //Then
+        Assertions.assertThat(nbRTT).isEqualTo(9);
+    }
+
+    //Coverage sur la méthode des congés
+    @Test
+    public void getNbConges(){
+        //Given
+        Employe employe = new Employe();
+        //When
+        Integer nbConges = employe.getNbConges();
+        //Then
+        Assertions.assertThat(nbConges).isEqualTo(25);
+    }
+
+    @Test
+    public void getNombreAnneeAnciennete(){
+        //Given
+        Employe employe = new Employe();
+        employe.setDateEmbauche(employe.getDateEmbauche());
+
+        //when
+        Integer nbAnneeEmploye = employe.getNombreAnneeAnciennete();
+
+        //then
+        Assertions.assertThat(nbAnneeEmploye).isEqualTo(0);
     }
 
 }
