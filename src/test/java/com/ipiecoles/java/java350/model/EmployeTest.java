@@ -14,15 +14,6 @@ public class EmployeTest {
     private EmployeService employeService;
 
     @Test
-    public void getNbRtt(LocalDate d){
-        //Given
-        Employe employe = new Employe();
-        //When
-
-        //Then
-    }
-
-    @Test
     public void getNbRtt(){
         //Given
         Employe employe = new Employe();
