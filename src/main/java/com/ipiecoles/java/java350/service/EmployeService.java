@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.testng.annotations.Test;
 
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
@@ -36,9 +37,10 @@ public class EmployeService {
      * @throws EmployeException Si on arrive au bout des matricules possibles
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
-    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+
+    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude , Double tempsPartiel) throws EmployeException /*EntityExistsException*/ {
         logger.debug("Coucou");
-        logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(), poste.name(), tempsPartiel);
+        logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(),poste.name(), tempsPartiel);
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
