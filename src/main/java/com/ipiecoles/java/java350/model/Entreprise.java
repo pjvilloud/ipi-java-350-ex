@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.*;
 
 public final class Entreprise {
+
+    private Entreprise() {}
+
     public static final Double SALAIRE_BASE = 1521.22;
     public static final Integer NB_CONGES_BASE = 25;
     public static final Double INDICE_PRIME_BASE = 0.3;
