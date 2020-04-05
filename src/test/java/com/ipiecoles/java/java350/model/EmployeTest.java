@@ -10,6 +10,18 @@ import java.time.LocalDate;
 public class EmployeTest {
     private EmployeService employeService;
 
+    //Test paramètré sur la méthode getNbRTT
+    @Test
+    public void testgetNbRtt(LocalDate d){
+        //Given
+        Employe employe = new Employe();
+        //When
+        Integer nbRTT = employe.getNbRtt();
+        LocalDate.of(d.getYear(),1,1);
+        //Then
+        Assertions.assertThat(nbRTT).isEqualTo(104);
+    }
+
     //Coverage sur le methode des RTT
     @Test
     public void getNbRtt(){
