@@ -82,4 +82,15 @@ public class EmployeTest extends Assertions {
         Assertions.assertEquals(primeAnnuelle, prime);
 
     }
+
+    @Test
+    public void augmenterSalaire(double pourcentage) {
+        // Given
+        Employe employe = new Employe();
+
+        // When
+        employe.getSalaire();
+
+        // Then
+    }
 }
