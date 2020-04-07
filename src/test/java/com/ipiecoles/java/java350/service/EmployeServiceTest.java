@@ -94,62 +94,10 @@ class EmployeServiceTest {
 //       Mockito.when(employeRepository.findByMatricule("C00011")).thenReturn(e1);
 
        //When
-       PotentialStubbingProblem e = Assertions.assertThrows(PotentialStubbingProblem.class, () -> employeService.calculPerformanceCommercial("C00012",2000L , 2500L));
-        System.out.println("---------------------------");
-        System.out.println(e.getMessage());
-        System.out.println("---------------------------");
+       EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("C00012",2000L , 2500L));
+
        //Then
-       Assertions.assertEquals(e.getMessage(), "\n" +
-               "Strict stubbing argument mismatch. Please check:\n" +
-               " - this invocation of 'findByMatricule' method:\n" +
-               "    employeRepository.findByMatricule(\"C00012\");\n" +
-               "    -> at com.ipiecoles.java.java350.service.EmployeService.calculPerformanceCommercial(EmployeService.java:103)\n" +
-               " - has following stubbing(s) with different arguments:\n" +
-               "    1. employeRepository.findByMatricule(\"C00011\");\n" +
-               "      -> at com.ipiecoles.java.java350.service.EmployeServiceTest.calculPerformanceCommercialNotFoundTest(EmployeServiceTest.java:83)\n" +
-               "Typically, stubbing argument mismatch indicates user mistake when writing tests.\n" +
-               "Mockito fails early so that you can debug potential problem easily.\n" +
-               "However, there are legit scenarios when this exception generates false negative signal:\n" +
-               "  - stubbing the same method multiple times using 'given().will()' or 'when().then()' API\n" +
-               "    Please use 'will().given()' or 'doReturn().when()' API for stubbing.\n" +
-               "  - stubbed method is intentionally invoked with different arguments by code under test\n" +
-               "    Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).\n" +
-               "For more information see javadoc for PotentialStubbingProblem class.");
+       Assertions.assertEquals(e.getMessage(), "Le matricule C00012 n'existe pas !");
    }
 
-
-    @Test
-    void calculPerformanceCommercialNormalTest() throws EmployeException {
-
-        //Given
-        // Quand on va chercher si l employé avec le matricule calcule existe, on veut que la méthode renvoie null.
-//       employeRepository.deleteAll();
-        Employe e1 = new Employe("Doe", "John", "C00011", LocalDate.now(), 1050d, 1, 1d);
-        Employe e2 = new Employe("Doe", "John", "C00011", LocalDate.now(), 1050d, 1, 1d);
-
-//        Mockito.when(employeRepository.findByMatricule("C00011")).thenReturn(e1);
-
-        //When
-        employeService.calculPerformanceCommercial("C00011",2000L , 2500L);
-        Mockito.when(employeRepository.findByMatricule("C00011")).thenReturn(e2);
-
-        //Then
-        Assertions.assertEquals(employeRepository.findByMatricule("C00011").getPerformance(), 1);
-    }
-
-    @Test
-    void calculPerformanceCommercialIntegrationTest() throws EmployeException {
-
-        //Given
-        // Quand on va chercher si l employé avec le matricule calcule existe, on veut que la méthode renvoie null.
-//       employeRepository.deleteAll();
-        Employe e1 = new Employe("Doe", "John", "C00011", LocalDate.now(), 1050d, 1, 1d);
-        employeRepository.save(e1);
-
-        //When
-        employeService.calculPerformanceCommercial("C00011",2000L , 2500L);
-
-        //Then
-        Assertions.assertEquals(employeRepository.findByMatricule("C00011").getPerformance(), 1);
-    }
 }
