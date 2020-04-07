@@ -19,6 +19,7 @@ public class EmployeTest extends Assertions {
         Integer nbAnnees = employe.getNombreAnneeAnciennete();
         // Then
         assertEquals(0, nbAnnees);
+        
     }
 
     @Test
