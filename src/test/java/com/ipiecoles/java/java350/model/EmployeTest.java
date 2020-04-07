@@ -55,8 +55,7 @@ public class EmployeTest extends Assertions {
         Integer anneeAnciennete = e.getNombreAnneeAnciennete();
 
         //Then
-        assertEquals(0, anneeAnciennete.intValue());
-
+        assertEquals(-2, anneeAnciennete.intValue());
     }
 
     @ParameterizedTest
