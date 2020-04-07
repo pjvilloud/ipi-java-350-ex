@@ -73,7 +73,7 @@ public class EmployeService {
             salaire = salaire * tempsPartiel;
         }
         //ligne à rajouter pour calcule salaire pour test mocke
-        //salaire = Math.round(salaire*100d)/100d ;
+        salaire = Math.round(salaire*100d)/100d ;
 
         //Création et sauvegarde en BDD de l'employé.
         Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
