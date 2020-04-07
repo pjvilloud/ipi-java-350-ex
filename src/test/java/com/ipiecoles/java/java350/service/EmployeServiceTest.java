@@ -156,7 +156,21 @@ public class EmployeServiceTest {
             org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule C00001 n'existe pas !");
         }
     }
-
+    @Test
+    public void testCalculPerformanceCommercialMatriculeIsNull() {
+        //Given
+        String matricule = null;
+        Long caTraite = 0L;
+        Long objectifCa = 13454L;
+        try{
+            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+            Assertions.fail("Aurait du lancer une exception");
+        } catch(EmployeException e){
+            //Then
+            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
+        }
+    }
     @Test
     public void testCalculPerformanceCommercialMatriculeStartC(){
         //Given
