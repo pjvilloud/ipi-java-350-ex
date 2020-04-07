@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 
-@SpringBootConfiguration
+@SpringBootTest
 class EmployeRepositoryTest {
 	
 	@Autowired
