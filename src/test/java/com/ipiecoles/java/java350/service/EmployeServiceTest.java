@@ -90,8 +90,35 @@ class EmployeServiceTest {
 
 
     @Test
-    void testCalculPerformanceCommercial() {
-        
-
+    void testCalculPerformanceCommercialCANull() {
+        try {
+            employeService.calculPerformanceCommercial("C0001", null, 1000L);
+        } catch (EmployeException e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire traité ne peut être négatif ou null !");
+        }
+    }
+    @Test
+    void testCalculPerformanceCommercialCANegatif() {
+        try {
+            employeService.calculPerformanceCommercial("C0001", -1L, 1000L);
+        } catch (EmployeException e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire traité ne peut être négatif ou null !");
+        }
+    }
+    @Test
+    void testCalculPerformanceCommercialObjectifCANegatif() {
+        try {
+            employeService.calculPerformanceCommercial("C0001", 1000L, -100L);
+        } catch (EmployeException e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+        }
+    }
+    @Test
+    void testCalculPerformanceCommercialCommençantparC() {
+        try {
+            employeService.calculPerformanceCommercial("M0001", 1000L, 1000L);
+        } catch (EmployeException e) {
+            Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
+        }
     }
 }
