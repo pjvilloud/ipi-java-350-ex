@@ -6,6 +6,8 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import java.time.LocalDate;
 
 @Service
 public class EmployeService {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private EmployeRepository employeRepository;
@@ -41,7 +45,7 @@ public class EmployeService {
             lastMatricule = Entreprise.MATRICULE_INITIAL;
         }
         //... et incrémentation
-        Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
+        int numeroMatricule = Integer.parseInt(lastMatricule) + 1;
         if(numeroMatricule >= 100000){
             throw new EmployeException("Limite des 100000 matricules atteinte !");
         }
@@ -55,7 +59,7 @@ public class EmployeService {
         }
 
         //Calcul du salaire
-        Double salaire = Entreprise.COEFF_SALAIRE_ETUDES.get(niveauEtude) * Entreprise.SALAIRE_BASE;
+        double salaire = Entreprise.getCoeffSalaireEtudes().get(niveauEtude) * Entreprise.SALAIRE_BASE;
         if(tempsPartiel != null){
             salaire = salaire * tempsPartiel;
         }
@@ -103,10 +107,11 @@ public class EmployeService {
             throw new EmployeException("Le matricule " + matricule + " n'existe pas !");
         }
 
-        Integer performance = Entreprise.PERFORMANCE_BASE;
+        int performance = Entreprise.PERFORMANCE_BASE;
         //Cas 2
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
             performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
+            logger.debug(String.valueOf(performance));
         }
         //Cas 3
         else if(caTraite >= objectifCa*0.95 && caTraite <= objectifCa*1.05){

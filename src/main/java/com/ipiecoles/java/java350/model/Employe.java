@@ -11,7 +11,6 @@ import java.util.Objects;
 @Entity
 public class Employe {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -110,7 +109,12 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+
+        double result = this.getSalaire() * (1 + (pourcentage/100));
+
+        this.setSalaire(result);
+    }
 
     public Long getId() {
         return id;
