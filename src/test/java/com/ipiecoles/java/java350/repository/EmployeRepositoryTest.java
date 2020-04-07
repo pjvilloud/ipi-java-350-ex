@@ -1,7 +1,6 @@
 package com.ipiecoles.java.java350.repository;
 
 import com.ipiecoles.java.java350.model.Employe;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,16 +22,6 @@ public class EmployeRepositoryTest {
 
     @Test
     void findLastMatricule() {
-        // Given
-
-        // When
-        String lastMarticule = employeRepository.findLastMatricule();
-
-        // Then
-    }
-
-    @Test
-    void findLastMatricule2() {
         // Given
         Employe e1 = new Employe("Doe", "John", "T12345", LocalDate.now(), 1050d, 1, 1d);
         Employe e2 = new Employe("TEST", "aa", "T67891", LocalDate.now(), 1050d, 1, 1d);

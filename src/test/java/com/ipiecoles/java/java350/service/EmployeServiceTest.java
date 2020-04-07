@@ -5,7 +5,6 @@ import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
@@ -23,9 +21,8 @@ import java.time.format.DateTimeFormatter;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class EmployeServiceTest {
+public class EmployeServiceTest {
 
-//    @InjectMocks
     @InjectMocks
     EmployeService employeService;
 
@@ -58,7 +55,7 @@ class EmployeServiceTest {
         Assertions.assertEquals(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), employeArgumentCaptor.getValue().getDateEmbauche().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         Assertions.assertEquals("T00346", employeArgumentCaptor.getValue().getMatricule());
         Assertions.assertEquals(tempsPartiel, employeArgumentCaptor.getValue().getTempsPartiel());
-        //1521.22 * 1.2 * 1.0
+
         Assertions.assertEquals(1825.464, employeArgumentCaptor.getValue().getSalaire().doubleValue());
     }
     @Test
@@ -170,7 +167,6 @@ class EmployeServiceTest {
         // Quand on va chercher si l employé avec le matricule calcule existe, on veut que la méthode renvoie null.
         Employe e1 = new Employe("Doe", "John", "C00011", LocalDate.now(), 1050d, 1, 1d);
         employeRepository.save(e1);
-
 
         //When
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("C00012",2000L , 2500L));

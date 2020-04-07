@@ -3,9 +3,7 @@ package com.ipiecoles.java.java350.model;
 import com.ipiecoles.java.java350.exception.EmployeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
-
 
 public class EmployeTest {
 
