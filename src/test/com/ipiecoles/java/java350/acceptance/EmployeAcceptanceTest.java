@@ -1,4 +1,4 @@
-package java.com.ipiecoles.java.java350.acceptance;
+package com.ipiecoles.java.java350.acceptance;
 
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.model.Employe;

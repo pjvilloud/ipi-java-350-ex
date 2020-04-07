@@ -1,4 +1,4 @@
-package java.com.ipiecoles.java.java350.model;
+package com.ipiecoles.java.java350.model;
 
 import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.model.Entreprise;

@@ -1,4 +1,4 @@
-package java.com.ipiecoles.java.java350;
+package com.ipiecoles.java.java350;
 
 import com.thoughtworks.gauge.ClassInitializer;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;

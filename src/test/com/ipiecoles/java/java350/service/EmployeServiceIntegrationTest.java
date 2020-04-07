@@ -1,4 +1,4 @@
-package java.com.ipiecoles.java.java350.service;
+package com.ipiecoles.java.java350.service;
 
 
 import com.ipiecoles.java.java350.exception.EmployeException;
