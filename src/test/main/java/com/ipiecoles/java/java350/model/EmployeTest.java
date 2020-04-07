@@ -92,7 +92,7 @@ public class EmployeTest {
         Employe e = new Employe();
         e.setSalaire(2000d);
 
-        //When
+        //When :
         e.augmenterSalaire(0);
 
         //Then
