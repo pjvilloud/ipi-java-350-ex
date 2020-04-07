@@ -17,6 +17,8 @@ import java.time.LocalDate;
 @Service
 public class EmployeService {
 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private EmployeRepository employeRepository;
 
@@ -130,6 +132,7 @@ public class EmployeService {
             performance++;
         }
 
+        logger.debug(String.valueOf(performance));
         //Affectation et sauvegarde
         employe.setPerformance(performance);
         employeRepository.save(employe);
