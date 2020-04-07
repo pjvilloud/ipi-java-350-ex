@@ -110,7 +110,18 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    public void augmenterSalaire(double pourcentage){
+    public void augmenterSalaire(double pourcentage) throws Exception {
+        if(this.salaire == null) {
+            throw new Exception("Le salaire est nulle");
+        }
+        if(pourcentage == 0) {
+            throw new Exception("Le pourcentage ne peut pas être 0");
+        }
+        double oldSalaire = this.salaire;
+        this.salaire = (pourcentage/100 * this.salaire) + this.salaire;
+        if (oldSalaire > this.salaire) {
+            throw new Exception("Le pourcentage ne peut pas être négatif");
+        }
 
     }
 

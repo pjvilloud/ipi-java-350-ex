@@ -1,6 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
-import org.junit.jupiter.api.Assertions;
+//import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -18,8 +19,9 @@ public class EmployeTest extends Assertions {
         // When
         Integer nbAnnees = employe.getNombreAnneeAnciennete();
         // Then
-        assertEquals(0, nbAnnees);
-        
+//        assertEquals(0, nbAnnees);
+        Assertions.assertThat(0).isEqualTo(nbAnnees);
+
     }
 
     @Test
@@ -31,7 +33,7 @@ public class EmployeTest extends Assertions {
         // When
         Integer nbAnnees = employe.getNombreAnneeAnciennete();
         // Then
-        assertEquals(2, nbAnnees);
+        Assertions.assertThat(2).isEqualTo(nbAnnees);
     }
 
     @Test
@@ -43,7 +45,8 @@ public class EmployeTest extends Assertions {
         // When
         Integer nbAnnees = employe.getNombreAnneeAnciennete();
         // Then
-        assertEquals(0,nbAnnees);
+//        assertEquals(0,nbAnnees);
+        Assertions.assertThat(0).isEqualTo(nbAnnees);
     }
 
     @Test
@@ -56,7 +59,8 @@ public class EmployeTest extends Assertions {
         Integer anneeAnciennete = e.getNombreAnneeAnciennete();
 
         //Then
-        assertEquals(-2, anneeAnciennete.intValue());
+//        assertEquals(-2, anneeAnciennete.intValue());
+        Assertions.assertThat(-2).isEqualTo(anneeAnciennete.intValue());
     }
 
     @ParameterizedTest
@@ -79,18 +83,64 @@ public class EmployeTest extends Assertions {
         Double prime = employe.getPrimeAnnuelle();
 
         //Then
-        Assertions.assertEquals(primeAnnuelle, prime);
+//        Assertions.assertEquals(primeAnnuelle, prime);
+        Assertions.assertThat(primeAnnuelle).isEqualTo(prime);
 
     }
 
     @Test
-    public void augmenterSalaire(double pourcentage) {
+    public void testaugmenterSalaire() throws Exception {
         // Given
-        Employe employe = new Employe();
+        Employe employe = new Employe("Doe", "John", "C0000", LocalDate.now(), 1000.0, 1, 10.0);
 
         // When
-        employe.getSalaire();
+        employe.augmenterSalaire(20);
 
         // Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1200);
     }
+
+    @Test
+    public void testaugmenterSalaireNegatif() {
+        // Given
+        Employe employe = new Employe("Doe", "John", "C0000", LocalDate.now(), 1000.0, 1, 10.0);
+
+        // When // Then
+        Assertions.assertThatThrownBy(() -> {
+            employe.augmenterSalaire(-5);
+                }
+        )
+                .isInstanceOf(Exception.class)
+                .hasMessage("Le pourcentage ne peut pas être négatif");
+
+    }
+
+    @Test
+    public void testaugmenterSalaireNull() {
+        // Given
+        Employe employe = new Employe("Doe", "John", "C0000", LocalDate.now(), null, 1, 10.0);
+
+        // When // Then
+        Assertions.assertThatThrownBy(() -> {
+                    employe.augmenterSalaire(2);
+                }
+        )
+                .isInstanceOf(Exception.class)
+                .hasMessage("Le salaire est nulle");
+    }
+
+    @Test
+    public void testaugmenterSalairePourcentage0() {
+        // Given
+        Employe employe = new Employe("Doe", "John", "C0000", LocalDate.now(), 1000.0, 1, 10.0);
+
+        // When // Then
+        Assertions.assertThatThrownBy(() -> {
+                    employe.augmenterSalaire(0);
+                }
+        )
+                .isInstanceOf(Exception.class)
+                .hasMessage("Le pourcentage ne peut pas être 0");
+    }
+
 }
