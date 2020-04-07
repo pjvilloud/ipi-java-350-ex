@@ -1,4 +1,5 @@
 package com.ipiecoles.java.java350.model;
+import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.service.EmployeService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -119,17 +120,34 @@ public class EmployeTest {
      * Partie Evaluation
      */
 
-    /** Test unitaire sur la méthode augmenter salaire **/
+    /**
+     * Test unitaire sur la méthode augmenter salaire à 10%
+     */
     @Test
-    public void testaugmenterSalaire(){
+    public void testaugmenterSalaire10() throws EmployeException {
         //Given
-        Employe employe = new Employe();
+        Employe employe = new Employe("Pose", "Kevin", "C00001", LocalDate.now(), 1000.0, 2, 2.0 );
         Double pourcentage = 10D;
         //When
         employe.augmenterSalaire(pourcentage);
         //Then
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(15210);
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1100);
     }
+    @Test
+    public void testaugmenterSalaireNull() throws EmployeException {
+        //Given
+        Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.now(), null, 3, 7.0 );
+        Double pourcentage = 10D;
+        Assertions.assertThatThrownBy(() -> {
+                    //Then
+            employe.augmenterSalaire(pourcentage);
+                }
+            )//When
+                .isInstanceOf(EmployeException.class)
+                .hasMessage("Le salaire est null");
+
+    }
+
 
     //Test paramètré sur la méthode getNbRTT
 /*

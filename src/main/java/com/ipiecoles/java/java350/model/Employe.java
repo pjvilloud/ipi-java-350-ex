@@ -1,5 +1,9 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +15,7 @@ import java.util.Objects;
 @Entity
 public class Employe {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -128,8 +133,12 @@ public class Employe {
     }
 
     //Augmenter salaire
-    public void augmenterSalaire(double pourcentage){
-        this.salaire = Math.round(this.salaire)*pourcentage;
+    public void augmenterSalaire(double pourcentage) throws EmployeException {
+        if (this.salaire == null){
+            logger.error("Le salaire est null");
+            throw new EmployeException("Le salaire est null");
+        }
+        this.salaire = Math.round(this.salaire)*(1+pourcentage/100);
     }
 
     public Long getId() {
