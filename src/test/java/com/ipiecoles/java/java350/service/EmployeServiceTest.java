@@ -128,23 +128,6 @@ public class EmployeServiceTest {
 
     @Test
     @ExtendWith(SpringExtension.class)
-    void embaucheEmploye() throws EmployeException {
-        //Given
-        // Quand la méthode findLast va etre appelée, on veut qu elle renvoie null pour simuler une base employé vude
-        when(employeRepository.findLastMatricule()).thenReturn(null);
-
-        // Quand on va chercher si l employé avec le matricule calcule existe, on veut que la méthode renvoie null.
-        when(employeRepository.findByMatricule("C00001")).thenReturn(null);
-
-        //When
-        employeService.embaucheEmploye("Doe","John", Poste.COMMERCIAL, NiveauEtude.LICENCE,1.0);
-
-        //Then
-        employeService.embaucheEmploye("Doe", "John", Poste.COMMERCIAL, NiveauEtude.LICENCE, 1.0);
-    }
-
-    @Test
-    @ExtendWith(SpringExtension.class)
     void embaucheEmploye2() throws EmployeException {
         //Given
         // Quand on va chercher si l employé avec le matricule calcule existe, on veut que la méthode renvoie null.
@@ -157,7 +140,7 @@ public class EmployeServiceTest {
         ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
         verify(employeRepository).save(employeArgumentCaptor.capture());
         Employe employe = employeArgumentCaptor.getValue();
-        Assertions.assertEquals(employe.getNom(), "Doe");
+        Assertions.assertEquals( "Doe", employe.getNom());
    }
 
    @Test
@@ -172,6 +155,6 @@ public class EmployeServiceTest {
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("C00012",2000L , 2500L));
 
         //Then
-        Assertions.assertEquals(e.getMessage(), "Le matricule C00012 n'existe pas !");
+        Assertions.assertEquals("Le matricule C00012 n'existe pas !",e.getMessage());
     }
 }

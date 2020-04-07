@@ -35,7 +35,7 @@ public class EmployeRepositoryTest {
         String lastMarticule = employeRepository.findLastMatricule();
 
         // Then
-        Assertions.assertEquals(lastMarticule, "67891");
+        Assertions.assertEquals("67891", lastMarticule);
     }
 
     @Test
@@ -54,6 +54,6 @@ public class EmployeRepositoryTest {
         Double avg = employeRepository.avgPerformanceWhereMatriculeStartsWith(premiereLettreMattricule);
 
         // Then
-        Assertions.assertEquals(avg,2.3333333333333335d);
+        Assertions.assertEquals(2.3333333333333335d, avg);
     }
 }

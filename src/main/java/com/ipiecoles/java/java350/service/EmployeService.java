@@ -34,7 +34,7 @@ public class EmployeService {
      * @throws EmployeException Si on arrive au bout des matricules possibles
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
-    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException {
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
@@ -124,7 +124,8 @@ public class EmployeService {
             performance = employe.getPerformance() + 1;
         }
         //Cas 5
-        else if(caTraite > objectifCa*1.2){
+//        else if(caTraite > objectifCa*1.2){
+        else {
             performance = employe.getPerformance() + 4;
         }
         //Si autre cas, on reste à la performance de base.
@@ -134,7 +135,7 @@ public class EmployeService {
         if(performanceMoyenne != null && performance > performanceMoyenne){
             performance++;
         }
-        logger.debug(String.valueOf(performance));
+//        logger.debug(String.valueOf(performance));
 
         //Affectation et sauvegarde
         employe.setPerformance(performance);
