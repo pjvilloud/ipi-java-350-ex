@@ -1,9 +1,13 @@
 package com.ipiecoles.java.java350.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.ipiecoles.java.java350.exception.EmployeException;
+import com.ipiecoles.java.java350.repository.EmployeRepository;
+import com.ipiecoles.java.java350.service.EmployeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -11,6 +15,7 @@ import java.util.Objects;
 @Entity
 public class Employe {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -113,7 +118,23 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) throws EmployeException, EntityExistsException {
+        if(pourcentage==0){
+            logger.error("Attention le pourcentage est égale à 0 !");
+            throw new EmployeException("Attention le pourcentage est égale à 0 !");
+        }
+        if(pourcentage<0){
+            logger.error("Attention le pourcentage est négatif !");
+            throw new EmployeException("Attention le pourcentage est négatif !");
+        }
+        if(this.salaire == null){
+            logger.error("Attention salaire null !");
+            throw new EmployeException("Attention salaire null !");
+        }
+        else{
+            this.salaire = Math.round(this.salaire) * (1+ pourcentage/100);
+        }
+    }
 
     public Long getId() {
         return id;
