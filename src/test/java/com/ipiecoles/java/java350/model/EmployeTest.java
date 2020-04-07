@@ -117,15 +117,15 @@ public class EmployeTest {
         Assertions.assertThat(employe.getSalaire()).isEqualTo(1500.0);
     }
 
-    @Test
-    public void testAugmenterSalaire0Salaire(){
-        //Given
-        Employe employe = new Employe();
-        employe.setSalaire(0.0);
-        //When
-        employe.augmenterSalaire(50);
-        //Then
-        Assertions.assertThat(Entreprise.SALAIRE_BASE).isEqualTo(employe.getSalaire());
-    }
+//    @Test
+//    public void testAugmenterSalaire0Salaire(){
+//        //Given
+//        Employe employe = new Employe();
+//        employe.setSalaire(0.0);
+//        //When
+//        employe.augmenterSalaire(50);
+//        //Then
+//        Assertions.assertThat(Entreprise.SALAIRE_BASE).isEqualTo(employe.getSalaire());
+//    }
 
 }
