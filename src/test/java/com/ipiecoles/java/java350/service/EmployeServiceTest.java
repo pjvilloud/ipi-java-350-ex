@@ -56,7 +56,7 @@ public class EmployeServiceTest {
         Assertions.assertEquals("T00346", employeArgumentCaptor.getValue().getMatricule());
         Assertions.assertEquals(tempsPartiel, employeArgumentCaptor.getValue().getTempsPartiel());
 
-        Assertions.assertEquals(1825.464, employeArgumentCaptor.getValue().getSalaire().doubleValue());
+        Assertions.assertEquals(1825.46, employeArgumentCaptor.getValue().getSalaire().doubleValue());
     }
     @Test
     public void testEmbaucheEmployeManagerMiTempsMaster() throws EmployeException {
@@ -79,7 +79,7 @@ public class EmployeServiceTest {
         Assertions.assertEquals("M00346", employeArgumentCaptor.getValue().getMatricule());
         Assertions.assertEquals(tempsPartiel, employeArgumentCaptor.getValue().getTempsPartiel());
 
-        Assertions.assertEquals(1064.854, employeArgumentCaptor.getValue().getSalaire().doubleValue());
+        Assertions.assertEquals(1064.85, employeArgumentCaptor.getValue().getSalaire().doubleValue());
     }
     @Test
     public void testEmbaucheEmployeManagerMiTempsMasterNoLastMatricule() throws EmployeException {
