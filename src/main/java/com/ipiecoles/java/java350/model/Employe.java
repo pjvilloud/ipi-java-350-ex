@@ -113,7 +113,17 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    //Sans avoir fait les tests avant, je n'aurais certainement pas codé la méthode ainsi, je n'aurais pas effectué toutes ces vérifications
+    public void augmenterSalaire(double pourcentage){
+        if(this.salaire < 0 || this.salaire == null) {
+            this.setSalaire(Entreprise.SALAIRE_BASE);
+        }
+        else{
+            if(pourcentage > 0){ //si le poucentage est null ou inferieur a 0, on ne modifie pas le salaire
+                this.setSalaire(salaire * (1 + pourcentage / 100));
+            }
+        }
+    }
 
     public Long getId() {
         return id;

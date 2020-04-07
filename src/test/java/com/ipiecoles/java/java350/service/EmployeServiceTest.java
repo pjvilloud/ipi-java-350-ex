@@ -6,12 +6,12 @@ import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -26,10 +26,15 @@ class EmployeServiceTest {
     @Mock
     EmployeRepository employeRepository;
 
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.initMocks(this.getClass());
+    }
+
     @Test
     void embaucheEmploye0Employe() throws EmployeException {
         //Given
-        //Quand la méthode findLastMatricule va être appelée, on veut qu'elle renvoie null pour simuler une base emplyé vide
+        //Quand la méthode findLastMatricule va être appelée, on veut qu'elle renvoie null pour simuler une base employé vide
         Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
 
         //Quand on va chercher si l'employé avec le matricule calculé existe, on veut que la méthode renvoie null
@@ -58,5 +63,35 @@ class EmployeServiceTest {
         Employe employe = employeArgumentCaptor.getValue();
 //        Assertions.AssertThat(employe.getNom()).isEqualTo("Doe");
         Assertions.assertEquals("Doe",employe.getNom());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'C14785', , 1000",
+            "'C36985', -3500, 1000"
+    })
+    public void testCalculPerformanceCommercialCATNullouNegatif(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa));
+        Assertions.assertEquals("Le chiffre d'affaire traité ne peut être négatif ou null !", e.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'C14785', 3500, ",
+            "'C36985', 3500, -1500"
+    })
+    public void testCalculPerformanceCommercialCAONullouNegatif(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa));
+        Assertions.assertEquals("L'objectif de chiffre d'affaire ne peut être négatif ou null !", e.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            ", 1560, 1560",
+            "'M45678', 3500, 3500"
+    })
+    public void testCalculPerformanceCommercialMatriculeNullouPasC(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa));
+        Assertions.assertEquals("Le matricule ne peut être null et doit commencer par un C !", e.getMessage());
     }
 }
