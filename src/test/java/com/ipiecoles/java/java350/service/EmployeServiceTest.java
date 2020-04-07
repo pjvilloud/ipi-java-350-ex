@@ -140,4 +140,20 @@ public class EmployeServiceTest {
         EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
     }
+
+    @Test
+    public void testCalculPerformanceCommercial(){
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 0L;
+        Long objectifCa = 13454L;
+        try{
+            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+            Assertions.fail("Aurait du lancer une exception");
+        } catch(Exception e){
+            //Then
+           org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule C00001 n'existe pas !");
+        }
+    }
 }
