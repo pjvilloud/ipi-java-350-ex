@@ -34,12 +34,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class EmployeServiceTest {
 
-//    @InjectMocks
-    @Autowired
+    @InjectMocks
+//    @Autowired
     EmployeService employeService;
 
     // Remplace la vrai implémentation du repo par un fictif de test :
-    @Autowired
+    //@Autowired
+    @Mock
     EmployeRepository employeRepository;
 
     @BeforeEach
@@ -95,9 +96,7 @@ class EmployeServiceTest {
 
        //When
        PotentialStubbingProblem e = Assertions.assertThrows(PotentialStubbingProblem.class, () -> employeService.calculPerformanceCommercial("C00012",2000L , 2500L));
-        System.out.println("---------------------------");
-        System.out.println(e.getMessage());
-        System.out.println("---------------------------");
+
        //Then
        Assertions.assertEquals(e.getMessage(), "\n" +
                "Strict stubbing argument mismatch. Please check:\n" +
