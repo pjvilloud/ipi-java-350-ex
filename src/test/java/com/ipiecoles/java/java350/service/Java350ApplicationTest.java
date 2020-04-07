@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 public class Java350ApplicationTest {
 
     @Test
-    public void main(){
+    public void testmain(){
         SpringApplication.run(Java350Application.class);
     }
 }
