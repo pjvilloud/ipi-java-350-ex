@@ -120,9 +120,21 @@ public class Employe {
         return Math.round(prime * this.tempsPartiel * 100)/100.0;
     }
 
+//-----------------------------------------------------------------------
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
-
+    public void augmenterSalaire(double pourcentage){
+        //On test si le salaire est valide
+        if (this.salaire == null || this.salaire < 0){
+            this.setSalaire(Entreprise.SALAIRE_BASE);
+        }else {
+            if (pourcentage < 0) {
+                this.setSalaire(this.salaire);
+            }else {
+                this.setSalaire(salaire*(1 + pourcentage / 100));
+            }
+        }
+    }
+//---------------------------------------------------------------------
     public Long getId() {
         return id;
     }

@@ -85,4 +85,50 @@ public class EmployeTest {
 
     }
 
+//    -------------------------------------------------------------------
+    //Test nominal
+    //Si c'est un pourcentage négatif
+    //Si salaire est null
+
+    //Réponse à la question : Effectivement j'aurais pas eu la même réflexion pour rédiger la méthode
+
+    //Test nominal
+    @Test
+    public void getAugmentationSalaire(){
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(1000D);
+        //When
+        //Augmentation de 50% du salaire
+        employe.augmenterSalaire(50);
+        //Then
+        Assertions.assertEquals(1500, employe.getSalaire() );
+    }
+    //Cas d'un pourcentage négatif (réduction de salaire)
+    //En cas d'un pourcentage négatif, on retourne le salaire sans le modifier
+    @Test
+    public void getAugmentationSalairePourcentNegatif(){
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(1000D);
+        //When
+        employe.augmenterSalaire(-50);
+        //Then
+        Assertions.assertEquals(1000, employe.getSalaire() );
+    }
+    //Cas d'un salaire null (n'est pas censé arrivé car salaire de base affecté dès l'instanciation d'un employé)
+    //On retourne le salaire de base
+    @Test
+    public void getAugmentationSalaireSalaireNull(){
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(null);
+        //When
+        employe.augmenterSalaire(50);
+        //Then
+        Assertions.assertEquals(Entreprise.SALAIRE_BASE, employe.getSalaire());
+    }
+//-----------------------------------------------------------------------------------
+
+
 }
