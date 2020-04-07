@@ -55,7 +55,7 @@ class EmployeServiceTest {
         Assertions.assertThat(employe.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
         Assertions.assertThat(employe.getDateEmbauche()).isEqualTo(LocalDate.now());
 
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(1825.464);
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1825.46);
 
     }
 
