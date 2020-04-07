@@ -52,6 +52,6 @@ public class EmployeIntegrationServiceTest {
         Assertions.assertEquals("T12346", employe.getMatricule());
         Assertions.assertEquals(1.0, employe.getTempsPartiel().doubleValue());
 
-        Assertions.assertEquals(1825.464, employe.getSalaire().doubleValue());
+        Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
     }
 }
