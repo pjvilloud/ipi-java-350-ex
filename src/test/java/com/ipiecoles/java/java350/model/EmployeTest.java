@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.net.Authenticator;
 import java.time.LocalDate;
 
 public class EmployeTest {
@@ -123,6 +124,18 @@ public class EmployeTest {
     /**
      * Test unitaire sur la méthode augmenter salaire à 10%
      */
+
+    @Test
+    public void testaugmenterSalaireNegatif()throws EmployeException {
+        //Given
+        Employe employe = new Employe("Bouve", "Steve", "C00004", LocalDate.now(), 3000.0, 1, 3.0 );
+        Double pourcentage = 0D;
+        //When
+        employe.augmenterSalaire(pourcentage);
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(3000);
+    }
+
     @Test
     public void testaugmenterSalaire10() throws EmployeException {
         //Given

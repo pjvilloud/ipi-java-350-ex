@@ -133,6 +133,9 @@ public class Employe {
         if (this.salaire == null){
             throw new EmployeException("Le salaire est null");
         }
+        if(pourcentage < 0){
+            throw new EmployeException("Le pourcentage ne peut pas être négatif");
+        }
         this.salaire = Math.round(this.salaire)*(1+pourcentage/100);
     }
 
