@@ -131,9 +131,33 @@ class EmployeServiceTest {
         }
     }
     @Test
+    void testCalculPerformanceCommercialObjectifCANull() {
+        // Given
+        String matricule = "M0001";
+        Long caTraite = 1000L;
+        Long objectifCa = null;
+        try { // When
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        } catch (EmployeException e) { // Then
+            Assertions.assertThat(e.getMessage()).isEqualTo("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+        }
+    }
+    @Test
     void testCalculPerformanceCommercialCommençantparC() {
         // Given
         String matricule = "M0001";
+        Long caTraite = 1000L;
+        Long objectifCa = 1000L;
+        try { // When
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        } catch (EmployeException e) { // Then
+            Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
+        }
+    }
+    @Test
+    void testCalculPerformanceCommercialMatriculeNulle() {
+        // Given
+        String matricule = null;
         Long caTraite = 1000L;
         Long objectifCa = 1000L;
         try { // When
