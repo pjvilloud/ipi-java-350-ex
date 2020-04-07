@@ -1,5 +1,6 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +23,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void augmenterSalaireNormalTest(){
+    public void augmenterSalaireNormalTest() throws EmployeException {
         //Given
         Employe e = new Employe();
         e.setSalaire(2000d);
@@ -35,7 +36,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void augmenterSalaireFloatTest(){
+    public void augmenterSalaireFloatTest() throws EmployeException {
         //Given
         Employe e = new Employe();
         e.setSalaire(2000d);
@@ -61,7 +62,7 @@ public class EmployeTest {
 //    }
 
     @Test
-    public void augmenterSalaireSupPourcentageTest(){
+    public void augmenterSalaireSupPourcentageTest() throws EmployeException {
         //Given
         Employe e = new Employe();
         e.setSalaire(2000d);
@@ -74,7 +75,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void augmenterSalaireNegativePourcentageTest(){
+    public void augmenterSalaireNegativePourcentageTest() throws EmployeException {
         //Given
         Employe e = new Employe();
         e.setSalaire(2000d);
@@ -87,7 +88,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void augmenterSalaireNullPourcentageTest(){
+    public void augmenterSalaireNullPourcentageTest() throws EmployeException {
         //Given
         Employe e = new Employe();
         e.setSalaire(2000d);
@@ -100,7 +101,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void augmenterSalaireWithoutSalaireTest(){
+    public void augmenterSalaireWithoutSalaireTest() throws EmployeException {
         //Given
         Employe e = new Employe();
 
@@ -112,15 +113,17 @@ public class EmployeTest {
     }
 
     @Test
-    public void augmenterSalaireNullSalaireTest(){
+    public void augmenterSalaireNullSalaireTest() throws EmployeException{
         //Given
-        Employe e = new Employe();
-        e.setSalaire(null);
+        Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.now(), null, 3, 7.0 );
+        Double pourcentage = 10D;
 
-        //When
-        e.augmenterSalaire(10);
-
-        //Then :
-        Assertions.assertNull(e.getSalaire());
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+                    //Then
+                    employe.augmenterSalaire(pourcentage);
+                }
+        )//When
+                .isInstanceOf(EmployeException.class)
+                .hasMessage("Le salaire est null");
     }
 }
