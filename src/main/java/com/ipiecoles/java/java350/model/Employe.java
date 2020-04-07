@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +12,6 @@ import java.util.Objects;
 
 @Entity
 public class Employe {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,7 +44,6 @@ public class Employe {
         this.tempsPartiel = tempsPartiel;
     }
 
-
     /**
      * Retourne le nombre d'année d'ancienneté de l'employé par rapport à sa date d'embauche (on ne prend pas en compte
      * les mois et les jours. Il faut en revanche que la d'embauche soit non nulle et l'année antérieure à l'année courante
@@ -59,22 +59,38 @@ public class Employe {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
+    /**
+     * Nombre de jours de RTT =
+     *   Nombre de jours dans l'année
+     * – plafond maximal du forfait jours de la convention collective
+     * – nombre de jours de repos hebdomadaires
+     * – jours de congés payés
+     * – nombre de jours fériés tombant un jour ouvré
+     *
+     * Au prorata de son pourcentage d'activité (arrondi au supérieur)
+     *
+     * @return le nombre de jours de RTT
+     */
     public Integer getNbRtt(){
         return getNbRtt(LocalDate.now());
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;int var = 104;
+        int i1 = d.isLeapYear() ? 365 : 366;
+        int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-        case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-        case FRIDAY:
-        if(d.isLeapYear()) var =  var + 2;
-        else var =  var + 1;
-case SATURDAY:var = var + 1;
-                    break;
+            case THURSDAY:
+                if(d.isLeapYear()) var =  var + 1;
+            break;
+            case FRIDAY:
+                if(d.isLeapYear()) var =  var + 2;
+                else var =  var + 1;
+            break;
+            case SATURDAY: var = var + 1;
+            break;
+            default:
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate ->
-                localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
     }
 
@@ -90,7 +106,6 @@ case SATURDAY:var = var + 1;
      *
      * @return la prime annuelle de l'employé en Euros et cents
      */
-    //Matricule, performance, date d'embauche, temps partiel, prime
     public Double getPrimeAnnuelle(){
         //Calcule de la prime d'ancienneté
         Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
@@ -110,11 +125,19 @@ case SATURDAY:var = var + 1;
             prime = Entreprise.primeAnnuelleBase() * (this.performance + Entreprise.INDICE_PRIME_BASE) + primeAnciennete;
         }
         //Au pro rata du temps partiel.
-        return prime * this.tempsPartiel;
+        return Math.round(prime * this.tempsPartiel * 100)/100.0;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) throws EmployeException {
+        if (this.salaire == null){
+            throw new EmployeException("Le salaire est null");
+        }
+        if(pourcentage < 0){
+            throw new EmployeException("Le pourcentage ne peut pas être négatif");
+        }
+        this.salaire = Math.round(this.salaire)*(1+pourcentage/100);
+    }
 
     public Long getId() {
         return id;
@@ -134,9 +157,8 @@ case SATURDAY:var = var + 1;
     /**
      * @param nom the nom to set
      */
-    public Employe setNom(String nom) {
+    public void setNom(String nom) {
         this.nom = nom;
-        return this;
     }
 
     /**

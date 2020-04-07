@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.*;
 
 public final class Entreprise {
+
+    private Entreprise() {}
+
     public static final Double SALAIRE_BASE = 1521.22;
     public static final Integer NB_CONGES_BASE = 25;
     public static final Double INDICE_PRIME_BASE = 0.3;
@@ -13,12 +16,9 @@ public final class Entreprise {
     public static final Integer NB_JOURS_MAX_FORFAIT = 218;
     private static final double PRIME_BASE = 1000d;
 
+
     public static final Map<NiveauEtude, Double> COEFF_SALAIRE_ETUDES = new EnumMap<>(NiveauEtude.class);
     private static final Map<Integer, LocalDate> datePaque = new HashMap<>();
-
-    private Entreprise() {
-
-    }
 
     static {
         COEFF_SALAIRE_ETUDES.put(NiveauEtude.CAP, 1.0);
