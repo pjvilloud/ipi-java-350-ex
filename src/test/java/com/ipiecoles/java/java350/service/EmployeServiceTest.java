@@ -159,7 +159,7 @@ public class EmployeServiceTest {
     @Test
     public void testCalculPerformanceCommercialEmployeNull() {
         //Given
-        String matricule = "C00001";
+        String matricule = null;
         Long caTraite = 0L;
         Long objectifCa = 13454L;
         try{
