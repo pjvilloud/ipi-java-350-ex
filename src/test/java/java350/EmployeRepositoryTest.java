@@ -7,12 +7,13 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 
-@SpringBootTest
+@SpringBootConfiguration
 class EmployeRepositoryTest {
 	
 	@Autowired
