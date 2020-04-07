@@ -1,16 +1,12 @@
 package com.ipiecoles.java.java350.repository;
 
 import com.ipiecoles.java.java350.model.Employe;
-import org.hibernate.cache.cfg.internal.AbstractDomainDataCachingConfig;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.assertj.core.api.Assertions;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
-
-@SpringBootTest
+@DataJpaTest
 class EmployeRepositoryTest {
 
     @Autowired
@@ -18,23 +14,24 @@ class EmployeRepositoryTest {
 
     //Réinitialiser  la bdd en mémoire avant chaque test
     @BeforeEach
+    @AfterEach
     void setup(){
         employeRepository.deleteAll();
     }
 
     @Test
-    void findLastMatricule0Employes() {
+    void testFindLastMatricule0Employes() {
         //Given
 
         //When
         String lastMatricule = employeRepository.findLastMatricule();
 
         //Then
-        Assertions.assertThat(lastMatricule).isNull();
+        Assertions.assertNull(lastMatricule);
     }
 
     @Test
-    void findLastMatricule1Employes() {
+    void testFindLastMatricule1Employes() {
         //Given : données à tester
         Employe e1 = new Employe("Doe","John","T12345", LocalDate.now(),2000d,1,1.0);
         Employe e2 = new Employe("Doe","jane","C67890", LocalDate.now(),2000d,1,1.0);
@@ -48,6 +45,6 @@ class EmployeRepositoryTest {
         String lastMatricule = employeRepository.findLastMatricule();
 
         //Then : asserThat = le résultat de la fonction , isEqualTo = on regarde si le résultat est bien égal à cela ici ("67890")
-        Assertions.assertThat(lastMatricule).isEqualTo("67890");
+        Assertions.assertEquals("67890", lastMatricule);
     }
 }

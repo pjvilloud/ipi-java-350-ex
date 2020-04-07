@@ -137,4 +137,90 @@ class EmployeServiceTest {
         }
 
     }
+
+
+    @Test
+    void testCalculPerformanceCommercialCANull()throws EmployeException{
+        String matricule = "C0001";
+        Long caTraite = null;
+        Long objectifCa = 1000L;
+        try {
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+            Assertions.fail("Aurait du lancer une exception");
+        } catch (EmployeException e) {
+            //Vérifie que l'exception levée est de type EmployeException
+            Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire traité ne peut être négatif ou null !");
+        }
+    }
+
+    @Test
+    void testCalculPerformanceCommercialCANegatif() {
+        String matricule = "C0001";
+        Long caTraite = -20L;
+        Long objectifCa = 1000L;
+        try {
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        } catch (EmployeException e) {
+            //Vérifie que l'exception levée est de type EmployeException
+            Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire traité ne peut être négatif ou null !");
+        }
+    }
+
+    @Test
+    void testCalculPerformanceCommercialObjectifCANull() {
+        String matricule = "C0001";
+        Long caTraite = 2000L;
+        Long objectifCa = null;
+        try {
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        } catch (EmployeException e) {
+            //Vérifie que l'exception levée est de type EmployeException
+            Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            Assertions.assertThat(e.getMessage()).isEqualTo("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+        }
+    }
+
+    @Test
+    void testCalculPerformanceCommercialObjectifCANegatif() {
+        String matricule = "C0001";
+        Long caTraite = 2000L;
+        Long objectifCa = -100L;
+        try {
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        } catch (EmployeException e) {
+            //Vérifie que l'exception levée est de type EmployeException
+            Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            Assertions.assertThat(e.getMessage()).isEqualTo("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+        }
+    }
+
+    @Test
+    void testCalculPerformanceCommercialMatriculeNull() {
+        String matricule = null;
+        Long caTraite = 2000L;
+        Long objectifCa = 11100L;
+        try {
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        } catch (EmployeException e) {
+            //Vérifie que l'exception levée est de type EmployeException
+            Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
+        }
+    }
+
+    @Test
+    void testCalculPerformanceCommercialMatriculeBeginC() {
+        String matricule = "M45678";
+        Long caTraite = 2000L;
+        Long objectifCa = 11100L;
+        try {
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        } catch (EmployeException e) {
+            //Vérifie que l'exception levée est de type EmployeException
+            Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
+        }
+    }
 }

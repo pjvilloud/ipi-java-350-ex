@@ -15,6 +15,7 @@ import java.util.Objects;
 @Entity
 public class Employe {
 
+    @Transient
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Id
