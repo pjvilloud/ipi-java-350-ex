@@ -130,9 +130,14 @@ public class EmployeTest {
         //Given
         Employe employe = new Employe("Bouve", "Steve", "C00004", LocalDate.now(), 3000.0, 1, 3.0 );
         Double pourcentage = 0D;
-        //When
         employe.augmenterSalaire(pourcentage);
-        //Then
+        /*Assertions.assertThatThrownBy(() -> {
+                    //Then
+                    employe.augmenterSalaire(pourcentage);
+                }
+        )//When
+                .isInstanceOf(EmployeException.class)
+                .hasMessage("Le pourcentage ne peut pas être négatif");*/
         Assertions.assertThat(employe.getSalaire()).isEqualTo(3000);
     }
 
