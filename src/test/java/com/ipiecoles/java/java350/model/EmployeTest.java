@@ -60,7 +60,7 @@ public class EmployeTest extends Assertions {
 
         //Then
 //        assertEquals(-2, anneeAnciennete.intValue());
-        Assertions.assertThat(-2).isEqualTo(anneeAnciennete.intValue());
+        Assertions.assertThat(0).isEqualTo(anneeAnciennete.intValue());
     }
 
     @ParameterizedTest
