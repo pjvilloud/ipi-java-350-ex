@@ -38,10 +38,10 @@ public class EmployeService {
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
         logger.info("Tentative d'embauche d'un employé avec les paramètres : {}, {}, {}, {}, {}", nom, prenom, poste, niveauEtude, tempsPartiel);
 
-        logger.debug("sdfsdf");
-        logger.info("sdfsdf");
-        logger.warn("sdfsdf");
-        logger.error("sdfsdf");
+//        logger.debug("sdfsdf");
+//        logger.info("sdfsdf");
+//        logger.warn("sdfsdf");
+//        logger.error("sdfsdf");
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);

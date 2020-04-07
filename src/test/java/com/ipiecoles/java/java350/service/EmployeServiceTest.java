@@ -8,6 +8,7 @@ import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import io.cucumber.java8.Ar;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -25,6 +26,11 @@ class EmployeServiceTest {
 
     @Mock
     EmployeRepository employeRepository;
+
+    @BeforeEach
+    public void setup(){
+        MockitoAnnotations.initMocks(this.getClass());
+    }
 
     @Test
     void embaucheEmploye0Employe() throws EmployeException {
@@ -88,36 +94,51 @@ class EmployeServiceTest {
         }
     }
 
-
     @Test
     void testCalculPerformanceCommercialCANull() {
+        // Given
+        String matricule = "M0001";
+        Long caTraite = null;
+        Long objectifCa = 1000L;
         try {
-            employeService.calculPerformanceCommercial("C0001", null, 1000L);
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
         } catch (EmployeException e) {
             Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire traité ne peut être négatif ou null !");
         }
     }
     @Test
     void testCalculPerformanceCommercialCANegatif() {
-        try {
-            employeService.calculPerformanceCommercial("C0001", -1L, 1000L);
+        // Given
+        String matricule = "M0001";
+        Long caTraite = -1L;
+        Long objectifCa = 1000L;
+        try { // When
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
         } catch (EmployeException e) {
             Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire traité ne peut être négatif ou null !");
         }
     }
     @Test
     void testCalculPerformanceCommercialObjectifCANegatif() {
-        try {
-            employeService.calculPerformanceCommercial("C0001", 1000L, -100L);
-        } catch (EmployeException e) {
+        // Given
+        String matricule = "M0001";
+        Long caTraite = 1000L;
+        Long objectifCa = -1L;
+        try { // When
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        } catch (EmployeException e) { // Then
             Assertions.assertThat(e.getMessage()).isEqualTo("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
         }
     }
     @Test
     void testCalculPerformanceCommercialCommençantparC() {
-        try {
-            employeService.calculPerformanceCommercial("M0001", 1000L, 1000L);
-        } catch (EmployeException e) {
+        // Given
+        String matricule = "M0001";
+        Long caTraite = 1000L;
+        Long objectifCa = 1000L;
+        try { // When
+            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+        } catch (EmployeException e) { // Then
             Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
         }
     }
