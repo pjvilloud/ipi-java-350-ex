@@ -121,8 +121,14 @@ public class EmployeTest {
 
     /** Test unitaire sur la méthode augmenter salaire **/
     @Test
-    public void getAugmenterSalaire(){
-
+    public void testaugmenterSalaire(){
+        //Given
+        Employe employe = new Employe();
+        Double pourcentage = 10D;
+        //When
+        employe.augmenterSalaire(pourcentage);
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(15210);
     }
 
     //Test paramètré sur la méthode getNbRTT
