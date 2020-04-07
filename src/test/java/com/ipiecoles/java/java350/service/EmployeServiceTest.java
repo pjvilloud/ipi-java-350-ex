@@ -89,9 +89,9 @@ class EmployeServiceTest {
        // Quand on va chercher si l employé avec le matricule calcule existe, on veut que la méthode renvoie null.
 //       employeRepository.deleteAll();
        Employe e1 = new Employe("Doe", "John", "C00011", LocalDate.now(), 1050d, 1, 1d);
-//       employeRepository.save(e1);
+       employeRepository.save(e1);
 
-       Mockito.when(employeRepository.findByMatricule("C00011")).thenReturn(e1);
+//       Mockito.when(employeRepository.findByMatricule("C00011")).thenReturn(e1);
 
        //When
        PotentialStubbingProblem e = Assertions.assertThrows(PotentialStubbingProblem.class, () -> employeService.calculPerformanceCommercial("C00012",2000L , 2500L));
