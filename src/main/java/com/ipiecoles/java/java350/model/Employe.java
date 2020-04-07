@@ -44,7 +44,7 @@ public class Employe {
     }
 
     /**
-     * Méthode calculant le nombre d'années d'ancienneté à partir de la date d'embauche
+     * Méthode calculant le nombre d'années d'ancienneté à partir de la date d'embauche.
      * @return
      */
     public Integer getNombreAnneeAnciennete() {
