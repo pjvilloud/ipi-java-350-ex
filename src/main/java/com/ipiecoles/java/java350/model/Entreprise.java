@@ -17,7 +17,7 @@ public final class Entreprise {
     private static final double PRIME_BASE = 1000d;
 
 
-    public static final Map<NiveauEtude, Double> COEFF_SALAIRE_ETUDES = new EnumMap<>(NiveauEtude.class);
+    protected static final Map<NiveauEtude, Double> COEFF_SALAIRE_ETUDES = new EnumMap<>(NiveauEtude.class);
     private static final Map<Integer, LocalDate> datePaque = new HashMap<>();
 
     static {
@@ -87,6 +87,9 @@ public final class Entreprise {
                 LocalDate.of(now.getYear(), 12,25)
 
         );
+    }
+    public static Map<NiveauEtude, Double> getCoeffSalaireEtudes() {
+        return COEFF_SALAIRE_ETUDES;
     }
 
 }
