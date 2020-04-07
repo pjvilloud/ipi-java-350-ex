@@ -48,19 +48,6 @@ public class EmployeTest {
         Assertions.assertEquals(2210d, e.getSalaire());
     }
 
-//    @Test
-//    public void augmenterSalaireStringTest(){
-//        //Given
-//        Employe e = new Employe();
-//        e.setSalaire(2000d);
-//
-//        //When
-//        e.augmenterSalaire("10");
-//
-//        //Then
-//        Assertions.assertEquals(2200d, e.getSalaire());
-//    }
-
     @Test
     public void augmenterSalaireSupPourcentageTest() throws EmployeException {
         //Given

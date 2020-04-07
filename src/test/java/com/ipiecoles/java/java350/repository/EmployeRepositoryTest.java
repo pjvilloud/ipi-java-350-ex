@@ -5,25 +5,18 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import java.time.LocalDate;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class EmployeRepositoryTest {
+public class EmployeRepositoryTest {
 
     @Autowired
     EmployeRepository employeRepository;
 
     // avant et apres chaque test :
     @BeforeEach
-    @AfterEach
     void setUp(){
         employeRepository.deleteAll();
     }

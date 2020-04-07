@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Service
 public class EmployeService {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private EmployeRepository employeRepository;
@@ -61,7 +61,11 @@ public class EmployeService {
         //Calcul du salaire
         double salaire = Entreprise.getCoeffSalaireEtudes().get(niveauEtude) * Entreprise.SALAIRE_BASE;
         if(tempsPartiel != null){
+
             salaire = salaire * tempsPartiel;
+        } else {
+
+            salaire = Math.round(salaire*100d)/100d;
         }
 
         //Création et sauvegarde en BDD de l'employé.
