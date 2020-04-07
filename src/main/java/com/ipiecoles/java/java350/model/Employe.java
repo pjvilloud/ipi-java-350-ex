@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -47,11 +49,12 @@ public class Employe {
      * Méthode calculant le nombre d'années d'ancienneté à partir de la date d'embauche.
      * @return
      */
-    public Integer getNombreAnneeAnciennete() {
+    public Integer getNombreAnneeAnciennete() throws EmployeException {
+        if (dateEmbauche == null){ throw new EmployeException("La date d'embauche est null"); }
         return LocalDate.now().getYear() - dateEmbauche.getYear();
     }
 
-    public Integer getNbConges() {
+    public Integer getNbConges() throws EmployeException {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
@@ -87,7 +90,7 @@ case SATURDAY:var = var + 1;
      * @return la prime annuelle de l'employé en Euros et cents
      */
     //Matricule, performance, date d'embauche, temps partiel, prime
-    public Double getPrimeAnnuelle(){
+    public Double getPrimeAnnuelle() throws EmployeException {
         //Calcule de la prime d'ancienneté
         Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
         Double prime;
@@ -110,7 +113,12 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) throws EmployeException {
+        if (this.salaire == null){ throw new EmployeException("Le salaire est null"); }
+        if (pourcentage < 0){ throw new EmployeException("Le pourcentage d'augmentation ne peut pas etre negatif"); }
+
+        this.salaire = Math.round(this.salaire) * (1 + pourcentage / 100);
+    }
 
     public Long getId() {
         return id;
