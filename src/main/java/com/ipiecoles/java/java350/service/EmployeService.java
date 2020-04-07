@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Service
 public class EmployeService {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    int performanceBase = Entreprise.PERFORMANCE_BASE;
 
     @Autowired
     private EmployeRepository employeRepository;
@@ -68,7 +68,7 @@ public class EmployeService {
         salaire = Math.round(salaire*100d)/100d;
 
         //Création et sauvegarde en BDD de l'employé.
-        Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
+        Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, performanceBase, tempsPartiel);
 
         employeRepository.save(employe);
 
@@ -110,22 +110,21 @@ public class EmployeService {
             throw new EmployeException("Le matricule " + matricule + " n'existe pas !");
         }
 
-        int performance = Entreprise.PERFORMANCE_BASE;
+        int performance = performanceBase;
         //Cas 2
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
-            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
+            performance = Math.max(performanceBase, employe.getPerformance() - 2);
         }
         //Cas 3
         else if(caTraite >= objectifCa*0.95 && caTraite <= objectifCa*1.05){
-            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance());
+            performance = Math.max(performanceBase, employe.getPerformance());
         }
         //Cas 4
         else if(caTraite <= objectifCa*1.2 && caTraite > objectifCa*1.05){
             performance = employe.getPerformance() + 1;
         }
         //Cas 5
-//        else if(caTraite > objectifCa*1.2){
-        else {
+        else if(caTraite > objectifCa*1.2){
             performance = employe.getPerformance() + 4;
         }
         //Si autre cas, on reste à la performance de base.
