@@ -149,21 +149,6 @@ public class EmployeServiceTest {
         Long objectifCa = 13454L;
         try{
             employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
-            Assertions.fail("Aurait du lancer une exception");
-        } catch(EmployeException e){
-            //Then
-            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
-            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule C00001 n'existe pas !");
-        }
-    }
-    @Test
-    public void testCalculPerformanceCommercialEmployeNull() {
-        //Given
-        String matricule = null;
-        Long caTraite = 0L;
-        Long objectifCa = 13454L;
-        try{
-            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
             employeRepository.findByMatricule(matricule);
             Assertions.fail("Aurait du lancer une exception");
         } catch(EmployeException e){
@@ -172,6 +157,23 @@ public class EmployeServiceTest {
             org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule C00001 n'existe pas !");
         }
     }
+    /*
+    @Test
+    public void testCalculPerformanceCommercialEmployeNull() {
+        //Given
+        String matricule = "C00005";
+        Long caTraite = 30L;
+        Long objectifCa = 13454L;
+        try{
+            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+            employeRepository.findByMatricule(matricule);
+            Assertions.fail("Aurait du lancer une exception");
+        } catch(EmployeException e){
+            //Then
+            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule C00005 n'existe pas !");
+        }
+    }*/
     @Test
     public void testCalculPerformanceCommercialMatriculeIsNull() {
         //Given
