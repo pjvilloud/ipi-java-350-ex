@@ -111,6 +111,7 @@ public class EmployeService {
         //Cas 2
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
             performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
+            logger.debug(String.valueOf(performance));
         }
         //Cas 3
         else if(caTraite >= objectifCa*0.95 && caTraite <= objectifCa*1.05){
@@ -132,7 +133,6 @@ public class EmployeService {
             performance++;
         }
 
-        logger.debug(String.valueOf(performance));
         //Affectation et sauvegarde
         employe.setPerformance(performance);
         employeRepository.save(employe);
