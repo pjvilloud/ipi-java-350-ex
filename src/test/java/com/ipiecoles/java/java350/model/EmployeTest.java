@@ -77,14 +77,16 @@ public class EmployeTest {
     @Test
     public void augmenterSalaireNegativePourcentageTest() throws EmployeException {
         //Given
-        Employe e = new Employe();
-        e.setSalaire(2000d);
+        Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.now(), null, 3, 7.0 );
+        employe.setSalaire(2000d);
 
-        //When
-        e.augmenterSalaire(-10);
-
-        //Then
-        Assertions.assertEquals(1800d, e.getSalaire());
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+                    //When
+                    employe.augmenterSalaire(-10);
+                }
+        )//Then
+                .isInstanceOf(EmployeException.class)
+                .hasMessage("Le pourcentage ne peut pas être négatif");
     }
 
     @Test
@@ -109,7 +111,7 @@ public class EmployeTest {
         e.augmenterSalaire(10);
 
         //Then
-        Assertions.assertEquals(1673.342d, e.getSalaire());
+        Assertions.assertEquals(1673.1000000000001, e.getSalaire());
     }
 
     @Test
@@ -119,10 +121,10 @@ public class EmployeTest {
         Double pourcentage = 10D;
 
         org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
-                    //Then
+                    //When
                     employe.augmenterSalaire(pourcentage);
                 }
-        )//When
+        )//Then
                 .isInstanceOf(EmployeException.class)
                 .hasMessage("Le salaire est null");
     }
