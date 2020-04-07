@@ -1,60 +1,68 @@
 package com.ipiecoles.java.java350.model.repository;
 
-        import com.ipiecoles.java.java350.model.Employe;
-        import com.ipiecoles.java.java350.model.Entreprise;
-        import com.ipiecoles.java.java350.repository.EmployeRepository;
-        import org.junit.jupiter.api.*;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import com.ipiecoles.java.java350.model.Employe;
+import com.ipiecoles.java.java350.repository.EmployeRepository;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-        import java.time.LocalDate;
-
-@DataJpaTest
-public class EmployeRepositoryTest {
+@SpringBootTest
+class EmployeRepositoryTest {
 
     @Autowired
     private EmployeRepository employeRepository;
 
     @BeforeEach
-    @AfterEach
-    public void setup(){
+    void setUp(){
         employeRepository.deleteAll();
     }
 
     @Test
-    public void testFindLastMatriculeEmpty(){
+    void findLastMatriculeVide() {
         //Given
 
         //When
-        String lastMatricule = employeRepository.findLastMatricule();
+        String lasMatricule = employeRepository.findLastMatricule();
 
         //Then
-        Assertions.assertNull(lastMatricule);
+        Assertions.assertThat(lasMatricule).isNull();
     }
 
     @Test
-    public void testFindLastMatriculeSingle(){
+    void findLastMatricule3Employe() {
         //Given
-        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
-
+        Employe employe = new Employe();
+        employe.setMatricule("M00110");
+        employeRepository.save(employe);
+        Employe employe1 = new Employe();
+        employe1.setMatricule("T00010");
+        employeRepository.save(employe1);
+        Employe employe2 = new Employe();
+        employe2.setMatricule("E00000");
+        employeRepository.save(employe2);
         //When
-        String lastMatricule = employeRepository.findLastMatricule();
+        String lasMatricule = employeRepository.findLastMatricule();
 
         //Then
-        Assertions.assertEquals("12345", lastMatricule);
+        Assertions.assertThat(lasMatricule).isEqualTo("00110");
     }
 
     @Test
-    public void testFindLastMatriculeMultiple(){
+    void findLastMatriculeNull() {
         //Given
-        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
-        employeRepository.save(new Employe("Doe", "Jane", "M40325", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
-        employeRepository.save(new Employe("Doe", "Jim", "C06432", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
-
+        Employe employe = new Employe();
+        employe.setMatricule(null);
+        employeRepository.save(employe);
         //When
-        String lastMatricule = employeRepository.findLastMatricule();
+        String lasMatricule = employeRepository.findLastMatricule();
 
         //Then
-        Assertions.assertEquals("40325", lastMatricule);
+        Assertions.assertThat(lasMatricule).isNull();
+    }
+
+    @Test
+    void avgPerformanceWhereMatriculeStartsWith() {
     }
 }

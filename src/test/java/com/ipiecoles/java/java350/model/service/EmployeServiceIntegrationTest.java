@@ -1,61 +1,117 @@
 package com.ipiecoles.java.java350.model.service;
+
 import com.ipiecoles.java.java350.exception.EmployeException;
-import com.ipiecoles.java.java350.model.*;
+import com.ipiecoles.java.java350.model.Employe;
+import com.ipiecoles.java.java350.model.Entreprise;
+import com.ipiecoles.java.java350.model.NiveauEtude;
+import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import com.ipiecoles.java.java350.service.EmployeService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class EmployeServiceIntegrationTest {
 
     @Autowired
-    EmployeService employeService;
+    private EmployeService employeService;
 
     @Autowired
     private EmployeRepository employeRepository;
 
-    @BeforeEach
     @AfterEach
-    public void setup(){
+    public void setUp(){
         employeRepository.deleteAll();
     }
 
     @Test
-    public void integrationEmbaucheEmploye() throws EmployeException {
+    void embaucheEmployeXEmploye() throws EmployeException {
         //Given
-        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
         String nom = "Doe";
         String prenom = "John";
-        Poste poste = Poste.TECHNICIEN;
-        NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+        Poste poste = Poste.COMMERCIAL;
+        NiveauEtude niveauEtude = NiveauEtude.LICENCE;
         Double tempsPartiel = 1.0;
 
-        //When
+        //Then
         employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
 
-        //Then
-        Employe employe = employeRepository.findByMatricule("T12346");
-        Assertions.assertNotNull(employe);
-        Assertions.assertEquals(nom, employe.getNom());
-        Assertions.assertEquals(prenom, employe.getPrenom());
-        Assertions.assertEquals(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), employe.getDateEmbauche().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
-        Assertions.assertEquals("T12346", employe.getMatricule());
-        Assertions.assertEquals(1.0, employe.getTempsPartiel().doubleValue());
-
-        //1521.22 * 1.2 * 1.0
-        Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
+        //When
+        String lastMatricule = employeRepository.findLastMatricule();
+        Employe employe = employeRepository.findByMatricule("C" + lastMatricule);
+        Assertions.assertThat(employe.getNom()).isEqualTo(nom);
+        Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
+        Assertions.assertThat(employe.getMatricule()).isEqualTo("C" + lastMatricule);
+        Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(tempsPartiel);
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
+        Assertions.assertThat(employe.getDateEmbauche()).isEqualTo(LocalDate.now());
+        //1521.22 * 1.2 * 1
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1825.46);
     }
 
+    @Test
+    void embaucheEmployeEmbauchePartiel() throws EmployeException {
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.COMMERCIAL;
+        NiveauEtude niveauEtude = NiveauEtude.LICENCE;
+        Double tempsPartiel = 0.5;
+
+        //Then
+        employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+
+        //When
+        String lastMatricule = employeRepository.findLastMatricule();
+        Employe employe = employeRepository.findByMatricule("C" + lastMatricule);
+        Assertions.assertThat(employe.getNom()).isEqualTo(nom);
+        Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
+        Assertions.assertThat(employe.getMatricule()).isEqualTo("C" + lastMatricule);
+        Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(tempsPartiel);
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
+        Assertions.assertThat(employe.getDateEmbauche()).isEqualTo(LocalDate.now());
+        //1521.22 * 1.2 * 0.5 = 912.73
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(912.73);
+    }
+
+    @Test
+    void embaucheEmployeEmployeExiste() {
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.COMMERCIAL;
+        NiveauEtude niveauEtude = NiveauEtude.LICENCE;
+        Double tempsPartiel = 1.0;
+        Employe employe = new Employe(nom, prenom, "C00000", LocalDate.now().minusDays(1), Entreprise.SALAIRE_BASE, Entreprise.PERFORMANCE_BASE, 1.0);
+        employeRepository.save(employe);
+
+        Assertions.assertThatThrownBy(() -> {
+                    employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+                }
+        )//When
+                .isInstanceOf(EntityExistsException.class)
+                .hasMessage("L'employé de matricule C existe déjà en BDD");
+    }
+
+    @Test
+    void embaucheEmployeLimiteEmploye() {
+//        String nom = "Doe";
+//        String prenom = "John";
+//        Poste poste = Poste.COMMERCIAL;
+//        NiveauEtude niveauEtude = NiveauEtude.LICENCE;
+//        Double tempsPartiel = 1.0;
+//        Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
+//
+//        Assertions.assertThatThrownBy(() ->
+//                employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel)
+//        )
+//                .isInstanceOf(EmployeException.class)
+//                .hasMessage("Limite des 100000 matricules atteinte !");
+    }
 }

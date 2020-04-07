@@ -48,8 +48,8 @@ public class Employe {
      * @return
      */
     public Integer getNombreAnneeAnciennete() {
-        //Date d'embauche antérieur à la date du jour
-        if(dateEmbauche != null && dateEmbauche.isBefore((LocalDate.now()))){
+        //Date d'embauche antérieure à la date du jour
+        if(dateEmbauche != null && dateEmbauche.isBefore(LocalDate.now())){
             return LocalDate.now().getYear() - dateEmbauche.getYear();
         }
         return 0;
@@ -66,12 +66,12 @@ public class Employe {
     public Integer getNbRtt(LocalDate d){
         int i1 = d.isLeapYear() ? 365 : 366;int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-        case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-        case FRIDAY:
-        if(d.isLeapYear()) var =  var + 2;
-        else var =  var + 1;
-case SATURDAY:var = var + 1;
-                    break;
+            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
+            case FRIDAY:
+                if(d.isLeapYear()) var =  var + 2;
+                else var =  var + 1;
+            case SATURDAY:var = var + 1;
+                break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate ->
                 localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
@@ -114,7 +114,13 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) {
+        this.salaire = this.getSalaire() * (1 + pourcentage);
+
+        if (this.salaire < 0) {
+            this.salaire = 0.0;
+        }
+    }
 
     public Long getId() {
         return id;

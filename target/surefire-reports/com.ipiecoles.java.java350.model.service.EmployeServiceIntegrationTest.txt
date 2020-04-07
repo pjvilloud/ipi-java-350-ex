@@ -1,0 +1,30 @@
+-------------------------------------------------------------------------------
+Test set: com.ipiecoles.java.java350.model.service.EmployeServiceIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.191 s <<< FAILURE! - in com.ipiecoles.java.java350.model.service.EmployeServiceIntegrationTest
+embaucheEmployeEmployeExiste  Time elapsed: 0.104 s  <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at com.ipiecoles.java.java350.model.service.EmployeServiceIntegrationTest.embaucheEmployeEmployeExiste(EmployeServiceIntegrationTest.java:94)
+
+embaucheEmployeEmbauchePartiel  Time elapsed: 0.027 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+Expecting:
+ <912.732>
+to be equal to:
+ <912.73>
+but was not.
+	at com.ipiecoles.java.java350.model.service.EmployeServiceIntegrationTest.embaucheEmployeEmbauchePartiel(EmployeServiceIntegrationTest.java:80)
+
+embaucheEmployeXEmploye  Time elapsed: 0.018 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+Expecting:
+ <1825.464>
+to be equal to:
+ <1825.46>
+but was not.
+	at com.ipiecoles.java.java350.model.service.EmployeServiceIntegrationTest.embaucheEmployeXEmploye(EmployeServiceIntegrationTest.java:55)
+
