@@ -142,7 +142,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testCalculPerformanceCommercial(){
+    public void testCalculPerformanceCommercialMatriculeIsExist() {
         //Given
         String matricule = "C00001";
         Long caTraite = 0L;
@@ -150,10 +150,87 @@ public class EmployeServiceTest {
         try{
             employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
             Assertions.fail("Aurait du lancer une exception");
-        } catch(Exception e){
+        } catch(EmployeException e){
             //Then
-           org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
             org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule C00001 n'existe pas !");
+        }
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialMatriculeStartC(){
+        //Given
+        String matricule = "M00001";
+        Long caTraite = 50L;
+        Long objectifCa = 20000L;
+        try{
+            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+            Assertions.fail("Aurait du lancer une exception");
+        } catch(EmployeException e){
+            //Then
+            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
+        }
+    }
+
+    @Test
+    public void testCalculPerformanceCommercialCaTraiteNegatif(){
+        //Given
+        String matricule = "C00001";
+        Long caTraite = -40L;
+        Long objectifCa = 40000L;
+        try{
+            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+            Assertions.fail("Aurait du lancer une exception");
+        } catch(EmployeException e){
+            //Then
+            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire traité ne peut être négatif ou null !");
+        }
+    }
+    @Test
+    public void testCalculPerformanceCommercialCaTraiteNull(){
+        //Given
+        String matricule = "C00001";
+        Long caTraite = null;
+        Long objectifCa = 40000L;
+        try{
+            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+            Assertions.fail("Aurait du lancer une exception");
+        } catch(EmployeException e){
+            //Then
+            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire traité ne peut être négatif ou null !");
+        }
+    }
+    @Test
+    public void testCalculPerformanceCommercialObjectifCaNegatif(){
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 50L;
+        Long objectifCa = -40000L;
+        try{
+            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+            Assertions.fail("Aurait du lancer une exception");
+        } catch(EmployeException e){
+            //Then
+            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+        }
+    }
+    @Test
+    public void testCalculPerformanceCommercialObjectifCaNull(){
+        //Given
+        String matricule = "C00001";
+        Long caTraite = 50L;
+        Long objectifCa = null;
+        try{
+            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+            Assertions.fail("Aurait du lancer une exception");
+        } catch(EmployeException e){
+            //Then
+            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
         }
     }
 }
