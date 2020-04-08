@@ -163,11 +163,10 @@ public class EmployeServiceTest {
         String matricule = "C00001";
         Long caTraite = 30L;
         Long objectifCa = 15000L;
-        Employe employe = new Employe();
-        String mat = employe.getMatricule();
         try{
             employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
-            employeRepository.findByMatricule(mat);
+            employeRepository.findByMatricule(matricule);
+
             Assertions.fail("Aurait du lancer une exception");
         } catch(EmployeException e){
             //Then
