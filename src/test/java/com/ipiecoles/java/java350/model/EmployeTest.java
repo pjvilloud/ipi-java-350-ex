@@ -262,51 +262,6 @@ class EmployeTest {
         Assertions.assertThat(perf).isEqualTo(3);
     }
 
-    @ParameterizedTest
-    @CsvSource({
-            "1, 'M12345', 0, 1.0, 1000.0",
-            "1, 'M12345', 0, 1.0, 1700.0",
-            "1, 'M12345', 0, 1.0, 2200.0",
-            "2, 'M12345', 0, 1.0, 1700.0",
-            "2, 'M12345', 0, 1.0, 2500.0"
-    })
-     void getPrimeAnnuelleMatriculeStartWithM(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel){
-        //Given
-        Employe employe = new Employe();
-        employe.setMatricule(matricule);
-        employe.setTempsPartiel(tempsPartiel);
-        employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneeAnciennete));
-        employe.setPerformance(performance);
-        Double primeAnciennete = Entreprise.PRIME_ANCIENNETE;
-        Double indiceManager = Entreprise.INDICE_PRIME_MANAGER;
-        //When
-        Double prime = employe.getPrimeAnnuelle()*indiceManager+primeAnciennete;
-
-        //Then
-        Assertions.assertThat(prime).isEqualTo(2990.0);
-
-    }
-    @ParameterizedTest
-    @CsvSource({
-            "1, , 2, 1.0, 1200.0",
-    })
-     void getPrimeAnnuelleMatriculeNotNull(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel){
-        //Given
-        Employe employe = new Employe();
-        employe.setMatricule(matricule);
-        employe.setTempsPartiel(tempsPartiel);
-        employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneeAnciennete));
-        employe.setPerformance(performance);
-        Double primeAnciennete = Entreprise.PRIME_ANCIENNETE;
-        Double indiceManager = Entreprise.INDICE_PRIME_MANAGER;
-        //When
-        Double prime = employe.getPrimeAnnuelle()*indiceManager+primeAnciennete;
-
-        //Then
-        Assertions.assertThat(prime).isEqualTo(2140.0);
-
-    }
-
     @Test
      void equalsHashCodeContracts() {
         EqualsVerifier.forClass(Employe.class).verify();
