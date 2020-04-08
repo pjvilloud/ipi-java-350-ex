@@ -234,12 +234,12 @@ public class EmployeTest {
         Assertions.assertThat(employe.getNom()).isEqualTo(nom);
     }
     @Test
-    public void testSetPrenom(){
+    public void testsetPrenom(){
         //Given
         Employe employe = new Employe("Mac", "Xave", "C00007", LocalDate.now(), 2000.0, 3, 7.0 );
         //When
         String prenom = "Xave";
-        employe.setNom(prenom);
+        employe.setPrenom(prenom);
         //Then
         Assertions.assertThat(employe.getNom()).isEqualTo(prenom);
     }
