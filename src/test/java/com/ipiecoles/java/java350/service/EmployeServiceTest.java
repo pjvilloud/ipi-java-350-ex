@@ -182,20 +182,25 @@ public class EmployeServiceTest {
         //Then
         Assertions.assertEquals(e.getMessage(), "Le matricule "+matricule+" n'existe pas !");
     }
-    @Test
-    public void testCalculPerformanceCommercialMatriculeStartC(){
+
+    @ParameterizedTest
+    @CsvSource({"'C00011', 2000, 2500, Le matricule C00011 n'existe pas !",
+            "'C00012', 2000, 2500, Le matricule C00012 n'existe pas !",
+            "'C00012', 2000, 2500, Le matricule C00012 n'existe pas !",
+            "'C00012', -2000, 2500, Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !",
+            "'C00012', 2000, -2500, Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !",
+            "'C00012', -2000, -2500, Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !",
+            ", 2000, 2500, Le matricule ne peut être null et doit commencer par un C !",
+    })
+    void calculPerformanceCommercialNotFoundTest(String matricule, Long caTraite, Long objectifCa, String result) throws EmployeException {
         //Given
-        String matricule = "M00001";
-        Long caTraite = 50L;
-        Long objectifCa = 20000L;
-        try{
-            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
-            Assertions.fail("Aurait du lancer une exception");
-        } catch(EmployeException e){
-            //Then
-            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
-            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
+        if(caTraite != -2000 && objectifCa != -2500 && matricule != null) {
+            Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
         }
+        //When
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () ->  employeService.calculPerformanceCommercial(matricule,caTraite , objectifCa));
+        //Then
+        Assertions.assertEquals(e.getMessage(), result);
     }
 
     @Test
