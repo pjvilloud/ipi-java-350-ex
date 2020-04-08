@@ -47,25 +47,25 @@ class EmployeServiceTest {
         //Then
     }
 
-    @Test
-    void embaucheEmployeXEmploye() throws EmployeException {
-        //Given
-        //Quand la méthode findLastMatricule va être appelée, on veut qu'elle renvoie une valeur comme s'il y avait plusieurs employés, dont le matricule le plus élevé est C45678
-        Mockito.when(employeRepository.findLastMatricule()).thenReturn("45678");
-
-        //Quand on va chercher si l'employé avec le matricule calculé existe, on veut que la méthode renvoie null
-        Mockito.when(employeRepository.findByMatricule("M45678")).thenReturn(null);
-
-        //When
-        employeService.embaucheEmploye("Doe","John", Poste.MANAGER, NiveauEtude.LICENCE,1.0);
-
-        //Then
-        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
-        Mockito.verify(employeRepository).save(employeArgumentCaptor.capture());
-        Employe employe = employeArgumentCaptor.getValue();
-//        Assertions.AssertThat(employe.getNom()).isEqualTo("Doe");
-        Assertions.assertEquals("Doe",employe.getNom());
-    }
+//    @Test
+//    void embaucheEmployeXEmploye() throws EmployeException {
+//        //Given
+//        //Quand la méthode findLastMatricule va être appelée, on veut qu'elle renvoie une valeur comme s'il y avait plusieurs employés, dont le matricule le plus élevé est C45678
+//        Mockito.when(employeRepository.findLastMatricule()).thenReturn("45678");
+//
+//        //Quand on va chercher si l'employé avec le matricule calculé existe, on veut que la méthode renvoie null
+//        Mockito.when(employeRepository.findByMatricule("M45678")).thenReturn(null);
+//
+//        //When
+//        employeService.embaucheEmploye("Doe","John", Poste.MANAGER, NiveauEtude.LICENCE,1.0);
+//
+//        //Then
+//        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+//        Mockito.verify(employeRepository).save(employeArgumentCaptor.capture());
+//        Employe employe = employeArgumentCaptor.getValue();
+////        Assertions.AssertThat(employe.getNom()).isEqualTo("Doe");
+//        Assertions.assertEquals("Doe",employe.getNom());
+//    }
 
     @ParameterizedTest
     @CsvSource({
