@@ -115,7 +115,7 @@ case SATURDAY:var = var + 1;
     //Augmenter salaire
     //Sans avoir fait les tests avant, je n'aurais certainement pas codé la méthode ainsi, je n'aurais pas effectué toutes ces vérifications
     public void augmenterSalaire(double pourcentage){
-        if(this.salaire < 0 || this.salaire == null) {
+        if(this.salaire == null || this.salaire < 0) {
             this.setSalaire(Entreprise.SALAIRE_BASE);
         }
         else{
