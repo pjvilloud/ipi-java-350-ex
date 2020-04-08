@@ -11,13 +11,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
 import org.junit.jupiter.api.Assertions;
-import org.springframework.test.web.reactive.server.JsonPathAssertions;
 
 import java.time.LocalDate;
 
-@SpringBootTest
+@DataJpaTest
 public class EmployeRepositoryTest {
     @Autowired
     EmployeRepository employeRepository;
