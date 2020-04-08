@@ -241,7 +241,7 @@ public class EmployeTest {
         String prenom = "Xave";
         employe.setPrenom(prenom);
         //Then
-        Assertions.assertThat(employe.getNom()).isEqualTo(prenom);
+        Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
     }
     @Test
     public void testsetSalaire(){
