@@ -196,13 +196,22 @@ public class EmployeServiceTest {
             "'C00011', 2500, 2500, 1",
             "'C00011', 2502, 2500, 1",
             "'C00011', 2550, 2500, 1",
-            "'C00011', 3500, 2500, 1",
-            "'C00011', 10000, 2500, 1",
+            "'C00011', 2600, 2500, 1",
+            "'C00012', 3000, 2500, 1",
+            "'C00013', 10000, 2500, 1",
     })
     void calculPerformanceCommercialNotFoundTest2(String matricule, Long caTraite, Long objectifCa, Integer result) throws EmployeException {
         //Given
         Employe employe = new Employe("Delacour", "Michel", "T00001", LocalDate.now(), 1825.46, 1, null);
         Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(employe);
+
+        if (matricule.equals("C00012")) {
+            Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(40D);
+        } else if (matricule.equals("C00013")) {
+            Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(null);
+        } else {
+            Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(1D);
+        }
 
         //When
         employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
