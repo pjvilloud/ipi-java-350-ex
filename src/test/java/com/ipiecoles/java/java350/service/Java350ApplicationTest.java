@@ -1,5 +1,6 @@
 package com.ipiecoles.java.java350.service;
 import com.ipiecoles.java.java350.Java350Application;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -7,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class Java350ApplicationTest {
 
     @Test
-    void testMain(){
+    void testMain() {
         Java350Application.main(new String[]{});
     }
 }
