@@ -1,0 +1,7 @@
+2020-04-07 10:16:05 - INFO  - Starting EmployeRepositoryTest on HP-NICO with PID 2304 (started by IPI in C:\Users\IPI\Desktop\Villoud\ipi-java-350-ex)
+2020-04-07 10:16:05 - INFO  - No active profile set, falling back to default profiles: default
+2020-04-07 10:16:11 - INFO  - Started EmployeRepositoryTest in 5.493 seconds (JVM running for 8.196)
+2020-04-07 10:16:34 - INFO  - Starting EmployeServiceIntegrationTest on HP-NICO with PID 1328 (started by IPI in C:\Users\IPI\Desktop\Villoud\ipi-java-350-ex)
+2020-04-07 10:16:34 - INFO  - No active profile set, falling back to default profiles: default
+2020-04-07 10:16:39 - INFO  - Started EmployeServiceIntegrationTest in 5.666 seconds (JVM running for 8.246)
+2020-04-07 10:16:39 - INFO  - Embauche de l'employé John Doe diplômé de BTS_IUT en tant que TECHNICIEN avec un taux d'activité de 1.0 

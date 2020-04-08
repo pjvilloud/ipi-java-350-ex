@@ -1,7 +1,21 @@
-2020-04-07 10:16:05 - INFO  - Starting EmployeRepositoryTest on HP-NICO with PID 2304 (started by IPI in C:\Users\IPI\Desktop\Villoud\ipi-java-350-ex)
-2020-04-07 10:16:05 - INFO  - No active profile set, falling back to default profiles: default
-2020-04-07 10:16:11 - INFO  - Started EmployeRepositoryTest in 5.493 seconds (JVM running for 8.196)
-2020-04-07 10:16:34 - INFO  - Starting EmployeServiceIntegrationTest on HP-NICO with PID 1328 (started by IPI in C:\Users\IPI\Desktop\Villoud\ipi-java-350-ex)
-2020-04-07 10:16:34 - INFO  - No active profile set, falling back to default profiles: default
-2020-04-07 10:16:39 - INFO  - Started EmployeServiceIntegrationTest in 5.666 seconds (JVM running for 8.246)
-2020-04-07 10:16:39 - INFO  - Embauche de l'employé John Doe diplômé de BTS_IUT en tant que TECHNICIEN avec un taux d'activité de 1.0 
+2020-04-08 10:22:17 - INFO  - Starting EmployeServiceIntegrationTest on HP-NICO with PID 13860 (started by IPI in C:\Users\IPI\Desktop\Villoud\ipi-java-350-ex)
+2020-04-08 10:22:17 - INFO  - No active profile set, falling back to default profiles: default
+2020-04-08 10:22:24 - INFO  - Started EmployeServiceIntegrationTest in 7.381 seconds (JVM running for 9.522)
+2020-04-08 10:23:23 - INFO  - Starting EmployeServiceIntegrationTest on HP-NICO with PID 16084 (started by IPI in C:\Users\IPI\Desktop\Villoud\ipi-java-350-ex)
+2020-04-08 10:23:23 - INFO  - No active profile set, falling back to default profiles: default
+2020-04-08 10:23:29 - INFO  - Started EmployeServiceIntegrationTest in 6.224 seconds (JVM running for 8.307)
+2020-04-08 10:23:53 - INFO  - Starting EmployeServiceIntegrationTest on HP-NICO with PID 4864 (started by IPI in C:\Users\IPI\Desktop\Villoud\ipi-java-350-ex)
+2020-04-08 10:23:53 - INFO  - No active profile set, falling back to default profiles: default
+2020-04-08 10:23:58 - INFO  - Started EmployeServiceIntegrationTest in 5.73 seconds (JVM running for 8.433)
+2020-04-08 10:41:15 - INFO  - Starting EmployeRepositoryTest on HP-NICO with PID 15988 (started by IPI in C:\Users\IPI\Desktop\Villoud\ipi-java-350-ex)
+2020-04-08 10:41:15 - INFO  - No active profile set, falling back to default profiles: default
+2020-04-08 10:41:20 - INFO  - Started EmployeRepositoryTest in 5.278 seconds (JVM running for 7.517)
+2020-04-08 10:43:42 - INFO  - Starting EmployeRepositoryTest on HP-NICO with PID 5396 (started by IPI in C:\Users\IPI\Desktop\Villoud\ipi-java-350-ex)
+2020-04-08 10:43:42 - INFO  - No active profile set, falling back to default profiles: default
+2020-04-08 10:43:47 - INFO  - Started EmployeRepositoryTest in 5.319 seconds (JVM running for 7.359)
+2020-04-08 10:46:17 - INFO  - Starting EmployeRepositoryTest on HP-NICO with PID 6636 (started by IPI in C:\Users\IPI\Desktop\Villoud\ipi-java-350-ex)
+2020-04-08 10:46:17 - INFO  - No active profile set, falling back to default profiles: default
+2020-04-08 10:46:22 - INFO  - Started EmployeRepositoryTest in 5.455 seconds (JVM running for 7.439)
+2020-04-08 10:47:35 - INFO  - Starting EmployeRepositoryTest on HP-NICO with PID 12192 (started by IPI in C:\Users\IPI\Desktop\Villoud\ipi-java-350-ex)
+2020-04-08 10:47:35 - INFO  - No active profile set, falling back to default profiles: default
+2020-04-08 10:47:41 - INFO  - Started EmployeRepositoryTest in 5.481 seconds (JVM running for 7.643)
