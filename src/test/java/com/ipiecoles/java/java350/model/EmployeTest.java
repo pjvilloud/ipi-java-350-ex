@@ -126,9 +126,9 @@ public class EmployeTest {
             "'C00012',2020-04-08 ,0,1, 7.0, 7000.0",
             ",2020-04-08 ,0, 3, 7.0, 23100.0",
             "'M00012',2020-04-08 , 2500, 0, 7.0, 11900.0",
-            "'M00012',2020-04-08 , 2500, 3,0,0.0",
-            "'M00012',2025-04-08 , 2500, 3,0,0.0",
-            "'M00012',2015-04-08 , 2500, 3,0,0.0"
+            "'M00012',2020-04-08 , 2500, 1,0,0.0",
+            "'M00012',2025-04-08 , 2500, 1,0,0.0",
+            "'M00012',2015-04-08 , 2500, 1,0,0.0"
     })
     public void getPrimeAnnuelleTest(String matricule, LocalDate dateEmbauche, double salaire, int performance, double tempsPartiel, Double result){
         //Given
@@ -150,7 +150,7 @@ public class EmployeTest {
         Double resultFunction = employe.getPrimeAnnuelle();
 
         //Then
-        Assertions.assertEquals(resultFunction, 11900.0);
+        Assertions.assertEquals(11900.0,resultFunction);
     }
 
     @ParameterizedTest
@@ -172,11 +172,21 @@ public class EmployeTest {
 
     @ParameterizedTest
     @CsvSource({
-            "2020-04-09 ,0.0, 0",
-            "2020-04-10 ,7.0, 63",
+            "2020-04-10 ,0.0, 0",
+            "2020-04-11 ,7.0, 63",
+            "2020-04-12 ,7.0, 63",
+            "2020-04-13 ,7.0, 63",
+            "2020-04-14 ,7.0, 63",
+            "2020-04-15 ,7.0, 63",
+            "2020-04-16 ,7.0, 63",
+            "2020-04-17 ,7.0, 63",
+            "2019-04-10 ,7.0, 63",
             "2019-04-11 ,7.0, 63",
             "2019-04-12 ,7.0, 63",
             "2019-04-13 ,7.0, 63",
+            "2019-04-14 ,7.0, 63",
+            "2019-04-16 ,7.0, 63",
+            "2019-04-17 ,7.0, 63",
     })
     public void getNbRttTest(LocalDate d, double tempsPartiel ,Integer result){
         //Given
@@ -198,7 +208,7 @@ public class EmployeTest {
         Integer resultFunction = employe.getNbRtt();
 
         //Then
-        Assertions.assertEquals(resultFunction, 0);
+        Assertions.assertEquals( 0,resultFunction);
     }
 
     @ParameterizedTest
@@ -293,7 +303,7 @@ public class EmployeTest {
         int result = employe.hashCode();
 
         //Then
-        Assertions.assertEquals(result, 7.1814865E8);
+        Assertions.assertEquals( 7.1814865E8,result);
     }
 
     @ParameterizedTest

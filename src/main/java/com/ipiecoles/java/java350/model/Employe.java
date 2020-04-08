@@ -200,7 +200,10 @@ public class Employe {
     }
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            System.out.println("TESTTESTTEST");
+            return true;
+        }
         if (!(o instanceof Employe)) return false;
         Employe employe = (Employe) o;
         return Objects.equals(id, employe.id) &&

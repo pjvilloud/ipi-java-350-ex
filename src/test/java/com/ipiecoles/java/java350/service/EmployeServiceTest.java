@@ -202,7 +202,7 @@ public class EmployeServiceTest {
     })
     void calculPerformanceCommercialNotFoundTest2(String matricule, Long caTraite, Long objectifCa, Integer result) throws EmployeException {
         //Given
-        Employe employe = new Employe("Delacour", "Michel", "T00001", LocalDate.now(), 1825.46, 1, null);
+        Employe employe = new Employe("Delacour", "Michel", "T00001", LocalDate.now(), 1825.46, 2, null);
         Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(employe);
 
         if (matricule.equals("C00012")) {
