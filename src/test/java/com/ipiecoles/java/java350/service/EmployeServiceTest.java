@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -140,15 +143,26 @@ public class EmployeServiceTest {
         Assertions.assertEquals( "Doe", employe.getNom());
    }
 
-   @Test
-    void calculPerformanceCommercialNotFoundTest() throws EmployeException {
+   @ParameterizedTest
+   @CsvSource({"'C00011', 2000, 2500, Le matricule C00011 n'existe pas !",
+           "'C00012', 2000, 2500, Le matricule C00012 n'existe pas !",
+           "'C00012', 2000, 2500, Le matricule C00012 n'existe pas !",
+           "'C00012', -2000, 2500, Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !",
+           "'C00012', 2000, -2500, Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !",
+           "'C00012', -2000, -2500, Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !",
+           ", 2000, 2500, Le matricule ne peut être null et doit commencer par un C !",
+   })
+    void calculPerformanceCommercialNotFoundTest(String matricule, Long caTraite, Long objectifCa, String result) throws EmployeException {
        //Given
-       Mockito.when(employeRepository.findByMatricule("C00011")).thenReturn(null);
+       if(caTraite != -2000 && objectifCa != -2500 && matricule != null) {
+
+           Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
+       }
 
        //When
-       EmployeException e = Assertions.assertThrows(EmployeException.class, () ->  employeService.calculPerformanceCommercial("C00011",2000L , 2500L));
+       EmployeException e = Assertions.assertThrows(EmployeException.class, () ->  employeService.calculPerformanceCommercial(matricule,caTraite , objectifCa));
 
        //Then
-        Assertions.assertEquals(e.getMessage(), "Le matricule C00011 n'existe pas !");
+        Assertions.assertEquals(e.getMessage(), result);
     }
 }
