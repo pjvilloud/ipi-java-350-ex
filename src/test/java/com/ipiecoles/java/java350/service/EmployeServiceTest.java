@@ -10,11 +10,14 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 
 @ExtendWith(MockitoExtension.class)
@@ -139,11 +142,15 @@ class EmployeServiceTest {
     }
 
 
+    //Test parametrer pour CaTraiter à null et négatif
+    @ParameterizedTest
+    @CsvSource({
+            "'C0001', , 1000",
+            "'C0001', -2000, 1000",
+    })
+
     @Test
-    void testCalculPerformanceCommercialCANull()throws EmployeException{
-        String matricule = "C0001";
-        Long caTraite = null;
-        Long objectifCa = 1000L;
+    void testCalculPerformanceCommercialCANullAndNegatif(String matricule, Long caTraite, Long objectifCa)throws EmployeException{
         try {
             employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
             Assertions.fail("Aurait du lancer une exception");
@@ -154,19 +161,7 @@ class EmployeServiceTest {
         }
     }
 
-    @Test
-    void testCalculPerformanceCommercialCANegatif() {
-        String matricule = "C0001";
-        Long caTraite = -20L;
-        Long objectifCa = 1000L;
-        try {
-            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
-        } catch (EmployeException e) {
-            //Vérifie que l'exception levée est de type EmployeException
-            Assertions.assertThat(e).isInstanceOf(EmployeException.class);
-            Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire traité ne peut être négatif ou null !");
-        }
-    }
+
 
     @Test
     void testCalculPerformanceCommercialObjectifCANull() {
@@ -196,31 +191,37 @@ class EmployeServiceTest {
         }
     }
 
-    @Test
-    void testCalculPerformanceCommercialMatriculeNull() {
-        String matricule = null;
-        Long caTraite = 2000L;
-        Long objectifCa = 11100L;
+
+    @ParameterizedTest
+    @CsvSource({
+            "'M0001' ,'Le matricule ne peut être null et doit commencer par un C !'",
+            " ,Le matricule ne peut être null et doit commencer par un C !'",
+    })
+
+    void calculPerformanceCommercialStartCOrNull(String matricule, String message) throws EmployeException {
+        //Given
+        Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
+        //When Junit 4
         try {
-            employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
-        } catch (EmployeException e) {
-            //Vérifie que l'exception levée est de type EmployeException
+            employeRepository.findByMatricule(matricule);
+        } catch (Exception e){
+            //Then
             Assertions.assertThat(e).isInstanceOf(EmployeException.class);
-            Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
+            Assertions.assertThat(e.getMessage()).isEqualTo(message);
         }
     }
 
     @Test
-    void testCalculPerformanceCommercialMatriculeBeginC() {
-        String matricule = "M45678";
+    void testCalculPerformanceCommercialMatriculeNotExist() {
+        String matricule = "C0001";
         Long caTraite = 2000L;
-        Long objectifCa = 11100L;
+        Long objectifCa = 1000L;
         try {
             employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
         } catch (EmployeException e) {
             //Vérifie que l'exception levée est de type EmployeException
             Assertions.assertThat(e).isInstanceOf(EmployeException.class);
-            Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
+            Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule "+ matricule + " n'existe pas !");
         }
     }
 }

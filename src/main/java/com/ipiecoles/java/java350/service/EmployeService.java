@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.Transient;
 import java.time.LocalDate;
 
 @Service
@@ -20,6 +21,7 @@ public class EmployeService {
     @Autowired
     private EmployeRepository employeRepository;
 
+    @Transient
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -97,20 +99,24 @@ public class EmployeService {
      *
      * @throws EmployeException Si le matricule est null ou ne commence pas par un C
      */
-    public void calculPerformanceCommercial(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
+    public void calculPerformanceCommercial(String matricule, Long caTraite, Long objectifCa) throws EmployeException, EntityExistsException {
         //Vérification des paramètres d'entrée
         if(caTraite == null || caTraite < 0){
+            logger.error("Le chiffre d'affaire traité ne peut être négatif ou null !");
             throw new EmployeException("Le chiffre d'affaire traité ne peut être négatif ou null !");
         }
         if(objectifCa == null || objectifCa < 0){
+            logger.error("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
             throw new EmployeException("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
         }
         if(matricule == null || !matricule.startsWith("C")){
+            logger.error("Le matricule ne peut être null et doit commencer par un C !");
             throw new EmployeException("Le matricule ne peut être null et doit commencer par un C !");
         }
         //Recherche de l'employé dans la base
         Employe employe = employeRepository.findByMatricule(matricule);
         if(employe == null){
+            logger.error("Le matricule \" + matricule + \" n'existe pas !");
             throw new EmployeException("Le matricule " + matricule + " n'existe pas !");
         }
 
