@@ -246,11 +246,20 @@ public class EmployeTest {
     @Test
     public void testsetSalaire(){
         //Given
-        Employe employe = new Employe();
+        Employe employe = new Employe("Jose", "Patrick", "C00010", LocalDate.now(), 5000.0, 3, 7.0 );
         //When
         Double salaire = 2000D;
         employe.setSalaire(salaire);
         //Then
         Assertions.assertThat(employe.getSalaire()).isEqualTo(salaire);
+    }
+    @Test
+    public void testgetPerformance(){
+        //Given
+        Employe employe = new Employe("Black", "David", "C00012", LocalDate.now(), 8000.0, 3, 7.0 );
+        //When
+        Integer perf = employe.getPerformance();
+        //Then
+        Assertions.assertThat(perf).isEqualTo(3);
     }
 }
