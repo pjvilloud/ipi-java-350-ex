@@ -157,19 +157,19 @@ public class EmployeServiceTest {
 
 
     @Test
-    public void testCalculPerformanceCommercialEmployeNull() {
+    public void testCalculPerformanceCommercialMatriculeNull() {
         //Given
-        String matricule = "C00001";
+        String matricule = null;
         Long caTraite = 30L;
         Long objectifCa = 15000L;
 
-        Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
+        employeRepository.findByMatricule(matricule);
 
         org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
             //When
             employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
         })//Then
-                .isInstanceOf(EmployeException.class).hasMessage("Le matricule C00001 n'existe pas !");
+                .isInstanceOf(EmployeException.class).hasMessage("Le matricule ne peut être null et doit commencer par un C !");
     }
      @ParameterizedTest
     @CsvSource({"C00011",
