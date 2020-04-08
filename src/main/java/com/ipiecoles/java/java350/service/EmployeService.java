@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
-import java.util.logging.Level;
 
 @Service
 public class EmployeService {
@@ -40,7 +39,7 @@ public class EmployeService {
 
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude , Double tempsPartiel) throws EmployeException /*EntityExistsException*/ {
         logger.debug("Coucou");
-        logger.debug("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(),poste.name(), tempsPartiel);
+        logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude,poste, tempsPartiel);
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
