@@ -60,7 +60,7 @@ class EmployeServiceTest {
         Assertions.assertEquals(tempsPartiel, employeArgumentCaptor.getValue().getTempsPartiel());
 
         //1521.22 * 1.2 * 1.0
-        Assertions.assertEquals(1825.464, employeArgumentCaptor.getValue().getSalaire().doubleValue());
+        Assertions.assertEquals(1825.464, Math.round(employeArgumentCaptor.getValue().getSalaire().doubleValue()));
     }
 
     @Test
