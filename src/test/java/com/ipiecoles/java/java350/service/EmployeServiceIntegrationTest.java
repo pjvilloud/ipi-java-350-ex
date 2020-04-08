@@ -15,20 +15,20 @@ public class EmployeServiceIntegrationTest {
     @Autowired
     EmployeRepository employeRepository;
 
-    @Test
-    void testCalculPerformanceCommercialCasNominal() throws EmployeException {
-        //Given
-        Employe employe = new Employe();
-        employe.setMatricule("C45678");
-        employe.setPerformance(10);
-        employeRepository.save(employe);
-
-        //When
-        employeService.calculPerformanceCommercial(employe.getMatricule(),799L, 1000L);
-
-        //Then
-        Employe employe1 = employeRepository.findByMatricule("C45678");
-        Assertions.assertThat(employe1.getPerformance()).isEqualTo(1);
-    }
+//    @Test
+//    void testCalculPerformanceCommercialCasNominal() throws EmployeException {
+//        //Given
+//        Employe employe = new Employe();
+//        employe.setMatricule("C45678");
+//        employe.setPerformance(10);
+//        employeRepository.save(employe);
+//
+//        //When
+//        employeService.calculPerformanceCommercial(employe.getMatricule(),799L, 1000L);
+//
+//        //Then
+//        Employe employe1 = employeRepository.findByMatricule("C45678");
+//        Assertions.assertThat(employe1.getPerformance()).isEqualTo(1);
+//    }
 
 }
