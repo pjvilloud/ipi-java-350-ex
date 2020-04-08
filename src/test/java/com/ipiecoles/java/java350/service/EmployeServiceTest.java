@@ -165,6 +165,7 @@ public class EmployeServiceTest {
    @ParameterizedTest
    @CsvSource({"'C00011', 2000, 2500, Le matricule C00011 n'existe pas !",
            "'C00011',, 2500, Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !",
+           "'C00011',2000,, Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !",
            "'M00011',2000, 2500, Le matricule ne peut être null et doit commencer par un C !",
            "'C00012', 2000, 2500, Le matricule C00012 n'existe pas !",
            "'C00012', -2000, 2500, Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !",
@@ -174,7 +175,7 @@ public class EmployeServiceTest {
    })
     void calculPerformanceCommercialNotFoundTest(String matricule, Long caTraite, Long objectifCa, String result) throws EmployeException {
        //Given
-       if((caTraite != null && caTraite != -2000) && objectifCa != -2500 && (matricule != null && !matricule.equals("M00011"))) {
+       if((caTraite != null && caTraite != -2000) && (objectifCa != null && objectifCa != -2500) && (matricule != null && !matricule.equals("M00011"))) {
 
            Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
        }
@@ -188,10 +189,15 @@ public class EmployeServiceTest {
 
     @ParameterizedTest
     @CsvSource({
+            "'C00011', 800, 2500, 1",
             "'C00011', 2000, 2500, 1",
+            "'C00011', 2200, 2500, 1",
+            "'C00011', 2499, 2500, 1",
             "'C00011', 2500, 2500, 1",
+            "'C00011', 2502, 2500, 1",
             "'C00011', 2550, 2500, 1",
             "'C00011', 3500, 2500, 1",
+            "'C00011', 10000, 2500, 1",
     })
     void calculPerformanceCommercialNotFoundTest2(String matricule, Long caTraite, Long objectifCa, Integer result) throws EmployeException {
         //Given
