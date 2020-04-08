@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class EmployeServiceTest {
+ class EmployeServiceTest {
 
     @InjectMocks
     EmployeService employeService;
@@ -30,12 +30,12 @@ public class EmployeServiceTest {
     EmployeRepository employeRepository;
 
     @BeforeEach
-    public void setup(){
+     void setup(){
         MockitoAnnotations.initMocks(this.getClass());
     }
 
     @Test
-    public void testEmbaucheEmployeTechnicienPleinTempsBts() throws EmployeException {
+     void testEmbaucheEmployeTechnicienPleinTempsBts() throws EmployeException {
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -62,7 +62,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMaster() throws EmployeException {
+     void testEmbaucheEmployeManagerMiTempsMaster() throws EmployeException {
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -89,7 +89,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMasterNoLastMatricule() throws EmployeException {
+     void testEmbaucheEmployeManagerMiTempsMasterNoLastMatricule() throws EmployeException {
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -109,7 +109,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMasterExistingEmploye(){
+     void testEmbaucheEmployeManagerMiTempsMasterExistingEmploye(){
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -125,7 +125,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMaster99999(){
+     void testEmbaucheEmployeManagerMiTempsMaster99999(){
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -140,7 +140,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testCalculPerformanceCommercialMatriculeIsExist() {
+     void testCalculPerformanceCommercialMatriculeIsExist() {
         //Given
         String matricule = "C00001";
         Long caTraite = 40L;
@@ -157,7 +157,7 @@ public class EmployeServiceTest {
 
 
     @Test
-    public void testCalculPerformanceCommercialMatriculeNull1() {
+     void testCalculPerformanceCommercialMatriculeNull1() {
         //Given
         String matricule = null;
         Long caTraite = 30L;
@@ -174,7 +174,7 @@ public class EmployeServiceTest {
      @ParameterizedTest
     @CsvSource({"C00011",
             "C00012", })
-    public void testCalculPerformanceCommercialMatriculeIsNull2(String matricule) throws EmployeException {
+     void testCalculPerformanceCommercialMatriculeIsNull2(String matricule) {
         //Given
         Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
         //When
@@ -186,7 +186,7 @@ public class EmployeServiceTest {
     @ParameterizedTest
     @CsvSource({"C00011",
             "C00012", })
-    public void testCalculPerformanceCommercialEmployeIsNull(String matricule) throws EmployeException {
+     void testCalculPerformanceCommercialEmployeIsNull(String matricule) {
         //Given
         Employe emp = employeRepository.findByMatricule(matricule);
         try {
@@ -200,7 +200,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testCalculPerformanceCommercialMatriculeStartC(){
+     void testCalculPerformanceCommercialMatriculeStartC(){
         //Given
         String matricule = "M00001";
         Long caTraite = 50L;
@@ -217,7 +217,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testCalculPerformanceCommercialCaTraiteNegatif(){
+     void testCalculPerformanceCommercialCaTraiteNegatif(){
         //Given
         String matricule = "C00001";
         Long caTraite = -40L;
@@ -232,7 +232,7 @@ public class EmployeServiceTest {
         }
     }
     @Test
-    public void testCalculPerformanceCommercialCaTraiteNull(){
+     void testCalculPerformanceCommercialCaTraiteNull(){
         //Given
         String matricule = "C00001";
         Long caTraite = null;
@@ -247,7 +247,7 @@ public class EmployeServiceTest {
         }
     }
     @Test
-    public void testCalculPerformanceCommercialObjectifCaNegatif(){
+     void testCalculPerformanceCommercialObjectifCaNegatif(){
         //Given
         String matricule = "C00001";
         Long caTraite = 50L;
@@ -262,7 +262,7 @@ public class EmployeServiceTest {
         }
     }
     @Test
-    public void testCalculPerformanceCommercialObjectifCaNull(){
+     void testCalculPerformanceCommercialObjectifCaNull(){
         //Given
         String matricule = "C00001";
         Long caTraite = 50L;
@@ -288,7 +288,7 @@ public class EmployeServiceTest {
             "'C00012', -2000, -2500, Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !",
             ", 2000, 2500, Le matricule ne peut être null et doit commencer par un C !",
     })
-    void calculPerformanceCommercialNotFoundTest(String matricule, Long caTraite, Long objectifCa, String result) throws EmployeException {
+    void calculPerformanceCommercialNotFoundTest(String matricule, Long caTraite, Long objectifCa, String result) {
         //Given
         if((caTraite != null && caTraite != -2000) && (objectifCa != null && objectifCa != -2500) && (matricule != null && !matricule.equals("M00011"))) {
             Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);

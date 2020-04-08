@@ -1,32 +1,15 @@
 package com.ipiecoles.java.java350.repository;
-
-import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.model.Employe;
-import com.ipiecoles.java.java350.service.EmployeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import org.junit.jupiter.api.Assertions;
-
 import java.time.LocalDate;
 
 @DataJpaTest
-public class EmployeRepositoryTest {
+ class EmployeRepositoryTest {
     @Autowired
     EmployeRepository employeRepository;
-
-    @Mock
-    EmployeRepository employeRepository2;
-
-    @InjectMocks
-    EmployeService employeService;
 
     @BeforeEach //fonctionne même si l'utilisateur à oublier de supprimer les données
     void setUp() {

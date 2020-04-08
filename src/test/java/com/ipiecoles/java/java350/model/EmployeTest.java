@@ -1,5 +1,4 @@
 package com.ipiecoles.java.java350.model;
-import com.google.common.hash.HashCode;
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.service.EmployeService;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -8,15 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.net.Authenticator;
 import java.time.LocalDate;
-import java.util.logging.Handler;
 
-public class EmployeTest {
-    private EmployeService employeService;
+class EmployeTest {
 
     @Test
-    public void testAnneeAncinneteNow(){
+     void testAnneeAncinneteNow(){
         //Given Envoie de la class Employe
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now());
@@ -29,7 +25,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAncienneteNminus2(){
+     void getNombreAnneeAncienneteNminus2(){
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().minusYears(2L));
@@ -42,7 +38,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAncienneteNull(){
+     void getNombreAnneeAncienneteNull(){
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(null);
@@ -55,7 +51,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAncienneteNplus2(){
+     void getNombreAnneeAncienneteNplus2(){
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().plusYears(2L));
@@ -79,7 +75,7 @@ public class EmployeTest {
             "2, 'M12345', 0, 1.0, 1700.0",
             "2, 'M12345', 8, 1.0, 2500.0"
     })
-    public void getPrimeAnnuelle(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel, Double primeCalculee){
+     void getPrimeAnnuelle(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel, Double primeCalculee){
         //Given
         Employe employe = new Employe();
         employe.setMatricule(matricule);
@@ -95,7 +91,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testNbAnneeAncienneteNowPlus3(){
+     void testNbAnneeAncienneteNowPlus3(){
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now().plusYears(3));
@@ -108,7 +104,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testNbAnneeAncienneteNull(){
+     void testNbAnneeAncienneteNull(){
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(null);
@@ -120,19 +116,19 @@ public class EmployeTest {
         Assertions.assertThat(nbAnnees).isEqualTo(0);
     }
 
-    /**
+    /*
      * Partie Evaluation
      */
 
-    /**
+    /*
      * Test unitaire sur la méthode augmenter salaire à 10%
      */
 
     @Test
-    public void testaugmenterSalaireNegatif()throws EmployeException {
+     void testaugmenterSalaireNegatif(){
         //Given
         Employe employe = new Employe("Bouve", "Steve", "C00004", LocalDate.now(), 3000.0, 1, 3.0 );
-        Double pourcentage = -20D;
+        double pourcentage = -20D;
         Assertions.assertThatThrownBy(() -> {
                     //Then
                     employe.augmenterSalaire(pourcentage);
@@ -143,20 +139,20 @@ public class EmployeTest {
     }
 
     @Test
-    public void testaugmenterSalaire10() throws EmployeException {
+     void testaugmenterSalaire10() throws EmployeException {
         //Given
         Employe employe = new Employe("Pose", "Kevin", "C00001", LocalDate.now(), 1000.0, 2, 2.0 );
-        Double pourcentage = 10D;
+        double pourcentage = 10D;
         //When
         employe.augmenterSalaire(pourcentage);
         //Then
         Assertions.assertThat(employe.getSalaire()).isEqualTo(1100);
     }
     @Test
-    public void testaugmenterSalaireNull() throws EmployeException {
+     void testaugmenterSalaireNull() throws EmployeException {
         //Given
         Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.now(), null, 3, 7.0 );
-        Double pourcentage = 10D;
+        double pourcentage = 10D;
         Assertions.assertThatThrownBy(() -> {
                     //Then
             employe.augmenterSalaire(pourcentage);
@@ -171,7 +167,7 @@ public class EmployeTest {
     //Test paramètré sur la méthode getNbRTT
 
     @Test
-    public void getNbRtt2(){
+     void getNbRtt2(){
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now());
@@ -183,7 +179,7 @@ public class EmployeTest {
 
     //Coverage sur le methode des RTT
     @Test
-    public void getNbRtt(){
+     void getNbRtt(){
         //Given
         Employe employe = new Employe();
         //When
@@ -194,7 +190,7 @@ public class EmployeTest {
 
     //Coverage sur la méthode des congés
     @Test
-    public void getNbConges(){
+     void getNbConges(){
         //Given
         Employe employe = new Employe();
         //When
@@ -204,7 +200,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAnciennete(){
+     void getNombreAnneeAnciennete(){
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(employe.getDateEmbauche());
@@ -217,7 +213,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testsetid(){
+     void testsetid(){
         //Given
         Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.now(), 4000.0, 3, 7.0 );
         //When
@@ -227,7 +223,7 @@ public class EmployeTest {
         Assertions.assertThat(employe.getId()).isEqualTo(15L);
     }
     @Test
-    public void testSetNom(){
+     void testSetNom(){
         //Given
         Employe employe = new Employe("Mac", "Brigitte", "C00007", LocalDate.now(), 2000.0, 3, 7.0 );
         //When
@@ -237,7 +233,7 @@ public class EmployeTest {
         Assertions.assertThat(employe.getNom()).isEqualTo(nom);
     }
     @Test
-    public void testsetPrenom(){
+     void testsetPrenom(){
         //Given
         Employe employe = new Employe("Mac", "Xave", "C00007", LocalDate.now(), 2000.0, 3, 7.0 );
         //When
@@ -247,7 +243,7 @@ public class EmployeTest {
         Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
     }
     @Test
-    public void testsetSalaire(){
+     void testsetSalaire(){
         //Given
         Employe employe = new Employe("Jose", "Patrick", "C00010", LocalDate.now(), 5000.0, 3, 7.0 );
         //When
@@ -257,7 +253,7 @@ public class EmployeTest {
         Assertions.assertThat(employe.getSalaire()).isEqualTo(salaire);
     }
     @Test
-    public void testgetPerformance(){
+     void testgetPerformance(){
         //Given
         Employe employe = new Employe("Black", "David", "C00012", LocalDate.now(), 8000.0, 3, 7.0 );
         //When
@@ -266,8 +262,53 @@ public class EmployeTest {
         Assertions.assertThat(perf).isEqualTo(3);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "1, 'M12345', 0, 1.0, 1000.0",
+            "1, 'M12345', 0, 1.0, 1700.0",
+            "1, 'M12345', 0, 1.0, 2200.0",
+            "2, 'M12345', 0, 1.0, 1700.0",
+            "2, 'M12345', 0, 1.0, 2500.0"
+    })
+     void getPrimeAnnuelleMatriculeStartWithM(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel){
+        //Given
+        Employe employe = new Employe();
+        employe.setMatricule(matricule);
+        employe.setTempsPartiel(tempsPartiel);
+        employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneeAnciennete));
+        employe.setPerformance(performance);
+        Double primeAnciennete = Entreprise.PRIME_ANCIENNETE;
+        Double indiceManager = Entreprise.INDICE_PRIME_MANAGER;
+        //When
+        Double prime = employe.getPrimeAnnuelle()*indiceManager+primeAnciennete;
+
+        //Then
+        Assertions.assertThat(prime).isEqualTo(2990.0);
+
+    }
+    @ParameterizedTest
+    @CsvSource({
+            "1, , 2, 1.0, 1200.0",
+    })
+     void getPrimeAnnuelleMatriculeNotNull(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel){
+        //Given
+        Employe employe = new Employe();
+        employe.setMatricule(matricule);
+        employe.setTempsPartiel(tempsPartiel);
+        employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneeAnciennete));
+        employe.setPerformance(performance);
+        Double primeAnciennete = Entreprise.PRIME_ANCIENNETE;
+        Double indiceManager = Entreprise.INDICE_PRIME_MANAGER;
+        //When
+        Double prime = employe.getPrimeAnnuelle()*indiceManager+primeAnciennete;
+
+        //Then
+        Assertions.assertThat(prime).isEqualTo(2140.0);
+
+    }
+
     @Test
-    public void equalsHashCodeContracts() {
+     void equalsHashCodeContracts() {
         EqualsVerifier.forClass(Employe.class).verify();
     }
 
