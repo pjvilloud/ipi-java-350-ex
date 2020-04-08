@@ -234,7 +234,7 @@ public class EmployeTest {
         String nom = "Mac";
         employe.setNom(nom);
         //Then
-        Assertions.assertThat(employe.getNom()).isEqualTo("Mac");
+        Assertions.assertThat(employe.getNom()).isEqualTo(nom);
     }
     @Test
     public void testSetPrenom(){
@@ -244,6 +244,16 @@ public class EmployeTest {
         String prenom = "Xave";
         employe.setNom(prenom);
         //Then
-        Assertions.assertThat(employe.getNom()).isEqualTo("Xave");
+        Assertions.assertThat(employe.getNom()).isEqualTo(prenom);
+    }
+    @Test
+    public void testsetSalaire(){
+        //Given
+        Employe employe = new Employe();
+        //When
+        Double salaire = 2000D;
+        employe.setSalaire(salaire);
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(salaire);
     }
 }

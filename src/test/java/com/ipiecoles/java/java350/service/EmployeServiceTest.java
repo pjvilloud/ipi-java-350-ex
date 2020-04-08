@@ -1,7 +1,6 @@
 package com.ipiecoles.java.java350.service;
 
 import com.ipiecoles.java.java350.model.Employe;
-import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.exception.EmployeException;
@@ -10,10 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityExistsException;
@@ -157,22 +153,21 @@ public class EmployeServiceTest {
         }
     }
 
+
     @Test
     public void testCalculPerformanceCommercialEmployeNull() {
         //Given
         String matricule = "C00001";
         Long caTraite = 30L;
         Long objectifCa = 15000L;
-        try{
-            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
-            employeRepository.findByMatricule(matricule);
 
-            Assertions.fail("Aurait du lancer une exception");
-        } catch(EmployeException e){
-            //Then
-            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
-            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule C00001 n'existe pas !");
-        }
+        Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
+
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+            //When
+            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
+        })//Then
+                .isInstanceOf(EmployeException.class).hasMessage("Le matricule C00001 n'existe pas !");
     }
     @Test
     public void testCalculPerformanceCommercialMatriculeIsNull() {
