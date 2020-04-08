@@ -239,11 +239,11 @@ public class EmployeTest {
     @Test
     public void testSetPrenom(){
         //Given
-        Employe employe = new Employe("Mac", "Brigitte", "C00007", LocalDate.now(), 2000.0, 3, 7.0 );
+        Employe employe = new Employe("Mac", "Xave", "C00007", LocalDate.now(), 2000.0, 3, 7.0 );
         //When
-        String prenom = "Brigitte";
+        String prenom = "Xave";
         employe.setNom(prenom);
         //Then
-        Assertions.assertThat(employe.getNom()).isEqualTo("Brigitte");
+        Assertions.assertThat(employe.getNom()).isEqualTo("Xave");
     }
 }
