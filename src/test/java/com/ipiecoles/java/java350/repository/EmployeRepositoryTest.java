@@ -1,45 +1,27 @@
 package com.ipiecoles.java.java350.repository;
 
 import com.ipiecoles.java.java350.model.Employe;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import java.time.LocalDate;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class EmployeRepositoryTest {
+public class EmployeRepositoryTest {
 
     @Autowired
     EmployeRepository employeRepository;
 
     // avant et apres chaque test :
     @BeforeEach
-    @AfterEach
     void setUp(){
         employeRepository.deleteAll();
     }
 
     @Test
     void findLastMatricule() {
-        // Given
-
-        // When
-        String lastMarticule = employeRepository.findLastMatricule();
-
-        // Then
-    }
-
-    @Test
-    void findLastMatricule2() {
         // Given
         Employe e1 = new Employe("Doe", "John", "T12345", LocalDate.now(), 1050d, 1, 1d);
         Employe e2 = new Employe("TEST", "aa", "T67891", LocalDate.now(), 1050d, 1, 1d);
@@ -53,7 +35,7 @@ class EmployeRepositoryTest {
         String lastMarticule = employeRepository.findLastMatricule();
 
         // Then
-        Assertions.assertEquals(lastMarticule, "67891");
+        Assertions.assertEquals("67891", lastMarticule);
     }
 
     @Test
@@ -72,6 +54,6 @@ class EmployeRepositoryTest {
         Double avg = employeRepository.avgPerformanceWhereMatriculeStartsWith(premiereLettreMattricule);
 
         // Then
-        Assertions.assertEquals(avg,2.3333333333333335d);
+        Assertions.assertEquals(2.3333333333333335d, avg);
     }
 }

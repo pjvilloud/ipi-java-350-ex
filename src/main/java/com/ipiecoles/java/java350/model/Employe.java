@@ -1,5 +1,5 @@
 package com.ipiecoles.java.java350.model;
-
+import com.ipiecoles.java.java350.exception.EmployeException;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,31 +7,20 @@ import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
-
 @Entity
 public class Employe {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String nom;
-
     private String prenom;
-
     private String matricule;
-
     private LocalDate dateEmbauche;
-
     private Double salaire = Entreprise.SALAIRE_BASE;
-
     private Integer performance = Entreprise.PERFORMANCE_BASE;
-
     private Double tempsPartiel = 1.0;
-
     public Employe() {
     }
-
     public Employe(String nom, String prenom, String matricule, LocalDate dateEmbauche, Double salaire, Integer performance, Double tempsPartiel) {
         this.nom = nom;
         this.prenom = prenom;
@@ -41,38 +30,52 @@ public class Employe {
         this.performance = performance;
         this.tempsPartiel = tempsPartiel;
     }
-
     /**
-     * Méthode calculant le nombre d'années d'ancienneté à partir de la date d'embauche
-     * @return
+     * Retourne le nombre d'année d'ancienneté de l'employé par rapport à sa date d'embauche (on ne prend pas en compte
+     * les mois et les jours. Il faut en revanche que la d'embauche soit non nulle et l'année antérieure à l'année courante
+     * sinon on renvoie une ancienneté de 0
+     *
+     * @return le nombre d'année d'ancienneté
      */
-    public Integer getNombreAnneeAnciennete() {
-        return LocalDate.now().getYear() - dateEmbauche.getYear();
+    public final Integer getNombreAnneeAnciennete() {
+        return dateEmbauche != null && LocalDate.now().getYear() >= dateEmbauche.getYear() ? LocalDate.now().getYear() - dateEmbauche.getYear() : 0;
     }
-
     public Integer getNbConges() {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
-
+    /**
+     * Nombre de jours de RTT =
+     *   Nombre de jours dans l'année
+     * – plafond maximal du forfait jours de la convention collective
+     * – nombre de jours de repos hebdomadaires
+     * – jours de congés payés
+     * – nombre de jours fériés tombant un jour ouvré
+     *
+     * Au prorata de son pourcentage d'activité (arrondi au supérieur)
+     *
+     * @return le nombre de jours de RTT
+     */
     public Integer getNbRtt(){
         return getNbRtt(LocalDate.now());
     }
-
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;int var = 104;
+        int i1 = d.isLeapYear() ? 365 : 366;
+        int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-        case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-        case FRIDAY:
-        if(d.isLeapYear()) var =  var + 2;
-        else var =  var + 1;
-case SATURDAY:var = var + 1;
-                    break;
+            case THURSDAY:
+                if(d.isLeapYear()) var =  var + 1;
+                break;
+            case FRIDAY:
+                if(d.isLeapYear()) var =  var + 2;
+                else var =  var + 1;
+                break;
+            case SATURDAY: var = var + 1;
+                break;
+            default:
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate ->
-                localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
         return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
     }
-
     /**
      * Calcul de la prime annuelle selon la règle :
      * Pour les managers : Prime annuelle de base bonnifiée par l'indice prime manager
@@ -85,7 +88,6 @@ case SATURDAY:var = var + 1;
      *
      * @return la prime annuelle de l'employé en Euros et cents
      */
-    //Matricule, performance, date d'embauche, temps partiel, prime
     public Double getPrimeAnnuelle(){
         //Calcule de la prime d'ancienneté
         Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
@@ -105,112 +107,96 @@ case SATURDAY:var = var + 1;
             prime = Entreprise.primeAnnuelleBase() * (this.performance + Entreprise.INDICE_PRIME_BASE) + primeAnciennete;
         }
         //Au pro rata du temps partiel.
-        return prime * this.tempsPartiel;
+        return Math.round(prime * this.tempsPartiel * 100)/100.0;
     }
-
     //Augmenter salaire
-    public void augmenterSalaire(double pourcentage){
-
-        double result = this.getSalaire() * (1 + (pourcentage/100));
-
-        this.setSalaire(result);
+    public void augmenterSalaire(double pourcentage) throws EmployeException {
+        if (this.salaire == null){
+            throw new EmployeException("Le salaire est null");
+        }
+        if(pourcentage < 0){
+            throw new EmployeException("Le pourcentage ne peut pas être négatif");
+        }
+        this.salaire = Math.round(this.salaire)*(1+pourcentage/100);
     }
-
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     /**
      * @return the nom
      */
     public String getNom() {
         return nom;
     }
-
     /**
      * @param nom the nom to set
      */
-    public Employe setNom(String nom) {
+    public void setNom(String nom) {
         this.nom = nom;
-        return this;
     }
-
     /**
      * @return the prenom
      */
     public String getPrenom() {
         return prenom;
     }
-
     /**
      * @param prenom the prenom to set
      */
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-
     /**
      * @return the matricule
      */
     public String getMatricule() {
         return matricule;
     }
-
     /**
      * @param matricule the matricule to set
      */
     public void setMatricule(String matricule) {
         this.matricule = matricule;
     }
-
     /**
      * @return the dateEmbauche
      */
     public LocalDate getDateEmbauche() {
         return dateEmbauche;
     }
-
     /**
      * @param dateEmbauche the dateEmbauche to set
      */
     public void setDateEmbauche(LocalDate dateEmbauche) {
         this.dateEmbauche = dateEmbauche;
     }
-
     /**
      * @return the salaire
      */
     public Double getSalaire() {
         return salaire;
     }
-
     /**
      * @param salaire the salaire to set
      */
     public void setSalaire(Double salaire) {
         this.salaire = salaire;
     }
-
     public Integer getPerformance() {
         return performance;
     }
-
     public void setPerformance(Integer performance) {
         this.performance = performance;
     }
-
     public Double getTempsPartiel() {
         return tempsPartiel;
     }
-
     public void setTempsPartiel(Double tempsPartiel) {
         this.tempsPartiel = tempsPartiel;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -224,7 +210,6 @@ case SATURDAY:var = var + 1;
                 Objects.equals(salaire, employe.salaire) &&
                 Objects.equals(performance, employe.performance);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);

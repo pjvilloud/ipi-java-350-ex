@@ -6,18 +6,15 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
 
 @Service
 public class EmployeService {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    int performanceBase = Entreprise.PERFORMANCE_BASE;
 
     @Autowired
     private EmployeRepository employeRepository;
@@ -34,7 +31,7 @@ public class EmployeService {
      * @throws EmployeException Si on arrive au bout des matricules possibles
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
-    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException {
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
@@ -61,11 +58,14 @@ public class EmployeService {
         //Calcul du salaire
         double salaire = Entreprise.getCoeffSalaireEtudes().get(niveauEtude) * Entreprise.SALAIRE_BASE;
         if(tempsPartiel != null){
+
             salaire = salaire * tempsPartiel;
         }
 
+        salaire = Math.round(salaire*100d)/100d;
+
         //Création et sauvegarde en BDD de l'employé.
-        Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
+        Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, performanceBase, tempsPartiel);
 
         employeRepository.save(employe);
 
@@ -92,13 +92,10 @@ public class EmployeService {
      */
     public void calculPerformanceCommercial(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
         //Vérification des paramètres d'entrée
-        if(caTraite == null || caTraite < 0){
-            throw new EmployeException("Le chiffre d'affaire traité ne peut être négatif ou null !");
-        }
-        if(objectifCa == null || objectifCa < 0){
-            throw new EmployeException("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
-        }
-        if(matricule == null || !matricule.startsWith("C")){
+        if(caTraite == null || caTraite < 0 || objectifCa == null || objectifCa < 0){
+            throw new EmployeException("Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !");
+
+        } else if(matricule == null || !matricule.startsWith("C")){
             throw new EmployeException("Le matricule ne peut être null et doit commencer par un C !");
         }
         //Recherche de l'employé dans la base
@@ -107,14 +104,14 @@ public class EmployeService {
             throw new EmployeException("Le matricule " + matricule + " n'existe pas !");
         }
 
-        int performance = Entreprise.PERFORMANCE_BASE;
+        int performance = performanceBase;
         //Cas 2
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
-            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance() - 2);
+            performance = Math.max(performanceBase, employe.getPerformance() - 2);
         }
         //Cas 3
         else if(caTraite >= objectifCa*0.95 && caTraite <= objectifCa*1.05){
-            performance = Math.max(Entreprise.PERFORMANCE_BASE, employe.getPerformance());
+            performance = Math.max(performanceBase, employe.getPerformance());
         }
         //Cas 4
         else if(caTraite <= objectifCa*1.2 && caTraite > objectifCa*1.05){
@@ -131,7 +128,6 @@ public class EmployeService {
         if(performanceMoyenne != null && performance > performanceMoyenne){
             performance++;
         }
-        logger.debug(String.valueOf(performance));
 
         //Affectation et sauvegarde
         employe.setPerformance(performance);
