@@ -157,7 +157,7 @@ public class EmployeServiceTest {
 
 
     @Test
-    public void testCalculPerformanceCommercialMatriculeNull() {
+    public void testCalculPerformanceCommercialMatriculeNull1() {
         //Given
         String matricule = null;
         Long caTraite = 30L;
@@ -174,7 +174,7 @@ public class EmployeServiceTest {
      @ParameterizedTest
     @CsvSource({"C00011",
             "C00012", })
-    public void testCalculPerformanceCommercialMatriculeIsNull(String matricule) throws EmployeException {
+    public void testCalculPerformanceCommercialMatriculeIsNull2(String matricule) throws EmployeException {
         //Given
         Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
         //When
@@ -182,6 +182,23 @@ public class EmployeServiceTest {
         //Then
         Assertions.assertEquals(e.getMessage(), "Le matricule "+matricule+" n'existe pas !");
     }
+
+    @ParameterizedTest
+    @CsvSource({"C00011",
+            "C00012", })
+    public void testCalculPerformanceCommercialEmployeIsNull(String matricule) throws EmployeException {
+        //Given
+        Employe emp = employeRepository.findByMatricule(matricule);
+        try {
+            Mockito.when(emp).thenReturn(null);
+            employeService.calculPerformanceCommercial(matricule, 2000L, 2500L);
+            //When
+        }catch (EmployeException e){
+            //Then
+            Assertions.assertEquals(e.getMessage(), "Le matricule "+matricule+" n'existe pas !");
+        }
+    }
+
     @Test
     public void testCalculPerformanceCommercialMatriculeStartC(){
         //Given
