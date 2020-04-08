@@ -216,4 +216,15 @@ public class EmployeTest {
         Assertions.assertThat(nbAnneeEmploye).isEqualTo(0);
     }
 
+    @Test
+    public void testsetid(){
+        //Given
+        Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.now(), 4000.0, 3, 7.0 );
+        //When
+        Long id = 15L;
+        employe.setId(id);
+        //Then
+        Assertions.assertThat(employe.getId()).isEqualTo(15L);
+    }
+
 }
