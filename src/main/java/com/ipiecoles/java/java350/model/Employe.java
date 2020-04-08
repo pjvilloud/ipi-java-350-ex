@@ -201,7 +201,6 @@ public class Employe {
     @Override
     public boolean equals(Object o) {
         if (this == o) {
-            System.out.println("TESTTESTTEST");
             return true;
         }
         if (!(o instanceof Employe)) return false;
