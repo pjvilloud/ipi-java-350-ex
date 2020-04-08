@@ -38,6 +38,7 @@ public class EmployeRepositoryTest {
 
     @Test
     void avgPerformanceWhereMatriculeStartsWithTest(){
+
         // Given
         String premiereLettreMattricule = "M";
         Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith(premiereLettreMattricule)).thenReturn(2.333D);
