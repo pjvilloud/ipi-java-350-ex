@@ -109,8 +109,9 @@ case SATURDAY:var = var + 1;
         return prime * this.tempsPartiel;
     }
 
-    //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+        this.salaire *= (1 + pourcentage);
+    }
 
     public Long getId() {
         return id;

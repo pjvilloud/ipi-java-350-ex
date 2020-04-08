@@ -45,4 +45,20 @@ public class EmployeTest {
 
         Assertions.assertEquals(primeCalculee, prime);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            ".5",
+            "-.5",
+            "1.5"
+    })
+    public void testAugmenterSalaire(Double percent)
+    {
+        Employe emp = new Employe();
+        emp.setSalaire(1000.0);
+        emp.augmenterSalaire(percent);
+        Double calc = 1000.0 * (1 + percent);
+
+        Assertions.assertEquals(emp.getSalaire(), calc);
+    }
 }
