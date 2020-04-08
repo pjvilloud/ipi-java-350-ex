@@ -176,5 +176,11 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	<properties>
+		<sonar.projectKey>TheoSegard_ipi-java-350-ex</sonar.projectKey>
+		<sonar.organization>theosegard</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>f13ba4d18c143410a7065ba3d408279999905ecd</sonar.login>
+	</properties>
 
 </project>
