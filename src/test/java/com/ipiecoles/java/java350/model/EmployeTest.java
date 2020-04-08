@@ -3,6 +3,9 @@ package com.ipiecoles.java.java350.model;
 import com.ipiecoles.java.java350.exception.EmployeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import java.time.LocalDate;
 
 public class EmployeTest {
@@ -62,7 +65,7 @@ public class EmployeTest {
     @Test
     public void augmenterSalaireNegativePourcentageTest() throws EmployeException {
         //Given
-        Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.now(), null, 3, 7.0 );
+        Employe employe = new Employe("Test", "Roger", "C00002", LocalDate.now(), null, 3, 7.0 );
         employe.setSalaire(2000d);
 
         org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
@@ -102,7 +105,7 @@ public class EmployeTest {
     @Test
     public void augmenterSalaireNullSalaireTest() throws EmployeException{
         //Given
-        Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.now(), null, 3, 7.0 );
+        Employe employe = new Employe("Test", "Roger", "C00002", LocalDate.now(), null, 3, 7.0 );
         Double pourcentage = 10D;
 
         org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
@@ -112,5 +115,39 @@ public class EmployeTest {
         )//Then
                 .isInstanceOf(EmployeException.class)
                 .hasMessage("Le salaire est null");
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "'M00012',, 2500, 3, 7.0,11900.0",
+            "'M00012',2020-04-08 ,0, 3, 7.0, 11900.0",
+            "'M00012',2020-04-08 , 2500, 0, 7.0, 11900.0",
+            "'M00012',2020-04-08 , 2500, 3,0,0.0",
+    })
+    public void getPrimeAnnuelleTest(String matricule, LocalDate dateEmbauche, double salaire, int performance, double tempsPartiel, Double result){
+        //Given
+        Employe employe = new Employe("Test", "Roger", matricule, dateEmbauche, salaire, performance, tempsPartiel );
+
+        //When
+        Double resultFunction = employe.getPrimeAnnuelle();
+
+        //Then
+        Assertions.assertEquals(resultFunction, result);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "2020-04-08 ,0.0, 0",
+            "2020-04-08 ,7.0, 63",
+    })
+    public void getNbRttTest(LocalDate d, double tempsPartiel ,Integer result){
+        //Given
+        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, tempsPartiel );
+
+        //When
+        Integer resultFunction = employe.getNbRtt(d);
+
+        //Then
+        Assertions.assertEquals(resultFunction, result);
     }
 }
