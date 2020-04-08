@@ -33,9 +33,10 @@ public class EmployeIntegrationServiceTest {
     public void integrationEmbaucheEmploye() throws EmployeException {
 
         //Given
-        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
         String nom = "Doe";
         String prenom = "John";
+        employeRepository.save(new Employe(nom, prenom, "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
+
         Poste poste = Poste.TECHNICIEN;
         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;

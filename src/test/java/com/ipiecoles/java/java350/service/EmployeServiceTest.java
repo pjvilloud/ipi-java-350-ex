@@ -9,10 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.persistence.EntityExistsException;
@@ -144,17 +141,14 @@ public class EmployeServiceTest {
    }
 
    @Test
-    void calculPerformanceCommercialNotFoundTest() {
+    void calculPerformanceCommercialNotFoundTest() throws EmployeException {
+       //Given
+       Mockito.when(employeRepository.findByMatricule("C00011")).thenReturn(null);
 
-        //Given
-        // Quand on va chercher si l employé avec le matricule calcule existe, on veut que la méthode renvoie null.
-        Employe e1 = new Employe("Doe", "John", "C00011", LocalDate.now(), 1050d, 1, 1d);
-        employeRepository.save(e1);
+       //When
+       EmployeException e = Assertions.assertThrows(EmployeException.class, () ->  employeService.calculPerformanceCommercial("C00011",2000L , 2500L));
 
-        //When
-        EmployeException e = Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial("C00012",2000L , 2500L));
-
-        //Then
-        Assertions.assertEquals("Le matricule C00012 n'existe pas !",e.getMessage());
+       //Then
+        Assertions.assertEquals(e.getMessage(), "Le matricule C00011 n'existe pas !");
     }
 }
