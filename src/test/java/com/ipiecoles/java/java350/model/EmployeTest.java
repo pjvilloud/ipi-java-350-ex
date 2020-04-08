@@ -166,21 +166,18 @@ public class EmployeTest {
 
 
     //Test paramètré sur la méthode getNbRTT
-/*
+
     @Test
-    @ParameterizedTest(name = "LocalDate")
-    @CsvSource({
-            "365","366"
-    })
-    public void getNbRtt2(LocalDate d){
+    public void getNbRtt2(){
         //Given
         Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now());
         //When
-        d.isLeapYear();
+        Integer nombreRTT = employe.getNbRtt();
         //Then
-        Assertions.assertThat(d).isEqualTo(365);
+        Assertions.assertThat(nombreRTT).isEqualTo(9);
     }
-*/
+
     //Coverage sur le methode des RTT
     @Test
     public void getNbRtt(){
