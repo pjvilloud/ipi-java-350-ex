@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -169,20 +171,16 @@ public class EmployeServiceTest {
         })//Then
                 .isInstanceOf(EmployeException.class).hasMessage("Le matricule C00001 n'existe pas !");
     }
-    @Test
-    public void testCalculPerformanceCommercialMatriculeIsNull() {
+     @ParameterizedTest
+    @CsvSource({"C00011",
+            "C00012", })
+    public void testCalculPerformanceCommercialMatriculeIsNull(String matricule) throws EmployeException {
         //Given
-        String matricule = null;
-        Long caTraite = 0L;
-        Long objectifCa = 25000L;
-        try{
-            employeService.calculPerformanceCommercial(matricule,caTraite,objectifCa);
-            Assertions.fail("Aurait du lancer une exception");
-        } catch(EmployeException e){
-            //Then
-            org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
-            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule ne peut être null et doit commencer par un C !");
-        }
+        Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
+        //When
+        EmployeException e = Assertions.assertThrows(EmployeException.class, () ->  employeService.calculPerformanceCommercial(matricule,2000L , 2500L));
+        //Then
+        Assertions.assertEquals(e.getMessage(), "Le matricule "+matricule+" n'existe pas !");
     }
     @Test
     public void testCalculPerformanceCommercialMatriculeStartC(){
