@@ -13,21 +13,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>java350</name>
 	<description>TP qualité logicielle IPI</description>
-
 	<properties>
 		<java.version>1.8</java.version>
-		<sonar.projectKey>TheoSegard_ipi-java-350-ex</sonar.projectKey>
-		<sonar.organization>theosegard</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.login>f13ba4d18c143410a7065ba3d408279999905ecd</sonar.login>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -43,7 +36,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -82,14 +74,31 @@
 			<version>5.3.0</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -124,10 +133,10 @@
 				</dependencies>
 				<configuration>
 					<targetClasses>
-						<param>com.ipiecoles.java.java350.service*</param>
+						<param>com.ipiecoles.java.java350.*</param>
 					</targetClasses>
 					<targetTests>
-						<param>com.ipiecoles.java.java350.service*</param>
+						<param>com.ipiecoles.java.java350.*</param>
 					</targetTests>
 				</configuration>
 			</plugin>
@@ -158,7 +167,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<reporting>
 		<plugins>
 			<plugin>
