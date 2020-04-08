@@ -248,11 +248,12 @@ public class Employe {
                 Objects.equals(matricule, employe.matricule) &&
                 Objects.equals(dateEmbauche, employe.dateEmbauche) &&
                 Objects.equals(salaire, employe.salaire) &&
-                Objects.equals(performance, employe.performance);
+                Objects.equals(performance, employe.performance)&&
+                Objects.equals(tempsPartiel, employe.tempsPartiel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
+        return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance,tempsPartiel);
     }
 }

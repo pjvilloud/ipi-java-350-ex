@@ -1,6 +1,8 @@
 package com.ipiecoles.java.java350.model;
+import com.google.common.hash.HashCode;
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.service.EmployeService;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,6 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.net.Authenticator;
 import java.time.LocalDate;
+import java.util.logging.Handler;
 
 public class EmployeTest {
     private EmployeService employeService;
@@ -262,4 +265,10 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(perf).isEqualTo(3);
     }
+
+    @Test
+    public void equalsHashCodeContracts() {
+        EqualsVerifier.forClass(Employe.class).verify();
+    }
+
 }
