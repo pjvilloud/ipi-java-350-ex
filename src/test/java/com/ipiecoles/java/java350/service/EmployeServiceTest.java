@@ -212,7 +212,7 @@ public class EmployeServiceTest {
         } catch(EmployeException e){
             //Then
             org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
-            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire traité ne peut être négatif ou null !");
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !");
         }
     }
     @Test
@@ -227,7 +227,7 @@ public class EmployeServiceTest {
         } catch(EmployeException e){
             //Then
             org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
-            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire traité ne peut être négatif ou null !");
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !");
         }
     }
     @Test
@@ -242,7 +242,7 @@ public class EmployeServiceTest {
         } catch(EmployeException e){
             //Then
             org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
-            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !");
         }
     }
     @Test
@@ -257,7 +257,7 @@ public class EmployeServiceTest {
         } catch(EmployeException e){
             //Then
             org.assertj.core.api.Assertions.assertThat(e).isInstanceOf(EmployeException.class);
-            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
+            org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !");
         }
     }
 }
