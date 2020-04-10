@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d855e4eb-3ca3-406b-ab25-cf36f15eb062" name="Default Changelist" comment="fin du cours  26 mars">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ipiecoles/java/java350/exception/SalaireException.java" afterDir="false" />
+    <list default="true" id="d855e4eb-3ca3-406b-ab25-cf36f15eb062" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ipiecoles/java/java350/model/Employe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ipiecoles/java/java350/model/Employe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ipiecoles/java/java350/service/EmployeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ipiecoles/java/java350/service/EmployeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ipiecoles/java/java350/model/model/EmployeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ipiecoles/java/java350/model/model/EmployeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ipiecoles/java/java350/model/repository/EmployeRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ipiecoles/java/java350/model/repository/EmployeRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ipiecoles/java/java350/model/service/EmployeServiceIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ipiecoles/java/java350/model/service/EmployeServiceIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ipiecoles/java/java350/model/service/EmployeServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ipiecoles/java/java350/model/service/EmployeServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ipiecoles/java/java350/model/Employe$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ipiecoles/java/java350/model/Employe$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ipiecoles/java/java350/model/Employe.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ipiecoles/java/java350/model/Employe.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ipiecoles/java/java350/service/EmployeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ipiecoles/java/java350/service/EmployeService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2020-04-07T12-27-46_735-jvmRun1.dump" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.ipiecoles.java.java350.model.model.EmployeTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.ipiecoles.java.java350.model.model.EmployeTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.ipiecoles.java.java350.model.repository.EmployeRepositoryTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.ipiecoles.java.java350.model.repository.EmployeRepositoryTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.ipiecoles.java.java350.model.service.EmployeServiceIntegrationTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.ipiecoles.java.java350.model.service.EmployeServiceIntegrationTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.ipiecoles.java.java350.service.EmployeServiceTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.ipiecoles.java.java350.model.model.EmployeTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.ipiecoles.java.java350.model.model.EmployeTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.ipiecoles.java.java350.model.repository.EmployeRepositoryTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.ipiecoles.java.java350.model.repository.EmployeRepositoryTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.ipiecoles.java.java350.model.service.EmployeServiceIntegrationTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.ipiecoles.java.java350.model.service.EmployeServiceIntegrationTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.ipiecoles.java.java350.service.EmployeServiceTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ipiecoles/java/java350/model/model/EmployeTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/ipiecoles/java/java350/model/model/EmployeTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ipiecoles/java/java350/model/repository/EmployeRepositoryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/ipiecoles/java/java350/model/repository/EmployeRepositoryTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ipiecoles/java/java350/model/service/EmployeServiceIntegrationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/ipiecoles/java/java350/model/service/EmployeServiceIntegrationTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ipiecoles/java/java350/service/EmployeServiceTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,7 +263,7 @@
       <workItem from="1585123323964" duration="14780000" />
       <workItem from="1585210401692" duration="7488000" />
       <workItem from="1586253405896" duration="3677000" />
-      <workItem from="1586522442615" duration="332000" />
+      <workItem from="1586522442615" duration="959000" />
     </task>
     <task id="LOCAL-00001" summary="ajout de travis">
       <created>1585125323635</created>
@@ -302,7 +314,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585238038751</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Optimisation et correction sonar">
+      <created>1586522936563</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1586522936563</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -315,7 +334,8 @@
     <MESSAGE value="Ajout des 3 tests scenarios unitaires" />
     <MESSAGE value="Ajout du scénario test avec paramétrage : getPrimeAnnuelle" />
     <MESSAGE value="fin du cours  26 mars" />
-    <option name="LAST_COMMIT_MESSAGE" value="fin du cours  26 mars" />
+    <MESSAGE value="Optimisation et correction sonar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimisation et correction sonar" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="92" key="#Project_Structure" timestamp="1585140085436">
@@ -326,26 +346,26 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="223" y="88" width="1089" height="774" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1585230294456" />
-    <state x="357" y="0" key="CommitChangelistDialog2" timestamp="1586255375401">
+    <state x="357" y="0" key="CommitChangelistDialog2" timestamp="1586522935266">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="357" y="0" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1586255375401" />
-    <state width="1493" height="354" key="GridCell.Tab.0.bottom" timestamp="1586522226200">
+    <state x="357" y="0" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1586522935266" />
+    <state width="861" height="354" key="GridCell.Tab.0.bottom" timestamp="1586523407588">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="354" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1586522226200" />
-    <state width="1493" height="354" key="GridCell.Tab.0.center" timestamp="1586522226200">
+    <state width="861" height="354" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1586523407588" />
+    <state width="861" height="354" key="GridCell.Tab.0.center" timestamp="1586523407588">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="354" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1586522226200" />
-    <state width="1493" height="354" key="GridCell.Tab.0.left" timestamp="1586522226200">
+    <state width="861" height="354" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1586523407588" />
+    <state width="861" height="354" key="GridCell.Tab.0.left" timestamp="1586523407588">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="354" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1586522226200" />
-    <state width="1493" height="354" key="GridCell.Tab.0.right" timestamp="1586522226200">
+    <state width="861" height="354" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1586523407588" />
+    <state width="861" height="354" key="GridCell.Tab.0.right" timestamp="1586523407588">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="354" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1586522226200" />
+    <state width="861" height="354" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1586523407588" />
     <state width="1086" height="223" key="GridCell.Tab.1.bottom" timestamp="1585140332189">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -362,10 +382,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1086" height="223" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1585140332189" />
-    <state x="722" y="187" key="Vcs.Push.Dialog.v2" timestamp="1586256181657">
+    <state x="722" y="187" key="Vcs.Push.Dialog.v2" timestamp="1586522938787">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="722" y="187" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1586256181657" />
+    <state x="722" y="187" key="Vcs.Push.Dialog.v2/0.0.1536.864@0.0.1536.864" timestamp="1586522938787" />
     <state x="672" y="58" key="chooseDestDirectoryDialog" timestamp="1585237436077">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
