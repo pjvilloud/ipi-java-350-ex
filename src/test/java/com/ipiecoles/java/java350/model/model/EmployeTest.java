@@ -1,113 +1,138 @@
 package com.ipiecoles.java.java350.model.model;
 
+import com.ipiecoles.java.java350.exception.SalaireException;
 import com.ipiecoles.java.java350.model.Employe;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 
+import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
+
 public class EmployeTest {
+
     @Test
-    public void testNbAnneeAncienneteNow(){
+    public void testDateEmbaucheValueSameYars() {
         //Given
         Employe employe = new Employe();
-        employe.setDateEmbauche(LocalDate.now());
-
+        LocalDate dateEmbauche = LocalDate.now().with(firstDayOfYear());
+        employe.setDateEmbauche(dateEmbauche);
         //When
-        Integer nbAnnees = employe.getNombreAnneeAnciennete();
-
+        Integer date = employe.getNombreAnneeAnciennete();
         //Then
-        Assertions.assertThat(nbAnnees).isEqualTo(0);
+        Assertions.assertThat(date).isEqualTo(0);
     }
 
     @Test
-    public void testNbAnneeAncienneteNowMinus2(){
+    public void testDateEmbaucheLastYears() {
         //Given
         Employe employe = new Employe();
-        employe.setDateEmbauche(LocalDate.now().minusYears(2));
-
+        LocalDate dateEmbauche = LocalDate.now().with(firstDayOfYear()).minusDays(1);
+        employe.setDateEmbauche(dateEmbauche);
         //When
-        Integer nbAnnees = employe.getNombreAnneeAnciennete();
-
+        Integer date = employe.getNombreAnneeAnciennete();
         //Then
-        Assertions.assertThat(nbAnnees).isEqualTo(2);
+        Assertions.assertThat(date).isEqualTo(1);
     }
 
     @Test
-    public void testNbAnneeAncienneteNowPlus3(){
-        //Given
-        Employe employe = new Employe();
-        employe.setDateEmbauche(LocalDate.now().plusYears(3));
-
-        //When
-        Integer nbAnnees = employe.getNombreAnneeAnciennete();
-
-        //Then
-        Assertions.assertThat(nbAnnees).isEqualTo(0);
-    }
-
-    @Test
-    public void testNbAnneeAncienneteNull(){
+    public void testDateEmbauche() {
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(null);
-
         //When
-        Integer nbAnnees = employe.getNombreAnneeAnciennete();
-
+        Integer date = employe.getNombreAnneeAnciennete();
         //Then
-        Assertions.assertThat(nbAnnees).isEqualTo(0);
+        Assertions.assertThat(date).isEqualTo(null);
     }
 
     @Test
-    public void testAugmenterSalaireNegatif() {
+    public void testDateEmbaucheSuperieurNow() {
         //Given
-        Employe employe = new Employe("Doe", "John", "M00001", LocalDate.now(), 1000d, 1, 1.5);
-        employe.augmenterSalaire(-0.53);
+        Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now().plusDays(1L));
+        //When
+        Integer date = employe.getNombreAnneeAnciennete();
+        //Then
+        Assertions.assertThat(date).isEqualTo(0);
+    }
+
+    @ParameterizedTest()
+    @CsvSource({
+            "1,'M00000',0,1.0,1700.0",
+            "1,'M00000',0,0.5,850.0",
+            "1,'M00000',1,1.0,1800.0",
+            "1000,'M00000',0,1.0,1700.0",
+            "1,'E00000',0,1.0,1000.0",
+            "1,'E00000',0,0.5,500",
+            "1,'E00000',2,1.0,1200.0",
+            "2,'E00000',0,1.0,2300.0",
+            "2,'E00000',2,0.5,1250.0",
+            "2,'M00000',2,0.5,950.0",
+    })
+    public void getPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle) {
+        //Given
+        Employe employe = new Employe();
+        employe.setPerformance(performance);
+        employe.setMatricule(matricule);
+        employe.setDateEmbauche(LocalDate.now().minusYears(nbYearsAnciennete));
+        employe.setTempsPartiel(tempsPartiel);
 
         //When
-        Double nouveauSalaire = employe.getSalaire();
+        Double primeA = employe.getPrimeAnnuelle();
 
         //Then
-        Assertions.assertThat(nouveauSalaire).isEqualTo(470d);
+        Assertions.assertThat(primeA).isEqualTo(primeAnnuelle);
     }
 
     @Test
-    public void testAugmenterSalairePositif() {
+    public void augmenterSalaireNormal() throws SalaireException {
         //Given
-        Employe employe = new Employe("Doe", "John", "M00001", LocalDate.now(), 1000d, 1, 1.5);
-        employe.augmenterSalaire(0.5);
-
+        Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 1000.0, 1, 1.0);
         //When
-        Double nouveauSalaire = employe.getSalaire();
-
+        employe.augmenterSalaire(20.0);
         //Then
-        Assertions.assertThat(nouveauSalaire).isEqualTo(1500);
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1200);
     }
 
     @Test
-    public void testAugmenterSalaireNull() {
+    public void augmenterSalairePourcentageDessous0() {
         //Given
-        Employe employe = new Employe("Doe", "John", "M00001", LocalDate.now(), 1000d, 1, 1.5);
-        employe.augmenterSalaire(0.0);
+        Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 1000.0, 1, 1.0);
 
-        //When
-        Double nouveauSalaire = employe.getSalaire();
-
-        //Then
-        Assertions.assertThat(nouveauSalaire).isEqualTo(1000);
+        Assertions.assertThatThrownBy(() -> {
+                    //Then
+                    employe.augmenterSalaire(-2);
+                }
+        )//When
+                .isInstanceOf(Exception.class)
+                .hasMessage("Impossible de diminuer le salaire avec la méthode augmenterSalaire");
     }
 
     @Test
-    public void testAugmenterSalaire() {
+    public void augmenterSalaireNoSalaire() {
         //Given
-        Employe employe = new Employe("Doe", "John", "M00001", LocalDate.now(), 1000d, 1, 1.5);
-        employe.augmenterSalaire(-1.5);
+        Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), null, 1, 1.0);
 
+        Assertions.assertThatThrownBy(() -> {
+                    //Then
+                    employe.augmenterSalaire(2);
+                }
+        )//When
+                .isInstanceOf(Exception.class)
+                .hasMessage("L'employé n'a pas de salaire");
+    }
+
+    // Pour satisfaire Pit
+    @Test
+    public void augmenterSalairepourcentage0() throws SalaireException {
+        //Given
+        Employe employe = new Employe("Doe", "John", "C00001", LocalDate.now(), 1000.0, 1, 1.0);
         //When
-        Double nouveauSalaire = employe.getSalaire();
-
+        employe.augmenterSalaire(0);
         //Then
-        Assertions.assertThat(nouveauSalaire).isEqualTo(0);
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1000);
     }
 }
