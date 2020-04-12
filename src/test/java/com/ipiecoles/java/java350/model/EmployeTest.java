@@ -178,18 +178,20 @@ class EmployeTest {
         Assertions.assertThat(nombreRTT).isEqualTo(9);
     }
 
-    @Test
-    void getNbRttisLeapYear(){
+    @ParameterizedTest
+    @CsvSource(
+           "2020-01-01"
+    )
+    void getNbRttisLeapYear(LocalDate d){
         //Given
-        Employe employe = new Employe("Jacques", "Roger", "C00002",LocalDate.of(2019, Month.JANUARY, 01), 3000.0, 3, 7.0 );
+        Employe employe = new Employe("Jacques", "Roger", "C00002",LocalDate.of(2020, Month.JANUARY, 01), 3000.0, 3, 7.0 );
         employe.setDateEmbauche(LocalDate.of(2020, Month.JANUARY, 01));
         //When
-        LocalDate date = employe.getDateEmbauche();
-        if (date.isLeapYear()){
-            Assertions.assertThat(date.isLeapYear()).isEqualTo(true);
+        if (d.isLeapYear()){
+            Assertions.assertThat(d.isLeapYear()).isEqualTo(true);
         }else {
             //Then
-            Assertions.assertThat(date.isLeapYear()).isEqualTo(false);
+            Assertions.assertThat(d.isLeapYear()).isEqualTo(false);
         }
     }
 
