@@ -177,6 +177,17 @@ class EmployeTest {
         Assertions.assertThat(nombreRTT).isEqualTo(9);
     }
 
+    @Test
+    void getNbRttisLeapYear(){
+        //Given
+        Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now());
+        //When
+        boolean years = LocalDate.now().isLeapYear();
+        //Then
+        Assertions.assertThat(years).isEqualTo(true);
+    }
+
     //Coverage sur le methode des RTT
     @Test
      void getNbRtt(){

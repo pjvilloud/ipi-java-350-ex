@@ -319,13 +319,10 @@ import static org.mockito.Mockito.*;
         Integer perf = employe.getPerformance();
         if (matricule.equals("C00012")) {
             Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(40D);
-            perf++;
         } else if (matricule.equals("C00013")) {
             Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(null);
-            perf++;
         } else {
             Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(1D);
-            perf++;
         }
         //When
         employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
