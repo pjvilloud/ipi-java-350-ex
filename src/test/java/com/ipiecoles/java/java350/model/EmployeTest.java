@@ -179,13 +179,14 @@ class EmployeTest {
     }
 
     @Test
-    void getNbRttisLeapYearFalse(){
+    void getNbRttisLeapYear(){
         //Given
-        Employe employe = new Employe("Jacque", "Roger", "C00002", LocalDate.of(2019, Month.JANUARY,01), 3000.0, 3, 7.0 );
+        Employe employe = new Employe("Jacques", "Roger", "C00002", LocalDate.now(), 3000.0, 3, 7.0 );
+        employe.setDateEmbauche(LocalDate.of(2020, Month.JANUARY, 01));
         //When
         LocalDate date = employe.getDateEmbauche();
         //Then
-        Assertions.assertThat(date.isLeapYear()).isEqualTo(false);
+        Assertions.assertThat(date.isLeapYear()).isEqualTo(true);
     }
 
     //Coverage sur le methode des RTT
