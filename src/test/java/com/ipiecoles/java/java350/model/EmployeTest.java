@@ -181,7 +181,7 @@ class EmployeTest {
     @Test
     void getNbRttisLeapYear(){
         //Given
-        Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.of(2020, Month.JANUARY,01), 3000.0, 3, 7.0 );
+        Employe employe = new Employe("Jacque", "Roger", "C00002", LocalDate.of(2020, Month.JANUARY,01), 3000.0, 3, 7.0 );
         //When
         LocalDate date = employe.getDateEmbauche();
         //Then
