@@ -186,12 +186,15 @@ class EmployeTest {
         //Given
         Employe employe = new Employe("Jacques", "Roger", "C00002",LocalDate.of(2020, Month.JANUARY, 01), 3000.0, 3, 7.0 );
         employe.setDateEmbauche(LocalDate.of(2020, Month.JANUARY, 01));
+        int value = d.isLeapYear() ? 366 : 365;
         //When
         if (d.isLeapYear()){
             Assertions.assertThat(d.isLeapYear()).isEqualTo(true);
+            Assertions.assertThat(value).isEqualTo(366);
         }else {
             //Then
             Assertions.assertThat(d.isLeapYear()).isEqualTo(false);
+            Assertions.assertThat(value).isEqualTo(365);
         }
     }
 
