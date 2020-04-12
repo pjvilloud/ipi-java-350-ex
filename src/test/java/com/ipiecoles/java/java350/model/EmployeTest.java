@@ -106,10 +106,9 @@ class EmployeTest {
         employe.setPerformance(performance);
 
         //When
-        String Mat = employe.getMatricule();
-
+        Double prime = employe.getPrimeAnnuelle();
         //Then
-        Assertions.assertThat(Mat).isEqualTo("M12345");
+        Assertions.assertThat(prime).isEqualTo(primeCalculee);
     }
 
     @Test
