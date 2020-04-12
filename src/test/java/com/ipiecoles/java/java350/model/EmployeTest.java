@@ -168,7 +168,7 @@ class EmployeTest {
     //Test paramètré sur la méthode getNbRTT
 
     @Test
-     void getNbRtt2(){
+     void getNbRtt(){
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now());
@@ -181,23 +181,12 @@ class EmployeTest {
     @Test
     void getNbRttisLeapYear(){
         //Given
-        Employe employe = new Employe("Jacques", "Roger", "C00002", LocalDate.now(), 3000.0, 3, 7.0 );
+        Employe employe = new Employe("Jacques", "Roger", "C00002",LocalDate.of(2019, Month.JANUARY, 01), 3000.0, 3, 7.0 );
         employe.setDateEmbauche(LocalDate.of(2020, Month.JANUARY, 01));
         //When
         LocalDate date = employe.getDateEmbauche();
         //Then
         Assertions.assertThat(date.isLeapYear()).isEqualTo(true);
-    }
-
-    //Coverage sur le methode des RTT
-    @Test
-     void getNbRtt(){
-        //Given
-        Employe employe = new Employe();
-        //When
-        Integer nbRTT = employe.getNbRtt();
-        //Then
-        Assertions.assertThat(nbRTT).isEqualTo(9);
     }
 
     //Coverage sur la méthode des congés
