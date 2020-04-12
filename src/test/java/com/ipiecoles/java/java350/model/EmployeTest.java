@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 class EmployeTest {
 
@@ -180,12 +181,11 @@ class EmployeTest {
     @Test
     void getNbRttisLeapYear(){
         //Given
-        Employe employe = new Employe();
-        employe.setDateEmbauche(LocalDate.now());
+        Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.of(2020, Month.JANUARY,01), 3000.0, 3, 7.0 );
         //When
-        boolean years = LocalDate.now().isLeapYear();
+        LocalDate date = employe.getDateEmbauche();
         //Then
-        Assertions.assertThat(years).isEqualTo(true);
+        Assertions.assertThat(date.isLeapYear()).isEqualTo(true);
     }
 
     //Coverage sur le methode des RTT
