@@ -1,12 +1,14 @@
 package com.ipiecoles.java.java350.model;
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.service.EmployeService;
+import io.cucumber.java8.Da;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -186,12 +188,30 @@ class EmployeTest {
         //Given
         Employe employe = new Employe("Jacques", "Roger", "C00002",LocalDate.of(2020, Month.JANUARY, 01), 3000.0, 3, 7.0 );
         employe.setDateEmbauche(LocalDate.of(2020, Month.JANUARY, 01));
+        Employe employe2 = new Employe("Jacques", "Roger", "C00002",LocalDate.of(2020, Month.JANUARY, 02), 3000.0, 3, 7.0 );
+        employe2.setDateEmbauche(LocalDate.of(2020, Month.JANUARY, 02));
         int value = d.isLeapYear() ? 366 : 365;
+        int var = 104;
         //When
         if (d.isLeapYear()){
             Assertions.assertThat(d.isLeapYear()).isEqualTo(true);
             Assertions.assertThat(value).isEqualTo(366);
+            switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
+                case THURSDAY:
+                    Assertions.assertThat(var).isEqualTo(105);
+                    break;
+                case FRIDAY:
+                    Assertions.assertThat(var).isEqualTo(106);
+                    break;
+                default:
+            }
         }else {
+            switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
+                case FRIDAY:
+                    Assertions.assertThat(var).isEqualTo(105);
+                    break;
+                default:
+            }
             //Then
             Assertions.assertThat(d.isLeapYear()).isEqualTo(false);
             Assertions.assertThat(value).isEqualTo(365);
