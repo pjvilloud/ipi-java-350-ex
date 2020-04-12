@@ -1,5 +1,6 @@
 package com.ipiecoles.java.java350.service;
 
+import com.google.gson.internal.$Gson$Preconditions;
 import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
@@ -315,14 +316,16 @@ import static org.mockito.Mockito.*;
         //Given
         Employe employe = new Employe("Delacour", "Michel", "T00001", LocalDate.now(), 1825.46, 1, null);
         Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(employe);
+        Integer perf = employe.getPerformance();
         if (matricule.equals("C00012")) {
             Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(40D);
-            employe.setPerformance(+1);
+            perf++;
         } else if (matricule.equals("C00013")) {
             Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(null);
-            employe.setPerformance(+1);
+            perf++;
         } else {
             Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(1D);
+            perf++;
         }
         //When
         employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
