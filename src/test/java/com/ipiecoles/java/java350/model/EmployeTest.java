@@ -191,24 +191,24 @@ class EmployeTest {
         Employe employe2 = new Employe("Jacques", "Roger", "C00002",LocalDate.of(2020, Month.JANUARY, 02), 3000.0, 3, 7.0 );
         employe2.setDateEmbauche(LocalDate.of(2020, Month.JANUARY, 02));
         int value = d.isLeapYear() ? 366 : 365;
-        int var = 104;
+        int nbRtt = employe.getNbRtt();
         //When
         if (d.isLeapYear()){
             Assertions.assertThat(d.isLeapYear()).isEqualTo(true);
             Assertions.assertThat(value).isEqualTo(366);
             switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
                 case THURSDAY:
-                    Assertions.assertThat(var).isEqualTo(105);
+                    Assertions.assertThat(nbRtt).isEqualTo(105);
                     break;
                 case FRIDAY:
-                    Assertions.assertThat(var).isEqualTo(106);
+                    Assertions.assertThat(nbRtt).isEqualTo(106);
                     break;
                 default:
             }
         }else {
             switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
                 case FRIDAY:
-                    Assertions.assertThat(var).isEqualTo(105);
+                    Assertions.assertThat(nbRtt).isEqualTo(105);
                     break;
                 default:
             }
