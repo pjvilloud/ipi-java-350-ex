@@ -185,8 +185,12 @@ class EmployeTest {
         employe.setDateEmbauche(LocalDate.of(2020, Month.JANUARY, 01));
         //When
         LocalDate date = employe.getDateEmbauche();
-        //Then
-        Assertions.assertThat(date.isLeapYear()).isEqualTo(true);
+        if (date.isLeapYear()){
+            Assertions.assertThat(date.isLeapYear()).isEqualTo(true);
+        }else {
+            //Then
+            Assertions.assertThat(date.isLeapYear()).isEqualTo(false);
+        }
     }
 
     //Coverage sur la méthode des congés
