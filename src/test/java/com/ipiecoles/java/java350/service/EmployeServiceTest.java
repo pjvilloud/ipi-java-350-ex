@@ -309,7 +309,7 @@ import static org.mockito.Mockito.*;
             "'C00011', 2550, 2500, 1",
             "'C00011', 2600, 2500, 1",
             "'C00012', 3000, 2500, 1",
-            "'C00013', 10000, 2500, 1",
+            "'C00013', 10000, 2500,1",
     })
     void calculPerformanceCommercialNotFoundTest2(String matricule, Long caTraite, Long objectifCa, Integer result) throws EmployeException {
         //Given
@@ -317,8 +317,10 @@ import static org.mockito.Mockito.*;
         Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(employe);
         if (matricule.equals("C00012")) {
             Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(40D);
+            employe.setPerformance(+1);
         } else if (matricule.equals("C00013")) {
             Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(null);
+            employe.setPerformance(+1);
         } else {
             Mockito.when( employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(1D);
         }
@@ -329,5 +331,20 @@ import static org.mockito.Mockito.*;
         //Then
         Assertions.assertEquals(employeRepository.findByMatricule(matricule).getPerformance(), result);
     }
+    /*
+    @ParameterizedTest
+    @CsvSource({
+            "'C00011', 800, 2500,",
+            "'C00011', 2000, 2500, 1"
+    })
+    void calculPerformanceCommercialifNullandinferior(String matricule, Long caTraite, Long objectifCa) throws EmployeException{
+        //Given
+        Employe employe = new Employe("Delacour", "Michel", "C00001", LocalDate.now(), 1825.46, null, 1.0);
+        Employe employe2 = new Employe("Panh", "Xavier", "C00002", LocalDate.now(), 2225.46, 5, 1.0);
+        Double moyPerformance = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        //When
 
+
+        //Then
+    }*/
 }
