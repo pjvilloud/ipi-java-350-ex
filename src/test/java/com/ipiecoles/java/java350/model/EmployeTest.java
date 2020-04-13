@@ -1,19 +1,21 @@
 package com.ipiecoles.java.java350.model;
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.service.EmployeService;
+import io.cucumber.java8.Da;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.net.Authenticator;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 
-public class EmployeTest {
-    private EmployeService employeService;
+class EmployeTest {
 
     @Test
-    public void testAnneeAncinneteNow(){
+    void testAnneeAncinneteNow(){
         //Given Envoie de la class Employe
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now());
@@ -26,7 +28,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAncienneteNminus2(){
+    void getNombreAnneeAncienneteNminus2(){
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().minusYears(2L));
@@ -39,7 +41,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAncienneteNull(){
+    void getNombreAnneeAncienneteNull(){
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(null);
@@ -52,7 +54,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAncienneteNplus2(){
+    void getNombreAnneeAncienneteNplus2(){
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().plusYears(2L));
@@ -74,11 +76,12 @@ public class EmployeTest {
             "1, 'M12345', 0, 1.0, 1700.0",
             "1, 'M12345', 5, 1.0, 2200.0",
             "2, 'M12345', 0, 1.0, 1700.0",
-            "2, 'M12345', 8, 1.0, 2500.0"
+            "2, 'M12345', 8, 1.0, 2500.0",
+            " , 'M12345',4, 2.0, 4200.0",
     })
-    public void getPrimeAnnuelle(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel, Double primeCalculee){
+    void getPrimeAnnuelle(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel, Double primeCalculee){
         //Given
-        Employe employe = new Employe();
+        Employe employe = new Employe("Bouve", "Steve", "C00004", LocalDate.now(), 3000.0, 1, 3.0 );
         employe.setMatricule(matricule);
         employe.setTempsPartiel(tempsPartiel);
         employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneeAnciennete));
@@ -91,8 +94,33 @@ public class EmployeTest {
 
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            " , 'M12345',4, 1.0, 2100.0",
+    })
+    void getPrimeAnnuelle2(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel, Double primeCalculee){
+        //Given
+        Employe employe = new Employe();
+        employe.setMatricule(matricule);
+        employe.setTempsPartiel(tempsPartiel);
+        employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneeAnciennete));
+        employe.setPerformance(performance);
+        //When
+        Double prime = employe.getPrimeAnnuelle();
+        //Then
+        Assertions.assertThat(prime).isEqualTo(primeCalculee);
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+            "2, 'M67890', 9, 1.7, 2800.0"
+    )
+    void getPrimeannuelle(){
+
+    }
+
     @Test
-    public void testNbAnneeAncienneteNowPlus3(){
+    void testNbAnneeAncienneteNowPlus3(){
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now().plusYears(3));
@@ -105,7 +133,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testNbAnneeAncienneteNull(){
+    void testNbAnneeAncienneteNull(){
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(null);
@@ -117,50 +145,48 @@ public class EmployeTest {
         Assertions.assertThat(nbAnnees).isEqualTo(0);
     }
 
-    /**
+    /*
      * Partie Evaluation
      */
 
-    /**
+    /*
      * Test unitaire sur la méthode augmenter salaire à 10%
      */
 
     @Test
-    public void testaugmenterSalaireNegatif()throws EmployeException {
+    void testaugmenterSalaireNegatif(){
         //Given
         Employe employe = new Employe("Bouve", "Steve", "C00004", LocalDate.now(), 3000.0, 1, 3.0 );
-        Double pourcentage = 0D;
-        employe.augmenterSalaire(pourcentage);
-        /*Assertions.assertThatThrownBy(() -> {
+        double pourcentage = -20D;
+        Assertions.assertThatThrownBy(() -> {
                     //Then
                     employe.augmenterSalaire(pourcentage);
                 }
         )//When
                 .isInstanceOf(EmployeException.class)
-                .hasMessage("Le pourcentage ne peut pas être négatif");*/
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(3000);
+                .hasMessage("Le pourcentage ne peut pas être négatif");
     }
 
     @Test
-    public void testaugmenterSalaire10() throws EmployeException {
+    void testaugmenterSalaire10() throws EmployeException {
         //Given
         Employe employe = new Employe("Pose", "Kevin", "C00001", LocalDate.now(), 1000.0, 2, 2.0 );
-        Double pourcentage = 10D;
+        double pourcentage = 10D;
         //When
         employe.augmenterSalaire(pourcentage);
         //Then
         Assertions.assertThat(employe.getSalaire()).isEqualTo(1100);
     }
     @Test
-    public void testaugmenterSalaireNull() throws EmployeException {
+    void testaugmenterSalaireNull() throws EmployeException {
         //Given
         Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.now(), null, 3, 7.0 );
-        Double pourcentage = 10D;
+        double pourcentage = 10D;
         Assertions.assertThatThrownBy(() -> {
                     //Then
-            employe.augmenterSalaire(pourcentage);
+                    employe.augmenterSalaire(pourcentage);
                 }
-            )//When
+        )//When
                 .isInstanceOf(EmployeException.class)
                 .hasMessage("Le salaire est null");
 
@@ -168,35 +194,53 @@ public class EmployeTest {
 
 
     //Test paramètré sur la méthode getNbRTT
-/*
+
     @Test
-    @ParameterizedTest(name = "LocalDate")
-    @CsvSource({
-            "365","366"
-    })
-    public void getNbRtt2(LocalDate d){
+    void getNbRtt(){
         //Given
         Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now());
         //When
-        d.isLeapYear();
+        Integer nombreRTT = employe.getNbRtt();
         //Then
-        Assertions.assertThat(d).isEqualTo(365);
+        Assertions.assertThat(nombreRTT).isEqualTo(9);
     }
-*/
-    //Coverage sur le methode des RTT
-    @Test
-    public void getNbRtt(){
-        //Given
-        Employe employe = new Employe();
+
+    @ParameterizedTest
+    @CsvSource({
+            "2020-01-01, 0.0, 0",
+            "2020-04-12, 7.0, 63",
+            "2019-01-01, 7.0, 63",
+            "2020-01-02, 7.0, 63",
+            "2020-01-03, 6.0, 63",
+            "2020-04-12, 7.0, 63",
+            "2019-01-01, 7.0, 63",
+            "2020-01-02, 7.0, 63",
+            "2020-01-03, 6.0, 63",
+            "2019-01-04, 6.0, 63"
+    })
+    void getNbRtt2(LocalDate d){
         //When
-        Integer nbRTT = employe.getNbRtt();
+        Employe employe = new Employe("Jacques", "Roger", "C00002",LocalDate.of(d.getYear(),1,1), 3000.0, 3, 7.0 );
+        Integer NbRtt = employe.getNbRtt(d);
+
+        //When
+        Integer nbDayWeekend = 104;
+
         //Then
-        Assertions.assertThat(nbRTT).isEqualTo(9);
+        if (DayOfWeek.THURSDAY.equals(employe.getDateEmbauche())) {
+            if (d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(105);
+        } else if (DayOfWeek.FRIDAY.equals(employe.getDateEmbauche())) {
+            if (d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(106);
+            else Assertions.assertThat(NbRtt).isEqualTo(105);
+        } else if (DayOfWeek.SATURDAY.equals(employe.getDateEmbauche())) {
+            Assertions.assertThat(nbDayWeekend).isEqualTo(104);
+        }
     }
 
     //Coverage sur la méthode des congés
     @Test
-    public void getNbConges(){
+    void getNbConges(){
         //Given
         Employe employe = new Employe();
         //When
@@ -206,7 +250,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAnciennete(){
+    void getNombreAnneeAnciennete(){
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(employe.getDateEmbauche());
@@ -216,6 +260,61 @@ public class EmployeTest {
 
         //then
         Assertions.assertThat(nbAnneeEmploye).isEqualTo(0);
+    }
+
+    @Test
+    void testsetid(){
+        //Given
+        Employe employe = new Employe("deLaCompta", "Roger", "C00002", LocalDate.now(), 4000.0, 3, 7.0 );
+        //When
+        Long id = 15L;
+        employe.setId(id);
+        //Then
+        Assertions.assertThat(employe.getId()).isEqualTo(15L);
+    }
+    @Test
+    void testSetNom(){
+        //Given
+        Employe employe = new Employe("Mac", "Brigitte", "C00007", LocalDate.now(), 2000.0, 3, 7.0 );
+        //When
+        String nom = "Mac";
+        employe.setNom(nom);
+        //Then
+        Assertions.assertThat(employe.getNom()).isEqualTo(nom);
+    }
+    @Test
+    void testsetPrenom(){
+        //Given
+        Employe employe = new Employe("Mac", "Xave", "C00007", LocalDate.now(), 2000.0, 3, 7.0 );
+        //When
+        String prenom = "Xave";
+        employe.setPrenom(prenom);
+        //Then
+        Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
+    }
+    @Test
+    void testsetSalaire(){
+        //Given
+        Employe employe = new Employe("Jose", "Patrick", "C00010", LocalDate.now(), 5000.0, 3, 7.0 );
+        //When
+        Double salaire = 2000D;
+        employe.setSalaire(salaire);
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(salaire);
+    }
+    @Test
+    void testgetPerformance(){
+        //Given
+        Employe employe = new Employe("Black", "David", "C00012", LocalDate.now(), 8000.0, 3, 7.0 );
+        //When
+        Integer perf = employe.getPerformance();
+        //Then
+        Assertions.assertThat(perf).isEqualTo(3);
+    }
+
+    @Test
+    void equalsHashCodeContracts() {
+        EqualsVerifier.forClass(Employe.class).verify();
     }
 
 }
