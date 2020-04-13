@@ -223,17 +223,14 @@ class EmployeTest {
             Integer nbDayWeekend = 104;
 
             //Then
-            switch (employe.getDateEmbauche().getDayOfWeek()){
-                case THURSDAY:
-                if(d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(105);
-                break;
-                case FRIDAY:
-                if(d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(106);
-                else Assertions.assertThat(NbRtt).isEqualTo(105);
-                break;
-                case SATURDAY:
-                Assertions.assertThat(nbDayWeekend).isEqualTo(104);
-            }
+        if (DayOfWeek.THURSDAY.equals(employe.getDateEmbauche())) {
+            if (d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(105);
+        } else if (DayOfWeek.FRIDAY.equals(employe.getDateEmbauche())) {
+            if (d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(106);
+            else Assertions.assertThat(NbRtt).isEqualTo(105);
+        } else if (DayOfWeek.SATURDAY.equals(employe.getDateEmbauche())) {
+            Assertions.assertThat(nbDayWeekend).isEqualTo(104);
+        }
     }
 
     //Coverage sur la méthode des congés
