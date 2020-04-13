@@ -2,6 +2,7 @@ package com.ipiecoles.java.java350.model;
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.service.EmployeService;
 import io.cucumber.java8.Da;
+import io.cucumber.java8.En;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -96,7 +97,7 @@ class EmployeTest {
 
     @ParameterizedTest
     @CsvSource({
-            " , 'M12345',4, 1.0, 2100.0",
+            " , 'M12345',4, 1.0, 3970.0",
     })
     void getPrimeAnnuelle2(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel, Double primeCalculee){
         //Given
@@ -106,7 +107,8 @@ class EmployeTest {
         employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneeAnciennete));
         employe.setPerformance(performance);
         //When
-        Double prime = employe.getPrimeAnnuelle();
+        Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * employe.getNombreAnneeAnciennete();
+        Double prime = employe.getPrimeAnnuelle()* Entreprise.INDICE_PRIME_MANAGER + primeAnciennete;
         //Then
         Assertions.assertThat(prime).isEqualTo(primeCalculee);
     }
