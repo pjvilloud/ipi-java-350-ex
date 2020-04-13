@@ -212,29 +212,23 @@ class EmployeTest {
         int value = d.isLeapYear() ? 366 : 365;
         int nbRtt = employe.getNbRtt();
         //When
-        if (d.isLeapYear()){
             Assertions.assertThat(d.isLeapYear()).isEqualTo(true);
             Assertions.assertThat(value).isEqualTo(366);
             switch (employe.getDateEmbauche().getDayOfWeek()) {
                 case THURSDAY:
-                    Assertions.assertThat(nbRtt).isEqualTo(105);
+                    if (d.isLeapYear()) {
+                        Assertions.assertThat(nbRtt).isEqualTo(105);
+                    }
                     break;
                 case FRIDAY:
-                    Assertions.assertThat(nbRtt).isEqualTo(106);
+                    if (d.isLeapYear()) {
+                        Assertions.assertThat(nbRtt).isEqualTo(106);
+                    }else {
+                        Assertions.assertThat(nbRtt).isEqualTo(105);
+                    }
                     break;
                 default:
             }
-        }else {
-            switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
-                case FRIDAY:
-                    Assertions.assertThat(nbRtt).isEqualTo(105);
-                    break;
-                default:
-            }
-            //Then
-            Assertions.assertThat(d.isLeapYear()).isEqualTo(false);
-            Assertions.assertThat(value).isEqualTo(365);
-        }
     }
 
     //Coverage sur la méthode des congés
