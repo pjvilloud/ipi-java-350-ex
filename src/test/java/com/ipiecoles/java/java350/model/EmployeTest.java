@@ -213,6 +213,7 @@ class EmployeTest {
             "2020-01-02, 7.0, 62",
             "2020-01-03, 6.0, 61",
             "2019-01-04, 6.0, 63",
+            "2020-04-08, 8.0, 60"
     })
     void getNbRttisLeapYear(LocalDate d){
             //When
