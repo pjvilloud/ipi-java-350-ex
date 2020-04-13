@@ -204,27 +204,26 @@ class EmployeTest {
     @ParameterizedTest
     @CsvSource({
             "2020-01-01, 0.0, 0",
-            "2020-04-12, 7.0, 63, 105",
-            "2019-01-01, 7.0, 63, 104",
-            "2020-01-02, 7.0, 62, 105",
-            "2020-01-03, 6.0, 61, 106",
             "2020-04-12, 7.0, 63",
             "2019-01-01, 7.0, 63",
             "2020-01-02, 7.0, 62",
             "2020-01-03, 6.0, 61",
-            "2019-01-04, 6.0, 63",
-            "2020-04-08, 8.0, 60"
+            "2020-04-12, 7.0, 63",
+            "2019-01-01, 7.0, 63",
+            "2020-01-02, 7.0, 62",
+            "2020-01-03, 6.0, 61",
+            "2019-01-04, 6.0, 63"
     })
     void getNbRttisLeapYear(LocalDate d){
             //When
-            Employe employe = new Employe("Jacques", "Roger", "C00002",LocalDate.of(2020, Month.JANUARY, 01), 3000.0, 3, 7.0 );
+            Employe employe = new Employe("Jacques", "Roger", "C00002",LocalDate.of(d.getYear(),1,1), 3000.0, 3, 7.0 );
             Integer NbRtt = employe.getNbRtt(d);
 
             Integer nbDayWeekend = 104;
 
             //Then
 
-            switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
+            switch (employe.getDateEmbauche().getDayOfWeek()){
                 case THURSDAY:
                 if(d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(105);
                 break;
