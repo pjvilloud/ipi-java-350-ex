@@ -17,11 +17,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @SpringBootTest
-public class EmployeIntegrationServiceTest {
+ class EmployeIntegrationServiceTest {
 
     @BeforeEach
     @AfterEach //Supprimer les données qui se trouve dans le repository, pour être sur que notre repository prendra en compte notre given
-    public void setup(){
+     void setup(){
         employeRepository.deleteAll();
     }
 
@@ -34,7 +34,7 @@ public class EmployeIntegrationServiceTest {
     //String lastMatricule = employeRepository.findLastMatricule();
 
     @Test
-    public void integrationEmbaucheEmploye() throws EmployeException {
+     void integrationEmbaucheEmploye() throws EmployeException {
         //Given
         employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
         String nom = "Doe";

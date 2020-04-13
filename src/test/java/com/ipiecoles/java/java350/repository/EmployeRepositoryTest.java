@@ -1,20 +1,17 @@
 package com.ipiecoles.java.java350.repository;
-
 import com.ipiecoles.java.java350.model.Employe;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.time.LocalDate;
 
-@SpringBootTest
-public class EmployeRepositoryTest {
+@DataJpaTest
+ class EmployeRepositoryTest {
     @Autowired
     EmployeRepository employeRepository;
 
-   @BeforeEach //fonctionne même si l'utilisateur à oublier de supprimer les données
+    @BeforeEach //fonctionne même si l'utilisateur à oublier de supprimer les données
     void setUp() {
         employeRepository.deleteAll();
     }
@@ -34,6 +31,6 @@ public class EmployeRepositoryTest {
         String lastMatricule = employeRepository.findLastMatricule();
 
         //then
-        Assertions.assertThat(lastMatricule).isEqualTo("67890");
+        org.assertj.core.api.Assertions.assertThat(lastMatricule).isEqualTo("67890");
     }
 }

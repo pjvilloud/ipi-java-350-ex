@@ -1,17 +1,19 @@
 package com.ipiecoles.java.java350.model;
 
 import com.ipiecoles.java.java350.exception.EmployeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
 public class Employe {
+
+    @Transient
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -80,11 +82,11 @@ public class Employe {
         int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case THURSDAY:
-                if(d.isLeapYear()) var =  var + 1;
+                if(d.isLeapYear()) {var =  var + 1;}
             break;
             case FRIDAY:
-                if(d.isLeapYear()) var =  var + 2;
-                else var =  var + 1;
+                if(d.isLeapYear()) {var =  var + 2;}
+                else{ var =  var + 1;}
             break;
             case SATURDAY: var = var + 1;
             break;
@@ -131,9 +133,11 @@ public class Employe {
     //Augmenter salaire
     public void augmenterSalaire(double pourcentage) throws EmployeException {
         if (this.salaire == null){
+            logger.error("Le salaire est null");
             throw new EmployeException("Le salaire est null");
         }
         if(pourcentage < 0){
+            logger.error("Le pourcentage ne peut pas être négatif");
             throw new EmployeException("Le pourcentage ne peut pas être négatif");
         }
         this.salaire = Math.round(this.salaire)*(1+pourcentage/100);
@@ -244,11 +248,12 @@ public class Employe {
                 Objects.equals(matricule, employe.matricule) &&
                 Objects.equals(dateEmbauche, employe.dateEmbauche) &&
                 Objects.equals(salaire, employe.salaire) &&
-                Objects.equals(performance, employe.performance);
+                Objects.equals(performance, employe.performance)&&
+                Objects.equals(tempsPartiel, employe.tempsPartiel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance);
+        return Objects.hash(id, nom, prenom, matricule, dateEmbauche, salaire, performance,tempsPartiel);
     }
 }
