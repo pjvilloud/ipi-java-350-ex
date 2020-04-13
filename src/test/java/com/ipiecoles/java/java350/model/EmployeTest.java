@@ -220,11 +220,21 @@ class EmployeTest {
             Integer NbRtt = employe.getNbRtt(d);
 
             Integer nbDayWeekend = 104;
+
             //Then
-            if(d.isLeapYear()) {
+
+        Assertions.assertThat(NbRtt).isEqualTo(63);
+
+            switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
+                case THURSDAY:
+                Assertions.assertThat(nbDayWeekend).isEqualTo(105);
+                break;
+                case FRIDAY:
+                Assertions.assertThat(nbDayWeekend).isEqualTo(106);
+                break;
+                case SATURDAY:
                 Assertions.assertThat(nbDayWeekend).isEqualTo(104);
             }
-            Assertions.assertThat(NbRtt).isEqualTo(63);
     }
 
     //Coverage sur la méthode des congés
