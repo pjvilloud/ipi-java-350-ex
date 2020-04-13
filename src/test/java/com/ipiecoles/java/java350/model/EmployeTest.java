@@ -214,15 +214,15 @@ class EmployeTest {
             "2020-01-03, 6.0, 61",
             "2019-01-04, 6.0, 63"
     })
-    void getNbRttisLeapYear(LocalDate d){
+    void getNbRtt2(LocalDate d){
             //When
             Employe employe = new Employe("Jacques", "Roger", "C00002",LocalDate.of(d.getYear(),1,1), 3000.0, 3, 7.0 );
             Integer NbRtt = employe.getNbRtt(d);
 
+            //When
             Integer nbDayWeekend = 104;
 
             //Then
-
             switch (employe.getDateEmbauche().getDayOfWeek()){
                 case THURSDAY:
                 if(d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(105);
