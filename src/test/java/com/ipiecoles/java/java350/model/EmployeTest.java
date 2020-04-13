@@ -213,7 +213,7 @@ class EmployeTest {
         employe.setDateEmbauche(LocalDate.of(2020, Month.JANUARY, 01));
 
         //When
-        Integer NbRtt = employe.getNbRtt();
+        Integer NbRtt = employe.getNbRtt(d);
 
         //Then
         Assertions.assertThat(NbRtt).isEqualTo(63);
