@@ -111,14 +111,6 @@ class EmployeTest {
         Assertions.assertThat(prime).isEqualTo(primeCalculee);
     }
 
-    @ParameterizedTest
-    @CsvSource(
-            "2, 'M67890', 9, 1.7, 2800.0"
-    )
-    void getPrimeannuelle(){
-
-    }
-
     @Test
      void testNbAnneeAncienneteNowPlus3(){
         //Given
