@@ -223,8 +223,6 @@ class EmployeTest {
 
             //Then
 
-        Assertions.assertThat(NbRtt).isEqualTo(63);
-
             switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
                 case THURSDAY:
                 Assertions.assertThat(nbDayWeekend).isEqualTo(105);
