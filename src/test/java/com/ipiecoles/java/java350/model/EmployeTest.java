@@ -97,7 +97,7 @@ class EmployeTest {
 
     @ParameterizedTest
     @CsvSource({
-            " , 'M12345',4, 1.0, 3970.0",
+            "2, 'M12345',4, 1.0, 3970.0",
     })
     void getPrimeAnnuelle2(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel, Double primeCalculee){
         //Given
