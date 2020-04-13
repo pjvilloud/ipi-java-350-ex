@@ -203,26 +203,20 @@ class EmployeTest {
 
     @ParameterizedTest
     @CsvSource({
-            "2020-01-01, 0.0, 0",
-            "2020-04-12, 7.0, 63",
-            "2019-01-01, 7.0, 63",
             "2020-01-02, 7.0, 62",
-            "2020-01-03, 6.0, 61",
             "2019-01-04, 6.0, 63",
     })
-    void getNbRttisLeapYear(LocalDate d){
+    void getNbRttisLeapYear(LocalDate d,Double var,Integer nbRtt){
         //Given
         Employe employe = new Employe("Jacques", "Roger", "C00002",LocalDate.of(2020, Month.JANUARY, 01), 3000.0, 3, 7.0 );
-        employe.setDateEmbauche(LocalDate.of(2020, Month.JANUARY, 01));
-
-        //When
-        Integer NbRtt = employe.getNbRtt(d);
-        Integer nbDayWeekend = 104;
         //Then
         if(d.isLeapYear()) {
-            Assertions.assertThat(nbDayWeekend).isEqualTo(104);
+            Assertions.assertThat(var).isEqualTo(7.0);
+            Assertions.assertThat(nbRtt).isEqualTo(62);
+        }else {
+            Assertions.assertThat(nbRtt).isEqualTo(63);
+            Assertions.assertThat(var).isEqualTo(6.0);
         }
-        Assertions.assertThat(NbRtt).isEqualTo(63);
     }
 
     //Coverage sur la méthode des congés
