@@ -80,7 +80,7 @@ class EmployeTest {
     })
      void getPrimeAnnuelle(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel, Double primeCalculee){
         //Given
-        Employe employe = new Employe();
+        Employe employe = new Employe("Bouve", "Steve", "C00004", LocalDate.now(), 3000.0, 1, 3.0 );
         employe.setMatricule(matricule);
         employe.setTempsPartiel(tempsPartiel);
         employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneeAnciennete));
@@ -94,24 +94,29 @@ class EmployeTest {
     }
 
     @ParameterizedTest
-    @CsvSource(
-            "2, 'M12345', 8, 1.0, 2500.0"
-    )
+    @CsvSource({
+            "2, 'M12345', 8, 1.0, 2500.0",
+    })
     void getPrimeAnnuelleStartWithM(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel, Double primeCalculee){
         //Given
-        Employe employe = new Employe();
+        Employe employe = new Employe("Bouve", "Steve", "C00004", LocalDate.now(), 3000.0, 1, 3.0 );
         employe.setMatricule(matricule);
         employe.setTempsPartiel(tempsPartiel);
         employe.setDateEmbauche(LocalDate.now().minusYears(nbAnneeAnciennete));
         employe.setPerformance(performance);
-
         //When
         Double prime = employe.getPrimeAnnuelle();
-        boolean matricule2 = employe.getMatricule().startsWith("M");
 
         //Then
         Assertions.assertThat(prime).isEqualTo(primeCalculee);
-        Assertions.assertThat(matricule2).isEqualTo(true);
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+            "2, 'M67890', 9, 1.7, 2800.0"
+    )
+    void getPrimeannuelle(){
+
     }
 
     @Test
