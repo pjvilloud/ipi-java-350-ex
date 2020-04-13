@@ -108,6 +108,7 @@ class EmployeTest {
         Double prime = employe.getPrimeAnnuelle();
 
         //Then
+        Assertions.assertThat(matricule).startsWith("M");
         Assertions.assertThat(prime).isEqualTo(primeCalculee);
     }
 
