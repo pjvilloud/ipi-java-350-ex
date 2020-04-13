@@ -225,10 +225,11 @@ class EmployeTest {
 
             switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
                 case THURSDAY:
-                Assertions.assertThat(nbDayWeekend).isEqualTo(105);
+                if(d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(105);
                 break;
                 case FRIDAY:
-                Assertions.assertThat(nbDayWeekend).isEqualTo(106);
+                if(d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(106);
+                else Assertions.assertThat(NbRtt).isEqualTo(105);
                 break;
                 case SATURDAY:
                 Assertions.assertThat(nbDayWeekend).isEqualTo(104);
