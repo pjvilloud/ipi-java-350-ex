@@ -63,21 +63,17 @@ public class Employe {
         int var = 104;
         switch (LocalDate.of(d.getYear(),d.getMonth(),d.getDayOfMonth()).getDayOfWeek()){
             case THURSDAY:
-                System.out.println("TESTTEST");
                 if(d.isLeapYear()) var =  var + 1;
                 break;
             case FRIDAY:
                 if(d.isLeapYear()) {
                     var =  var + 2;
-                    System.out.println("TESTTEST2");
                 }
                 else {
                     var =  var + 1;
-                    System.out.println("TESTTEST3");
                 }
                 break;
             case SATURDAY: var = var + 1;
-                System.out.println("TESTTEST4");
                 break;
             default:
         }

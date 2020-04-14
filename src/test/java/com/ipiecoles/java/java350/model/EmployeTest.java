@@ -144,13 +144,13 @@ public class EmployeTest {
     @Test
     public void getPrimeAnnuelleNULLTest(){
         //Given
-        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500D, null, 7.0 );
+        Employe employe = new Employe("Test", "Roger", "C00012", LocalDate.now(), 2500D, null, 7.0 );
 
         //When
         Double resultFunction = employe.getPrimeAnnuelle();
 
         //Then
-        Assertions.assertEquals(11900.0,resultFunction);
+        Assertions.assertEquals(7000.0,resultFunction);
     }
 
     @ParameterizedTest
@@ -177,6 +177,7 @@ public class EmployeTest {
             "2032-05-08 ,7.0, 70",
             "2032-05-09 ,7.0, 77",
             "2019-05-10 ,7.0, 56",
+            "2020-01-02 ,7.0, 56",
     })
     public void getNbRttTest(LocalDate d, double tempsPartiel ,Integer result){
 
