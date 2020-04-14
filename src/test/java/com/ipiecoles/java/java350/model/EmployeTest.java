@@ -303,7 +303,7 @@ public class EmployeTest {
         int result = employe.hashCode();
 
         //Then
-        Assertions.assertEquals( 7.1814865E8,result);
+        Assertions.assertEquals( 7.18154416E8,result);
     }
 
     @ParameterizedTest
