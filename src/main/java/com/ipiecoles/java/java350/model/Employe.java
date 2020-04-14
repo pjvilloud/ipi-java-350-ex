@@ -80,7 +80,7 @@ public class Employe {
     public Integer getNbRtt(LocalDate d){
         int i1 = d.isLeapYear() ? 365 : 366;
         int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
+        switch (LocalDate.of(d.getYear(),d.getMonth(),d.getDayOfMonth()).getDayOfWeek()){
             case THURSDAY:
                 if(d.isLeapYear()) {var =  var + 1;}
             break;
