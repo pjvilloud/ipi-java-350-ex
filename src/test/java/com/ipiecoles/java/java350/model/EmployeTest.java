@@ -172,26 +172,14 @@ public class EmployeTest {
 
     @ParameterizedTest
     @CsvSource({
-            "2020-04-10 ,0.0, 0",
-            "2020-04-11 ,7.0, 63",
-            "2020-04-12 ,7.0, 63",
-            "2020-04-13 ,7.0, 63",
-            "2020-04-14 ,7.0, 63",
-            "2020-04-15 ,7.0, 63",
-            "2020-04-16 ,7.0, 63",
-            "2020-04-17 ,7.0, 63",
-            "2019-04-10 ,7.0, 63",
-            "2019-04-11 ,7.0, 63",
-            "2019-04-12 ,7.0, 63",
-            "2019-04-13 ,7.0, 63",
-            "2019-04-14 ,7.0, 63",
-            "2019-04-16 ,7.0, 63",
             "2032-05-06 ,7.0, 70",
-            "2032-05-07 ,7.0, 70",
+            "2032-05-07 ,7.0, 63",
             "2032-05-08 ,7.0, 70",
-            "2019-05-10 ,7.0, 63",
+            "2032-05-09 ,7.0, 77",
+            "2019-05-10 ,7.0, 56",
     })
     public void getNbRttTest(LocalDate d, double tempsPartiel ,Integer result){
+
         //Given
         Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, tempsPartiel );
 
@@ -333,6 +321,19 @@ public class EmployeTest {
 
         //When
         boolean result = employe.equals(employe);
+
+        //Then
+        Assertions.assertEquals( true,result);
+    }
+
+    @Test
+    public void equalsTest3(){
+        //Given
+        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+        Employe employe2 = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+
+        //When
+        boolean result = employe.equals(employe2);
 
         //Then
         Assertions.assertEquals( true,result);
