@@ -186,7 +186,10 @@ public class EmployeTest {
             "2019-04-13 ,7.0, 63",
             "2019-04-14 ,7.0, 63",
             "2019-04-16 ,7.0, 63",
-            "2032-04-17 ,7.0, 70",
+            "2032-05-06 ,7.0, 70",
+            "2032-05-07 ,7.0, 70",
+            "2032-05-08 ,7.0, 70",
+            "2019-05-10 ,7.0, 63",
     })
     public void getNbRttTest(LocalDate d, double tempsPartiel ,Integer result){
         //Given
@@ -309,7 +312,8 @@ public class EmployeTest {
     @ParameterizedTest
     @CsvSource({
             "'test', false",
-            "new Employe(\"Test\", \"Roger\", \"M00012\", LocalDate.now(), 2500.0, 2, 7.0 ), 'true'"
+            "new Employe(\"Test\", \"Roger\", \"M00012\", LocalDate.now(), 2500.0, 2, 7.0 ), 'true'",
+            "new EmployeRepository(), 'false'",
     })
     public void equalsTest(Object obj, boolean resultat){
         //Given
@@ -320,5 +324,17 @@ public class EmployeTest {
 
         //Then
         Assertions.assertEquals(result, resultat);
+    }
+
+    @Test
+    public void equalsTestSameObj(){
+        //Given
+        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+
+        //When
+        boolean result = employe.equals(employe);
+
+        //Then
+        Assertions.assertEquals(result, true);
     }
 }
