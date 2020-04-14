@@ -335,6 +335,6 @@ public class EmployeTest {
         boolean result = employe.equals(employe);
 
         //Then
-        Assertions.assertEquals(result, true);
+        Assertions.assertEquals( true,result);
     }
 }
