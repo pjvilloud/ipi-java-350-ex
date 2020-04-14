@@ -44,6 +44,6 @@ public class EmployeServiceTestIntegration {
         employeService.calculPerformanceCommercial("C00001", 2000L, 2500L);
 
         //Then
-        Assertions.assertEquals(employeRepository.findByMatricule("C00001").getPerformance(), 1);
+        Assertions.assertEquals( 1, employeRepository.findByMatricule("C00001").getPerformance());
     }
 }
