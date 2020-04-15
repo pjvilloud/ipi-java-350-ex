@@ -77,6 +77,7 @@ class EmployeTest {
             "2, 'M12345', 0, 1.0, 1700.0",
             "2, 'M12345', 8, 1.0, 2500.0",
             " , 'M12345',4, 2.0, 4200.0",
+            "2, , 4, 1.0, 2700.0"
     })
     void getPrimeAnnuelle(Integer performance, String matricule, Long nbAnneeAnciennete, Double tempsPartiel, Double primeCalculee){
         //Given
