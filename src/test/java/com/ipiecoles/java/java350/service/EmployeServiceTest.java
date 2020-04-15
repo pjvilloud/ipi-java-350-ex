@@ -1,6 +1,4 @@
 package com.ipiecoles.java.java350.service;
-
-import com.google.gson.internal.$Gson$Preconditions;
 import com.ipiecoles.java.java350.model.Employe;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
@@ -35,6 +33,7 @@ import static org.mockito.Mockito.*;
         MockitoAnnotations.initMocks(this.getClass());
     }
 
+    //Test sur la méthode d'embaucheEmploye si technicien avec un niveau BTS
     @Test
      void testEmbaucheEmployeTechnicienPleinTempsBts() throws EmployeException {
         //Given
@@ -62,6 +61,7 @@ import static org.mockito.Mockito.*;
         Assertions.assertEquals(1825.46, employeArgumentCaptor.getValue().getSalaire().doubleValue());
     }
 
+    //Test sur la méthode d'embaucheEmploye si Manager avec un niveau Master
     @Test
      void testEmbaucheEmployeManagerMiTempsMaster() throws EmployeException {
         //Given
@@ -89,6 +89,7 @@ import static org.mockito.Mockito.*;
         Assertions.assertEquals(1064.85, employeArgumentCaptor.getValue().getSalaire().doubleValue());
     }
 
+    //Test sur la méthode d'embaucheEmploye si manager à mi-temps mais n'a pas le dernier matricule
     @Test
      void testEmbaucheEmployeManagerMiTempsMasterNoLastMatricule() throws EmployeException {
         //Given
@@ -109,6 +110,7 @@ import static org.mockito.Mockito.*;
         Assertions.assertEquals("M00001", employeArgumentCaptor.getValue().getMatricule());
     }
 
+    //Test sur la méthode d'embaucheEmploye si un manager à mi-temps avec un niveau Master existe
     @Test
      void testEmbaucheEmployeManagerMiTempsMasterExistingEmploye(){
         //Given
@@ -125,6 +127,7 @@ import static org.mockito.Mockito.*;
         Assertions.assertEquals("L'employé de matricule M00001 existe déjà en BDD", e.getMessage());
     }
 
+    //Test sur la méthode d'embaucheEmploye si un manager à mi-temps à pour matricule 99999 ou plus
     @Test
      void testEmbaucheEmployeManagerMiTempsMaster99999(){
         //Given
@@ -140,6 +143,7 @@ import static org.mockito.Mockito.*;
         Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
     }
 
+    //Test de la méthode calculPerformanceCommercial si un matricule donné existe
     @Test
      void testCalculPerformanceCommercialMatriculeIsExist() {
         //Given
@@ -156,7 +160,7 @@ import static org.mockito.Mockito.*;
         }
     }
 
-
+    //Test de la méthode calculPerformanceCommercial si un matricule est null
     @Test
      void testCalculPerformanceCommercialMatriculeNull1() {
         //Given
@@ -172,6 +176,8 @@ import static org.mockito.Mockito.*;
         })//Then
                 .isInstanceOf(EmployeException.class).hasMessage("Le matricule ne peut être null et doit commencer par un C !");
     }
+
+    //Test Mocker de la méthode calculPerformanceCommercial si un matricule donné existe et est null
      @ParameterizedTest
     @CsvSource({"C00011",
             "C00012", })
@@ -184,6 +190,7 @@ import static org.mockito.Mockito.*;
         Assertions.assertEquals(e.getMessage(), "Le matricule "+matricule+" n'existe pas !");
     }
 
+    //Test paramétré de la méthode calculPerformanceCommercial si un matricule donné existe et est null
     @ParameterizedTest
     @CsvSource({"C00011",
             "C00012", })
@@ -200,6 +207,7 @@ import static org.mockito.Mockito.*;
         }
     }
 
+    //Test de la méthode calculPerformanceCommercial si un matricule commence par C
     @Test
      void testCalculPerformanceCommercialMatriculeStartC(){
         //Given
@@ -217,6 +225,7 @@ import static org.mockito.Mockito.*;
         }
     }
 
+    //Test de la méthode calculPerformanceCommercial si le CA traité (caTraite) est négatif
     @Test
      void testCalculPerformanceCommercialCaTraiteNegatif(){
         //Given
@@ -232,6 +241,8 @@ import static org.mockito.Mockito.*;
             org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !");
         }
     }
+
+    //Test de la méthode calculPerformanceCommercial si le CA traité (caTraite) est null
     @Test
      void testCalculPerformanceCommercialCaTraiteNull(){
         //Given
@@ -247,6 +258,8 @@ import static org.mockito.Mockito.*;
             org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !");
         }
     }
+
+    //Test de la méthode calculPerformanceCommercial si l'objectif CA (ObjectifCa) est négatif
     @Test
      void testCalculPerformanceCommercialObjectifCaNegatif(){
         //Given
@@ -262,6 +275,8 @@ import static org.mockito.Mockito.*;
             org.assertj.core.api.Assertions.assertThat(e.getMessage()).isEqualTo("Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !");
         }
     }
+
+    //Test de la méthode calculPerformanceCommercial si l'objectif CA (ObjectifCa) est null
     @Test
      void testCalculPerformanceCommercialObjectifCaNull(){
         //Given
@@ -278,6 +293,7 @@ import static org.mockito.Mockito.*;
         }
     }
 
+    //Test paramétré de la méthode calculPerformanceCommercial afin de couvrir plusieur condition
     @ParameterizedTest
     @CsvSource({"'C00011', 2000, 2500, Le matricule C00011 n'existe pas !",
             "'C00011',, 2500, Le chiffre d'affaire ou l'objectif de chiffre d'affaire traités ne peuvent être négatifs ou null !",
@@ -299,6 +315,8 @@ import static org.mockito.Mockito.*;
         //Then
         org.junit.jupiter.api.Assertions.assertEquals(e.getMessage(), result);
     }
+
+    //Test paramétré de la méthode calculPerformanceCommercial afin de couvrir plusieur condition
     @ParameterizedTest
     @CsvSource({
             "'C00011', 800, 2500, 1",
@@ -331,20 +349,4 @@ import static org.mockito.Mockito.*;
         //Then
         Assertions.assertEquals(employeRepository.findByMatricule(matricule).getPerformance(), result);
     }
-    /*
-    @ParameterizedTest
-    @CsvSource({
-            "'C00011', 800, 2500,",
-            "'C00011', 2000, 2500, 1"
-    })
-    void calculPerformanceCommercialifNullandinferior(String matricule, Long caTraite, Long objectifCa) throws EmployeException{
-        //Given
-        Employe employe = new Employe("Delacour", "Michel", "C00001", LocalDate.now(), 1825.46, null, 1.0);
-        Employe employe2 = new Employe("Panh", "Xavier", "C00002", LocalDate.now(), 2225.46, 5, 1.0);
-        Double moyPerformance = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
-        //When
-
-
-        //Then
-    }*/
 }

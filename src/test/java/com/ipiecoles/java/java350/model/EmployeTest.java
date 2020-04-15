@@ -1,8 +1,5 @@
 package com.ipiecoles.java.java350.model;
 import com.ipiecoles.java.java350.exception.EmployeException;
-import com.ipiecoles.java.java350.service.EmployeService;
-import io.cucumber.java8.Da;
-import io.cucumber.java8.En;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,7 +8,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 
 class EmployeTest {
 
@@ -67,6 +63,8 @@ class EmployeTest {
         Assertions.assertThat(anneeAnciennete).isEqualTo(0);
     }
 
+    //Test paramétré sur la méthode getPrimeAnnuelle
+
     @ParameterizedTest
     @CsvSource({
             "1, 'T12345', 0, 1.0, 1000.0",
@@ -95,6 +93,8 @@ class EmployeTest {
 
     }
 
+    //Deuxième test paramétré sur la méthode getPrimeAnuelle
+
     @ParameterizedTest
     @CsvSource({
             "2, 'M12345',4, 1.0, 3970.0",
@@ -113,6 +113,7 @@ class EmployeTest {
         Assertions.assertThat(prime).isEqualTo(primeCalculee);
     }
 
+    //Test unitaire de la méthode nombre d'année d'ancienneté plus 3
     @Test
     void testNbAnneeAncienneteNowPlus3(){
         //Given
@@ -125,6 +126,8 @@ class EmployeTest {
         //Then
         Assertions.assertThat(nbAnnees).isEqualTo(0);
     }
+
+    //Test unitaire nombre d'année d'ancienneté null
 
     @Test
     void testNbAnneeAncienneteNull(){
@@ -139,13 +142,7 @@ class EmployeTest {
         Assertions.assertThat(nbAnnees).isEqualTo(0);
     }
 
-    /*
-     * Partie Evaluation
-     */
-
-    /*
-     * Test unitaire sur la méthode augmenter salaire à 10%
-     */
+    //Test unitaire nombre d'année d'ancienneté négatif
 
     @Test
     void testaugmenterSalaireNegatif(){
@@ -161,6 +158,7 @@ class EmployeTest {
                 .hasMessage("Le pourcentage ne peut pas être négatif");
     }
 
+    //Test unitaire de la méthode augmenter salaire de 10%
     @Test
     void testaugmenterSalaire10() throws EmployeException {
         //Given
@@ -171,6 +169,8 @@ class EmployeTest {
         //Then
         Assertions.assertThat(employe.getSalaire()).isEqualTo(1100);
     }
+
+    //Test de la méthode augmenter salaire si null
     @Test
     void testaugmenterSalaireNull() throws EmployeException {
         //Given
@@ -186,9 +186,7 @@ class EmployeTest {
 
     }
 
-
-    //Test paramètré sur la méthode getNbRTT
-
+    //Test unitaire sur la méthode getNbRTT
     @Test
     void getNbRtt(){
         //Given
@@ -200,6 +198,7 @@ class EmployeTest {
         Assertions.assertThat(nombreRTT).isEqualTo(9);
     }
 
+    //Test paramétré de la méthode getNbRtt avec paramètre (LocalDate d)
     @ParameterizedTest
     @CsvSource({
             "2020-01-01, 0.0, 0",
@@ -232,7 +231,7 @@ class EmployeTest {
         }
     }
 
-    //Coverage sur la méthode des congés
+    //Test unitaire sur la méthode des nombres de congés
     @Test
     void getNbConges(){
         //Given
@@ -243,6 +242,7 @@ class EmployeTest {
         Assertions.assertThat(nbConges).isEqualTo(25);
     }
 
+    //Test unitaire sur la méthode getNombreAnneeAncienneté
     @Test
     void getNombreAnneeAnciennete(){
         //Given
@@ -256,6 +256,7 @@ class EmployeTest {
         Assertions.assertThat(nbAnneeEmploye).isEqualTo(0);
     }
 
+    //Test unitaire pour couvrir le setter de l'id de l'employé
     @Test
     void testsetid(){
         //Given
@@ -266,6 +267,8 @@ class EmployeTest {
         //Then
         Assertions.assertThat(employe.getId()).isEqualTo(15L);
     }
+
+    //Test unitaire pour couvrir le setter du nom de l'employé
     @Test
     void testSetNom(){
         //Given
@@ -276,6 +279,8 @@ class EmployeTest {
         //Then
         Assertions.assertThat(employe.getNom()).isEqualTo(nom);
     }
+
+    //Test unitaire pour couvrir le setter du prénom de l'employé
     @Test
     void testsetPrenom(){
         //Given
@@ -286,6 +291,8 @@ class EmployeTest {
         //Then
         Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
     }
+
+    //Test unitaire pour couvrir le setter du salaire de l'employé
     @Test
     void testsetSalaire(){
         //Given
@@ -296,6 +303,8 @@ class EmployeTest {
         //Then
         Assertions.assertThat(employe.getSalaire()).isEqualTo(salaire);
     }
+
+    //Test unitaire pour couvrir le getter(récupération) de la performance de l'employé
     @Test
     void testgetPerformance(){
         //Given
@@ -306,6 +315,7 @@ class EmployeTest {
         Assertions.assertThat(perf).isEqualTo(3);
     }
 
+    //Test pour testé la méthode hashCode et equals
     @Test
     void equalsHashCodeContracts() {
         EqualsVerifier.forClass(Employe.class).verify();

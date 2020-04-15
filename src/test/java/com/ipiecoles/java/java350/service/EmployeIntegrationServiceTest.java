@@ -33,6 +33,7 @@ import java.time.format.DateTimeFormatter;
 
     //String lastMatricule = employeRepository.findLastMatricule();
 
+   //Test d'intégration sur la méthode embauchEmploye
     @Test
      void integrationEmbaucheEmploye() throws EmployeException {
         //Given
@@ -58,5 +59,4 @@ import java.time.format.DateTimeFormatter;
         //1521.22 * 1.2 * 1.0
         Assertions.assertEquals(1825.46, employe.getSalaire().doubleValue());
     }
-
 }
