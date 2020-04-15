@@ -223,10 +223,17 @@ class EmployeTest {
 
         //Then
         if (DayOfWeek.THURSDAY.equals(employe.getDateEmbauche())) {
-            if (d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(105);
+            if (d.isLeapYear()){
+                Assertions.assertThat(nbDayWeekend).isEqualTo(105);
+            }else{
+                Assertions.assertThat(nbDayWeekend).isEqualTo(104);
+            }
         } else if (DayOfWeek.FRIDAY.equals(employe.getDateEmbauche())) {
-            if (d.isLeapYear()) Assertions.assertThat(nbDayWeekend).isEqualTo(106);
-            else Assertions.assertThat(NbRtt).isEqualTo(105);
+            if (d.isLeapYear()) {
+                Assertions.assertThat(nbDayWeekend).isEqualTo(106);
+            }else{
+                Assertions.assertThat(NbRtt).isEqualTo(105);
+            }
         } else if (DayOfWeek.SATURDAY.equals(employe.getDateEmbauche())) {
             Assertions.assertThat(nbDayWeekend).isEqualTo(104);
         }
