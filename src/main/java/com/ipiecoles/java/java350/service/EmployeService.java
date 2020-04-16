@@ -38,14 +38,11 @@ public class EmployeService {
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
         logger.info("Tentative d'embauche d'un employé avec les paramètres : {}, {}, {}, {}, {}", nom, prenom, poste, niveauEtude, tempsPartiel);
 
-//        logger.debug("sdfsdf");
-//        logger.info("sdfsdf");
-//        logger.warn("sdfsdf");
-//        logger.error("sdfsdf");
-
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
-        logger.debug("Type d'employé : " + typeEmploye);
+        if (logger.isDebugEnabled()) {
+            logger.debug("Type d'employé : " + typeEmploye);  // this is compliant, because it will not evaluate if log level is above debug.
+        }
 
 
 
@@ -70,7 +67,7 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
-            logger.error("L'employé de matricule" + matricule + " existe déjà en BDD");
+            logger.error("L'employe avec le matricule : {} existe deja", matricule);
             throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
