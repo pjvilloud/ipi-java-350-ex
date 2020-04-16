@@ -224,4 +224,25 @@ class EmployeServiceTest {
             Assertions.assertThat(e.getMessage()).isEqualTo("Le matricule "+ matricule + " n'existe pas !");
         }
     }
+
+
+    //Test intégration d'un cas de la méthode CalculPerformanceCommercial
+    @ParameterizedTest
+    @CsvSource({
+            "'C0001'"
+    })
+    void testCalculPerformanceCommercial(String matricule) throws EmployeException {
+        // Given
+        Employe employe = new Employe();
+        employe.setMatricule(matricule);
+        employe.setPerformance(5);
+        employeRepository.save(employe);
+
+        //When
+        employeService.calculPerformanceCommercial(matricule, 1000L, 1000L);
+
+        //Then
+        Employe employe1 = employeRepository.findByMatricule(matricule);
+        Assertions.assertThat(employe1.getPerformance()).isEqualTo(5);
+    }
 }
