@@ -57,13 +57,15 @@ class EmployeRepositoryTest {
         Assertions.assertEquals("67890", lastMatricule);
     }
 
-    @ParameterizedTest
-    @CsvSource({
-            "'Doe','John','C12385', 2020-04-08 ,2000d,1,1.0",
-            "'Samuel','Jack','M1385', 2020-04-08 ,2050d,1,1.0",
-    })
     @Test
-    void testavgPerformanceWhereMatriculeStartsWith(String nom, String prenom, String matricule, LocalDate dateEmbauche,Double salaire, Integer perf, Double tp) {
+    void testavgPerformanceWhereMatriculeStartsWith() {
+        String nom = "Doe";
+        String prenom = "John";
+        String matricule = "C123489";
+        LocalDate dateEmbauche = LocalDate.now();
+        Double salaire = 2000d;
+        Integer perf = 1;
+        Double tp = 1.0d;
         //Given : données à tester
         Employe eTemp = new Employe(nom,prenom,matricule,dateEmbauche,salaire,perf,tp);
         employeRepository.save(eTemp);
