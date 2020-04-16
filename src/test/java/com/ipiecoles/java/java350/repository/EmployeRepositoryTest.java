@@ -63,7 +63,7 @@ class EmployeRepositoryTest {
             "'Samuel','Jack','M1385', 2020-04-08 ,2050d,1,1.0",
     })
     @Test
-    void testavgPerformanceWhereMatriculeStartsWithC(String nom, String prenom, String matricule, LocalDate dateEmbauche,Double salaire, Integer perf, Double tp) {
+    void testavgPerformanceWhereMatriculeStartsWith(String nom, String prenom, String matricule, LocalDate dateEmbauche,Double salaire, Integer perf, Double tp) {
         //Given : données à tester
         Employe eTemp = new Employe(nom,prenom,matricule,dateEmbauche,salaire,perf,tp);
         employeRepository.save(eTemp);

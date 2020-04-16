@@ -1,11 +1,9 @@
 package com.ipiecoles.java.java350.model;
 
 import com.ipiecoles.java.java350.exception.EmployeException;
-import com.ipiecoles.java.java350.repository.EmployeRepository;
-import com.ipiecoles.java.java350.service.EmployeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
@@ -119,7 +117,7 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    public void augmenterSalaire(double pourcentage) throws EmployeException, EntityExistsException {
+    public void augmenterSalaire(double pourcentage) throws EmployeException {
         if(pourcentage==0){
             logger.error("Attention le pourcentage est égale à 0 !");
             throw new EmployeException("Attention le pourcentage est égale à 0 !");
