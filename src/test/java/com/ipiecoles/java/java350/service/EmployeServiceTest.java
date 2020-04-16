@@ -33,11 +33,6 @@ class EmployeServiceTest {
     }
 
     @Test
-    void calculPerformanceCommercial() throws EmployeException {
-
-    }
-
-    @Test
     void embaucheEmploye0Employe() throws EmployeException {
 
         Mockito.when(employeRepository.findLastMatricule()).thenReturn("45678");
