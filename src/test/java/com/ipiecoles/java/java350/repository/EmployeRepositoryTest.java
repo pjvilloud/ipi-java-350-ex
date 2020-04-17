@@ -45,4 +45,33 @@ class EmployeRepositoryTest {
         //Then
         Assertions.assertEquals("67890", lastMatricule);
     }
+
+    @Test
+    void avgPerformanceWhereMatriculeStartsWith() {
+        // Given
+        employeRepository.save(new Employe("Doe", "John", "C0001",
+                LocalDate.now(), 2000d, 1 , 1.0));
+        employeRepository.save(new Employe("Doe", "John", "C0002",
+                LocalDate.now(), 2000d, 4 , 1.0));
+        employeRepository.save(new Employe("Doe", "John", "C0003",
+                LocalDate.now(), 2000d, 6 , 1.0));
+        // When
+        Double avg = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        // Then
+        Assertions.assertEquals(3.6666666666666665, avg);
+    }
+    @Test
+    void avgPerformanceWhereMatriculeStartsWithNull() {
+        // Given
+        employeRepository.save(new Employe("Doe", "John", "C0001",
+                LocalDate.now(), 2000d, null, 1.0));
+        employeRepository.save(new Employe("Doe", "John", "C0002",
+                LocalDate.now(), 2000d, null, 1.0));
+        employeRepository.save(new Employe("Doe", "John", "C0003",
+                LocalDate.now(), 2000d, null, 1.0));
+        // When
+        Double avg = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        // Then
+        Assertions.assertEquals(null, avg);
+    }
 }
