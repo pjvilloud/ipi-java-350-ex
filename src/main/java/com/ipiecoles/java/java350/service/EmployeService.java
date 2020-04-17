@@ -40,11 +40,6 @@ public class EmployeService {
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
-        if (logger.isDebugEnabled()) {
-            logger.debug("Type d'employé : {}", typeEmploye);  // this is compliant, because it will not evaluate if log level is above debug.
-        }
-
-
 
         //Récupération du dernier matricule...
         String lastMatricule = employeRepository.findLastMatricule();
@@ -67,7 +62,6 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
-            logger.error("L'employe avec le matricule : {} existe deja", matricule);
             throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
