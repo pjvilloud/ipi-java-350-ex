@@ -85,6 +85,7 @@ public class Employe {
             case SATURDAY:
                 var = var + 1;
                 break;
+            default:
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate ->
                 localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();

@@ -41,8 +41,7 @@ public class EmployeService {
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
         if (logger.isDebugEnabled()) {
-            logger.debug("Type d'employé : {}",
-                    typeEmploye);  // this is compliant, because it will not evaluate if log level is above debug.
+            logger.debug("Type d'employé : {}", typeEmploye);  // this is compliant, because it will not evaluate if log level is above debug.
         }
 
 
