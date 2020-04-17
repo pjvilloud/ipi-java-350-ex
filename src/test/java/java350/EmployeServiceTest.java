@@ -1,17 +1,24 @@
 package java350;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import javax.persistence.EntityExistsException;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.OngoingStubbing;
+import org.springframework.data.repository.CrudRepository;
 
 import com.ipiecoles.java.java350.exception.EmployeException;
 import com.ipiecoles.java.java350.model.Employe;
@@ -20,6 +27,7 @@ import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import com.ipiecoles.java.java350.service.EmployeService;
+
 
 @ExtendWith(MockitoExtension.class)
 class EmployeServiceTest {
@@ -32,6 +40,131 @@ class EmployeServiceTest {
 	
 	//@BeforeEach
 	//MockitoAnnotations.
+	  @Test
+	    public void testEmbaucheEmployeTechnicienPleinTempsBts() throws EmployeException {
+	        //Given
+	        String nom = "Doe";
+	        String prenom = "John";
+	        Poste poste = Poste.TECHNICIEN;
+	        NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+	        Double tempsPartiel = 1.0;
+	        when(employeRepository.findLastMatricule()).thenReturn("00345");
+	        when(employeRepository.findByMatricule("T00346")).thenReturn(null);
+
+	        //When
+	        employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+
+	        //Then
+	        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+	        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+	        org.junit.jupiter.api.Assertions.assertEquals(nom, employeArgumentCaptor.getValue().getNom());
+	        org.junit.jupiter.api.Assertions.assertEquals(prenom, employeArgumentCaptor.getValue().getPrenom());
+	        org.junit.jupiter.api.Assertions.assertEquals(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), employeArgumentCaptor.getValue().getDateEmbauche().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+	        org.junit.jupiter.api.Assertions.assertEquals("T00346", employeArgumentCaptor.getValue().getMatricule());
+	        org.junit.jupiter.api.Assertions.assertEquals(tempsPartiel, employeArgumentCaptor.getValue().getTempsPartiel());
+
+	        //1521.22 * 1.2 * 1.0
+	        org.junit.jupiter.api.Assertions.assertEquals(1825.46, employeArgumentCaptor.getValue().getSalaire().doubleValue());
+	    }
+
+	    private CrudRepository<Employe, Long> verify(EmployeRepository employeRepository2, Object times) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+		private Object times(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+		@Test
+	    public void testEmbaucheEmployeManagerMiTempsMaster() throws EmployeException {
+	        //Given
+	        String nom = "Doe";
+	        String prenom = "John";
+	        Poste poste = Poste.MANAGER;
+	        NiveauEtude niveauEtude = NiveauEtude.MASTER;
+	        Double tempsPartiel = 0.5;
+	        when(employeRepository.findLastMatricule()).thenReturn("00345");
+	        when(employeRepository.findByMatricule("M00346")).thenReturn(null);
+
+	        //When
+	        employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+
+	        //Then
+	        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+	        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+	        org.junit.jupiter.api.Assertions.assertEquals(nom, employeArgumentCaptor.getValue().getNom());
+	        org.junit.jupiter.api.Assertions.assertEquals(prenom, employeArgumentCaptor.getValue().getPrenom());
+	        org.junit.jupiter.api.Assertions.assertEquals(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), employeArgumentCaptor.getValue().getDateEmbauche().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+	        org.junit.jupiter.api.Assertions.assertEquals("M00346", employeArgumentCaptor.getValue().getMatricule());
+	        org.junit.jupiter.api.Assertions.assertEquals(tempsPartiel, employeArgumentCaptor.getValue().getTempsPartiel());
+
+	        //1521.22 * 1.4 * 0.5
+	        org.junit.jupiter.api.Assertions.assertEquals(1064.85, employeArgumentCaptor.getValue().getSalaire().doubleValue());
+	    }
+
+
+		private OngoingStubbing<String> when(String findLastMatricule) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Test
+	    public void testEmbaucheEmployeManagerMiTempsMasterNoLastMatricule() throws EmployeException {
+	        //Given
+	        String nom = "Doe";
+	        String prenom = "John";
+	        Poste poste = Poste.MANAGER;
+	        NiveauEtude niveauEtude = NiveauEtude.MASTER;
+	        Double tempsPartiel = 0.5;
+	        when(employeRepository.findLastMatricule()).thenReturn(null);
+	        when(employeRepository.findByMatricule("M00001")).thenReturn(null);
+
+	        //When
+	        employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+
+	        //Then
+	        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+	        verify(employeRepository, times(1)).save(employeArgumentCaptor.capture());
+	        org.junit.jupiter.api.Assertions.assertEquals("M00001", employeArgumentCaptor.getValue().getMatricule());
+	    }
+
+	    private OngoingStubbing<String> when(Employe findByMatricule) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Test
+	    public void testEmbaucheEmployeManagerMiTempsMasterExistingEmploye(){
+	        //Given
+	        String nom = "Doe";
+	        String prenom = "John";
+	        Poste poste = Poste.MANAGER;
+	        NiveauEtude niveauEtude = NiveauEtude.MASTER;
+	        Double tempsPartiel = 0.5;
+	        when(employeRepository.findLastMatricule()).thenReturn(null);
+	        when(employeRepository.findByMatricule("M00001")).thenReturn(new Employe());
+
+	        //When/Then
+	        EntityExistsException e = org.junit.jupiter.api.Assertions.assertThrows(EntityExistsException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
+	        org.junit.jupiter.api.Assertions.assertEquals("L'employé de matricule M00001 existe déjà en BDD", e.getMessage());
+	    }
+
+	    @Test
+	    public void testEmbaucheEmployeManagerMiTempsMaster99999(){
+	        //Given
+	        String nom = "Doe";
+	        String prenom = "John";
+	        Poste poste = Poste.MANAGER;
+	        NiveauEtude niveauEtude = NiveauEtude.MASTER;
+	        Double tempsPartiel = 0.5;
+	        when(employeRepository.findLastMatricule()).thenReturn("99999");
+
+	        //When/Then
+	        EmployeException e = org.junit.jupiter.api.Assertions.assertThrows(EmployeException.class, () -> employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel));
+	        org.junit.jupiter.api.Assertions.assertEquals("Limite des 100000 matricules atteinte !", e.getMessage());
+	    }
 	
 	@Test
 	void embaucheEmploye() throws EmployeException {
@@ -104,5 +237,29 @@ class EmployeServiceTest {
 	    })//Then
 	            .isInstanceOf(EmployeException.class).hasMessage("Message de l'erreur");
 	}
+	
+	
+	//test intégration 1ier point
+	 @ParameterizedTest
+	   @CsvSource({"'C00011', 2000, 2500"})
+	 public void calculPerformanceCommercial(String matricule, Long caTraite, Long objectifCa) {
+		 //given
+		 Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(null);
+
+		 //when
+	 EmployeException e = org.junit.jupiter.api.Assertions.assertThrows(EmployeException.class, () ->  employeService.calculPerformanceCommercial(matricule,caTraite , objectifCa));
+	
+		 //then
+	 
+
+
+
+	 org.junit.jupiter.api.Assertions.assertEquals(e.getMessage(), "Le matricule C00011 n'existe pas !");
+		 
+	 }
+	 
+	 
+	 
+	 
 	
 }

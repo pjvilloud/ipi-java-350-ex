@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -110,7 +113,12 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) {
+        this.salaire = this.getSalaire() * (1 + pourcentage);
+        if (this.salaire < 0) {
+            this.salaire = 0.0;
+        }
+    }
 
     public Long getId() {
         return id;
