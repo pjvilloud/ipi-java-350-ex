@@ -48,10 +48,8 @@ public class Employe {
      * Méthode calculant le nombre d'années d'ancienneté à partir de la date d'embauche
      * @return
      */
-    public Integer getNombreAnneeAnciennete() {
-        if (dateEmbauche != null && dateEmbauche.isBefore(LocalDate.now()))
-            return LocalDate.now().getYear() - dateEmbauche.getYear();
-        return 0;
+    public final Integer getNombreAnneeAnciennete() {
+        return dateEmbauche != null && LocalDate.now().getYear() >= dateEmbauche.getYear() ? LocalDate.now().getYear() - dateEmbauche.getYear() : 0;
     }
 
     public Integer getNbConges() {
@@ -63,11 +61,8 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1;
-        int var;
-        i1 = d.isLeapYear() ? 365 : 366;
-        var = 104;
-
+        int i1 = d.isLeapYear() ? 365 : 366;
+        int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
             case THURSDAY:
                 if(d.isLeapYear()) {
