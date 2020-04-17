@@ -1,7 +1,6 @@
 package com.ipiecoles.java.java350.model;
 
 import com.ipiecoles.java.java350.exception.SalaireException;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -50,9 +49,8 @@ public class Employe {
      * @return
      */
     public Integer getNombreAnneeAnciennete() {
-        if(dateEmbauche != null && dateEmbauche.isBefore(LocalDate.now())){
+        if (dateEmbauche != null && dateEmbauche.isBefore(LocalDate.now()))
             return LocalDate.now().getYear() - dateEmbauche.getYear();
-        }
         return 0;
     }
 
@@ -65,8 +63,10 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
+        int i1;
+        int var;
+        i1 = d.isLeapYear() ? 365 : 366;
+        var = 104;
 
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()) {
             case THURSDAY:
