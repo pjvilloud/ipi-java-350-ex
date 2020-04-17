@@ -429,4 +429,17 @@ public class EmployeTest {
         //Then
         Assertions.assertEquals( true,result);
     }
+
+    @Test
+    public void equalsTest11(){
+        //Given
+        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+        Employe employe2 = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 2.0 );
+        employe2.setId(9999L);
+        //When
+        boolean result = employe.equals(employe2);
+
+        //Then
+        Assertions.assertEquals( false,result);
+    }
 }
