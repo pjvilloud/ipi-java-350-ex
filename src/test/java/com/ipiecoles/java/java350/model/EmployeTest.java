@@ -177,10 +177,9 @@ public class EmployeTest {
             "2032-05-08 ,7.0, 70",
             "2032-05-09 ,7.0, 77",
             "2019-05-10 ,7.0, 56",
-            "2020-01-02 ,7.0, 56",
+            "2021-07-01 ,7.0, 84",
     })
-    public void getNbRttTest(LocalDate d, double tempsPartiel ,Integer result){
-
+        public void getNbRttTest(LocalDate d, double tempsPartiel ,Integer result){
         //Given
         Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, tempsPartiel );
 
@@ -295,7 +294,7 @@ public class EmployeTest {
         int result = employe.hashCode();
 
         //Then
-        Assertions.assertEquals( 7.18154416E8,result);
+        Assertions.assertEquals( 7.18157299E8,result);
     }
 
     @ParameterizedTest
@@ -332,6 +331,97 @@ public class EmployeTest {
         //Given
         Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
         Employe employe2 = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+
+        //When
+        boolean result = employe.equals(employe2);
+
+        //Then
+        Assertions.assertEquals( true,result);
+    }
+
+    @Test
+    public void equalsTest4(){
+        //Given
+        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+        Employe employe2 = new Employe("a", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+
+        //When
+        boolean result = employe.equals(employe2);
+
+        //Then
+        Assertions.assertEquals( false,result);
+    }
+
+    @Test
+    public void equalsTest5(){
+        //Given
+        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+        Employe employe2 = new Employe("Test", "5", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+
+        //When
+        boolean result = employe.equals(employe2);
+
+        //Then
+        Assertions.assertEquals( false,result);
+    }
+
+    @Test
+    public void equalsTest6(){
+        //Given
+        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+        Employe employe2 = new Employe("Test", "Roger", "M00013", LocalDate.now(), 2500.0, 2, 7.0 );
+
+        //When
+        boolean result = employe.equals(employe2);
+
+        //Then
+        Assertions.assertEquals( false,result);
+    }
+
+    @Test
+    public void equalsTest7(){
+        //Given
+        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+        Employe employe2 = new Employe("Test", "Roger", "M00012", LocalDate.of(2019, 5, 5), 2500.0, 2, 7.0 );
+
+        //When
+        boolean result = employe.equals(employe2);
+
+        //Then
+        Assertions.assertEquals( false,result);
+    }
+
+    @Test
+    public void equalsTest8(){
+        //Given
+        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+        Employe employe2 = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2550.0, 2, 7.0 );
+
+        //When
+        boolean result = employe.equals(employe2);
+
+        //Then
+        Assertions.assertEquals( false,result);
+    }
+
+    @Test
+    public void equalsTest9(){
+        //Given
+        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+        Employe employe2 = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 1, 7.0 );
+
+        //When
+        boolean result = employe.equals(employe2);
+
+        //Then
+        Assertions.assertEquals( false,result);
+    }
+
+    @Test
+    public void equalsTest10(){
+        //Given
+        Employe employe = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 7.0 );
+        Employe employe2 = new Employe("Test", "Roger", "M00012", LocalDate.now(), 2500.0, 2, 2.0 );
 
         //When
         boolean result = employe.equals(employe2);

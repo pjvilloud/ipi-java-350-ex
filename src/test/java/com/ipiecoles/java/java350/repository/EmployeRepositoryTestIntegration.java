@@ -35,8 +35,8 @@ public class EmployeRepositoryTestIntegration {
 
         Employe employe = new Employe("Delacour", "Michel", "M00001", LocalDate.now(), 1825.46, 2, null);
         employeRepository.save(employe);
+
         Employe employe2 = new Employe("Mouch", "Jean", "M00002", LocalDate.now(), 2500D, 2, null);
-        employeRepository.save(employe);
         employeRepository.save(employe2);
 
         // When
