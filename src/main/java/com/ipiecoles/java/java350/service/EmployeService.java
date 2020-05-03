@@ -39,7 +39,9 @@ public class EmployeService {
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
         logger.debug("Coucou");
         if (niveauEtude.name() != null && poste.name() != null) {
-            logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(), poste.name(), tempsPartiel);
+            String niveauEtude2 = niveauEtude.name();
+            String poste2 = poste.name();
+            logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude2, poste2, tempsPartiel);
         }
 
         //Récupération du type d'employé à partir du poste
