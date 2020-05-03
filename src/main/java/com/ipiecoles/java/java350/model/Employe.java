@@ -75,9 +75,17 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
+    /**
+     * calcul le nombre de rrt suivant la date
+     * @param d date actuel
+     * @return nombre de rrt
+     */
     public Integer getNbRtt(LocalDate d){
+        // année bisexstile
         int i1 = d.isLeapYear() ? 366 : 365;
+        // weed-end x 52
         int var = 104;
+        // test cas particulier
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case FRIDAY: if(d.isLeapYear()) var =  var + 1; break;
             case SATURDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1; break;
