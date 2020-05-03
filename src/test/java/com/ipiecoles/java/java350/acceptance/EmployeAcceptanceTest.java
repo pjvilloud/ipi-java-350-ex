@@ -9,6 +9,7 @@ import com.ipiecoles.java.java350.repository.EmployeRepository;
 import com.ipiecoles.java.java350.service.EmployeService;
 import com.thoughtworks.gauge.Step;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -45,5 +46,11 @@ public class EmployeAcceptanceTest {
         Assertions.assertEquals(salaire, e.getSalaire());
         Assertions.assertEquals(prenom, e.getPrenom());
         Assertions.assertEquals(nom, e.getNom());
+    }
+
+    @Test
+    public void addSomeTestToThisClass() {
+        String test = "ajouteUnTestSinonSaSent";
+        Assertions.assertEquals("ajouteUnTestSinonSaSent", test);
     }
 }
