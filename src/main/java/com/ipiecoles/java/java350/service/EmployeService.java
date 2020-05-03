@@ -38,7 +38,9 @@ public class EmployeService {
      */
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
         logger.debug("Coucou");
-        logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(), poste.name(), tempsPartiel);
+        if (niveauEtude.name() != null && poste.name() != null) {
+            logger.info("Embauche de l'employé {} {} diplômé de {} en tant que {} avec un taux d'activité de {} ", prenom, nom, niveauEtude.name(), poste.name(), tempsPartiel);
+        }
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
@@ -60,7 +62,7 @@ public class EmployeService {
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
-            logger.error("L'employé de matricule " + matricule + " existe déjà en BDD");
+            logger.error("L'employé de matricule {} existe déjà en BDD", matricule);
             throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
