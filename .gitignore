@@ -54,3 +54,5 @@ HELP.md
 mvnw*
 .mvn
 
+*.log
+

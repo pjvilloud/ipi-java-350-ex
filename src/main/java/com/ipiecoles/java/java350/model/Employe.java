@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -58,6 +59,10 @@ public class Employe {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
     }
 
+    public Integer getNbRtt(){
+        return getNbRtt(LocalDate.now(), Entreprise.joursFeries(LocalDate.now()));
+    }
+
     /**
      * Nombre de jours de RTT =
      *   Nombre de jours dans l'année
@@ -65,25 +70,33 @@ public class Employe {
      * – nombre de jours de repos hebdomadaires
      * – jours de congés payés
      * – nombre de jours fériés tombant un jour ouvré
-     *
      * Au prorata de son pourcentage d'activité (arrondi au supérieur)
      *
      * @return le nombre de jours de RTT
      */
-    public Integer getNbRtt(){
-        return getNbRtt(LocalDate.now());
-    }
+    public Integer getNbRtt(LocalDate d, List<LocalDate> joursFeries){
+        int totalJoursAnnee = d.lengthOfYear();
+        int totalJoursTravailles = Entreprise.NB_JOURS_MAX_FORFAIT;
 
-    public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
-        }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        int totalJoursWeekend = 104;
+        DayOfWeek premierJourAnnee = LocalDate.of(d.getYear(),1,1).getDayOfWeek();
+        if (premierJourAnnee == DayOfWeek.THURSDAY) totalJoursWeekend = 105;
+        else if (premierJourAnnee == DayOfWeek.FRIDAY && d.isLeapYear()) totalJoursWeekend = 106;
+        else if (premierJourAnnee == DayOfWeek.FRIDAY && !d.isLeapYear()) totalJoursWeekend = 105;
+        else if (premierJourAnnee == DayOfWeek.SATURDAY) totalJoursWeekend = 105;
+
+        int totalJoursFeries = (int) joursFeries.stream().filter(elm -> elm.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        int totalJoursConges = this.getNbConges();
+
+        return (int) Math.ceil(
+                (
+                    totalJoursAnnee
+                    - totalJoursTravailles
+                    - totalJoursWeekend
+                    - totalJoursFeries
+                    - totalJoursConges
+                )
+                 * tempsPartiel);
     }
 
     /**
@@ -121,7 +134,12 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+        if (pourcentage < 0 || pourcentage > 1){
+            throw new IllegalArgumentException("Pourcentage : " + pourcentage + " should be between 0% and 100% (0 and 1 here)");
+        }
+        salaire = salaire * (1 + pourcentage);
+    }
 
     public Long getId() {
         return id;
