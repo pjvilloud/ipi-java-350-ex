@@ -186,8 +186,6 @@ public class EmployeTest {
             "'2040-01-01', 44", // dimanche bissextile
             "'2044-01-01', 42" // vendredi bissextile
     })
-
-    @Test
     public void testGetNbRttAvecParametres(LocalDate jourNbRtt, Integer expectedRtt) {
         // Given
         Employe mockEmploye = Mockito.spy(getEmployeTest());
