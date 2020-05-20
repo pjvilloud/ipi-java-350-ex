@@ -153,6 +153,35 @@ public class EmployeTest {
         // Then
         Assertions.assertEquals(42, nbRtt);
     }
+    @ParameterizedTest
+    @CsvSource({
+            "'2019-01-01', 43", // base
+            "'2018-01-01', 43", // lundi normal
+            "'2020-01-01', 44", // bissextile normal
+            "'2021-01-01', 42", // vendredi normal
+            "'2022-01-01', 42", // samedi normal
+            "'2023-01-01', 43", // dimanche normal
+            "'2024-01-01', 44", // lundi bissextile
+            "'2025-01-01', 43", // mercredi normal
+            "'2026-01-01', 42", // jeudi normal
+            "'2029-01-01', 43", // samedi bissextile
+            "'2032-01-01', 43", // jeudi bissextile
+            "'2036-01-01', 44", // mardi bissextile
+            "'2040-01-01', 44", // dimanche bissextile
+            "'2044-01-01', 42" // vendredi bissextile
+    })
+    public void testGetNbRttAvecParametre(LocalDate jourNbRtt, Integer expectedRtt) {
+        // Given
+        Employe mockEmploye = Mockito.spy(getEmployeTest());
+        when(mockEmploye.getNbConges()).thenReturn(0);
+
+        // When
+        Integer nbRtt = mockEmploye.getNbRtt(jourNbRtt, Collections.emptyList());
+
+        // Then
+        Assertions.assertEquals(expectedRtt, nbRtt);
+    }
+
     @Test
     public void testGetNbbRttAvecMiTemps() {
         // Given
@@ -165,36 +194,5 @@ public class EmployeTest {
 
         // Then
         Assertions.assertEquals(22, nbRtt);
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "'2019-01-01', 43", // base
-            "'2020-01-01', 44", // bissextile normal
-            "'2018-01-01', 43", // lundi normal
-            "'2019-01-01', 43", // mardi normal
-            "'2025-01-01', 43", // mercredi normal
-            "'2026-01-01', 42", // jeudi normal
-            "'2021-01-01', 42", // vendredi normal
-            "'2022-01-01', 42", // samedi normal
-            "'2023-01-01', 43", // dimanche normal
-            "'2024-01-01', 44", // lundi bissextile
-            "'2036-01-01', 44", // mardi bissextile
-            "'2020-01-01', 44", // mercredi bissextile
-            "'2032-01-01', 43", // jeudi bissextile
-            "'2044-01-01', 42", // vendredi bissextile
-            "'2029-01-01', 43", // samedi bissextile
-            "'2040-01-01', 44", // dimanche bissextile
-    })
-    public void testGetNbRttAvecParametre(LocalDate jourNbRtt, Integer expectedRtt) {
-        // Given
-        Employe mockEmploye = Mockito.spy(getEmployeTest());
-        when(mockEmploye.getNbConges()).thenReturn(0);
-
-        // When
-        Integer nbRtt = mockEmploye.getNbRtt(jourNbRtt, Collections.emptyList());
-
-        // Then
-        Assertions.assertEquals(expectedRtt, nbRtt);
     }
 }

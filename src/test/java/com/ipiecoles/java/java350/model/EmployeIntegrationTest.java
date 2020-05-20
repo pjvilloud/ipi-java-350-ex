@@ -1,7 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.time.LocalDate;
 
@@ -16,6 +16,6 @@ public class EmployeIntegrationTest {
         Integer nbRtt = employe.getNbRtt();
 
         // Then
-        Assertions.assertThat(nbRtt).isEqualTo(8);
+        Assertions.assertEquals(8, nbRtt);
     }
 }
