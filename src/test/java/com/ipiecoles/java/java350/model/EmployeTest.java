@@ -98,6 +98,7 @@ public class EmployeTest {
         Assertions.assertEquals(primeAnnuelle, prime);
 
     }
+
     @Test
     public void testAugmenterSalaireDeZeroPourcent() {
         // Given
@@ -110,6 +111,7 @@ public class EmployeTest {
         // Then
         Assertions.assertEquals(1000d, employe.getSalaire());
     }
+
     @Test
     public void testAugmenterSalaireAvecPourcentagePositif() {
         // Given
@@ -122,6 +124,7 @@ public class EmployeTest {
         // Then
         Assertions.assertEquals(1500d, employe.getSalaire());
     }
+
     @Test
     public void testAugmenterSalaireAvecPourcentageNegatif() {
         // Given
@@ -131,6 +134,17 @@ public class EmployeTest {
         // When & Then
         Assertions.assertThrows(IllegalArgumentException.class, () -> employe.augmenterSalaire(-0.5d));
     }
+
+    @Test
+    public void testAugmenterSalaireAvecSalaireNull() {
+        // Given
+        Employe employe = getEmployeTest();
+        employe.setSalaire(null);
+
+        // When & Then
+        Assertions.assertThrows(IllegalArgumentException.class, () -> employe.augmenterSalaire(0.5d));
+    }
+
     @Test
     public void testAugmenterSalaireAvecPourcentageTropGrand() {
         // Given
@@ -140,6 +154,7 @@ public class EmployeTest {
         // When & Then
         Assertions.assertThrows(IllegalArgumentException.class, () -> employe.augmenterSalaire(1.5d));
     }
+
     @Test
     public void testGetNbbRttAvecJourFerie() {
         // Given
@@ -153,6 +168,7 @@ public class EmployeTest {
         // Then
         Assertions.assertEquals(42, nbRtt);
     }
+
     @ParameterizedTest
     @CsvSource({
             "'2019-01-01', 43", // base
@@ -170,7 +186,9 @@ public class EmployeTest {
             "'2040-01-01', 44", // dimanche bissextile
             "'2044-01-01', 42" // vendredi bissextile
     })
-    public void testGetNbRttAvecParametre(LocalDate jourNbRtt, Integer expectedRtt) {
+
+    @Test
+    public void testGetNbRttAvecParametres(LocalDate jourNbRtt, Integer expectedRtt) {
         // Given
         Employe mockEmploye = Mockito.spy(getEmployeTest());
         when(mockEmploye.getNbConges()).thenReturn(0);

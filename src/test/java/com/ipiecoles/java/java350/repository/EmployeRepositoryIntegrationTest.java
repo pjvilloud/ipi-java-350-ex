@@ -63,7 +63,7 @@ public class EmployeRepositoryIntegrationTest {
     }
 
     @Test
-    public void testGetNbRttEmployeAvecDeuxAnsAnciennete() {
+    public void testGetNbRttEmployeAvecDeuxAnsAnciennetes() {
         // Given
         Employe employe = new Employe("nom", "prenom", "matricule", LocalDate.now().minusYears(2), 1500d, 1, 1d);
 

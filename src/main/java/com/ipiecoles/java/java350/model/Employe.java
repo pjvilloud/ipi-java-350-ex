@@ -134,7 +134,11 @@ public class Employe {
         if (pourcentage < 0 || pourcentage > 1) {
             throw new IllegalArgumentException("Pourcentage saisi incorrect (saisir une valeur entre 0 et 1");
         }
-        salaire = salaire * (1 + pourcentage);
+        if (salaire != null) {
+            salaire = salaire * (1 + pourcentage);
+        } else {
+            throw new IllegalArgumentException("Le salaire ne doit pas être null");
+        }
 
     }
 
