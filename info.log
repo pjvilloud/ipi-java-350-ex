@@ -1,1 +1,1 @@
-2020-03-13 10:16:46 - INFO  - c.i.java.java350.service.EmployeService - L'employe : Employe{id=3, nom='Doe', prenom='Jane', matricule='M00124', dateEmbauche=2020-03-13, salaire=1064.85, performance=1, tempsPartiel=0.5} a été enregistré
+2020-05-20 14:03:02 - INFO  - c.i.j.j.repository.EmployeRepositoryTest - Started EmployeRepositoryTest in 7.839 seconds (JVM running for 10.028)
