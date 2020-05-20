@@ -16,14 +16,14 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class EmployeTest {
+class EmployeTest {
 
     static Employe getEmployeTest(){
         return new Employe("Test", "Jaime", "T00000", LocalDate.now(), 1500d, 1, 1d);
     }
 
     @Test
-    public void getNombreAnneeAncienneteNow(){
+    void getNombreAnneeAncienneteNow(){
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now());
@@ -36,7 +36,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAncienneteNminus2(){
+    void getNombreAnneeAncienneteNminus2(){
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().minusYears(2L));
@@ -49,7 +49,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAncienneteNull(){
+    void getNombreAnneeAncienneteNull(){
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(null);
@@ -62,7 +62,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void getNombreAnneeAncienneteNplus2(){
+    void getNombreAnneeAncienneteNplus2(){
         //Given
         Employe e = new Employe();
         e.setDateEmbauche(LocalDate.now().plusYears(2L));
@@ -86,8 +86,7 @@ public class EmployeTest {
             "2, 'M12345', 0, 1.0, 1700.0",
             "2, 'M12345', 8, 1.0, 2500.0"
     })
-
-    public void getPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle){
+    void getPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle){
         //Given
         Employe employe = new Employe("Doe", "John", matricule, LocalDate.now().minusYears(nbYearsAnciennete), Entreprise.SALAIRE_BASE, performance, tempsPartiel);
 
@@ -100,7 +99,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testAugmenterSalaireDeZeroPourcent() {
+    void testAugmenterSalaireDeZeroPourcent() {
         // Given
         Employe employe = getEmployeTest();
         employe.setSalaire(1000d);
@@ -113,7 +112,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testAugmenterSalaireAvecPourcentagePositif() {
+    void testAugmenterSalaireAvecPourcentagePositif() {
         // Given
         Employe employe = getEmployeTest();
         employe.setSalaire(1000d);
@@ -126,7 +125,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testAugmenterSalaireAvecPourcentageNegatif() {
+    void testAugmenterSalaireAvecPourcentageNegatif() {
         // Given
         Employe employe = getEmployeTest();
         employe.setSalaire(1000d);
@@ -136,7 +135,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testAugmenterSalaireAvecSalaireNull() {
+    void testAugmenterSalaireAvecSalaireNull() {
         // Given
         Employe employe = getEmployeTest();
         employe.setSalaire(null);
@@ -146,7 +145,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testAugmenterSalaireAvecPourcentageTropGrand() {
+    void testAugmenterSalaireAvecPourcentageTropGrand() {
         // Given
         Employe employe = getEmployeTest();
         employe.setSalaire(1000d);
@@ -156,7 +155,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testGetNbbRttAvecJourFerie() {
+    void testGetNbbRttAvecJourFerie() {
         // Given
         List<LocalDate> joursFeries = Arrays.asList(LocalDate.of(2019, 1, 1), LocalDate.of(2019, 1, 5));
         Employe mockEmploye = Mockito.spy(getEmployeTest());
@@ -186,7 +185,7 @@ public class EmployeTest {
             "'2040-01-01', 44", // dimanche bissextile
             "'2044-01-01', 42" // vendredi bissextile
     })
-    public void testGetNbRttAvecParametres(LocalDate jourNbRtt, Integer expectedRtt) {
+    void testGetNbRttAvecParametres(LocalDate jourNbRtt, Integer expectedRtt) {
         // Given
         Employe mockEmploye = Mockito.spy(getEmployeTest());
         when(mockEmploye.getNbConges()).thenReturn(0);
@@ -199,7 +198,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testGetNbbRttAvecMiTemps() {
+    void testGetNbbRttAvecMiTemps() {
         // Given
         Employe mockEmploye = Mockito.spy(getEmployeTest());
         mockEmploye.setTempsPartiel(0.5d);

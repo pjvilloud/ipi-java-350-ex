@@ -24,7 +24,7 @@ import java.util.Arrays;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class EmployeServiceTest {
+class EmployeServiceTest {
 
     @InjectMocks
     EmployeService employeService;
@@ -38,7 +38,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeTechnicienPleinTempsBts() throws EmployeException {
+    void testEmbaucheEmployeTechnicienPleinTempsBts() throws EmployeException {
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -65,7 +65,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMaster() throws EmployeException {
+    void testEmbaucheEmployeManagerMiTempsMaster() throws EmployeException {
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -92,7 +92,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMasterNoLastMatricule() throws EmployeException {
+    void testEmbaucheEmployeManagerMiTempsMasterNoLastMatricule() throws EmployeException {
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -112,7 +112,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMasterExistingEmploye(){
+    void testEmbaucheEmployeManagerMiTempsMasterExistingEmploye(){
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -128,7 +128,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeManagerMiTempsMaster99999(){
+    void testEmbaucheEmployeManagerMiTempsMaster99999(){
         //Given
         String nom = "Doe";
         String prenom = "John";

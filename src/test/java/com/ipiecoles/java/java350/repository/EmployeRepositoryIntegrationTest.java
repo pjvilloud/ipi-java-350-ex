@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class EmployeRepositoryIntegrationTest {
+class EmployeRepositoryIntegrationTest {
     @Autowired
     private EmployeRepository employeRepository;
 
@@ -25,7 +25,7 @@ public class EmployeRepositoryIntegrationTest {
     }
 
     @Test
-    public void testAvgPerformanceWhereMatriculeStartsWithIsNull() {
+    void testAvgPerformanceWhereMatriculeStartsWithIsNull() {
         // Given
         employeRepository.save(new Employe("nom", "prenom", "matricule", LocalDate.now(), 1500d, 1, 1d));
 
@@ -37,7 +37,7 @@ public class EmployeRepositoryIntegrationTest {
     }
 
     @Test
-    public void testAvgPerformanceWhereMatriculeStartsWithIsSingle() {
+    void testAvgPerformanceWhereMatriculeStartsWithIsSingle() {
         // Given
         employeRepository.save(new Employe("nom", "prenom", "T00001", LocalDate.now(), 1500d, 1, 1d));
 
@@ -49,7 +49,7 @@ public class EmployeRepositoryIntegrationTest {
     }
 
     @Test
-    public void testAvgPerformanceWhereMatriculeStartsWithIsMultiple() {
+    void testAvgPerformanceWhereMatriculeStartsWithIsMultiple() {
         // Given
         employeRepository.save(new Employe("nom", "prenom", "T00001", LocalDate.now(), 1500d, 1, 1d));
         employeRepository.save(new Employe("nom", "prenom", "M00001", LocalDate.now(), 1500d, 1, 1d));
@@ -63,7 +63,7 @@ public class EmployeRepositoryIntegrationTest {
     }
 
     @Test
-    public void testGetNbRttEmployeAvecDeuxAnsAnciennetes() {
+    void testGetNbRttEmployeAvecDeuxAnsAnciennetes() {
         // Given
         Employe employe = new Employe("nom", "prenom", "matricule", LocalDate.now().minusYears(2), 1500d, 1, 1d);
 

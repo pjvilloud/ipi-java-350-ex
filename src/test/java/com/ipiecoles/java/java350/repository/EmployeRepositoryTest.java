@@ -9,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.time.LocalDate;
 
 @DataJpaTest
-public class EmployeRepositoryTest {
+class EmployeRepositoryTest {
 
     @Autowired
     private EmployeRepository employeRepository;
@@ -21,7 +21,7 @@ public class EmployeRepositoryTest {
     }
 
     @Test
-    public void testFindLastMatriculeEmpty() {
+    void testFindLastMatriculeEmpty() {
         //Given
 
         //When
@@ -32,7 +32,7 @@ public class EmployeRepositoryTest {
     }
 
     @Test
-    public void testFindLastMatriculeSingle() {
+    void testFindLastMatriculeSingle() {
         //Given
         employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
 
@@ -44,7 +44,7 @@ public class EmployeRepositoryTest {
     }
 
     @Test
-    public void testFindLastMatriculeMultiple() {
+    void testFindLastMatriculeMultiple() {
         //Given
         employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
         employeRepository.save(new Employe("Doe", "Jane", "M40325", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));

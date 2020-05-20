@@ -19,7 +19,7 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class EmployeServiceIntegrationTest {
+class EmployeServiceIntegrationTest {
 
     @Autowired
     EmployeService employeService;
@@ -34,7 +34,7 @@ public class EmployeServiceIntegrationTest {
     }
 
     @Test
-    public void integrationEmbaucheEmploye() throws EmployeException {
+    void integrationEmbaucheEmploye() throws EmployeException {
         //Given
         employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
         String nom = "Doe";
