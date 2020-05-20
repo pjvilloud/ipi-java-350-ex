@@ -76,10 +76,8 @@ public class EmployeService {
         //Création et sauvegarde en BDD de l'employé.
         Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
 
-//        logger.debug("Employé avant sauvegarde : {}", employe.toString());
-//        employe =
         employeRepository.save(employe);
-        logger.info("Employé {} ajouté en base de données.", employe.toString());
+        logger.info("Employé {} ajouté en base de données.", employe);
     }
 
 
@@ -152,16 +150,16 @@ public class EmployeService {
      * Cette méthode calcule le salaire moyen de tous les employés ramené
      * à un équivalent temps plein : Ex : Si un personne à mi-temps gagne 800 € son salaire ETP est 1600 €
      */
-    public Double calculSalaireMoyenETP() throws Exception {
+    public Double calculSalaireMoyenETP() throws EmployeException {
         //On compte le nombre de salariés
         Long nbEmployes = employeRepository.count();
         if(nbEmployes == 0){
-            throw new Exception("Aucun employé, impossible de calculer le salaire moyen !");
+            throw new EmployeException("Aucun employé, impossible de calculer le salaire moyen !");
         }
         //On récupère la somme des taux d'activité
         Double smTxActivite = employeRepository.sumTempsPartiel();
         if(smTxActivite > nbEmployes){
-            throw new Exception("Taux d'activité des employés incohérent !");
+            throw new EmployeException("Taux d'activité des employés incohérent !");
         }
 
         //On récupère la somme des salaires

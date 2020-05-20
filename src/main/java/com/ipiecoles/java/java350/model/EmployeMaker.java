@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class EmployeMaker {
 
-    public static EmployeBuilder technicienAPleinTemps() {
+    private static EmployeBuilder technicienAPleinTemps() {
         return EmployeBuilder.anEmploye()
                 .withMatricule("T12345")
                 .withNom("Doe")
