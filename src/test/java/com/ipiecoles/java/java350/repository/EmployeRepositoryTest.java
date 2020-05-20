@@ -21,7 +21,7 @@ public class EmployeRepositoryTest {
     }
 
     @Test
-    public void testFindLastMatriculeEmpty(){
+    public void testFindLastMatriculeEmpty() {
         //Given
 
         //When
@@ -32,7 +32,7 @@ public class EmployeRepositoryTest {
     }
 
     @Test
-    public void testFindLastMatriculeSingle(){
+    public void testFindLastMatriculeSingle() {
         //Given
         employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
 
@@ -44,7 +44,7 @@ public class EmployeRepositoryTest {
     }
 
     @Test
-    public void testFindLastMatriculeMultiple(){
+    public void testFindLastMatriculeMultiple() {
         //Given
         employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));
         employeRepository.save(new Employe("Doe", "Jane", "M40325", LocalDate.now(), Entreprise.SALAIRE_BASE, 1, 1.0));

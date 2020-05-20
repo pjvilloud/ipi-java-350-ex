@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -71,19 +72,27 @@ public class Employe {
      * @return le nombre de jours de RTT
      */
     public Integer getNbRtt(){
-        return getNbRtt(LocalDate.now());
+        return getNbRtt(LocalDate.now(), Entreprise.joursFeries(LocalDate.now()));
     }
 
-    public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+    public Integer getNbRtt(LocalDate date, List<LocalDate> joursFeries){
+        int nbJoursAnnee = date.lengthOfYear();
+        int nbJoursTravaille = Entreprise.NB_JOURS_MAX_FORFAIT;
+        int nbJoursWeekend = 104;
+
+        DayOfWeek premierJourAnnee = LocalDate.of(date.getYear(), 1,1).getDayOfWeek();
+        if ((premierJourAnnee == DayOfWeek.THURSDAY)
+                || (premierJourAnnee == DayOfWeek.SATURDAY)
+                || (premierJourAnnee == DayOfWeek.FRIDAY && !date.isLeapYear())) {
+            nbJoursWeekend = 105;
+        } else if (premierJourAnnee == DayOfWeek.FRIDAY && date.isLeapYear()) {
+            nbJoursWeekend = 106;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+
+        int nbJoursFeries = (int) joursFeries.stream().filter(jour -> jour.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        int nbJoursConges = this.getNbConges();
+
+        return (int) Math.ceil((nbJoursAnnee - nbJoursTravaille - nbJoursWeekend - nbJoursFeries - nbJoursConges) * tempsPartiel);
     }
 
     /**
@@ -121,7 +130,13 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+        if (pourcentage < 0 || pourcentage > 1) {
+            throw new IllegalArgumentException("Pourcentage saisi incorrect (saisir une valeur entre 0 et 1");
+        }
+        salaire = salaire * (1 + pourcentage);
+
+    }
 
     public Long getId() {
         return id;

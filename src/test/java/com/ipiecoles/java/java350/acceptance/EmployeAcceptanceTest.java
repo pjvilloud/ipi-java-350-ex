@@ -47,4 +47,24 @@ public class EmployeAcceptanceTest {
         Assertions.assertEquals(prenom, e.getPrenom());
         Assertions.assertEquals(nom, e.getNom());
     }
+
+    @Step("On a actuellement 5 employés dans l'entrprise")
+    public void mockData() {
+        employeRepository.save(new Employe("Un", "Mélo", "T11111", LocalDate.now(), 1500d, 1, 1.1d));
+        employeRepository.save(new Employe("Deux", "Mélo", "M11111", LocalDate.now(), 5000d, 1, 0.5d));
+        employeRepository.save(new Employe("Trois", "Mélo", "C11111", LocalDate.now(), 1500d, 1, 1d));
+        employeRepository.save(new Employe("Quatre", "Mélo", "C22222", LocalDate.now(), 2000d, 2, 1.1d));
+        employeRepository.save(new Employe("Cinq", "Mélo", "C33333", LocalDate.now(), 1500d, 2, 0.5d));
+
+    }
+
+    @Step("Je calcule la performance de mon commercial <matricule> avec un CA de <ca> euros pour un objectif de <objectif>")
+    public void calculAvgPerformance(String matricule, Long ca, Long objectif) throws EmployeException{
+        employeService.calculPerformanceCommercial(matricule, ca, objectif);
+    }
+
+    @Step("J'obtiens une performance de <performance> sur mon commercial au matricule <matricule>")
+    public void assertPerformance(Integer performance, String matricule) {
+        Assertions.assertEquals(performance, employeRepository.findByMatricule(matricule).getPerformance());
+    }
 }

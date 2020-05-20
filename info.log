@@ -4,3 +4,9 @@
 2020-03-13 09:53:06 - INFO  - Starting Java350Application on FR-L3355581 with PID 18520 (C:\GitHub\ipi-java-350-ex\target\classes started by mathias.garcia in C:\GitHub\ipi-java-350-ex)
 2020-03-13 09:53:06 - INFO  - No active profile set, falling back to default profiles: default
 2020-03-13 09:53:10 - INFO  - Started Java350Application in 3.607 seconds (JVM running for 5.283)
+2020-03-13 11:22:38 - INFO  - Starting Java350Application on FR-L3355581 with PID 10368 (C:\GitHub\ipi-java-350-ex\target\classes started by mathias.garcia in C:\GitHub\ipi-java-350-ex)
+2020-03-13 11:22:38 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-13 11:22:42 - INFO  - Started Java350Application in 4.593 seconds (JVM running for 6.59)
+2020-03-13 12:02:45 - INFO  - Starting EmployeRepositoryTest on FR-L3355581 with PID 13756 (started by mathias.garcia in C:\GitHub\ipi-java-350-ex)
+2020-03-13 12:02:45 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-13 12:02:51 - INFO  - Started EmployeRepositoryTest in 7.242 seconds (JVM running for 10.318)
