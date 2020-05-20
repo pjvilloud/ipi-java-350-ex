@@ -22,8 +22,6 @@ public class EmployeService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
-
     /**
      * Méthode enregistrant un nouvel employé dans l'entreprise
      *

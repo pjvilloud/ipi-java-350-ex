@@ -88,4 +88,10 @@ class EmployeRepositoryTest {
         //Then
         org.assertj.core.api.Assertions.assertThat(employeList).isEmpty();
     }
+
+    @Test
+    public void testAvgPerformanceWhereMatriculeStartsWith() {
+        //Given
+
+    }
 }

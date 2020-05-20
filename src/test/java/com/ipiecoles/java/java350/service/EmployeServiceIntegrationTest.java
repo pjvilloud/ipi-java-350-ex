@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -41,6 +42,7 @@ class EmployeServiceIntegrationTest {
         NiveauEtude niveauEtude = NiveauEtude.MASTER;
         Double tempsPartiel = 1d;
 
+        //When
         employeService.embaucheEmploye(nom,prenom,poste,niveauEtude,tempsPartiel);
         //Then
         Employe employe = employeRepository.findByMatricule("M00002");

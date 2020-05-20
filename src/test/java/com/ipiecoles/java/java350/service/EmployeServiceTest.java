@@ -109,4 +109,17 @@ public class EmployeServiceTest {
         Assertions.assertThat(exception).isInstanceOf(Exception.class);
         Assertions.assertThat(exception.getMessage()).isEqualTo("Aucun employé, impossible de calculer le salaire moyen !");
     }
+
+    @Test
+    public void calculPerformanceCommercialCaTraiteNullTest() throws EmployeException {
+        //Given
+        String matricule = "C12345";
+        Long caTraite = null;
+        Long objectifCa = null;
+
+        //When/Then
+        EmployeException e = org.junit.jupiter.api.Assertions.assertThrows(EmployeException.class, () -> employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa));
+
+        org.junit.jupiter.api.Assertions.assertEquals("Le chiffre d'affaire traité ne peut être négatif ou null !", e.getMessage());
+    }
 }

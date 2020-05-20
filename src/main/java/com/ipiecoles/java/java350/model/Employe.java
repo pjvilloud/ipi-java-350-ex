@@ -61,6 +61,15 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
+    /**
+     * nbWeekEndDays: nombre de samedi et dimanche dans l'année.
+     * nbJourFerieSem: nombre de jour ferié se trouvant entre lundi et vendredi.
+     * nbJour: calcul le nombre de jour dans l'année en fonction de l'année (bissextile ou non)
+     *
+     * @param d Date pour connaitre le nombre de jour dans l'année (nbJours)
+     *
+     * @return le nombre de Rtt de l'employe pendant l'année.
+     */
     public Integer getNbRtt(LocalDate d) {
         int nbJours = d.isLeapYear() ? 366 : 365;
         int nbWeekEndDays = 104;
@@ -120,10 +129,12 @@ public class Employe {
     //Augmenter salaire
 
     /**
-     * @param pourcentage
-     * @throws Exception
+     * salaire : récupère le salaire de l'employé.
+     * salaireAgmente: Récupère le salaire après le calcul de l'augmentation.
+     * @param pourcentage pourcentage de l'augmentation
+     * @throws EmployeException si l'augmentation n'est pas calculable
      */
-    public void augmenterSalaire(double pourcentage) throws Exception {
+    public void augmenterSalaire(double pourcentage) throws EmployeException {
         Double salaire =  this.getSalaire();
         if (pourcentage > 0d) {
             salaire = salaire * (1 + pourcentage/100);
