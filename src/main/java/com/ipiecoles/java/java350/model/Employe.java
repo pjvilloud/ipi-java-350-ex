@@ -63,19 +63,19 @@ public class Employe {
         int nbSamediDimancheDansAnnee = 104;
 
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY:
+            case FRIDAY:
                 if(d.isLeapYear()) {
                     nbSamediDimancheDansAnnee += 1;
                 }
                 break;
-            case FRIDAY:
+            case SATURDAY:
                 if(d.isLeapYear()) {
                     nbSamediDimancheDansAnnee += 2;
                 } else {
                     nbSamediDimancheDansAnnee += 1;
                 }
                 break;
-            case SATURDAY:
+            case SUNDAY:
                 nbSamediDimancheDansAnnee += 1;
                 break;
             default:
