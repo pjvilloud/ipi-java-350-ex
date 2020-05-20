@@ -61,4 +61,16 @@ public class EmployeRepositoryIntegrationTest {
         // Then
         Assertions.assertEquals(2.5d , avgPerformance);
     }
+
+    @Test
+    public void testGetNbRttEmployeAvecDeuxAnsAnciennete() {
+        // Given
+        Employe employe = new Employe("nom", "prenom", "matricule", LocalDate.now().minusYears(2), 1500d, 1, 1d);
+
+        // When
+        Integer nbRtt = employe.getNbRtt();
+
+        // Then
+        Assertions.assertEquals(8, nbRtt);
+    }
 }
