@@ -151,7 +151,7 @@ public class EmployeTest {
         Integer nbRtt = mockEmploye.getNbRtt(LocalDate.of(2019, 1, 1), Collections.emptyList());
 
         // Then
-        Assertions.assertEquals(41, nbRtt);
+        Assertions.assertEquals(42, nbRtt);
     }
     @Test
     public void testGetNbbRttAvecMiTemps() {
@@ -185,7 +185,6 @@ public class EmployeTest {
             "'2044-01-01', 42", // vendredi bissextile
             "'2029-01-01', 43", // samedi bissextile
             "'2040-01-01', 44", // dimanche bissextile
-
     })
     public void testGetNbRttAvecParametre(LocalDate jourNbRtt, Integer expectedRtt) {
         // Given
