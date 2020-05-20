@@ -1,7 +1,5 @@
 package com.ipiecoles.java.java350.model;
 
-import com.sun.media.jfxmedia.logging.Logger;
-import org.apache.commons.logging.Log;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
