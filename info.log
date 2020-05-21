@@ -1,0 +1,31 @@
+2020-03-13 09:40:18 - INFO  - Starting Java350Application on MacBook-Pro-de-champeme.local with PID 6072 (/Users/champeme/Desktop/ipi-java-350-ex/target/classes started by champeme in /Users/champeme/Desktop/ipi-java-350-ex)
+2020-03-13 09:40:18 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-13 09:40:21 - INFO  - Started Java350Application in 3.117 seconds (JVM running for 4.497)
+2020-03-13 09:41:31 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-13 09:41:31 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-13 09:41:31 - ERROR - Limite des 100000 matricules atteinte !
+2020-03-13 09:41:31 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-13 09:41:31 - INFO  - Embauche de l'employé John Doe diplômé de BTS_IUT en tant que TECHNICIEN avec un taux d'activité de 1.0 
+2020-03-13 09:41:31 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-13 09:41:31 - ERROR - L'employé de matricule M00001 existe déjà en BDD
+2020-03-13 09:41:32 - INFO  - Starting EmployeServiceIntegrationTest on MacBook-Pro-de-champeme.local with PID 6087 (started by champeme in /Users/champeme/Desktop/ipi-java-350-ex)
+2020-03-13 09:41:32 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-13 09:41:34 - INFO  - Started EmployeServiceIntegrationTest in 2.577 seconds (JVM running for 5.248)
+2020-03-13 09:41:34 - INFO  - Embauche de l'employé John Doe diplômé de BTS_IUT en tant que TECHNICIEN avec un taux d'activité de 1.0 
+2020-03-13 09:41:35 - INFO  - Starting EmployeRepositoryTest on MacBook-Pro-de-champeme.local with PID 6087 (started by champeme in /Users/champeme/Desktop/ipi-java-350-ex)
+2020-03-13 09:41:35 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-13 09:41:35 - INFO  - Started EmployeRepositoryTest in 0.375 seconds (JVM running for 6.029)
+2020-03-13 11:32:10 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-13 11:32:10 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-13 11:32:10 - ERROR - Limite des 100000 matricules atteinte !
+2020-03-13 11:32:10 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-13 11:32:10 - INFO  - Embauche de l'employé John Doe diplômé de BTS_IUT en tant que TECHNICIEN avec un taux d'activité de 1.0 
+2020-03-13 11:32:10 - INFO  - Embauche de l'employé John Doe diplômé de MASTER en tant que MANAGER avec un taux d'activité de 0.5 
+2020-03-13 11:32:10 - ERROR - L'employé de matricule M00001 existe déjà en BDD
+2020-03-13 11:32:11 - INFO  - Starting EmployeServiceIntegrationTest on MacBook-Pro-de-champeme.local with PID 6342 (started by champeme in /Users/champeme/Desktop/ipi-java-350-ex)
+2020-03-13 11:32:11 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-13 11:32:14 - INFO  - Started EmployeServiceIntegrationTest in 3.271 seconds (JVM running for 6.45)
+2020-03-13 11:32:14 - INFO  - Embauche de l'employé John Doe diplômé de BTS_IUT en tant que TECHNICIEN avec un taux d'activité de 1.0 
+2020-03-13 11:32:14 - INFO  - Starting EmployeRepositoryTest on MacBook-Pro-de-champeme.local with PID 6342 (started by champeme in /Users/champeme/Desktop/ipi-java-350-ex)
+2020-03-13 11:32:14 - INFO  - No active profile set, falling back to default profiles: default
+2020-03-13 11:32:15 - INFO  - Started EmployeRepositoryTest in 0.618 seconds (JVM running for 7.598)

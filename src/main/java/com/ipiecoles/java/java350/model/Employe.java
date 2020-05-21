@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -59,7 +61,7 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
+        int i1 = d.isLeapYear() ? 366 : 365;
         int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
             case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
@@ -104,8 +106,13 @@ public class Employe {
         return Math.round(prime * this.tempsPartiel * 100)/100.0;
     }
 
-    //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) throws Exception {
+        if(pourcentage > 0) {
+            this.salaire = Double.valueOf(Math.round(salaire * (1 + (pourcentage/100))));
+        } else {
+            throw new EmployeException("Une mauvaise valeur a été saisie.");
+        }
+    }
 
     public Long getId() {
         return id;
