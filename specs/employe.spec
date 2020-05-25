@@ -7,3 +7,6 @@
 * Soit un employé appelé "John" "Doe" de matricule "C00123"
 * J'embauche une personne appelée "Jane" "Doe" diplômée d'un "master" en tant que "Manager" à "mi-temps".
 * J'obtiens bien un nouvel employé appelé "Jane" "Doe" portant le matricule "M00124" et touchant un salaire de "1064.85"€.
+
+## Calcul de performance d'un commercial
+* Je calcule les performances du commercial "Franck" "Terrio" de matricule "C05362" ayant pour objectif "5000"€ et ayant réalisé un chiffre d'affaire traité de "3068.65"€

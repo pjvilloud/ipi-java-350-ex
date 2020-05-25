@@ -58,16 +58,27 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;
-        int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-            case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-            case FRIDAY: if(d.isLeapYear()) var =  var + 2; else var =  var + 1;
-            case SATURDAY: var = var + 1; break;
+    public Integer getNbRtt(LocalDate date){
+        int nbJoursDansAnnee = date.isLeapYear() ? 366 : 365;
+        int nbSamediDimancheDansAnnee = 104;
+        DayOfWeek todayDate = LocalDate.of(date.getYear(),1,1).getDayOfWeek();
+        switch (todayDate){
+            case FRIDAY:
+                if(date.isLeapYear()) nbSamediDimancheDansAnnee++;
+                break;
+            case SATURDAY:
+                if(date.isLeapYear()){
+                    nbSamediDimancheDansAnnee += 2;
+                } else {
+                    nbSamediDimancheDansAnnee++;
+                }
+                break;
+            case SUNDAY:
+                nbSamediDimancheDansAnnee++;
+                break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        long NbJoursFeriePasWE = Entreprise.joursFeries(date).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        return (int) Math.ceil((nbJoursDansAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nbSamediDimancheDansAnnee - Entreprise.NB_CONGES_BASE - NbJoursFeriePasWE) * tempsPartiel);
     }
 
     /**
@@ -105,7 +116,13 @@ public class Employe {
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) throws Exception {
+        if(pourcentage >= 0){
+            this.setSalaire((double) Math.round(this.salaire + (this.salaire * pourcentage / 100)));
+        } else {
+            throw new Exception("Le pourcentage doit être positif");
+        }
+    }
 
     public Long getId() {
         return id;
