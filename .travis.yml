@@ -1,4 +1,2 @@
 language: java
-rvm:
- - 15.0.1
- - openjdk-15
+
