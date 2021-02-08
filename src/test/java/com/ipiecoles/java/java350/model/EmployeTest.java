@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class EmployeTest {
 
     @Test
-    public void testNbAnneeAncienneteNow() {
+    void testNbAnneeAncienneteNow() {
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now());
@@ -23,7 +23,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testNbAnneeAncienneteNowMoins2() {
+    void testNbAnneeAncienneteNowMoins2() {
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now().minusYears(2));
@@ -36,7 +36,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testNbAnneeAncienneteNowPlus3() {
+    void testNbAnneeAncienneteNowPlus3() {
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now().plusYears(3));
@@ -49,7 +49,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testNbAnneeAncienneteNull() {
+    void testNbAnneeAncienneteNull() {
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(null);
@@ -62,7 +62,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testPrimeAnnuelleUnitaire() {
+    void testPrimeAnnuelleUnitaire() {
         //Given
         Employe employe = new Employe();
         employe.setMatricule("C12345");
@@ -84,7 +84,7 @@ public class EmployeTest {
             "'M12345', 1.0, 0, 1, 1700.0",
             "'C12345', 1.0, 2, 2, 2500.0"
     })
-    public void testGetPrimeAnnuelle(String matricule, Double tempsPartiel, Integer nbAnneeAnciennete, Integer performance, Double primeCalculee) {
+    void testGetPrimeAnnuelle(String matricule, Double tempsPartiel, Integer nbAnneeAnciennete, Integer performance, Double primeCalculee) {
         //Given
         Employe employe = new Employe();
         employe.setMatricule(matricule);
