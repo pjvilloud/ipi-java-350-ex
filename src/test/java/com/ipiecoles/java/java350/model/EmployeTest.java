@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 
-public class EmployeTest {
+class EmployeTest {
 
     @Test
     void testNbAnneeAncienneteNow() {
@@ -19,7 +19,7 @@ public class EmployeTest {
         Integer nbAnnees = employe.getNombreAnneeAnciennete();
 
         //Then
-        Assertions.assertThat(nbAnnees).isEqualTo(0);
+        Assertions.assertThat(nbAnnees).isZero();
     }
 
     @Test
