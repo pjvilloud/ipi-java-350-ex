@@ -35,5 +35,16 @@ public class EmployeTest {
     }
 
 
+    @Test // un test basique
+    public void testGetNombreAnneeAncienneteAvecDateEmbaucheSupérieurNow(){
+        // Given
+        Employe employe = new Employe("Doe", "John", "T12345", LocalDate.now().plusYears(6), 1500d, 1, 1.0);
+
+        //When
+        Integer anneeAnciennete = employe.getNombreAnneeAnciennete();
+
+        //Then
+        Assertions.assertThat(anneeAnciennete).isEqualTo(-6);
+    }
 
 }
