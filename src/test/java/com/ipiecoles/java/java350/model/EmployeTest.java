@@ -47,4 +47,16 @@ public class EmployeTest {
         Assertions.assertThat(anneeAnciennete).isNull();
     }
 
+
+    @Test
+    public void testGetNbAnneeAncienneteDateEmbaucheNow(){
+        //Given
+        Employe employe = new Employe("Doe", "John", "T12345",
+                LocalDate.now(), 1500d, 1, 1.0);
+        //When
+        Integer anneeAnciennete = employe.getNombreAnneeAnciennete();
+        //Then
+        Assertions.assertThat(anneeAnciennete).isEqualTo(0);
+    }
+
 }
