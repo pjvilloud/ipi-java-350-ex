@@ -44,7 +44,7 @@ public class EmployeTest {
         Integer anneeAnciennete = employe.getNombreAnneeAnciennete();
 
         //Then
-        Assertions.assertThat(anneeAnciennete).isEqualTo(-6);
+        Assertions.assertThat(anneeAnciennete).isNull();
     }
 
 }
