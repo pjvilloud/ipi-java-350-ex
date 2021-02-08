@@ -13,12 +13,13 @@ public class EmployeTest {
     public void testGetNombreAnneeAncienneteAvecDateEmbaucheNull(){
         // Given
         Employe employe = new Employe();
+        employe.setDateEmbauche(null);
 
         //When
         Integer duree = employe.getNombreAnneeAnciennete();
 
         //Then
-        Assertions.assertThat(duree).isEqualTo(null);
+        Assertions.assertThat(duree).isNull();
     }
 
     @Test // un test basique
