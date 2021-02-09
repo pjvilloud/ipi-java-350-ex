@@ -63,6 +63,37 @@ class EmployeServiceTest {
 
     }
 
+    @Test //////////Un TU avec mock
+    public void testEmbaucheEmployeSupplementaire() throws EmployeException {
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.TECHNICIEN;
+        NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+        Double tempsPartiel = 1.0;
+        String employeExistant = "T00002";
 
+        //on simule qu'aucun employé dans la bdd en utilisant null
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn("00001");
+
+        //On simule la recherche par matricule qui ne renvoie pas de résultat
+        Mockito.when(employeRepository.findByMatricule("T00002")).thenReturn(null);
+        //==>on peut utiliser Mockito.anyString(), pour dire quelque soit la valeur à la place du String "T01"
+
+
+        //When
+        //la méthode sauvegarde
+        Employe employe = employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+
+        //Then
+        Assertions.assertThat(employe).isNotNull();
+        Assertions.assertThat(employe.getNom()).isEqualTo(nom);
+        Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1825.46);
+        Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(1.0);
+        Assertions.assertThat(employe.getDateEmbauche()).isEqualTo(LocalDate.now());
+        Assertions.assertThat(employe.getMatricule()).isEqualTo("T00002");
+
+    }
 }
 
