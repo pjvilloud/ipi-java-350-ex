@@ -43,15 +43,15 @@ class EmployeServiceTest {
         //Then
         //On vérifie que l'employe est bien créé
         //mais pour que le test ne plante pas on crée une liste d'employé
-        //List<Employe> employes = employeRepository.findAll();
-        //Assertions.assertThat(employes).hasSize(1);
+        List<Employe> employes = employeRepository.findAll();
+        Assertions.assertThat(employes).hasSize(1);
 
         //On fait le test d'intégration
-        //Employe employe = employeRepository.findAll().get(0);
-        //Assertions.assertThat(employe.getNom()).isEqualTo(nom);
+        Employe employe = employeRepository.findAll().get(0);
+        Assertions.assertThat(employe.getNom()).isEqualTo(nom);
         //=>on peut utiliser le repo autrement avec
-        Employe employe = employeRepository.findByMatricule("T00001");
-        Assertions.assertThat(employe).isNotNull();
+        //Employe employe = employeRepository.findByMatricule("T00001");
+        //Assertions.assertThat(employe).isNotNull();
 
         Assertions.assertThat(employe.getNom()).isEqualTo(nom);
         Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
