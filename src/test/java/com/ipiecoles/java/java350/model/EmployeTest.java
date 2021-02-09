@@ -9,6 +9,7 @@ import static com.ipiecoles.java.java350.model.Employe.*;
 
 public class EmployeTest {
 
+    /////////////////////////////////////////Test Unitaire
     @Test // un test basique
     public void testGetNombreAnneeAncienneteAvecDateEmbaucheNull(){
         // Given
@@ -82,11 +83,15 @@ public class EmployeTest {
 
 
     @Test //version TU simple
-    public void testGetPrimeAnnuelle(){
+    public void testGetPrimeAnnuellePourUnEmployeATempsPartiel(){
+        Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now());
+        employe.setTempsPartiel(0.5);
 
+        Double prime = employe.getPrimeAnnuelle();
 
-
-
+        //primme annuelle de base = 1000d
+        Assertions.assertThat(prime).isEqualTo(500);
 
     }
 
