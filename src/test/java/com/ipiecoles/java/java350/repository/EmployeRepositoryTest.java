@@ -1,14 +1,13 @@
 package com.ipiecoles.java.java350.repository;
 
 
-import com.ipiecoles.java.java350.Java350Application;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import com.ipiecoles.java.java350.model.Employe;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.time.LocalDate;
 
 //@ExtendWith(SpringExtension.class) //Junit 5
 //@DataJpaTest  // ou @SpringBootTest ==> cette ligne suffit pour tester le repo tout seul (mais il faut aussi celle du dessus)
@@ -20,15 +19,21 @@ class EmployeRepositoryTest {
     @Autowired
     EmployeRepository employeRepository;
 
+    //TU pour tester le dernier numéro de matricule enregistré en bdd
     @Test
     public void testFindLastMatricule(){
         //given
         //insert des données en base
+        employeRepository.save(new Employe("Doe", "John", "T012345", LocalDate.now(), 1500d, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), 1500d, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "John", "T2345", LocalDate.now(), 1500d, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "John", "T345", LocalDate.now(), 1500d, 1, 1.0));
 
         //when
-        employeRepository.findLastMatricule();
+        //execute la requête dans la bdd
+        String lastMatricule = employeRepository.findLastMatricule();
 
         //Then
-
+        Assertions.assertThat(lastMatricule).isEqualTo("345"); //le Test enlevé lors de l'insertion
     }
 }
