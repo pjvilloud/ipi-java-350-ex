@@ -7,13 +7,15 @@ import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-import java.util.List;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class EmployeServiceTest {
 
     //Problème, les services ont des dépendances extérieurs,
@@ -23,11 +25,13 @@ class EmployeServiceTest {
     //On va utiliser des Mocks pour simuler le comportement de la classe repository
     //On va écrire des TU avec des Mocks
 
+    @InjectMocks // pour dire que tous les mock vont être injecté ici
     private EmployeService employeService;
 
+    @Mock //ce qu'on veut mocker
     private EmployeRepository employeRepository;
 
-    @Test
+    @Test //////////Un TU avec mock
     public void testEmbauchePremierEmploye() throws EmployeException {
         //Given
         String nom = "Doe";
@@ -36,14 +40,28 @@ class EmployeServiceTest {
         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;
 
+        //on simule qu'aucun employé dans la bdd en utilisant null
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
+
+        //On simule la recherche par matricule qui ne renvoie pas de résultat
+        Mockito.when(employeRepository.findByMatricule("T00001")).thenReturn(null);
+        //==>on peut utiliser Mockito.anyString(), pour dire quelque soit la valeur à la place du String "T01"
+
+
         //When
-        //la méthode renvoie une exception donc on ajoute le throws à la méthode
+        //la méthode sauvegarde
         Employe employe = employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
 
         //Then
+        Assertions.assertThat(employe).isNotNull();
+        Assertions.assertThat(employe.getNom()).isEqualTo(nom);
+        Assertions.assertThat(employe.getPrenom()).isEqualTo(prenom);
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1825.46);
+        Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(1.0);
+        Assertions.assertThat(employe.getDateEmbauche()).isEqualTo(LocalDate.now());
+        Assertions.assertThat(employe.getMatricule()).isEqualTo("T00001");
 
     }
-
 
 
 }
