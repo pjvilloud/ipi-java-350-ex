@@ -11,9 +11,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 //@ExtendWith(SpringExtension.class) //Junit 5
-//@DataJpaTest  // ou @SpringBootTest ==> cette ligne suffit pour tester le repo tout seul
+//@DataJpaTest  // ou @SpringBootTest ==> cette ligne suffit pour tester le repo tout seul (mais il faut aussi celle du dessus)
 //@ContextConfiguration(classes = {Java350Application.class}) //Pour définir le contexte de l'appli (spécifique pour l'appli (car il y a son nom))
-@SpringBootTest //==> dans le cas ou on utilise Spring Boot
+@SpringBootTest //==> dans le cas ou on utilise Spring Boot seule cette ligne suffit
 class EmployeRepositoryTest {
 
     //on importe la classe pour la tester
@@ -21,7 +21,7 @@ class EmployeRepositoryTest {
     EmployeRepository employeRepository;
 
     @Test
-    public void test(){
+    public void testFindLastMatricule(){
         //given
         //insert des données en base
 
