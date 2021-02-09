@@ -184,11 +184,9 @@ public class EmployeTest {
 
     //pour nettoyer aller dans onglet maven
     //lifestyle
-    //clean
-    //install/ou compile (celui qui fonctionne)
-    //et relancer le plugin pitest
-
-    //si tout ok message build ok
+    //clean (supprime les anciens rapports)
+    //install (réinstalle le plugin, même si rouge faire un test pitest)
+    //et relancer le plugin pitest ==> si tout ok message build ok
 
 
 }
