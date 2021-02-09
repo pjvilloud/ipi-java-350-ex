@@ -2,10 +2,11 @@ package com.ipiecoles.java.java350.model;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 
-import static com.ipiecoles.java.java350.model.Employe.*;
 
 public class EmployeTest {
 
@@ -78,7 +79,6 @@ public class EmployeTest {
 
     //3) écrire un TU simple qui teste un des scénarios
 
-
     //4) dupliquer et transformer le scénario en test préparé testant tous les scénarios
 
 
@@ -95,7 +95,7 @@ public class EmployeTest {
 
     }
 
-    @Test // exemple correction
+    @Test // exemple correction de TU
     public void testGetPrimeAnnuelle(){
         //Given
         Integer performance = 1; //voir dans la classe correspondant
@@ -113,10 +113,22 @@ public class EmployeTest {
         Double primeAttendue = 1000D; //dans notre cas, on va la prime de base donc 1000 -> vu dans la classe
         Assertions.assertThat(prime).isEqualTo(primeAttendue);
 
-
-
-
     }
 
+    ////version Test paramétré
+    @ParameterizedTest
+    @CsvSource({
+            "1, 'T12345', 1.0, 0"
+    })
+    public void testGetPrimeAnnuelleVersionTestPrepare(
+            Integer performance, String matricule, Double tauxActivite, Long nbAnneeAnciennete){
+
+        //Given, When, Then
+        Employe employe = new Employe("Doe", "John", matricule,
+                LocalDate.now().minusYears(nbAnneeAnciennete), 1500d, performance, tauxActivite);
+        Double primeAttendue = 1000D;
+
+        Assertions.assertThat(employe.getPrimeAnnuelle()).isEqualTo(primeAttendue);
+    }
 
 }
