@@ -64,7 +64,7 @@ public class EmployeService {
         Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
 
         return employeRepository.save(employe);
-        //On modifie légèrement la classe pour pouvoir faire les TU de EmployeServiceTest
+        //On modifie légèrement la classe pour pouvoir faire les TU dans EmployeServiceTest (on a changé le retour de la classe en Employe)
     }
 
 
