@@ -140,7 +140,8 @@ public class EmployeTest {
             "2, 'T12345', 1.0, 0, 2300", //une meilleure performance
             "1, 'T12345', 1.0, 2, 1200",  //avec 2 ans d'anciennetée
             "1, 'M12345', 1.0, 0, 1700",  //on test un manager
-            "2, 'T12345', 1.0, 1, 2400",  //pour tester le cas du code zombie (ligne 103)
+            "2, 'T12345', 1.0, 1, 2400",  //pour tester le cas du code zombie (ligne 99)
+            "1, 'M12345', 1.0, 3, 2000",  //pour le code zombie de la (ligne 103)
     })
     public void testGetPrimeAnnuelleVersionTestPrepareCasNormaux(
             Integer performance, String matricule, Double tauxActivite, Long nbAnneeAnciennete, Double primeAttendue){
