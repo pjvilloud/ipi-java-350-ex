@@ -173,6 +173,22 @@ public class EmployeTest {
     //////////////////////////////////Test de mutation
     //il s'agit du plugin pitest (dans le pom.xml)
     //désormais il est dans le goal maven
+    //pour lancer aller dans l'onglet maven (à gauche)
+    //dans plugins
+    //puis pitest:mutationCoverage
+    //aller dans target (arborescence à droite)
+    //dans pit-reports
+    //choisir le dernier dossier (avec un numéro bizzare)
+    //et sur index.html
+    //clique droit et open browser
+
+    //pour nettoyer aller dans onglet maven
+    //lifestyle
+    //clean
+    //install/ou compile (celui qui fonctionne)
+    //et relancer le plugin pitest
+
+    //si tout ok message build ok
 
 
 }
