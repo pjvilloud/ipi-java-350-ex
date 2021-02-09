@@ -133,9 +133,12 @@ public class EmployeTest {
 
 
     ////version Test paramétré Corrigé
-    @ParameterizedTest(name = "Perf {0}, matricule {1}, txActivite {2}, anciennete {3}, => prime {4}")
+    @ParameterizedTest(name = "Perf {0}, matricule {1}, txActivite {2}, anciennete {3}, => prime {4}") //permet d'avoir une version nommée du test
     @CsvSource({
-            "1, 'T12345', 1.0, 0, 1000"
+            "1, 'T12345', 1.0, 0, 1000",
+            "1, 'T12345', 0.5, 0, 500",  //un temps partiel
+            "2, 'T12345', 1.0, 0, 2300", //une meilleure performance
+            "1, 'T12345', 1.0, 2, 1200"  //avec 2 ans d'anciennetée
     })
     public void testGetPrimeAnnuelleVersionTestPrepare(
             Integer performance, String matricule, Double tauxActivite, Long nbAnneeAnciennete, Double primeAttendue){
