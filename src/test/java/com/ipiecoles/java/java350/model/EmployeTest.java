@@ -95,6 +95,28 @@ public class EmployeTest {
 
     }
 
+    @Test // exemple correction
+    public void testGetPrimeAnnuelle(){
+        //Given
+        Integer performance = 1; //voir dans la classe correspondant
+        String matricule = "T12345";
+        Double tauxActivite = 1.0;
+        Long nbAnneeAnciennete = 0L;
+
+        Employe employe = new Employe("Doe", "John", matricule,
+                LocalDate.now().minusYears(nbAnneeAnciennete), 1500d, performance, tauxActivite);
+
+        //When
+        Double prime = employe.getPrimeAnnuelle();
+
+        //Then
+        Double primeAttendue = 1000D; //dans notre cas, on va la prime de base donc 1000 -> vu dans la classe
+        Assertions.assertThat(prime).isEqualTo(primeAttendue);
+
+
+
+
+    }
 
 
 }
