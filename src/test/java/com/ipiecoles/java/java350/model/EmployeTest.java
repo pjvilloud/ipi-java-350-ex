@@ -132,7 +132,7 @@ public class EmployeTest {
 //    }
 
 
-    ////version Test paramétré Corrigé
+    ////version Test paramétré Corrigé ==> cas normaux
     @ParameterizedTest(name = "Perf {0}, matricule {1}, txActivite {2}, anciennete {3}, => prime {4}") //permet d'avoir une version nommée du test
     @CsvSource({
             "1, 'T12345', 1.0, 0, 1000",
@@ -140,7 +140,7 @@ public class EmployeTest {
             "2, 'T12345', 1.0, 0, 2300", //une meilleure performance
             "1, 'T12345', 1.0, 2, 1200"  //avec 2 ans d'anciennetée
     })
-    public void testGetPrimeAnnuelleVersionTestPrepare(
+    public void testGetPrimeAnnuelleVersionTestPrepareCasNormaux(
             Integer performance, String matricule, Double tauxActivite, Long nbAnneeAnciennete, Double primeAttendue){
 
         //Given, When, Then
@@ -151,6 +151,21 @@ public class EmployeTest {
 
         Assertions.assertThat(prime).isEqualTo(primeAttendue);
     }
+
+    ////Un test limite
+    //Les tests limites d'avoir être plutôt géré en tu
+    @Test
+    public void testGetPrimeAnnuelleMatriculeNull(){
+
+        //Given, When, Then
+        Employe employe = new Employe("Doe", "John", null,
+                LocalDate.now().minusYears(0), 1500d, 1, 1.0);
+
+        Double prime = employe.getPrimeAnnuelle();
+
+        Assertions.assertThat(prime).isEqualTo(1000);
+    }
+
 
 
 }
