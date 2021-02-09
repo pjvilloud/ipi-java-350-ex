@@ -40,6 +40,7 @@ class EmployeRepositoryTest {
 
 
     //TU : ATTENTION PROBLEME D'ENTANCHEITE DES TESTS car si on teste les 2 méthodes la deuxième plante car pour lui il y a des employé en bdd
+    //il y a une sorte d'héritage des méthodes précédentes
     @Test
     public void testFindLastMatricule0Employe(){
         //given
@@ -51,6 +52,24 @@ class EmployeRepositoryTest {
 
         //Then
         Assertions.assertThat(lastMatricule).isNull(); //car on test 0
+    }
+
+    //test avec des matricule très différentes permet de vérifier que l'on se base que sur la partie numérique
+    @Test
+    public void testFindLastMatriculeNEmploye(){
+        //given
+        //insert des données en base
+        employeRepository.save(new Employe("Doe", "John", "T12345", LocalDate.now(), 1500d, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "J", "M42345", LocalDate.now(), 1500d, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "Jan", "T2345", LocalDate.now(), 1500d, 1, 1.0));
+        employeRepository.save(new Employe("Doe", "Jim", "C01345", LocalDate.now(), 1500d, 1, 1.0));
+
+        //when
+        //execute la requête dans la bdd
+        String lastMatricule = employeRepository.findLastMatricule(); //la méthode enlève la lettre pour ne donner que le nombre
+
+        //Then
+        Assertions.assertThat(lastMatricule).isEqualTo("42345");
     }
 
 }
