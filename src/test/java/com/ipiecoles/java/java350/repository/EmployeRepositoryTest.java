@@ -20,6 +20,37 @@ class EmployeRepositoryTest {
     @Autowired
     EmployeRepository employeRepository;
 
+
+//
+//    //En exemple, toutes les méthodes (commande @) qui s'effectuent avant ou après les tests :
+//
+//        @BeforeAll // Junit 5
+//        public void setUp(){//Nom setUp arbitraire
+//            //Appelé une seule fois avant l'exécution des tests
+//        }
+//        @BeforeEach // Junit 5
+//        public void before(){//Nom before arbitraire
+//            //Appelé avant chaque test
+//        }
+//        @AfterEach //Junit 5
+//        public void after(){//Nom after arbitraire
+//            //Appelé après chaque test
+//        }
+//        @AfterAll // Junit 5
+//        public void tearDown(){//Nom tearDown arbitraire
+//            //Appelé une fois que tous les tests sont passés
+//        }
+//
+
+    //Pour régler le problème d'étanchéité
+    @BeforeEach //à faire avant tous les tests
+    @AfterEach //a faire après tous les tests
+    public void purgeBDD(){//Nom setUp arbitraire
+            employeRepository.deleteAll();
+        }
+
+
+
     //TU (<= même si on fait un peu d'insertion)  pour tester le dernier numéro de matricule enregistré en bdd
     @Test
     public void testFindLastMatriculeUnEmploye(){
@@ -39,7 +70,7 @@ class EmployeRepositoryTest {
     }
 
 
-    //TU : ATTENTION PROBLEME D'ENTANCHEITE DES TESTS car si on teste les 2 méthodes la deuxième plante car pour lui il y a des employé en bdd
+    //TU : ATTENTION PROBLEME D'ETANCHEITE DES TESTS car si on teste les 2 méthodes la deuxième plante car pour lui il y a des employé en bdd
     //il y a une sorte d'héritage des méthodes précédentes
     @Test
     public void testFindLastMatricule0Employe(){
@@ -71,5 +102,8 @@ class EmployeRepositoryTest {
         //Then
         Assertions.assertThat(lastMatricule).isEqualTo("42345");
     }
+
+
+
 
 }
