@@ -39,6 +39,18 @@ class EmployeRepositoryTest {
     }
 
 
+    //TU 
+    @Test
+    public void testFindLastMatricule0Employe(){
+        //given
+        //insert des données en base
 
+        //when
+        //execute la requête dans la bdd
+        String lastMatricule = employeRepository.findLastMatricule(); //la méthode enlève la lettre pour ne donner que le nombre
+
+        //Then
+        Assertions.assertThat(lastMatricule).isNull(); //car on test 0
+    }
 
 }
