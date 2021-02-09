@@ -138,7 +138,8 @@ public class EmployeTest {
             "1, 'T12345', 1.0, 0, 1000",
             "1, 'T12345', 0.5, 0, 500",  //un temps partiel
             "2, 'T12345', 1.0, 0, 2300", //une meilleure performance
-            "1, 'T12345', 1.0, 2, 1200"  //avec 2 ans d'anciennetée
+            "1, 'T12345', 1.0, 2, 1200",  //avec 2 ans d'anciennetée
+            "1, 'M12345', 1.0, 0, 1700"   //on test un manager
     })
     public void testGetPrimeAnnuelleVersionTestPrepareCasNormaux(
             Integer performance, String matricule, Double tauxActivite, Long nbAnneeAnciennete, Double primeAttendue){
@@ -153,7 +154,7 @@ public class EmployeTest {
     }
 
     ////Un test limite
-    //Les tests limites d'avoir être plutôt géré en tu
+    //Les tests limites doivent être plutôt géré en TU
     @Test
     public void testGetPrimeAnnuelleMatriculeNull(){
 
