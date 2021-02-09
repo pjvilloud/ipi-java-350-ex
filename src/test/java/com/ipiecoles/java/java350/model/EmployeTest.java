@@ -115,20 +115,39 @@ public class EmployeTest {
 
     }
 
-    ////version Test paramétré
-    @ParameterizedTest
+//    ////version Test paramétré
+//    @ParameterizedTest
+//    @CsvSource({
+//            "1, 'T12345', 1.0, 0"
+//    })
+//    public void testGetPrimeAnnuelleVersionTestPrepare(
+//            Integer performance, String matricule, Double tauxActivite, Long nbAnneeAnciennete){
+//
+//        //Given, When, Then
+//        Employe employe = new Employe("Doe", "John", matricule,
+//                LocalDate.now().minusYears(nbAnneeAnciennete), 1500d, performance, tauxActivite);
+//        Double primeAttendue = 1000D;
+//
+//        Assertions.assertThat(employe.getPrimeAnnuelle()).isEqualTo(primeAttendue);
+//    }
+
+
+    ////version Test paramétré Corrigé
+    @ParameterizedTest(name = "Perf {0}, matricule {1}, txActivite {2}, anciennete {3}, => prime {4}")
     @CsvSource({
-            "1, 'T12345', 1.0, 0"
+            "1, 'T12345', 1.0, 0, 1000"
     })
     public void testGetPrimeAnnuelleVersionTestPrepare(
-            Integer performance, String matricule, Double tauxActivite, Long nbAnneeAnciennete){
+            Integer performance, String matricule, Double tauxActivite, Long nbAnneeAnciennete, Double primeAttendue){
 
         //Given, When, Then
         Employe employe = new Employe("Doe", "John", matricule,
                 LocalDate.now().minusYears(nbAnneeAnciennete), 1500d, performance, tauxActivite);
-        Double primeAttendue = 1000D;
 
-        Assertions.assertThat(employe.getPrimeAnnuelle()).isEqualTo(primeAttendue);
+        Double prime = employe.getPrimeAnnuelle();
+
+        Assertions.assertThat(prime).isEqualTo(primeAttendue);
     }
+
 
 }
