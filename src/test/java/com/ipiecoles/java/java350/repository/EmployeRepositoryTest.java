@@ -43,12 +43,12 @@ class EmployeRepositoryTest {
 //
 
     //Pour régler le problème d'étanchéité
-    @BeforeEach //à faire avant tous les tests
-    @AfterEach //a faire après tous les tests
+    @BeforeEach //à faire avant chaque tests
+    @AfterEach //a faire après chaque tests
     public void purgeBDD(){//Nom setUp arbitraire
             employeRepository.deleteAll();
         }
-
+    //==> contrairement à ceux en All qui se font avant/après avoir effectués tous les tests
 
 
     //TU (<= même si on fait un peu d'insertion)  pour tester le dernier numéro de matricule enregistré en bdd
