@@ -216,29 +216,30 @@ class EmployeServiceTest {
 //
 //    }
 //
-//
-//    @Test //////////Un TU avec UNE EXCEPTION
-//    public void testEmbaucheEmployeLimiteMatricule() {
-//        //Given
-//        String nom = "Doe";
-//        String prenom = "John";
-//        Poste poste = Poste.TECHNICIEN;
-//        NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
-//        Double tempsPartiel = 1.0;
-//
-//        //on simule la bdd pleine (matricule le plus haut)
-//        Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
-//
-//        //When
-//        try {
-//            employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
-//            Assertions.fail("la méthode embaucheEmploye aurait du lever une exception");
-//        }catch (EmployeException e){
-//            //Then
-//            Assertions.assertThat(e.getMessage()).isEqualTo("Limite des 100000 matricules atteinte !");
-//        }
-//    }
-//
+
+    @Test //////////Un TU avec UNE EXCEPTION
+    public void testEmbaucheEmployeLimiteMatricule() {
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.TECHNICIEN;
+        NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+        Double tempsPartiel = 1.0;
+
+        //on simule la bdd pleine (matricule le plus haut)
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
+
+        //When
+        try {
+            employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+            Assertions.fail("la méthode embaucheEmploye aurait du lever une exception");
+        }catch (EmployeException e){
+            //Then
+            Assertions.assertThat(e.getMessage()).isEqualTo("Limite des 100000 matricules atteinte !");
+            Mockito.verify(employeRepository, Mockito.never()).save(Mockito.any(Employe.class));
+        }
+    }
+
 //
 //    @Test //////////Un TU avec UNE EXCEPTION
 //    public void testEmbaucheEmployeExisteDeja() throws EmployeException {
@@ -259,6 +260,7 @@ class EmployeServiceTest {
 //        try {
 //            employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
 //            Assertions.fail("embaucheEmploye aurait dû lancer une exception");
+//
 //        } catch (Exception e){
 //            //Then
 //            Assertions.assertThat(e).isInstanceOf(EntityExistsException.class); //on récupère toutes les exceptions
