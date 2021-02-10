@@ -71,9 +71,8 @@ class EmployeServiceTest {
         Poste poste = Poste.TECHNICIEN;
         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 1.0;
-        String employeExistant = "T00002";
 
-        //on simule qu'aucun employé dans la bdd en utilisant null
+        //on simule la présence d'un employé en retournant un matricule
         Mockito.when(employeRepository.findLastMatricule()).thenReturn("00001");
 
         //On simule la recherche par matricule qui ne renvoie pas de résultat
@@ -105,7 +104,7 @@ class EmployeServiceTest {
         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
         Double tempsPartiel = 0.5;
 
-        //on simule qu'aucun employé dans la bdd en utilisant null
+        //on simule la présence d'un employé en retournant un matricule
         Mockito.when(employeRepository.findLastMatricule()).thenReturn("00001");
 
         //On simule la recherche par matricule qui ne renvoie pas de résultat
@@ -129,7 +128,7 @@ class EmployeServiceTest {
     }
 
     @Test //////////Un TU avec mock
-    public void testEmbaucheEmployeSansTempsDeTravailNull() throws EmployeException {
+    public void testEmbaucheEmployeTempsDeTravailNull() throws EmployeException {
         //Given
         String nom = "Doe";
         String prenom = "John";
@@ -137,7 +136,7 @@ class EmployeServiceTest {
         NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
         Double tempsPartiel = null;
 
-        //on simule qu'aucun employé dans la bdd en utilisant null
+        //on simule la présence d'un employé en retournant un matricule
         Mockito.when(employeRepository.findLastMatricule()).thenReturn("00001");
 
         //On simule la recherche par matricule qui ne renvoie pas de résultat
@@ -159,6 +158,32 @@ class EmployeServiceTest {
         Assertions.assertThat(employe.getMatricule()).isEqualTo("T00002");
 
     }
+
+
+    @Test //////////Un TU avec UNE EXCEPTION
+    public void testEmbaucheEmployeLimiteMatricule() {
+        //Given
+        String nom = "Doe";
+        String prenom = "John";
+        Poste poste = Poste.TECHNICIEN;
+        NiveauEtude niveauEtude = NiveauEtude.BTS_IUT;
+        Double tempsPartiel = 1.0;
+
+        //on simule la bdd pleine (matricule le plus haut)
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
+
+        //When
+        try {
+            employeService.embaucheEmploye(nom, prenom, poste, niveauEtude, tempsPartiel);
+            Assertions.fail("la méthode embaucheEmploye aurait du lever une exception");
+        }catch (EmployeException e){
+            //Then
+            Assertions.assertThat(e.getMessage()).isEqualTo("Limite des 100000 matricules atteinte !");
+        }
+    }
+
+
+
 
 }
 
