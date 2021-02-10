@@ -26,11 +26,16 @@ class EmployeServiceTest {
     //On va utiliser des Mocks pour simuler le comportement de la classe repository
     //On va écrire des TU avec des Mocks
 
+
     @InjectMocks // pour dire que tous les mock vont être injecté ici
     private EmployeService employeService;
 
     @Mock //ce qu'on veut mocker
     private EmployeRepository employeRepository;
+
+
+    //Remarque les mocks sont réinitialisé entre chaque test avec JUnit5
+    
 
     @Test //////////Un TU avec mock
     public void testEmbauchePremierEmploye() throws EmployeException {
