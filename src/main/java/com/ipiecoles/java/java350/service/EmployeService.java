@@ -30,7 +30,7 @@ public class EmployeService {
      * @throws EmployeException Si on arrive au bout des matricules possibles
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
-    public Employe embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+    public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
 
         //Récupération du type d'employé à partir du poste
         String typeEmploye = poste.name().substring(0,1);
@@ -66,8 +66,11 @@ public class EmployeService {
 //        return employeRepository.save(employe);
         //On modifie légèrement la classe pour pouvoir faire les TU dans EmployeServiceTest (on a changé le retour de la classe en Employe)
 
+//        employeRepository.save(employe);
+//        return employe;
+        //on remodifie pour voir un autre TU (sans objet renvoyé)
+
         employeRepository.save(employe);
-        return employe;
     }
 
 
