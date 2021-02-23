@@ -14,7 +14,7 @@ public class Employe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id
+    private Long id;
 
     private String nom;
 
@@ -59,19 +59,35 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
+    //Fonction pour calculer le nombre de Rtt
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;int var = 104;
+        //Nombre de jours dans l'année (bissextile ou non)
+        int nbrJoursAnnee = d.isLeapYear() ? 366 : 365;
+        //Nombre de week-end (samedis + dimanches)
+        int nombreDimanchesSamedis = 104;
+        //Jour du début de l'année
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-        case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-        case FRIDAY:
-        if(d.isLeapYear()) var =  var + 2;
-        else var =  var + 1;
-case SATURDAY:var = var + 1;
-                    break;
+            case THURSDAY:
+                if(d.isLeapYear()){
+                    nombreDimanchesSamedis =  nombreDimanchesSamedis + 1;
+                }
+                break;
+            case FRIDAY:
+                if(d.isLeapYear()){
+                    nombreDimanchesSamedis =  nombreDimanchesSamedis + 2;
+                } else {
+                    nombreDimanchesSamedis =  nombreDimanchesSamedis + 1;
+                }
+                break;
+            case SATURDAY:
+                nombreDimanchesSamedis = nombreDimanchesSamedis + 1;
+                break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate ->
-                localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+        int nbrJoursFeriesHorsWeekend = (int) Entreprise.joursFeries(d).stream()
+                .filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        return (int) Math
+                //Calcul des Rtt: Nombre de jours dans l'année - Nombre de jours travaillés dans l'année en plein temps - Nombre de samedi et dimanche dans l'année - Nombre de jours fériés ne tombant pas le week-end - Nombre de congés payés
+                .ceil((nbrJoursAnnee - Entreprise.NB_JOURS_MAX_FORFAIT - nombreDimanchesSamedis - Entreprise.NB_CONGES_BASE - nbrJoursFeriesHorsWeekend) * tempsPartiel);
     }
 
     /**
@@ -110,7 +126,11 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+        if(pourcentage > 0 && pourcentage != 0){
+            this.salaire = this.salaire * pourcentage;
+        }
+    }
 
     public Long getId() {
         return id;
