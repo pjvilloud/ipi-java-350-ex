@@ -58,7 +58,7 @@ public class Employe {
             if(now.getMonth().getValue() < dateEmbauche.getMonth().getValue())
                 nbAnnee = 0;
             else
-                if(now.getMonth().getValue() < dateEmbauche.getMonth().getValue())
+                if(now.getDayOfMonth() < dateEmbauche.getDayOfMonth())
                     nbAnnee = 0;
 
         return nbAnnee;
