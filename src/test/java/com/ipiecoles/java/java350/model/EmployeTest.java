@@ -39,7 +39,7 @@ public class EmployeTest {
         // Given
         int months = 10;
         Employe employe = new Employe();
-        employe.setDateEmbauche(LocalDate.now().minusYears(months));
+        employe.setDateEmbauche(LocalDate.now().minusMonths(months));
 
         // When
         Integer nbAnneeAnciennete = employe.getNombreAnneeAnciennete();
@@ -67,7 +67,7 @@ public class EmployeTest {
         // Given
         int months = 10;
         Employe employe = new Employe();
-        employe.setDateEmbauche(LocalDate.now().plusYears(months));
+        employe.setDateEmbauche(LocalDate.now().plusMonths(months));
 
         // When
         Integer nbAnneeAnciennete = employe.getNombreAnneeAnciennete();

@@ -48,7 +48,20 @@ public class Employe {
      * @return
      */
     public Integer getNombreAnneeAnciennete() {
-        return LocalDate.now().getYear() - dateEmbauche.getYear();
+        int nbAnnee = 0;
+        LocalDate now = LocalDate.now();
+
+        if(this.dateEmbauche != null)
+            nbAnnee = Math.max(0, now.getYear() - dateEmbauche.getYear());
+
+        if(nbAnnee == 1)
+            if(now.getMonth().getValue() < dateEmbauche.getMonth().getValue())
+                nbAnnee = 0;
+            else
+                if(now.getMonth().getValue() < dateEmbauche.getMonth().getValue())
+                    nbAnnee = 0;
+
+        return nbAnnee;
     }
 
     public Integer getNbConges() {
@@ -59,19 +72,30 @@ public class Employe {
         return getNbRtt(LocalDate.now());
     }
 
-    public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;int var = 104;
-        switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-        case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-        case FRIDAY:
-        if(d.isLeapYear()) var =  var + 2;
-        else var =  var + 1;
-case SATURDAY:var = var + 1;
-                    break;
+    public Integer getNbRtt(LocalDate _year){
+        int nbOfDayThisYear = _year.isLeapYear() ? 366 : 365;
+        int nbOfWeekInAYear = 104;
+
+        switch (LocalDate.of(_year.getYear(),1,1).getDayOfWeek()) {
+            case THURSDAY:
+                if(_year.isLeapYear()) nbOfWeekInAYear++;
+                break;
+
+            case FRIDAY:
+                nbOfWeekInAYear++;
+                if(_year.isLeapYear()) nbOfWeekInAYear++;
+                break;
+
+            default:
+                nbOfWeekInAYear++;
+                break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate ->
-                localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+
+        int nbDayOff = (int) Entreprise.joursFeries(_year).stream().filter( localDate ->
+                localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()
+        ).count();
+
+        return (int) Math.ceil((nbOfDayThisYear - Entreprise.NB_JOURS_MAX_FORFAIT - nbOfWeekInAYear - Entreprise.NB_CONGES_BASE - nbDayOff) * tempsPartiel);
     }
 
     /**
