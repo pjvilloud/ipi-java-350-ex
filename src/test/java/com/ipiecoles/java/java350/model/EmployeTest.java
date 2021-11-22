@@ -1,6 +1,8 @@
 package com.ipiecoles.java.java350.model;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 
@@ -50,5 +52,17 @@ class EmployeTest {
         Integer nombreAnneeAnciennete = employe.getNombreAnneeAnciennete();
         //then
         assertThat(nombreAnneeAnciennete).isNull();
+    }
+    @ParameterizedTest
+    @CsvSource({
+            "'Mh255',0,1,1.0,1700"
+    })
+    void getPrimeAnnuelle(String matricule, Integer nbAnneeAnciennete,Integer performance,Double tempsPartiel,Double primeCalcule){
+        //given
+        Employe employe= new Employe("test","test",matricule,LocalDate.now().minusYears(nbAnneeAnciennete),2000.0,performance,tempsPartiel);
+        //when
+        Double primeAnnuelle = employe.getPrimeAnnuelle();
+        //then
+        assertThat(primeAnnuelle).isEqualTo(primeCalcule);
     }
 }
