@@ -66,7 +66,6 @@ class EmployeTest {
     }
 
 
-
     @ParameterizedTest(name = "Augmentation de {1}% sur {0} euros : {2}")
     @CsvSource({
             "1000.0, 8.0, 1080.0",
