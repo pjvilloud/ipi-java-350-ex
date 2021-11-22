@@ -113,7 +113,9 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+        this.salaire += pourcentage * (this.salaire / 100);
+    }
 
     public Long getId() {
         return id;
