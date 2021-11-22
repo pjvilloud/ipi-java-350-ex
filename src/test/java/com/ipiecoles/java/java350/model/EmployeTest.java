@@ -6,22 +6,28 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.internal.matchers.Null;
 
+import java.io.Console;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeTest {
 
-    @Test
-    void getNombreAnneeAncienneteEmbaucheNow() {
+    @ParameterizedTest(name = "Arrivee il y a {0} ans : {1}")
+    @CsvSource({
+            "0, 0",
+            "-5, 0",
+            "8, 8"
+    })
+    void getNombreAnneeAnciennete(int dateOffset, int result) {
         // Given
-        Employe emp = new Employe("SMITH", "John", "EMP01", LocalDate.now(), 5000.0, 1, 1.0);
+        Employe emp = new Employe("SMITH", "John", "EMP01", LocalDate.now().minusYears(dateOffset), 5000.0, 1, 1.0);
 
         //When
         int res = emp.getNombreAnneeAnciennete();
 
         //Then
-        Assertions.assertThat(res).isEqualTo(0);
+        Assertions.assertThat(res).isEqualTo(result);
     }
 
     @Test
@@ -40,31 +46,6 @@ class EmployeTest {
 
 
     }
-
-    @Test
-    void getNombreAnneeAncienneteEmbaucheFuture() {
-        // Given
-        Employe emp = new Employe("SMITH", "John", "EMP01", LocalDate.of(2022,11,01), 5000.0, 1, 1.0);
-
-        //When
-        int res = emp.getNombreAnneeAnciennete();
-
-        //Then
-        Assertions.assertThat(res).isEqualTo(0);
-    }
-
-    @Test
-    void getNombreAnneeAncienneteEmbauchePast() {
-        // Given
-        Employe emp = new Employe("SMITH", "John", "EMP01", LocalDate.of(2020,10,01), 5000.0, 1, 1.0);
-
-        //When
-        int res = emp.getNombreAnneeAnciennete();
-
-        //Then
-        Assertions.assertThat(res).isEqualTo(1);
-    }
-
 
     @ParameterizedTest(name = "Augmentation de {1}% sur {0} euros : {2}")
     @CsvSource({
