@@ -35,7 +35,6 @@ class EmployeTest {
         // Given
         Employe emp = new Employe("SMITH", "John", "EMP01", null, 5000.0, 1, 1.0);
 
-
         try{
             //When
             int res = emp.getNombreAnneeAnciennete();
@@ -43,8 +42,6 @@ class EmployeTest {
             //Then
             Assertions.assertThat(e).isInstanceOf(NullPointerException.class);
         }
-
-
     }
 
     @ParameterizedTest(name = "Augmentation de {1}% sur {0} euros : {2}")
@@ -66,4 +63,6 @@ class EmployeTest {
         //Then
         Assertions.assertThat(employe.getSalaire()).isEqualTo(salaireAugmente);
     }
+
+
 }

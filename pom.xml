@@ -63,7 +63,7 @@
 		<dependency>
 			<groupId>com.thoughtworks.gauge</groupId>
 			<artifactId>gauge-java</artifactId>
-			<version>0.7.2</version>
+			<version>0.7.15</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -146,6 +146,8 @@
 					</targetTests>
 				</configuration>
 			</plugin>
+
+			<!--
 			<plugin>
 				<groupId>com.thoughtworks.gauge.maven</groupId>
 				<artifactId>gauge-maven-plugin</artifactId>
@@ -162,6 +164,8 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
