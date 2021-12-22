@@ -14,7 +14,7 @@ public class Employe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id
+    private Long id;
 
     private String nom;
 
@@ -48,6 +48,9 @@ public class Employe {
      * @return
      */
     public Integer getNombreAnneeAnciennete() {
+        if(dateEmbauche.isAfter(LocalDate.now())){
+            return 0;
+        }
         return LocalDate.now().getYear() - dateEmbauche.getYear();
     }
 
@@ -64,9 +67,10 @@ public class Employe {
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
         case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
         case FRIDAY:
-        if(d.isLeapYear()) var =  var + 2;
-        else var =  var + 1;
-case SATURDAY:var = var + 1;
+            if(d.isLeapYear()) var =  var + 2;
+            else var =  var + 1;
+            break;
+        case SATURDAY:var = var + 1;
                     break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate ->
@@ -88,6 +92,15 @@ case SATURDAY:var = var + 1;
      */
     //Matricule, performance, date d'embauche, temps partiel, prime
     public Double getPrimeAnnuelle(){
+
+        if(!matricule.startsWith("M") && !matricule.startsWith("C")){
+            throw new IllegalArgumentException("Le matricule n'est pas valide");
+        }
+
+        if(matricule == null){
+            throw new NullPointerException("Le matricule est null");
+        }
+
         //Calcule de la prime d'ancienneté
         Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
         Double prime;
@@ -110,7 +123,9 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+        this.salaire += pourcentage * (this.salaire / 100);
+    }
 
     public Long getId() {
         return id;
