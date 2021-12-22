@@ -65,4 +65,60 @@ class EmployeTest {
         //then
         assertThat(primeAnnuelle).isEqualTo(primeCalcule);
     }
+    @ParameterizedTest
+    @CsvSource({
+            "1500,5,1575",
+            "2000,3,2060",
+    })
+    void augmenterSalaire(double salaire,double pourcentage, double salaireAugmente){
+        // given
+        Employe employe= new Employe("Fall","Abdou Aziz","C1996",LocalDate.of(2015,05,9),salaire,1,20.0);
+
+        //when
+        employe.augmenterSalaire(pourcentage);
+        //Then
+        assertEquals(employe.getSalaire(),salaireAugmente);
+
+    }
+
+    @Test
+    void whenSalaireIsNull(){
+        //given
+        Employe employe= new Employe();
+        employe.setSalaire(null);
+        //when
+        employe.augmenterSalaire(2);
+        //then
+        assertThat(employe.getSalaire()).isNull();
+    }
+    @Test
+    void whenSalaireEgalZero(){
+        //given
+        Employe employe= new Employe();
+        employe.setSalaire(0.0);
+        //when
+        employe.augmenterSalaire(2);
+        //then
+        assertThat(employe.getSalaire()).isZero();
+    }
+    @Test
+    void whenSalaireIsNegative(){
+        //given
+        Employe employe= new Employe();
+        employe.setSalaire(-1.0);
+        //when
+        employe.augmenterSalaire(2);
+        //then
+        assertThat(employe.getSalaire()).isNegative();
+    }
+    @Test
+    void whenPercentageisNegative(){
+        //given
+        Employe employe= new Employe();
+        employe.setSalaire(1200.0);
+        //when
+        employe.augmenterSalaire(-1);
+        //then
+        assertEquals(employe.getSalaire(),1200);
+    }
 }
