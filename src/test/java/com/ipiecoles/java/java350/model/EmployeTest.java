@@ -119,6 +119,6 @@ class EmployeTest {
         //when
         employe.augmenterSalaire(-1);
         //then
-        assertEquals(employe.getSalaire(),1200);
+        assertThat(employe.getSalaire()).isEqualTo(1200.0);
     }
 }
