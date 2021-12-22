@@ -65,4 +65,92 @@ class EmployeTest {
     }
 
 
+    @ParameterizedTest(name = "Augmentation de {1}% sur {0} euros : {2}")
+    @CsvSource({
+            "100"
+    })
+    void testAugmenterSalaireNull(double pourcentage){
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(null);
+
+        try{
+            //When
+            employe.augmenterSalaire(pourcentage);
+        }catch(Exception e){
+            //Then
+            Assertions.assertThat(e).isInstanceOf(NullPointerException.class);
+        }
+    }
+
+
+
+    @ParameterizedTest(name = "L'employé {1} a {2} année d'ancienneté, une performance de {3} travaillant sur un temps de {4}: prime de {5}")
+    @CsvSource({
+            "M987,  5,  2,  0.5,   1100",
+            "C178,  6,  4,  1,     4900",
+            "M521,  0,  2,  0.9,   1530",
+            "C586,  0,  4,  0.2,   860",
+            "M542,  5,  0,  0.8,   1760",
+            "C050,  6,  0,  1,     900"
+    })
+    void testGetPrimeAnnuelle(String matricule, int nbAnciennete, int perf, double tpsPartiel, double prime){
+        //Given
+        Employe employe = new Employe();
+        employe.setMatricule(matricule);
+        employe.setDateEmbauche(LocalDate.now().minusYears(nbAnciennete));
+        employe.setPerformance(perf);
+        employe.setTempsPartiel(tpsPartiel);
+
+        //When
+        double primeValue = employe.getPrimeAnnuelle();
+
+        //Then
+        Assertions.assertThat(prime).isEqualTo(primeValue);
+    }
+
+    @ParameterizedTest(name = "L'employé {1} a {2} année d'ancienneté, une performance de {3} travaillant sur un temps de {4}: prime de {5}")
+    @CsvSource({
+            "545, 5, 2, 1, 2200",
+    })
+    void testGetPrimeAnnuelleBadMatricule(String matricule, int nbAnciennete, int perf, double tpsPartiel, double prime){
+        //Given
+        Employe employe = new Employe();
+        employe.setMatricule(matricule);
+        employe.setDateEmbauche(LocalDate.now().minusYears(nbAnciennete));
+        employe.setPerformance(perf);
+        employe.setTempsPartiel(tpsPartiel);
+
+        try{
+            //When
+            double primeValue = employe.getPrimeAnnuelle();
+        }catch(Exception e){
+            //Then
+            Assertions.assertThat(e).isInstanceOf(IllegalArgumentException.class);
+        }
+    }
+
+
+    @ParameterizedTest(name = "L'employé {1} a {2} année d'ancienneté, une performance de {3} : prime de {4}")
+    @CsvSource({
+            ", 5, 2, 2200"
+    })
+    void testGetPrimeAnnuelleMatriculeNull(String matricule, int nbAnciennete, int perf, double tpsPartiel, double prime){
+        //Given
+        Employe employe = new Employe();
+        employe.setMatricule(matricule);
+        employe.setDateEmbauche(LocalDate.now().minusYears(nbAnciennete));
+        employe.setPerformance(perf);
+        employe.setTempsPartiel(tpsPartiel);
+
+        try{
+            //When
+            double primeValue = employe.getPrimeAnnuelle();
+        }catch(Exception e){
+            //Then
+            Assertions.assertThat(e).isInstanceOf(NullPointerException.class);
+        }
+    }
+
+
 }

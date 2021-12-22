@@ -92,6 +92,15 @@ public class Employe {
      */
     //Matricule, performance, date d'embauche, temps partiel, prime
     public Double getPrimeAnnuelle(){
+
+        if(!matricule.startsWith("M") && !matricule.startsWith("C")){
+            throw new IllegalArgumentException("Le matricule n'est pas valide");
+        }
+
+        if(matricule == null){
+            throw new NullPointerException("Le matricule est null");
+        }
+
         //Calcule de la prime d'ancienneté
         Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
         Double prime;
