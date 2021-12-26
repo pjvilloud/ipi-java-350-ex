@@ -56,4 +56,15 @@ public class EmployeRepositoryTest {
         //Then
         Assertions.assertEquals("40325", lastMatricule);
     }
+
+    @Test
+    void testAvgPerformanceWhereMatriculeStartsWith(){
+
+        //GIVEN
+        employeRepository.save(new Employe("Doe", "John", "C12345", LocalDate.now(), 1500d, 1, 1.0));
+        //WHEN
+        Double avgPerf = employeRepository.avgPerformanceWhereMatriculeStartsWith("C");
+        //THEN
+        org.assertj.core.api.Assertions.assertThat(avgPerf).isEqualTo(1);
+    }
 }
