@@ -158,7 +158,7 @@ public class Employe {
             this.salaire = Entreprise.SALAIRE_BASE;
             logger.warn("Le salaire de base a été attribué par défaut.");
         }
-        if (pourcentage >= 0) {
+        if (pourcentage > 0) {
             this.salaire += pourcentage/100 * this.salaire;
             logger.info("Suite à une augmentation de {} %, l'employé {} possède comme nouveau salaire : {}", pourcentage, matricule, salaire);
             return this.salaire;
