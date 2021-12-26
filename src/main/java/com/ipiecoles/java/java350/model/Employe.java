@@ -7,10 +7,12 @@ import javax.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @Entity
 public class Employe {
 
+    private static Logger logger = LoggerFactory.getLogger(Employe.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -113,8 +115,29 @@ public class Employe {
         return prime * this.tempsPartiel;
     }
 
-    //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    /**
+     * Calcul pour l'augementation du salaire
+     *
+     * @param pourcentage pourcentage d'augmentation souhaité
+     * @return salaire après augmentation
+     */
+    public Double augmenterSalaire(Double pourcentage) {
+
+        if (this.salaire == null){
+            this.salaire = salaire = Entreprise.SALAIRE_BASE;
+            logger.warn("Le salaire de base a été attribué par défaut.");
+        }
+        if (pourcentage != null  && pourcentage >= 0) {
+            this.salaire += pourcentage/100 * this.salaire;
+            logger.info("Suite à une augmentation de {} %, l'employé {} possède comme nouveau salaire : {}", pourcentage, matricule, salaire);
+            return this.salaire;
+
+        } else if(pourcentage == 0){
+            return this.salaire;
+        }
+        return null;
+
+    }
 
     public Long getId() {
         return id;
