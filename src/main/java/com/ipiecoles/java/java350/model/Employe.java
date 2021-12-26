@@ -155,10 +155,10 @@ public class Employe {
     public Double augmenterSalaire(Double pourcentage) {
 
         if (this.salaire == null){
-            this.salaire = salaire = Entreprise.SALAIRE_BASE;
+            this.salaire = Entreprise.SALAIRE_BASE;
             logger.warn("Le salaire de base a été attribué par défaut.");
         }
-        if (pourcentage != null  && pourcentage >= 0) {
+        if (pourcentage >= 0) {
             this.salaire += pourcentage/100 * this.salaire;
             logger.info("Suite à une augmentation de {} %, l'employé {} possède comme nouveau salaire : {}", pourcentage, matricule, salaire);
             return this.salaire;
@@ -166,6 +166,7 @@ public class Employe {
         } else if(pourcentage == 0){
             return this.salaire;
         }
+        logger.error("Le pourcentage d'augmentation ne peut être négatif.");
         return null;
 
     }
