@@ -142,4 +142,30 @@ class EmployeTest {
         Assertions.assertThat(salaireAugmente).isEqualTo(salaireAttendu);
     }
 
+    @Test
+    void testGetNbrRttDateActuel(){
+        //GIVEN
+        Employe employe = new Employe("Doe","John",null,LocalDate.now(),1500d,1,1.0);
+        //WHEN
+        int nbRtt = employe.getNbRtt();
+        //THEN
+        Assertions.assertThat(nbRtt).isEqualTo(employe.getNbRtt(LocalDate.now()));
+    }
+
+    //Test paramétré CSV nombre RTT
+    @ParameterizedTest(name = "dateReference{0}, rtt{1}")
+    @CsvSource({"2019-01-01,8",
+            "2021-02-19,10",
+            "2022-01-01,10",
+            "2032-01-01,11",
+            "2021-01-01,10"})
+    void testGetNbrRttPlusieursValeurs(LocalDate dateReference, int rtt){
+        //GIVEN
+        Employe employe = new Employe("Doe","John",null,LocalDate.now(),1500d,1,1.0);
+        //WHEN
+        int nbRtt = employe.getNbRtt(dateReference);
+        //THEN
+        Assertions.assertThat(nbRtt).isEqualTo(rtt);
+
+    }
 }
