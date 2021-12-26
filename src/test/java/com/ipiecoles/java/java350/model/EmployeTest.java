@@ -158,7 +158,10 @@ class EmployeTest {
             "2021-02-19,10",
             "2022-01-01,10",
             "2032-01-01,11",
-            "2021-01-01,10"})
+            "2021-01-01,10",
+            "2020-07-10,10",
+            "2020-07-09,10"
+    })
     void testGetNbrRttPlusieursValeurs(LocalDate dateReference, int rtt){
         //GIVEN
         Employe employe = new Employe("Doe","John",null,LocalDate.now(),1500d,1,1.0);
