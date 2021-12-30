@@ -15,7 +15,7 @@ class EmployeTest {
     @Test
     void testGetNombreAnneeAncienneteZero() {
         //given
-        Employe employe = new Employe("John", "Doe", "T12345", LocalDate.now(), 2500.0, 1, 1.0);
+        Employe employe = new Employe("Doe", "John", "T12345", LocalDate.now(), 2500.0, 1, 1.0);
 
         //when
         int nbAnnee = employe.getNombreAnneeAnciennete();
@@ -26,7 +26,7 @@ class EmployeTest {
     @Test
     void testGetNombreAnneeAnciennete() {
         //given
-        Employe employe = new Employe("John", "Doe", "T12345", LocalDate.now().minusYears(6), 2500.0, 1, 1.0);
+        Employe employe = new Employe("Doe", "John", "T12345", LocalDate.now().minusYears(6), 2500.0, 1, 1.0);
 
         //when
         int nbAnnee = employe.getNombreAnneeAnciennete();
@@ -37,7 +37,7 @@ class EmployeTest {
     @Test
     void testGetNombreAnneeAncienneteNull(){
         //given
-        Employe employe = new Employe("John", "Doe", "T12345", null, 2500.0, 1, 1.0);
+        Employe employe = new Employe("Doe", "John", "T12345", null, 2500.0, 1, 1.0);
 
         //when
         Integer nbAnnee = employe.getNombreAnneeAnciennete();
@@ -49,7 +49,7 @@ class EmployeTest {
     @Test
     void testGetNombreAnneeAncienneteTomorrow(){
         //given
-        Employe employe = new Employe("John", "Doe", "T12345", LocalDate.now().plusYears(1), 2500.0, 1, 1.0);
+        Employe employe = new Employe("Doe", "John", "T12345", LocalDate.now().plusYears(1), 2500.0, 1, 1.0);
 
         //when
         int nbAnnee = employe.getNombreAnneeAnciennete();
@@ -91,7 +91,7 @@ class EmployeTest {
     @Test
     void getAugmenterSalaire() {
         //Given
-        Employe employe = new Employe("Dupont","Julien","M12345",LocalDate.now() ,1000.0, 1,1.0 );
+        Employe employe = new Employe("Doe","John","M12345",LocalDate.now() ,1000.0, 1,1.0 );
         //When
         Double augmentation = employe.augmenterSalaire(2.0);
         //Then
@@ -101,7 +101,7 @@ class EmployeTest {
     @Test
     void getAugmenterSalaireAZero() {
         //Given
-        Employe employe = new Employe("Dupont","Julien","M12345",LocalDate.now() ,0.0, 1,1.0 );
+        Employe employe = new Employe("Doe","John","M12345",LocalDate.now() ,0.0, 1,1.0 );
         //When
         Double augmentation = employe.augmenterSalaire(20.0);
         //Then
@@ -111,7 +111,7 @@ class EmployeTest {
     @Test
     void getAugmenterSalaireNull() {
         //Given
-        Employe employe = new Employe("Dupont","Julien","M12345",LocalDate.now() ,null, 1,1.0 );
+        Employe employe = new Employe("Doe","John","M12345",LocalDate.now() ,null, 1,1.0 );
         //When
         Double augmentation = employe.augmenterSalaire(20.0);
         //Then
@@ -121,7 +121,7 @@ class EmployeTest {
     @Test
     void getAugmenterSalairePourcentZero() {
         //Given
-        Employe employe = new Employe("Dupont","Julien","M12345",LocalDate.now() ,1000.0, 1,1.0 );
+        Employe employe = new Employe("Doe","John","M12345",LocalDate.now() ,1000.0, 1,1.0 );
         //When
         Double augmentation = employe.augmenterSalaire(0.0);
         //Then
@@ -131,7 +131,7 @@ class EmployeTest {
     @Test
     void getAugmenterSalaireNegatif() {
         //Given
-        Employe employe = new Employe("Dupont","Julien","M12345",LocalDate.now() ,-1000.0, 1,1.0 );
+        Employe employe = new Employe("Doe","John","M12345",LocalDate.now() ,-1000.0, 1,1.0 );
         //When
         Double augmentation = employe.augmenterSalaire(20.0);
         //Then
