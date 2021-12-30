@@ -52,10 +52,10 @@ class EmployeTest {
         Employe employe = new Employe("Doe", "John", "T12345", LocalDate.now().plusYears(1), 2500.0, 1, 1.0);
 
         //when
-        int nbAnnee = employe.getNombreAnneeAnciennete();
+        int nbAnne = employe.getNombreAnneeAnciennete();
 
         //then
-        Assertions.assertThat(nbAnnee).isZero();
+        Assertions.assertThat(nbAnne).isZero();
     }
 
     //Exercice 2 : getPrimeAnnuelle
