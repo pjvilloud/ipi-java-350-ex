@@ -1,66 +1,70 @@
 package com.ipiecoles.java.java350.model;
 
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 
-public class EmployeTest {
+import static org.junit.jupiter.api.Assertions.*;
 
+class EmployeTest {
+
+    //Exercice 1 : getNombreAnneeAnciennete
     @Test
-    public void getNombreAnneeAncienneteNow(){
-        //Given
-        Employe e = new Employe();
-        e.setDateEmbauche(LocalDate.now());
+    void testGetNombreAnneeAncienneteZero() {
+        //given
+        Employe employe = new Employe("John", "Doe", "T12345", LocalDate.now(), 2500.0, 1, 1.0);
 
-        //When
-        Integer anneeAnciennete = e.getNombreAnneeAnciennete();
-
-        //Then
-        Assertions.assertEquals(0, anneeAnciennete.intValue());
+        //when
+        int nbAnnee = employe.getNombreAnneeAnciennete();
+        //then
+        Assertions.assertThat(nbAnnee).isZero();
     }
 
     @Test
-    public void getNombreAnneeAncienneteNminus2(){
-        //Given
-        Employe e = new Employe();
-        e.setDateEmbauche(LocalDate.now().minusYears(2L));
+    void testGetNombreAnneeAnciennete() {
+        //given
+        Employe employe = new Employe("John", "Doe", "T12345", LocalDate.now().minusYears(6), 2500.0, 1, 1.0);
 
-        //When
-        Integer anneeAnciennete = e.getNombreAnneeAnciennete();
-
-        //Then
-        Assertions.assertEquals(2, anneeAnciennete.intValue());
+        //when
+        int nbAnnee = employe.getNombreAnneeAnciennete();
+        //then
+        Assertions.assertThat(nbAnnee).isEqualTo(6);
     }
 
     @Test
-    public void getNombreAnneeAncienneteNull(){
-        //Given
-        Employe e = new Employe();
-        e.setDateEmbauche(null);
+    void testGetNombreAnneeAncienneteNull(){
+        //given
+        Employe employe = new Employe("John", "Doe", "T12345", null, 2500.0, 1, 1.0);
 
-        //When
-        Integer anneeAnciennete = e.getNombreAnneeAnciennete();
+        //when
+        Integer nbAnnee = employe.getNombreAnneeAnciennete();
 
-        //Then
-        Assertions.assertEquals(0, anneeAnciennete.intValue());
+        //then
+        Assertions.assertThat(nbAnnee).isNull();
     }
 
     @Test
-    public void getNombreAnneeAncienneteNplus2(){
-        //Given
-        Employe e = new Employe();
-        e.setDateEmbauche(LocalDate.now().plusYears(2L));
+    void testGetNombreAnneeAncienneteTomorrow(){
+        //given
+        Employe employe = new Employe("John", "Doe", "T12345", LocalDate.now().plusYears(1), 2500.0, 1, 1.0);
 
-        //When
-        Integer anneeAnciennete = e.getNombreAnneeAnciennete();
+        //when
+        int nbAnnee = employe.getNombreAnneeAnciennete();
 
-        //Then
-        Assertions.assertEquals(0, anneeAnciennete.intValue());
+        //then
+        Assertions.assertThat(nbAnnee).isZero();
     }
 
+    //Exercice 2 : getPrimeAnnuelle
+    /*
+    matricule
+    performance
+    dateEmbauche
+    tempsPartiel
+     */
     @ParameterizedTest
     @CsvSource({
             "1, 'T12345', 0, 1.0, 1000.0",
@@ -73,16 +77,63 @@ public class EmployeTest {
             "2, 'M12345', 0, 1.0, 1700.0",
             "2, 'M12345', 8, 1.0, 2500.0"
     })
-    public void getPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle){
-        //Given
+    void testGetPrimeAnnuelle(Integer performance, String matricule, Long nbYearsAnciennete, Double tempsPartiel, Double primeAnnuelle) {
+        //given
         Employe employe = new Employe("Doe", "John", matricule, LocalDate.now().minusYears(nbYearsAnciennete), Entreprise.SALAIRE_BASE, performance, tempsPartiel);
 
-        //When
+        //when
         Double prime = employe.getPrimeAnnuelle();
 
-        //Then
-        Assertions.assertEquals(primeAnnuelle, prime);
-
+        //then
+        Assertions.assertThat(prime).isEqualTo(primeAnnuelle);
     }
 
-}
+    @Test
+    void getAugmenterSalaire() {
+        //Given
+        Employe employe = new Employe("Dupont","Julien","M12345",LocalDate.now() ,1000.0, 1,1.0 );
+        //When
+        Double augmentation = employe.augmenterSalaire(2.0);
+        //Then
+        Assertions.assertThat(augmentation).isEqualTo(1020.0);
+    }
+
+    @Test
+    void getAugmenterSalaireAZero() {
+        //Given
+        Employe employe = new Employe("Dupont","Julien","M12345",LocalDate.now() ,0.0, 1,1.0 );
+        //When
+        Double augmentation = employe.augmenterSalaire(20.0);
+        //Then
+        Assertions.assertThat(augmentation).isZero();
+    }
+
+    @Test
+    void getAugmenterSalaireNull() {
+        //Given
+        Employe employe = new Employe("Dupont","Julien","M12345",LocalDate.now() ,null, 1,1.0 );
+        //When
+        Double augmentation = employe.augmenterSalaire(20.0);
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isNull();
+    }
+
+    @Test
+    void getAugmenterSalairePourcentZero() {
+        //Given
+        Employe employe = new Employe("Dupont","Julien","M12345",LocalDate.now() ,1000.0, 1,1.0 );
+        //When
+        Double augmentation = employe.augmenterSalaire(0.0);
+        //Then
+        Assertions.assertThat(augmentation).isEqualTo(1000);
+    }
+
+    @Test
+    void getAugmenterSalaireNegatif() {
+        //Given
+        Employe employe = new Employe("Dupont","Julien","M12345",LocalDate.now() ,-1000.0, 1,1.0 );
+        //When
+        Double augmentation = employe.augmenterSalaire(20.0);
+        //Then
+        Assertions.assertThat(augmentation).isEqualTo(-1200);
+    }}
