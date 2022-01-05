@@ -8,6 +8,7 @@ on:
     branches: [ cours/5_janvier_2022/tp1 ]
   pull_request:
     branches: [ cours/5_janvier_2022/tp1 ]
+  workflow_dispatch:
 
 jobs:
   build:
