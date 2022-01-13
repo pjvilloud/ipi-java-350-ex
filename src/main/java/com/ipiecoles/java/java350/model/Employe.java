@@ -14,7 +14,7 @@ public class Employe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id
+    private Long id;
 
     private String nom;
 
@@ -48,6 +48,12 @@ public class Employe {
      * @return
      */
     public Integer getNombreAnneeAnciennete() {
+        if (dateEmbauche == null){
+            return null;
+        }
+        if (dateEmbauche.isAfter(LocalDate.now())){
+            return 0;
+        }
         return LocalDate.now().getYear() - dateEmbauche.getYear();
     }
 
@@ -110,7 +116,11 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+        if (this.salaire!=null && this.salaire>0 && pourcentage>0){
+            this.salaire += this.salaire * pourcentage/100;
+        }
+    }
 
     public Long getId() {
         return id;
