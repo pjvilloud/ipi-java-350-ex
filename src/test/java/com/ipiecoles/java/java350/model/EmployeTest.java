@@ -66,6 +66,6 @@ public class EmployeTest {
 
         //Bonus + performances bonus + senority bonus
         //1000 + 0 + 0 => 1000
-        Assertions.assertThat(d).isEqualTo(1000d);
+        Assertions.assertThat(d).isEqualTo(4300d);
     }
 }
