@@ -1,9 +1,12 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.rules.ExpectedException;
 
 import java.time.LocalDate;
 
@@ -80,5 +83,107 @@ class EmployeTest {
         Double prime = employe.getPrimeAnnuelle();
         //Then
         Assertions.assertEquals(primeAttendue,prime);
+    }
+
+    @Test
+    public void test_augmenterSalaire_Ok() throws EmployeException {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(2000d);
+
+        //When
+        employe.augmenterSalaire(10);
+
+        //Then
+        Assertions.assertEquals(2200d,employe.getSalaire());
+    }
+
+    @Test
+    public void test_augmenterSalaire_WhenPourcentageNegative() throws EmployeException {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(2000d);
+
+        //When
+        EmployeException thrown = Assertions.assertThrows(EmployeException.class, () ->{
+            employe.augmenterSalaire(-5d);
+        });
+
+        //Then
+        Assertions.assertEquals("Le pourcentage d'augmentation ne peut être égal ou inférieur à 0",thrown.getMessage());
+    }
+
+    @Test
+    public void test_augmenterSalaire_WhenPourcentage0() throws EmployeException {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(2000d);
+
+        //When
+        EmployeException thrown = Assertions.assertThrows(EmployeException.class, () ->{
+            employe.augmenterSalaire(0);
+        });
+
+        //Then
+        Assertions.assertEquals("Le pourcentage d'augmentation ne peut être égal ou inférieur à 0",thrown.getMessage());
+    }
+
+    @Test
+    public void test_augmenterSalaire_WhenSalaireNegative() throws EmployeException {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(-2000d);
+
+        //When
+        EmployeException thrown = Assertions.assertThrows(EmployeException.class, () ->{
+            employe.augmenterSalaire(50);
+        });
+
+        //Then
+        Assertions.assertEquals("Le salaire de cet employé n'est pas défini ou est égal ou inférieur à 0",thrown.getMessage());
+    }
+
+    @Test
+    public void test_augmenterSalaire_WhenSalaire0() throws EmployeException {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(0d);
+
+        //When
+        EmployeException thrown = Assertions.assertThrows(EmployeException.class, () ->{
+            employe.augmenterSalaire(50);
+        });
+
+        //Then
+        Assertions.assertEquals("Le salaire de cet employé n'est pas défini ou est égal ou inférieur à 0",thrown.getMessage());
+    }
+
+    @Test
+    public void test_augmenterSalaire_WhenSalaireNull() throws EmployeException {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(null);
+        //When
+        EmployeException thrown = Assertions.assertThrows(EmployeException.class, () ->{
+            employe.augmenterSalaire(50);
+        });
+
+        //Then
+        Assertions.assertEquals("Le salaire de cet employé n'est pas défini ou est égal ou inférieur à 0",thrown.getMessage());
+    }
+
+    @ParameterizedTest(name = "Matricule {0}, performance {1}, anciennete {2}, temps partiel {3} => prime {4}")
+    @CsvSource({
+            "'2019-01-01',9",
+            "'2022-01-01',11",
+            "'2032-01-01',10",
+    })
+    public void testgetNbRtt(LocalDate d , Integer nbrRttAttendu){
+        //Given
+        Employe employe = new Employe();
+        //When
+        int nbrRttObtenu = employe.getNbRtt(d);
+        //Then
+        Assertions.assertEquals(nbrRttAttendu,nbrRttObtenu);
     }
 }
