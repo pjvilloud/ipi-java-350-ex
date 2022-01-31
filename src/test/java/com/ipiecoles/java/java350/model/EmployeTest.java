@@ -55,4 +55,17 @@ public class EmployeTest {
 
         Assertions.assertThat(nbYearOfSenority).isZero();
     }
+
+    @Test
+    public void testGetAnnualBonus(){
+        LocalDate dateEmbauche = null;
+
+        Employe employe = new Employe("Doe", "John", "T12345", dateEmbauche, Entreprise.SALAIRE_BASE, 4, 1d);
+
+        Double d = employe.getPrimeAnnuelle();
+
+        //Bonus + performances bonus + senority bonus
+        //1000 + 0 + 0 => 1000
+        Assertions.assertThat(d).isEqualTo(1000d);
+    }
 }
