@@ -14,7 +14,7 @@ public class Employe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id
+    private Long id;
 
     private String nom;
 
@@ -48,7 +48,10 @@ public class Employe {
      * @return
      */
     public Integer getNombreAnneeAnciennete() {
-        return LocalDate.now().getYear() - dateEmbauche.getYear();
+        if(this.dateEmbauche == null || this.dateEmbauche.isAfter(LocalDate.now())){
+            return 0;
+        }
+        return LocalDate.now().getYear() - this.dateEmbauche.getYear();
     }
 
     public Integer getNbConges() {
@@ -60,18 +63,28 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;int var = 104;
+        //number of days in a year
+        int nbDaysInYear = d.isLeapYear() ? 365 : 366;
+
+        //number of weeks in a year
+        int nbWeeksInYear = 104;
+
+        //calculate the numbers of days in the year with the first day
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-        case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-        case FRIDAY:
-        if(d.isLeapYear()) var =  var + 2;
-        else var =  var + 1;
-case SATURDAY:var = var + 1;
-                    break;
+            case THURSDAY:
+                if(d.isLeapYear()) nbWeeksInYear =  nbWeeksInYear + 1;
+                break;
+            case FRIDAY:
+                if(d.isLeapYear()) nbWeeksInYear =  nbWeeksInYear + 2;
+                else nbWeeksInYear += 1;
+                break;
+            case SATURDAY:
+                nbWeeksInYear += 1;
+            break;
         }
-        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate ->
-                localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
-        return (int) Math.ceil((i1 - Entreprise.NB_JOURS_MAX_FORFAIT - var - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
+         //get holidays worked & RTT days with part-time
+        int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate -> localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
+        return (int) Math.ceil((nbDaysInYear - Entreprise.NB_JOURS_MAX_FORFAIT - nbWeeksInYear - Entreprise.NB_CONGES_BASE - monInt) * tempsPartiel);
     }
 
     /**
@@ -110,7 +123,13 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage){
+        if (this.salaire > 0){
+            this.salaire = salaire * (1 + pourcentage/100) * 100.0 / 100.0;
+        } else {
+            this.salaire = 0d;
+        }
+    }
 
     public Long getId() {
         return id;

@@ -16,6 +16,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<sonar.organization>emiiien</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<dependencies>
@@ -60,12 +62,14 @@
 			<artifactId>mockito-junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>com.thoughtworks.gauge</groupId>
 			<artifactId>gauge-java</artifactId>
 			<version>0.7.2</version>
 			<scope>test</scope>
 		</dependency>
+		!-->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java8</artifactId>
@@ -146,6 +150,7 @@
 					</targetTests>
 				</configuration>
 			</plugin>
+			<!--
 			<plugin>
 				<groupId>com.thoughtworks.gauge.maven</groupId>
 				<artifactId>gauge-maven-plugin</artifactId>
@@ -162,6 +167,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			!-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -179,7 +185,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.7.1</version>
+				<version>3.8.2</version>
 			</plugin>
 			<plugin>
 				<groupId>org.pitest</groupId>
