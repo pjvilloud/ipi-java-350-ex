@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - eveluationEmilienV2
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
