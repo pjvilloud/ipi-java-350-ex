@@ -1,4 +1,4 @@
-import com.thoughtworks.gauge.Step;
+/*import com.thoughtworks.gauge.Step;
 import com.thoughtworks.gauge.Table;
 import com.thoughtworks.gauge.TableRow;
 
@@ -45,3 +45,4 @@ public class StepImplementation {
         return count;
     }
 }
+*/
