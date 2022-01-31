@@ -68,4 +68,37 @@ public class EmployeTest {
         //1000 + 0 + 0 => 1000
         Assertions.assertThat(d).isEqualTo(4300d);
     }
+
+    @Test
+    public void testAugmenterSalairePayRise(){
+        //augmenterSalaire able us to do a pay rise to any employee
+        //those pay rise are made in percentage
+
+        Employe employe = new Employe();
+        employe.setSalaire(2000d);
+
+        employe.augmenterSalaire(20);
+
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(2400d);
+    }
+
+    @Test
+    public void testAugmenterSalairePayDecrease(){
+        Employe employe = new Employe();
+        employe.setSalaire(2000d);
+
+        employe.augmenterSalaire(-20);
+
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1600d);
+    }
+
+    @Test
+    public void testAugmenterSalairePayRiseToANegativeSalary(){
+        Employe employe = new Employe();
+        employe.setSalaire(0d);
+
+        employe.augmenterSalaire(50);
+
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(0d);
+    }
 }
