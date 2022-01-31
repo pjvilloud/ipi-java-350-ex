@@ -1,5 +1,7 @@
 package com.ipiecoles.java.java350.model;
 
+import com.ipiecoles.java.java350.exception.EmployeException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +16,7 @@ public class Employe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id
+    private Long id;
 
     private String nom;
 
@@ -48,8 +50,26 @@ public class Employe {
      * @return
      */
     public Integer getNombreAnneeAnciennete() {
-        return LocalDate.now().getYear() - dateEmbauche.getYear();
+        int nbAnnee = 0;
+        LocalDate now = LocalDate.now();
+
+        if (this.dateEmbauche != null) {
+            nbAnnee = Math.max(0, now.getYear() - dateEmbauche.getYear());
+        }
+
+        if (nbAnnee == 1) {
+            if (now.getMonth().getValue() < dateEmbauche.getMonth().getValue()) {
+                nbAnnee = 0;
+            } else {
+                if (now.getDayOfMonth() < dateEmbauche.getDayOfMonth()) {
+                    nbAnnee = 0;
+                }
+            }
+        }
+
+        return nbAnnee;
     }
+
 
     public Integer getNbConges() {
         return Entreprise.NB_CONGES_BASE + this.getNombreAnneeAnciennete();
@@ -60,14 +80,24 @@ public class Employe {
     }
 
     public Integer getNbRtt(LocalDate d){
-        int i1 = d.isLeapYear() ? 365 : 366;int var = 104;
+        int i1 = d.isLeapYear() ? 365 : 366;
+        int var = 104;
         switch (LocalDate.of(d.getYear(),1,1).getDayOfWeek()){
-        case THURSDAY: if(d.isLeapYear()) var =  var + 1; break;
-        case FRIDAY:
-        if(d.isLeapYear()) var =  var + 2;
-        else var =  var + 1;
-case SATURDAY:var = var + 1;
-                    break;
+            case THURSDAY:
+                if(d.isLeapYear()){
+                    var =  var + 1;
+                }
+                break;
+            case FRIDAY:
+                if(d.isLeapYear()){
+                    var =  var + 2;
+                }
+                else{
+                    var =  var + 1;
+                }
+            case SATURDAY:
+                var = var + 1;
+                break;
         }
         int monInt = (int) Entreprise.joursFeries(d).stream().filter(localDate ->
                 localDate.getDayOfWeek().getValue() <= DayOfWeek.FRIDAY.getValue()).count();
@@ -110,7 +140,18 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+    public void augmenterSalaire(double pourcentage) throws EmployeException {
+        if (pourcentage <= 0){
+            throw new EmployeException("Le pourcentage d'augmentation ne peut être égal ou inférieur à 0");
+        }
+
+        Double salaireActuel = this.getSalaire();
+        if (salaireActuel == null || salaireActuel <= 0){
+            throw new EmployeException("Le salaire de cet employé n'est pas défini ou est égal ou inférieur à 0");
+        }
+
+        this.setSalaire(salaireActuel * (1+pourcentage/100));
+    }
 
     public Long getId() {
         return id;
