@@ -125,7 +125,6 @@ public class EmployeTest {
         // Given
         Employe employe = new Employe();
         employe.setTempsPartiel(tempsPartiel);
-
         // When
         Integer nbRtt = employe.getNbRtt(dateAnnee);
 
