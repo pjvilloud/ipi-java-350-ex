@@ -67,6 +67,7 @@ public class EmployeTest {
     @CsvSource({
             "'M12345', 0, 1.0, 1, 1700.0", //(1000 * 1.7 + 0) * 1 = 1700
             "'M12345', 2, 1.0, 1, 1900.0", //(1000 * 1.7 + 2 * 100) * 1 = 1900
+            "'T12345', 0, 1.0, 1, 1000.0", //(1000 + 0 * 100) * 1 = 1000
     })
 //Paramètres : matricule, ancienneté, taux d'activité, performance, prime
     public void testGetPrimeAnnuelle(
