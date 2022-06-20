@@ -34,30 +34,6 @@ public class EmployeServiceTest {
 
 
     @Test
-    public void testEmbaucheEmploye() throws EmployeException {
-
-        //Givern
-        Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
-        Mockito.when(employeRepository.findByMatricule("C00001")).thenReturn(null);
-        //main
-        employeService.embaucheEmploye("Doe", "John", Poste.COMMERCIAL,NiveauEtude.MASTER, 1.0);
-
-        //Then
-        ArgumentCaptor<Employe> employeCaptor = ArgumentCaptor.forClass(Employe.class);
-        Mockito.verify(employeRepository).save(employeCaptor.capture());
-        //Assertions.assertThat(employeCaptor.getValue().getSalaire()).isEqualTo(2129.71);
-
-        Employe employe = employeCaptor.getValue();
-
-        Assertions.assertThat(employe.getNom()).isEqualTo("Doe");
-        Assertions.assertThat(employe.getPrenom()).isEqualTo("John");
-        Assertions.assertThat(employe.getDateEmbauche()).isEqualTo(LocalDate.now());
-        Assertions.assertThat(employe.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(2129.71);
-        Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(1);
-    }
-
-    @Test
     public void testEmbaucheEmployeLimitMarticule() {
         //Given
         Mockito.when(employeRepository.findLastMatricule()).thenReturn("99999");
@@ -84,6 +60,26 @@ public class EmployeServiceTest {
 
         Assertions.assertThat(t).isInstanceOf(EntityExistsException.class).hasMessage("L'employé de matricule C00001 existe déjà en BDD");
 
+    }
+    @Test
+    public void testEmbaucheEmploye() throws EmployeException {
+        //Given
+        Mockito.when(employeRepository.findLastMatricule()).thenReturn(null);
+        Mockito.when(employeRepository.findByMatricule("C00001")).thenReturn(null);
+//        Mockito.when(employeRepository.save(null)).thenReturn();
+        //When
+        employeService.embaucheEmploye("Doe", "John", Poste.COMMERCIAL, NiveauEtude.MASTER, 1.0);
+        //Then
+//        Employe employe = employeRepository.findByMatricule("C00001");
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository).save(employeArgumentCaptor.capture());
+        Employe employe = employeArgumentCaptor.getValue();
+        Assertions.assertThat(employe.getNom()).isEqualTo("Doe");
+        Assertions.assertThat(employe.getPrenom()).isEqualTo("John");
+        Assertions.assertThat(employe.getDateEmbauche()).isEqualTo(LocalDate.now());
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(2129.71);
+        Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(1);
     }
 
 }
