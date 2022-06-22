@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -175,5 +176,18 @@ public class EmployeTest {
         int watingNbr = employe.getNbRtt(d);
         //Then
         Assertions.assertThat(watingNbr).isEqualTo(nbrRttAttendu);
+    }
+    @Test
+    void testgetNbbRttHalfTime() {
+        // Given
+        Employe employe = new Employe();
+        Employe mockEmploye = Mockito.spy(employe);
+        mockEmploye.setTempsPartiel(0.5d);
+
+        // When
+        Integer nbRtt = mockEmploye.getNbRtt(LocalDate.of(2019, 1, 1));
+
+        // Then
+        Assertions.assertThat(nbRtt).isEqualTo(4);
     }
 }

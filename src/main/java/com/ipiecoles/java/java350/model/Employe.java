@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -123,7 +122,7 @@ public class Employe {
         if(pourcentage ==0 ){
             throw new EmployeException("the percentage you put is incorrect it should be more than zero");
         }
-        if(salaire != null || salaire !=0){
+        if(salaire != null ){
             salaire = salaire *(1+pourcentage/100);
         }else {
             throw new EmployeException("the salary shouldn't be zero or null");
