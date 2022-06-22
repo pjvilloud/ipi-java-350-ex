@@ -177,6 +177,7 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(watingNbr).isEqualTo(nbrRttAttendu);
     }
+    
     @Test
     void testgetNbbRttHalfTime() {
         // Given
