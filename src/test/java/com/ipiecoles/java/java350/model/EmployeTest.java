@@ -1,14 +1,17 @@
 
 package com.ipiecoles.java.java350.model;
 
-import com.ipiecoles.java.java350.model.Employe;
+import com.ipiecoles.java.java350.exception.EmployeException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 
+@ExtendWith(MockitoExtension.class)
 public class EmployeTest {
     @Test
     public void testGetNbAnneesAncienneteDateEmbaucheNow(){
@@ -97,4 +100,64 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(primeObtenue).isEqualTo(prime);
     }
+
+    @Test
+    void testAugmenterSalaire() throws EmployeException {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(1500d);
+
+        //when
+        employe.augmenterSalaire(2);
+
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1530.0);
+    }
+
+    @Test
+    void testAugmenterSalaireZeroPercentage() throws EmployeException {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(1500d);
+
+        //when
+        Throwable t = Assertions.catchThrowable(() -> {employe.augmenterSalaire(0);});
+
+        //Then
+        Assertions.assertThat(t).isInstanceOf(EmployeException.class).hasMessage("the percentage you put is incorrect it should be more than zero");
+    }
+
+    @Test
+    void testAugmenterSalaireIsZero() throws EmployeException {
+        //Given
+        Employe employe = new Employe();
+        employe.setSalaire(0d);
+
+        //when
+        employe.augmenterSalaire(2);
+        Double employeSalary = employe.getSalaire();
+
+        //Then
+        Assertions.assertThat(employeSalary).isZero();
+    }
+
+    @ParameterizedTest
+    @CsvSource( {
+            "10, 2200",
+            "20, 2400",
+            "30, 2600",
+            "40, 2800",
+            "50, 3000"
+    })
+    public void testAugmenterSalaireWithoutError(double pourcentage, double expectedSalary) throws EmployeException {
+        //Given
+        Employe employe = new Employe("Doe", "John", "C123456", LocalDate.now(), 2000d, 1, 1.0);
+
+        //When
+        employe.augmenterSalaire(pourcentage);
+
+        //Then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(expectedSalary);
+    }
+
 }
