@@ -160,4 +160,20 @@ public class EmployeTest {
         Assertions.assertThat(employe.getSalaire()).isEqualTo(expectedSalary);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "-1,9",
+            "0,10",
+            "0,10",
+            "3,8",
+    })
+    public void testgetNbRtt(Integer date, Integer nbrRttAttendu){
+        //Given
+        LocalDate d = LocalDate.now().minusYears(date);
+        Employe employe = new Employe();
+        //When
+        int watingNbr = employe.getNbRtt(d);
+        //Then
+        Assertions.assertThat(watingNbr).isEqualTo(nbrRttAttendu);
+    }
 }
