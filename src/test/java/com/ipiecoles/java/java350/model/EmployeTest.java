@@ -150,7 +150,7 @@ public class EmployeTest {
             "40, 2800",
             "50, 3000"
     })
-    public void testAugmenterSalaireWithoutError(double pourcentage, double expectedSalary) throws EmployeException {
+    void testAugmenterSalaireWithoutError(double pourcentage, double expectedSalary) throws EmployeException {
         //Given
         Employe employe = new Employe("Doe", "John", "C123456", LocalDate.now(), 2000d, 1, 1.0);
 
@@ -168,7 +168,7 @@ public class EmployeTest {
             "0,10",
             "3,8",
     })
-    public void testgetNbRtt(Integer date, Integer nbrRttAttendu){
+    void testgetNbRtt(Integer date, Integer nbrRttAttendu){
         //Given
         LocalDate d = LocalDate.now().minusYears(date);
         Employe employe = new Employe();
