@@ -31,21 +31,6 @@ public class EmployeServiceTest {
     @Mock
     private EmployeRepository employeRepository;
 
-    @Mock
-    private DummyService dummyService;
-
-    @Test
-    public void testDummy(){
-        //Given
-        when(dummyService.doSomething()).thenReturn(5);
-
-        //When
-        Boolean b = employeService.executeDummy();
-
-        //Then
-        Assertions.assertThat(b).isTrue();
-    }
-
     @Test
     public void testEmbaucheEmployeLimiteMatricule(){
         //Given
@@ -122,5 +107,26 @@ public class EmployeServiceTest {
         Assertions.assertThat(employe.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
         Assertions.assertThat(employe.getSalaire()).isEqualTo(1064.85);
         Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(0.5);
+    }
+
+    @Test
+    public void testCalculPerformanceCommercial() throws EmployeException
+    {
+        String matricule = "C00001";
+        long caTraite = (long) 500;
+        long objectifCa = (long) 1000;
+        Mockito.when(employeRepository.findByMatricule(matricule)).thenReturn(new Employe());
+        Mockito.when(employeRepository.avgPerformanceWhereMatriculeStartsWith("C")).thenReturn(0.0);
+        Mockito.when(employeRepository.save(Mockito.any(Employe.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
+
+        //When
+        employeService.calculPerformanceCommercial(matricule, caTraite, objectifCa);
+
+        //Then
+        ArgumentCaptor<Employe> employeArgumentCaptor = ArgumentCaptor.forClass(Employe.class);
+        Mockito.verify(employeRepository).save(employeArgumentCaptor.capture());
+        Employe employe = employeArgumentCaptor.getValue();
+
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(2);
     }
 }
