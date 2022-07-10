@@ -6,6 +6,8 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +17,22 @@ import java.time.LocalDate;
 @Service
 public class EmployeService {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    //private static final Logger LOGGER = LoggerFactory.getLogger(EmployeService.class);
+
     @Autowired
     private EmployeRepository employeRepository;
+
+    @Autowired
+    private DummyService dummyService;
+
+    public Boolean executeDummy(){
+        Integer myInt = dummyService.doSomething();
+        if(myInt > 0){
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Méthode enregistrant un nouvel employé dans l'entreprise
@@ -31,26 +47,34 @@ public class EmployeService {
      * @throws EntityExistsException Si le matricule correspond à un employé existant
      */
     public void embaucheEmploye(String nom, String prenom, Poste poste, NiveauEtude niveauEtude, Double tempsPartiel) throws EmployeException, EntityExistsException {
+        logger.info("Embauche de l'employé : {} {} {} {} {}", nom, prenom, poste, niveauEtude, tempsPartiel);
 
         //Récupération du type d'employé à partir du poste
+        logger.trace("Récupération du type d'employé à partir du poste {}", poste);
         String typeEmploye = poste.name().substring(0,1);
 
         //Récupération du dernier matricule...
         String lastMatricule = employeRepository.findLastMatricule();
         if(lastMatricule == null){
+            logger.warn("Aucun employé trouvé, initialisation du matricule initial {}", Entreprise.MATRICULE_INITIAL);
             lastMatricule = Entreprise.MATRICULE_INITIAL;
         }
         //... et incrémentation
         Integer numeroMatricule = Integer.parseInt(lastMatricule) + 1;
         if(numeroMatricule >= 100000){
+            logger.error("Limite des 100000 matricules atteinte !");
             throw new EmployeException("Limite des 100000 matricules atteinte !");
+        } else if(numeroMatricule > 90000){
+            logger.warn("Matricule 90000 dépassé atteint sur une limite de 100000");
         }
         //On complète le numéro avec des 0 à gauche
         String matricule = "00000" + numeroMatricule;
         matricule = typeEmploye + matricule.substring(matricule.length() - 5);
+        logger.debug("Matricule calculé : {}", matricule);
 
         //On vérifie l'existence d'un employé avec ce matricule
         if(employeRepository.findByMatricule(matricule) != null){
+            logger.error("L'employé de matricule {} existe déjà en BDD", matricule);
             throw new EntityExistsException("L'employé de matricule " + matricule + " existe déjà en BDD");
         }
 
@@ -59,32 +83,26 @@ public class EmployeService {
         if(tempsPartiel != null){
             salaire = salaire * tempsPartiel;
         }
+        salaire = Math.round(salaire * 100) / 100d;
+        logger.debug("Salaire calculé : {}", salaire);
 
         //Création et sauvegarde en BDD de l'employé.
         Employe employe = new Employe(nom, prenom, matricule, LocalDate.now(), salaire, Entreprise.PERFORMANCE_BASE, tempsPartiel);
 
-        employeRepository.save(employe);
+        logger.info("Employé avant la sauvegarde : {}", employe.toString());
+        employe = employeRepository.save(employe);
 
+        logger.info("Employé après la sauvegarde : {}", employe.toString());
+        logger.trace("Fin de la méthode embaucheEmploye");
     }
 
 
     /**
-     * Méthode calculant la performance d'un commercial en fonction de ses objectifs et du chiffre d'affaire traité dans l'année.
-     * Cette performance lui est affectée et sauvegardée en BDD
      *
-     * 1 : Si le chiffre d'affaire est inférieur de plus de 20% à l'objectif fixé, le commercial retombe à la performance de base
-     * 2 : Si le chiffre d'affaire est inférieur entre 20% et 5% par rapport à l'ojectif fixé, il perd 2 de performance (dans la limite de la performance de base)
-     * 3 : Si le chiffre d'affaire est entre -5% et +5% de l'objectif fixé, la performance reste la même.
-     * 4 : Si le chiffre d'affaire est supérieur entre 5 et 20%, il gagne 1 de performance
-     * 5 : Si le chiffre d'affaire est supérieur de plus de 20%, il gagne 4 de performance
-     *
-     * Si la performance ainsi calculée est supérieure à la moyenne des performances des commerciaux, il reçoit + 1 de performance.
-     *
-     * @param matricule le matricule du commercial
-     * @param caTraite le chiffre d'affaire traité par le commercial pendant l'année
-     * @param objectifCa l'object de chiffre d'affaire qui lui a été fixé
-     *
-     * @throws EmployeException Si le matricule est null ou ne commence pas par un C
+     * @param matricule
+     * @param caTraite
+     * @param objectifCa
+     * @throws EmployeException
      */
     public void calculPerformanceCommercial(String matricule, Long caTraite, Long objectifCa) throws EmployeException {
         //Vérification des paramètres d'entrée
