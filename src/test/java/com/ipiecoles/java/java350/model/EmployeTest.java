@@ -177,7 +177,7 @@ public class EmployeTest {
         //Then
         Assertions.assertThat(watingNbr).isEqualTo(nbrRttAttendu);
     }
-    
+
     @Test
     void testgetNbbRttHalfTime() {
         // Given
@@ -191,4 +191,64 @@ public class EmployeTest {
         // Then
         Assertions.assertThat(nbRtt).isEqualTo(4);
     }
+
+    @Test
+    void testGetNbConges() {
+        //Given
+        Employe employe = new Employe();
+        employe.setDateEmbauche(LocalDate.now().minusYears(5));
+
+        //When
+        Integer conges = employe.getNbConges();
+
+        //Then
+        Assertions.assertThat(conges).isEqualTo(30);
+    }
+
+    @Test
+    void testGetterGetRtt() {
+        //Given
+        Employe employe = new Employe();
+
+        //When
+        Integer actualRtt = employe.getNbRtt();
+        Integer expectedRtt = employe.getNbRtt(LocalDate.now());
+
+        //Then
+        Assertions.assertThat(actualRtt).isEqualTo(expectedRtt);
+    }
+
+    @Test
+    void testGettersAndSetters() {
+        //Given
+        Employe employe = new Employe();
+
+        //When
+        employe.setId(1000L);
+        employe.setPrenom("John");
+
+        //Then
+        Assertions.assertThat(employe.getId()).isEqualTo(1000L);
+        Assertions.assertThat(employe.setNom("Doe")).isEqualTo(employe);
+        Assertions.assertThat(employe.getPrenom()).isEqualTo("John");
+    }
+
+    @Test
+    void testObjectClassMethods() {
+        //Given
+        Employe employe1 = new Employe();
+        Employe employe2 = new Employe();
+
+        //When
+        int hashCode = employe1.hashCode();
+
+        //Then
+        Assertions.assertThat(hashCode).isEqualTo(123456789);
+        Assertions.assertThat(employe1).isEqualTo(employe2);
+        employe1.setId(22000l);
+        Assertions.assertThat(employe1)
+                .isNotEqualTo(employe2)
+                .hasToString("Employe{id=22000, nom='null', prenom='null', matricule='null', dateEmbauche=null, salaire=1521.30, performance=1, tempsPartiel=1.0}");
+    }
+
 }

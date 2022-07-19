@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 @SpringBootTest
 public class EmployeServiceIntegrationTest {
@@ -31,6 +32,15 @@ public class EmployeServiceIntegrationTest {
     }
 
     @Test
+    public void testFindLastMatriculeWithoutEmploye() {
+        //When
+        String marticule = employeRepository.findLastMatricule();
+
+        //THen
+        Assertions.assertThat(marticule).isNull();
+    }
+
+    @Test
     public void testEmbaucheEmploye() throws EmployeException {
 
         employeService.embaucheEmploye("Doe", "John", Poste.COMMERCIAL, NiveauEtude.MASTER, 1.0);
@@ -44,7 +54,20 @@ public class EmployeServiceIntegrationTest {
         Assertions.assertThat(employe.getPerformance()).isEqualTo(Entreprise.PERFORMANCE_BASE);
         Assertions.assertThat(employe.getSalaire()).isEqualTo(2129.71);
         Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(1);
+    }
 
+    @Test
+    public void testFindLastMatriculeWithEmploye() {
+        //GIven
+        Employe employe1 = new Employe("Doe", "John", "C12345", LocalDate.now(), 2500d, 1, 1.0);
+        Employe employe2 = new Employe("juju", "sisi", "M12342", LocalDate.now(), 2500d, 1, 1.0);
+        Employe employe3 = new Employe("lam", "coucou", "T12341", LocalDate.now(), 2500d, 1, 1.0);
+        employeRepository.saveAll(Arrays.asList(employe1,employe2,employe3));
 
+        //When
+        String marticule = employeRepository.findLastMatricule();
+
+        //THen
+        Assertions.assertThat(marticule).isEqualTo("12345");
     }
 }
