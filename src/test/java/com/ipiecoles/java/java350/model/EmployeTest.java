@@ -243,12 +243,12 @@ public class EmployeTest {
         int hashCode = employe1.hashCode();
 
         //Then
-        Assertions.assertThat(hashCode).isEqualTo(123456789);
+        Assertions.assertThat(hashCode).isEqualTo(1205956486);
         Assertions.assertThat(employe1).isEqualTo(employe2);
         employe1.setId(22000l);
         Assertions.assertThat(employe1)
                 .isNotEqualTo(employe2)
-                .hasToString("Employe{id=22000, nom='null', prenom='null', matricule='null', dateEmbauche=null, salaire=1521.30, performance=1, tempsPartiel=1.0}");
+                .hasToString("Employe{id=22000, nom='null', prenom='null', matricule='null', dateEmbauche=null, salaire=1521.22, performance=1, tempsPartiel=1.0}");
     }
 
 }
