@@ -143,6 +143,26 @@ public class EmployeTest {
     }
 
     @ParameterizedTest
+    @CsvSource({
+            "'M12345',1,1.0,60.0,4000.0",
+            "'M12345',1,1.0,40.0,3500.0"
+    })
+    void testAuguementerSalaireNoException(
+            String matricule,
+            Integer performance,
+            Double tauxActivite,
+            Double pourcentage,
+            Double salaireAuguemente
+    ) throws EmployeException {
+        //given
+        Employe employe = new Employe("Manage","Manager",matricule,LocalDate.now(),2500d,performance,tauxActivite);
+        //when
+        employe.augmenterSalaire(pourcentage);
+        //then
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(salaireAuguemente);
+    }
+
+    @ParameterizedTest
     @CsvSource( {
             "10, 2200",
             "20, 2400",
@@ -163,19 +183,44 @@ public class EmployeTest {
 
     @ParameterizedTest
     @CsvSource({
-            "-1,9",
-            "0,10",
-            "0,10",
-            "3,8",
+            "'T12345',1,0.5,-10.0",
+            "'T12345',1,1.0,0.0",
+
     })
-    void testgetNbRtt(Integer date, Integer nbrRttAttendu){
+    void testAuguementerSalaireWihtExcepction(
+            String matricule,
+            Integer performance,
+            Double tauxActivite,
+            Double pourcentage
+    ) {
+        //given
+        Employe employe = new Employe("Manage","Manager",matricule,LocalDate.now(),2500d,performance,tauxActivite);
+        //when
+        Throwable thrown = Assertions.catchThrowable(() -> employe.augmenterSalaire(pourcentage));
+        //then
+        Assertions.assertThat(thrown).isInstanceOf(EmployeException.class)
+                .hasMessageContaining("the percentage you put is incorrect it should be more than zero");
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "2028,1,9",
+            "2028,0.8,8",
+            "2032,1,11",
+            "2019,0.8,7",
+            "2021,1,10",
+    })
+    void testgetNbRtt(Integer date,Double tempPartiel, Integer nbrRttAttendu){
         //Given
-        LocalDate d = LocalDate.now().minusYears(date);
+        LocalDate localDate = LocalDate.of(date, 1, 1);
         Employe employe = new Employe();
+        employe.setTempsPartiel(tempPartiel);
+
         //When
-        int watingNbr = employe.getNbRtt(d);
+        int actualRtt = employe.getNbRtt(localDate);
+
         //Then
-        Assertions.assertThat(watingNbr).isEqualTo(nbrRttAttendu);
+        Assertions.assertThat(actualRtt).isEqualTo(nbrRttAttendu);
     }
 
     @Test

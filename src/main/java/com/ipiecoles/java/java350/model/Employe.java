@@ -119,13 +119,11 @@ public class Employe {
 
     //Augmenter salaire exception is good :D
     public void augmenterSalaire(double pourcentage) throws EmployeException{
-        if(pourcentage ==0 ){
+        if(pourcentage <=0 ){
             throw new EmployeException("the percentage you put is incorrect it should be more than zero");
         }
-        if(salaire != null ){
+        else {
             salaire = salaire *(1+pourcentage/100);
-        }else {
-            throw new EmployeException("the salary shouldn't be zero or null");
         }
 
     }
