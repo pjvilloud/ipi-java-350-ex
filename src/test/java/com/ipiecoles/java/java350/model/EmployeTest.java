@@ -209,6 +209,11 @@ public class EmployeTest {
             "2032,1,11",
             "2019,0.8,7",
             "2021,1,10",
+            "2021,0.8,8",
+            "2022,1,10",
+            "2022,0.8,8",
+            "2032,1.0,11",
+            "2032,0.5,6",
     })
     void testgetNbRtt(Integer date,Double tempPartiel, Integer nbrRttAttendu){
         //Given
