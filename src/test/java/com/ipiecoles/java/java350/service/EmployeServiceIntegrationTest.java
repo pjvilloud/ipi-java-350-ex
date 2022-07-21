@@ -32,7 +32,7 @@ public class EmployeServiceIntegrationTest {
     }
 
     @Test
-    public void testFindLastMatriculeWithoutEmploye() {
+    void testFindLastMatriculeWithoutEmploye() {
         //When
         String marticule = employeRepository.findLastMatricule();
 
@@ -41,7 +41,7 @@ public class EmployeServiceIntegrationTest {
     }
 
     @Test
-    public void testEmbaucheEmploye() throws EmployeException {
+    void testEmbaucheEmploye() throws EmployeException {
 
         employeService.embaucheEmploye("Doe", "John", Poste.COMMERCIAL, NiveauEtude.MASTER, 1.0);
 
@@ -57,7 +57,7 @@ public class EmployeServiceIntegrationTest {
     }
 
     @Test
-    public void testFindLastMatriculeWithEmploye() {
+    void testFindLastMatriculeWithEmploye() {
         //GIven
         Employe employe1 = new Employe("Doe", "John", "C12345", LocalDate.now(), 2500d, 1, 1.0);
         Employe employe2 = new Employe("juju", "sisi", "M12342", LocalDate.now(), 2500d, 1, 1.0);
