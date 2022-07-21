@@ -6,21 +6,16 @@ import com.ipiecoles.java.java350.model.Entreprise;
 import com.ipiecoles.java.java350.model.NiveauEtude;
 import com.ipiecoles.java.java350.model.Poste;
 import com.ipiecoles.java.java350.repository.EmployeRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityExistsException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static org.mockito.Mockito.when;
 
@@ -124,7 +119,7 @@ public class EmployeServiceTest {
             employeService.calculPerformanceCommercial(null, 2L, 2L);
         });
         // CA null
-        Throwable throwableCa = Assertions.catchThrowable(() -> {
+        Throwable catchThrowable = Assertions.catchThrowable(() -> {
             employeService.calculPerformanceCommercial("C12345", null, 2L);
         });
         // Objectif null
@@ -135,7 +130,7 @@ public class EmployeServiceTest {
         //Then
         Assertions.assertThat(throwableMatricule).isInstanceOf(EmployeException.class)
                 .hasMessage("Le matricule ne peut être null et doit commencer par un C !");
-        Assertions.assertThat(throwableCa).isInstanceOf(EmployeException.class)
+        Assertions.assertThat(catchThrowable).isInstanceOf(EmployeException.class)
                 .hasMessage("Le chiffre d'affaire traité ne peut être négatif ou null !");
         Assertions.assertThat(throwableObjectif).isInstanceOf(EmployeException.class)
                 .hasMessage("L'objectif de chiffre d'affaire ne peut être négatif ou null !");
@@ -176,7 +171,7 @@ public class EmployeServiceTest {
             "110,100,4,1.2",
             "130,100,7,1.2"
     })
-    void testCalculPCommercial(
+    void testPerformanceCommercial(
             Long caTraite,
             Long objetifCa,
             Integer expectedPerformance,
