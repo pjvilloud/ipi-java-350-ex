@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @ExtendWith(MockitoExtension.class)
 public class EmployeTest {
     @Test
-    public void testGetNbAnneesAncienneteDateEmbaucheNow(){
+    void testGetNbAnneesAncienneteDateEmbaucheNow(){
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(LocalDate.now());
@@ -28,7 +28,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testGetNbAnneesAncienneteDateEmbauchePassee(){
+    void testGetNbAnneesAncienneteDateEmbauchePassee(){
         //Given
         //Date d'embauche 10 ans dans le passé
         Employe employe = new Employe();
@@ -44,7 +44,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testGetNbAnneesAncienneteDateEmbaucheFuture(){
+    void testGetNbAnneesAncienneteDateEmbaucheFuture(){
         //Given
         //Date d'embauche 2 ans dans le futur
         Employe employe = new Employe();
@@ -59,7 +59,7 @@ public class EmployeTest {
     }
 
     @Test
-    public void testGetNbAnneesAncienneteDateEmbaucheNull(){
+    void testGetNbAnneesAncienneteDateEmbaucheNull(){
         //Given
         Employe employe = new Employe();
         employe.setDateEmbauche(null);
@@ -84,7 +84,7 @@ public class EmployeTest {
             ",0,1,1.0,1000.0",
             "'T12346',0,,1.0,1000.0"
     })
-    public void testGetPrimeAnnuelleManagerPerformanceBasePleinTemps(
+    void testGetPrimeAnnuelleManagerPerformanceBasePleinTemps(
             String matricule,
             Integer nbAnneesAnciennete,
             Integer performance,

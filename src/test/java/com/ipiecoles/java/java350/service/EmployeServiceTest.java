@@ -30,7 +30,7 @@ public class EmployeServiceTest {
 
 
     @Test
-    public void testEmbaucheEmployeLimitMarticule() {
+    void testEmbaucheEmployeLimitMarticule() {
         //Given
         when(employeRepository.findLastMatricule()).thenReturn("99999");
 
@@ -44,7 +44,7 @@ public class EmployeServiceTest {
     }
 
     @Test
-    public void testEmbaucheEmployeExist(){
+    void testEmbaucheEmployeExist(){
         //G
         when(employeRepository.findLastMatricule()).thenReturn(null);
         when(employeRepository.findByMatricule("C00001")).thenReturn(new Employe());
@@ -58,7 +58,7 @@ public class EmployeServiceTest {
 
     }
     @Test
-    public void testEmbaucheEmploye() throws EmployeException {
+    void testEmbaucheEmploye() throws EmployeException {
         //Given
         when(employeRepository.findLastMatricule()).thenReturn(null);
         when(employeRepository.findByMatricule("C00001")).thenReturn(null);
