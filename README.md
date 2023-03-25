@@ -1,3 +1,5 @@
+![image](https://user-images.githubusercontent.com/86237920/180394885-b07db4a4-3645-4bb8-b037-e8a5c07f21c6.png)
+
 # TP sur la qualité logicielle
 
 Exercices de Java, module 350 pour l'IPI. Il est nécessaire de forker ce repository pour pouvoir faire tout le TP !! Après chaque question, pusher vos modifications sur votre repository.
@@ -84,12 +86,14 @@ Tester de façon intégrée un cas nominal de la méthode `embaucheEmploye` de l
 
 # Evaluation
 
-Commencer par faire une branche `evaluation` à partir de votre branche `master` une fois le TP terminé. Travailler sur cette branche pour l'évaluation.
+Commencer par faire une branche `eval` à partir de votre branche `master` une fois le TP terminé. Travailler sur cette branche pour l'évaluation.
 
 ## Tests unitaires et TDD
 
 - Tester de manière unitaire le plus exhaustivement possible la méthode `augmenterSalaire` d'`Employe` en essayant de faire du TDD. Décommenter la méthode dans `Employe` et écrire d'abord les tests entièrement (en réflechissant particulièrement aux cas limites) avant d'écrire la méthode. Pensez-vous que vous auriez écrit la méthode directement comme cela si vous n'aviez pas écrit les tests en premier ?
-- Tester unitairement (en utilisant les tests paramétrés) la méthode `getNbRtt` d'`Employe`. Le nombre de RTT se calcule à partir de la formule suivante : **Nombre de jours dans l'année - Nombre de jours travaillés dans l'année en plein temps - Nombre de samedi et dimanche dans l'année - Nombre de jours fériés ne tombant pas le week-end - Nombre de congés payés**. Le tout au pro-rata du taux d'activité du salarié. **Attention**, des erreurs sont présentes dans cette méthode. Faites donc vos calculs avant et débugguer votre code pour trouver les erreurs. Aidez-vous de Sonar... Rendre cette méthode plus propre, documentée et lisible.
+- Tester unitairement (en utilisant les tests paramétrés) la méthode `getNbRtt` d'`Employe`. 
+- Le nombre de RTT se calcule à partir de la formule suivante : 
+**Nombre de jours dans l'année - Nombre de jours travaillés dans l'année en plein temps - Nombre de samedi et dimanche dans l'année - Nombre de jours fériés ne tombant pas le week-end - Nombre de congés payés**. Le tout au pro-rata du taux d'activité du salarié. **Attention**, des erreurs sont présentes dans cette méthode. Faites donc vos calculs avant et débugguer votre code pour trouver les erreurs. Aidez-vous de Sonar... Rendre cette méthode plus propre, documentée et lisible.
 Infos : 
   - 2019 : l'année est non bissextile, a débuté un mardi et il y a 10 jours fériés ne tombant pas le week-end.
   - 2021 : l'année est non bissextile, a débuté un vendredi et il y a 7 jours fériés ne tombant pas le week-end.
@@ -102,7 +106,6 @@ Infos :
 
 - Tester de manière intégrée une cas nominal de la méthode précédente
 - Tester de manière intégrée la méthode d'`EmployeRepository` `avgPerformanceWhereMatriculeStartsWith`
-- BONUS Ecrire un test d'acceptation Gauge pour la fonctionnalité de calcul de performance d'un commercial.
 
 ## Autres
 
